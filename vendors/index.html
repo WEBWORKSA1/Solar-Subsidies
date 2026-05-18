@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join the Vendor Network — SolarSubsidies.com</title>
+<meta name="description" content="For UPNEDA-approved solar installers in UP. Get pre-qualified, scored, district-filtered leads. Pay only on closed deals. 7-8% commission, no upfront fees.">
+<link rel="canonical" href="https://solarsubsidies.com/vendors/">
+<meta name="robots" content="index, follow">
+
+<meta property="og:title" content="Pre-qualified solar leads in UP — pay only when you close">
+<meta property="og:description" content="District-filtered, intent-scored, timeline-qualified leads from SolarSubsidies.com. 7-8% commission, no upfront. For UPNEDA-approved installers.">
+<meta property="og:url" content="https://solarsubsidies.com/vendors/">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root { --ink:#0a0a0a; --paper:#faf7f2; --paper-2:#f3ede2; --sun:#ff6b1a; --sun-deep:#d94a00; --sun-light:#ffd166; --leaf:#2d5016; --muted:#5a5a5a; --line:#d4cfc4; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(--ink); font-size:18px; line-height:1.65; }
+.mono { font-family:'JetBrains Mono',monospace; }
+.topbar { border-bottom:1.5px solid var(--ink); background:var(--paper); position:sticky; top:0; z-index:100; }
+.topbar-inner { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:14px 28px; }
+.logo { font-weight:900; font-size:22px; letter-spacing:-0.02em; display:flex; align-items:center; gap:8px; text-decoration:none; color:var(--ink); }
+.logo-sun { width:24px; height:24px; background:var(--sun); border-radius:50%; box-shadow:0 0 0 3px var(--paper),0 0 0 4px var(--ink); }
+.nav { display:flex; gap:28px; align-items:center; }
+.nav a { color:var(--ink); text-decoration:none; font-size:15px; font-weight:500; }
+.nav a:hover { color:var(--sun-deep); }
+.nav .cta { background:var(--ink); color:var(--paper); padding:8px 16px; font-weight:700; font-size:14px; }
+.nav .cta:hover { background:var(--sun); color:var(--ink); }
+
+.trust-bar { background:var(--ink); color:var(--paper); padding:8px 28px; text-align:center; font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; }
+.trust-bar strong { color:var(--sun-light); }
+
+.hero { padding:64px 28px 80px; border-bottom:1.5px solid var(--ink); }
+.hero-inner { max-width:1100px; margin:0 auto; }
+.hero-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:18px; }
+.hero h1 { font-size:clamp(40px,5.5vw,80px); font-weight:900; letter-spacing:-0.035em; line-height:1.02; margin-bottom:24px; font-variation-settings:'opsz' 144; max-width:920px; }
+.hero h1 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
+.hero .lede { font-size:22px; color:var(--ink); max-width:760px; line-height:1.55; margin-bottom:32px; }
+.hero-cta-row { display:flex; gap:14px; flex-wrap:wrap; }
+.btn { display:inline-block; padding:18px 36px; font-family:'Fraunces',serif; font-size:18px; font-weight:700; text-decoration:none; border:2px solid var(--ink); cursor:pointer; transition:all 0.15s; }
+.btn-primary { background:var(--sun); color:var(--ink); box-shadow:6px 6px 0 var(--ink); }
+.btn-primary:hover { transform:translate(-2px,-2px); box-shadow:8px 8px 0 var(--ink); }
+.btn-secondary { background:transparent; color:var(--ink); }
+.btn-secondary:hover { background:var(--ink); color:var(--paper); }
+
+.hero-meta { display:flex; gap:32px; flex-wrap:wrap; margin-top:40px; padding-top:32px; border-top:1.5px solid var(--ink); font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+.hero-meta span::before { content:"✓ "; color:var(--leaf); font-weight:700; }
+
+.section { padding:72px 28px; border-bottom:1.5px solid var(--ink); }
+.section-inner { max-width:1100px; margin:0 auto; }
+.section-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:14px; }
+.section h2 { font-size:clamp(32px,4vw,56px); font-weight:900; letter-spacing:-0.03em; line-height:1.05; margin-bottom:18px; font-variation-settings:'opsz' 144; max-width:820px; }
+.section h2 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
+.section h3 { font-size:24px; font-weight:700; margin:32px 0 12px; letter-spacing:-0.015em; }
+.section p { margin-bottom:18px; max-width:760px; font-size:18px; }
+.section p.lede { font-size:21px; max-width:760px; }
+
+.comparison-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:0; margin-top:32px; border:2px solid var(--ink); }
+.comp-col { padding:32px; border-right:1px solid var(--line); }
+.comp-col:last-child { border-right:none; }
+.comp-col.featured { background:var(--ink); color:var(--paper); }
+.comp-col h4 { font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.15em; margin-bottom:14px; color:var(--muted); }
+.comp-col.featured h4 { color:var(--sun-light); }
+.comp-col .num { font-size:48px; font-weight:900; line-height:1; margin-bottom:14px; letter-spacing:-0.025em; }
+.comp-col.featured .num { color:var(--sun); }
+.comp-col ul { list-style:none; padding:0; margin-top:20px; }
+.comp-col li { padding:10px 0; border-bottom:1px solid var(--line); font-size:15px; }
+.comp-col.featured li { border-bottom:1px solid #444; }
+.comp-col li:last-child { border-bottom:none; }
+.comp-col li b { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:4px; color:var(--muted); font-weight:600; }
+.comp-col.featured li b { color:var(--sun-light); }
+
+.how-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:0; margin-top:32px; border:2px solid var(--ink); }
+.how-step { padding:32px 28px; border-right:1px solid var(--line); }
+.how-step:last-child { border-right:none; }
+.how-step .num { font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); font-weight:700; margin-bottom:14px; }
+.how-step h4 { font-size:22px; margin-bottom:10px; letter-spacing:-0.015em; }
+.how-step p { font-size:14px; color:var(--muted); margin:0; }
+
+.lead-sample { background:var(--paper-2); border:2px solid var(--ink); padding:32px; margin:32px 0; box-shadow:8px 8px 0 var(--sun); }
+.lead-sample .header { display:flex; justify-content:space-between; align-items:start; margin-bottom:24px; padding-bottom:16px; border-bottom:1.5px solid var(--ink); }
+.lead-sample .tier { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.15em; padding:6px 14px; background:var(--sun); color:var(--ink); font-weight:700; }
+.lead-sample .score { font-size:14px; color:var(--muted); }
+.lead-sample h4 { font-size:22px; margin-bottom:18px; }
+.lead-sample-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px 24px; }
+.lead-field { font-size:14px; }
+.lead-field b { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); display:block; margin-bottom:3px; }
+.lead-field .val { font-weight:700; font-size:17px; }
+
+.faq-item { border-top:1px solid var(--line); padding:24px 0; }
+.faq-item:last-child { border-bottom:1px solid var(--line); }
+.faq-item h4 { font-size:20px; font-weight:700; margin-bottom:10px; line-height:1.3; }
+.faq-item p { color:var(--ink); font-size:17px; }
+
+.requirements-card { background:var(--paper-2); border:1.5px solid var(--ink); padding:32px; margin:32px 0; }
+.requirements-card h3 { margin-top:0; }
+.requirements-card ul { list-style:none; padding:0; }
+.requirements-card li { padding:10px 0 10px 32px; position:relative; border-bottom:1px solid var(--line); font-size:16px; }
+.requirements-card li:last-child { border-bottom:none; }
+.requirements-card li::before { content:"✓"; position:absolute; left:8px; color:var(--leaf); font-weight:700; font-size:18px; }
+.requirements-card li.no::before { content:"✗"; color:var(--sun-deep); }
+
+.final-cta { background:var(--sun); border-top:2px solid var(--ink); padding:80px 28px; text-align:center; }
+.final-cta h2 { font-size:clamp(36px,5vw,64px); margin-bottom:24px; max-width:none; }
+.final-cta p { font-size:21px; max-width:680px; margin:0 auto 32px; }
+.final-cta .btn-primary { background:var(--ink); color:var(--paper); box-shadow:6px 6px 0 var(--paper); border-color:var(--ink); }
+.final-cta .btn-primary:hover { box-shadow:8px 8px 0 var(--paper); }
+
+footer { padding:40px 28px; text-align:center; font-size:14px; color:var(--muted); }
+footer a { color:var(--ink); text-decoration:none; }
+
+@media (max-width:768px) {
+  .nav a:not(.cta) { display:none; }
+  .hero { padding:40px 20px 56px; }
+  .section { padding:48px 20px; }
+  .hero h1 { font-size:34px; }
+  .hero .lede { font-size:18px; }
+  .hero-cta-row { flex-direction:column; }
+  .btn { width:100%; text-align:center; }
+  .comp-col { border-right:none; border-bottom:1px solid var(--line); }
+  .comp-col:last-child { border-bottom:none; }
+  .how-step { border-right:none; border-bottom:1px solid var(--line); }
+  .how-step:last-child { border-bottom:none; }
+  .lead-sample .header { flex-direction:column; gap:10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="trust-bar">
+  📡 <strong>For UPNEDA-approved solar installers in UP</strong> · Selective onboarding · 7-8% commission, no upfront fees
+</div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="/" class="logo">
+      <span class="logo-sun"></span>
+      SolarSubsidies<span style="color:var(--sun-deep)">.com</span>
+    </a>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/d/">Districts</a>
+      <a href="/vendors/">For Vendors</a>
+      <a href="/vendors/apply.html" class="cta">Apply →</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker mono">§ Vendor Network · Selective Onboarding</div>
+    <h1>Stop paying for <em>tire-kickers</em>.<br>Get hot, pre-scored leads.<br>Pay only when you close.</h1>
+    <p class="lede">SolarSubsidies.com ranks for "solar subsidy in [district]" across all 75 UP districts. Customers complete a 4-step qualifier before reaching you — district, monthly bill, property type, timeline, intent — all scored and tiered HOT/WARM/COLD before we make a single match.</p>
+    <div class="hero-cta-row">
+      <a href="/vendors/apply.html" class="btn btn-primary">Apply for vendor network →</a>
+      <a href="#how-it-works" class="btn btn-secondary">See how it works</a>
+    </div>
+    <div class="hero-meta mono">
+      <span>UPNEDA approval required</span>
+      <span>MNRE empanellment required</span>
+      <span>One vendor per lead</span>
+      <span>Pay 7-8% only on close</span>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ The Customer Acquisition Problem</div>
+    <h2>Justdial gives you <em>noise</em>.<br>Google Ads gives you <em>cost</em>.<br>SolarSubsidies gives you <em>buyers</em>.</h2>
+    
+    <div class="comparison-grid">
+      
+      <div class="comp-col">
+        <h4 class="mono">Justdial / Sulekha</h4>
+        <div class="num">₹100-300</div>
+        <p style="font-size:14px; margin:0; color:var(--muted);">per lead, paid upfront</p>
+        <ul>
+          <li><b>Lead Quality</b>50%+ are tire-kickers or wrong district</li>
+          <li><b>Competition</b>Same lead sold to 5-10 vendors simultaneously</li>
+          <li><b>Pre-qualification</b>None. Just name + phone</li>
+          <li><b>Net cost per close</b>₹3,000-6,000 (assuming 5-10% close rate)</li>
+        </ul>
+      </div>
+      
+      <div class="comp-col">
+        <h4 class="mono">Google / Facebook Ads</h4>
+        <div class="num">₹40-120</div>
+        <p style="font-size:14px; margin:0; color:var(--muted);">per click, no purchase intent guaranteed</p>
+        <ul>
+          <li><b>Lead Quality</b>Depends entirely on your landing page</li>
+          <li><b>Competition</b>You bid against TataPower, Adani, every regional EPC</li>
+          <li><b>Pre-qualification</b>None on platform; you must build it</li>
+          <li><b>Net cost per close</b>₹5,000-15,000 (CPL ₹500-1,200 × 8-12% conversion)</li>
+        </ul>
+      </div>
+      
+      <div class="comp-col featured">
+        <h4 class="mono">SolarSubsidies.com</h4>
+        <div class="num">7-8%</div>
+        <p style="font-size:14px; margin:0; color:var(--sun-light);">of system value, paid only when you close</p>
+        <ul>
+          <li><b>Lead Quality</b>4-step qualifier · scored 1-10 · HOT/WARM tiered</li>
+          <li><b>Competition</b>Exclusive match — 1 vendor per lead</li>
+          <li><b>Pre-qualification</b>District + bill + timeline + property + intent</li>
+          <li><b>Net cost per close</b>₹14,000-17,000 on a typical 3 kW ₹2.1L deal</li>
+        </ul>
+      </div>
+      
+    </div>
+    
+    <p style="margin-top:32px; font-size:17px;">Yes, our per-deal cost is higher in absolute terms. But it's paid <strong>only when you actually close</strong>. Zero risk, zero wasted spend on browsers. And because we deliver scored, exclusive leads with intent + timeline already captured, your close rate runs 25-40% vs the 5-10% you see on Justdial.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" style="background:var(--paper-2)" id="how-it-works">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ How it works · 5 stages</div>
+    <h2>From customer search <em>to your bank account.</em></h2>
+    
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="num">01 · SEO</div>
+        <h4>Customer finds us on Google</h4>
+        <p>Search "solar subsidy in Lucknow" or any of 75 UP districts. Our pages rank top 3.</p>
+      </div>
+      <div class="how-step">
+        <div class="num">02 · Qualifier</div>
+        <h4>4-step calculator scores intent</h4>
+        <p>District · bill amount · timeline · property type · intent. Score 1-10, tier HOT/WARM/COLD.</p>
+      </div>
+      <div class="how-step">
+        <div class="num">03 · Match</div>
+        <h4>Exclusive vendor match</h4>
+        <p>We match HOT/WARM leads to your network 1:1 by district. No bidding wars. No duplicate sales.</p>
+      </div>
+      <div class="how-step">
+        <div class="num">04 · You close</div>
+        <h4>You contact within 4 hrs</h4>
+        <p>WhatsApp/call the lead. Schedule site visit. Quote. Win. Standard sales process — no platform interference.</p>
+      </div>
+      <div class="how-step">
+        <div class="num">05 · Pay</div>
+        <h4>7-8% on confirmed install</h4>
+        <p>Pay commission only after net meter activation. No upfront, no monthly fees, no subscription.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT A LEAD LOOKS LIKE -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ What our leads actually look like</div>
+    <h2>This is what hits your <em>WhatsApp.</em></h2>
+    <p class="lede">No half-filled inquiry forms. No "please send me details." Every lead arrives pre-scored, district-filtered, and timeline-qualified.</p>
+    
+    <div class="lead-sample">
+      <div class="header">
+        <div>
+          <span class="tier">🔥 HOT LEAD</span>
+          <span style="margin-left:12px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);">Score 9/10 · Match #A7K3F2</span>
+        </div>
+        <div style="text-align:right; font-size:13px; color:var(--muted);">
+          Received: 18 May 2026, 4:32 PM<br>
+          <strong style="color:var(--sun-deep);">Respond within 4 hours</strong>
+        </div>
+      </div>
+      
+      <div class="lead-sample-grid">
+        <div class="lead-field">
+          <b>Customer</b>
+          <div class="val">Rajesh Kumar</div>
+        </div>
+        <div class="lead-field">
+          <b>WhatsApp</b>
+          <div class="val">+91 98765 43210</div>
+        </div>
+        <div class="lead-field">
+          <b>District</b>
+          <div class="val">Lucknow (MVVNL)</div>
+        </div>
+        <div class="lead-field">
+          <b>Monthly bill</b>
+          <div class="val">₹6,500</div>
+        </div>
+        <div class="lead-field">
+          <b>System size</b>
+          <div class="val">5 kW recommended</div>
+        </div>
+        <div class="lead-field">
+          <b>Property</b>
+          <div class="val">Independent home (Gomti Nagar)</div>
+        </div>
+        <div class="lead-field">
+          <b>Intent</b>
+          <div class="val">Cut electricity bill</div>
+        </div>
+        <div class="lead-field">
+          <b>Timeline</b>
+          <div class="val" style="color:var(--sun-deep);">THIS MONTH ⚡</div>
+        </div>
+        <div class="lead-field">
+          <b>Subsidy quoted</b>
+          <div class="val">₹1,08,000 stacked</div>
+        </div>
+        <div class="lead-field">
+          <b>Net cost shown</b>
+          <div class="val">₹2,42,000</div>
+        </div>
+      </div>
+      
+      <p style="margin-top:24px; padding-top:18px; border-top:1px solid var(--line); font-size:14px; color:var(--muted); margin-bottom:0; font-style:italic;">Estimated commission on close: ₹19,600 (8% of ₹2.42 L net). Already pre-qualified on UPNEDA process, has consented to WhatsApp contact, knows the subsidy math going in.</p>
+    </div>
+    
+    <p>Compare this to a typical Justdial lead: "Mr. Sharma, +91XXX, interested in solar." That's it. You spend 20 minutes on the phone before discovering they have a flat in an unregistered RWA and a ₹1,200/month bill.</p>
+  </div>
+</section>
+
+<!-- REQUIREMENTS -->
+<section class="section" style="background:var(--paper-2)">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ Vendor Requirements</div>
+    <h2>We're <em>selective.</em></h2>
+    <p>We promise customers vetted, UPNEDA-approved installers. To keep that promise we onboard 1-2 vendors per district cluster — not 50.</p>
+    
+    <div class="requirements-card">
+      <h3>Required to apply</h3>
+      <ul>
+        <li>Active MNRE empanellment (any tier)</li>
+        <li>Active UPNEDA approved-vendor listing (mandatory for state subsidy)</li>
+        <li>Minimum 25 residential rooftop installations completed in the last 24 months</li>
+        <li>Physical office or service hub in at least one UP district</li>
+        <li>GSTIN, valid PAN, ability to issue compliant invoices</li>
+        <li>Commitment to respond to leads within 4 business hours (WhatsApp or call)</li>
+        <li>Use only BIS-certified panels and CEA-approved inverters</li>
+      </ul>
+    </div>
+    
+    <div class="requirements-card">
+      <h3>Not eligible (currently)</h3>
+      <ul style="margin:0;">
+        <li class="no">Vendors only doing solar pumps (PM-KUSUM only — we handle rooftop)</li>
+        <li class="no">Vendors with active consumer complaints on NCDRC or UPNEDA helpdesk</li>
+        <li class="no">"Resellers" with no in-house installation crew</li>
+        <li class="no">Vendors outside UP (multi-state expansion in v0.7)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- COMMISSION STRUCTURE -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ Commission Structure</div>
+    <h2>How <em>payouts</em> work.</h2>
+    
+    <h3>Standard commission: 7-8% of system gross value</h3>
+    <p>Commission is calculated on the gross system value (before subsidy), not net cost. This aligns incentives: you bill the customer normally, we don't squeeze your margin.</p>
+    
+    <table style="width:100%; margin-top:24px; border:1.5px solid var(--ink); border-collapse:collapse;">
+      <thead>
+        <tr style="background:var(--paper-2);">
+          <th style="padding:14px 18px; text-align:left; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; border-bottom:1.5px solid var(--ink);">System size</th>
+          <th style="padding:14px 18px; text-align:left; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; border-bottom:1.5px solid var(--ink);">Typical gross value</th>
+          <th style="padding:14px 18px; text-align:left; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; border-bottom:1.5px solid var(--ink);">Commission @ 7%</th>
+          <th style="padding:14px 18px; text-align:left; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; border-bottom:1.5px solid var(--ink);">Commission @ 8%</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:12px 18px; border-bottom:1px solid var(--line);">3 kW</td><td style="padding:12px 18px; border-bottom:1px solid var(--line);">₹2,10,000</td><td style="padding:12px 18px; border-bottom:1px solid var(--line);">₹14,700</td><td style="padding:12px 18px; border-bottom:1px solid var(--line);"><strong>₹16,800</strong></td></tr>
+        <tr><td style="padding:12px 18px; border-bottom:1px solid var(--line);">5 kW</td><td style="padding:12px 18px; border-bottom:1px solid var(--line);">₹3,50,000</td><td style="padding:12px 18px; border-bottom:1px solid var(--line);">₹24,500</td><td style="padding:12px 18px; border-bottom:1px solid var(--line);"><strong>₹28,000</strong></td></tr>
+        <tr><td style="padding:12px 18px; border-bottom:1px solid var(--line);">10 kW</td><td style="padding:12px 18px; border-bottom:1px solid var(--line);">₹7,00,000</td><td style="padding:12px 18px; border-bottom:1px solid var(--line);">₹49,000</td><td style="padding:12px 18px; border-bottom:1px solid var(--line);"><strong>₹56,000</strong></td></tr>
+        <tr style="background:var(--paper-2);"><td style="padding:12px 18px;">RWA/Group Housing (100 kW)</td><td style="padding:12px 18px;">₹70,00,000</td><td style="padding:12px 18px;">₹4,90,000</td><td style="padding:12px 18px;"><strong>₹5,60,000</strong></td></tr>
+      </tbody>
+    </table>
+    
+    <h3>Rate determined by performance</h3>
+    <p><strong>Months 1-6 (probation):</strong> 7% standard rate while we track close rate, customer satisfaction, and time-to-respond.</p>
+    <p><strong>After month 6:</strong> Top 30% of vendors by close rate move to 8% rate plus priority routing for HOT leads. Bottom 20% are removed from network.</p>
+    
+    <h3>Payment terms</h3>
+    <p>Commission becomes payable on <strong>net meter activation</strong> (not on contract signing — protects against deals that fall through). Invoice issued within 7 days of activation, payment due net-30. NEFT/UPI/cheque all accepted.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" style="background:var(--paper-2)">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ Vendor FAQ</div>
+    <h2>Common questions.</h2>
+    
+    <div class="faq-item">
+      <h4>How many leads will I get per month?</h4>
+      <p>Depends on district volume and your acceptance criteria. At current SEO traffic levels (early days), expect 5-15 qualified leads per district per month. We do NOT promise minimum lead volume — that creates incentive to flood you with garbage. Quality over quantity.</p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>What if I can't service a lead?</h4>
+      <p>You have 4 business hours to claim or decline each lead. Decline is no-penalty for genuine reasons (district capacity, technical mismatch). Repeated decline of HOT leads in your service district affects rate tier.</p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>Can I use my own pricing?</h4>
+      <p>Yes. We don't dictate pricing. Our calculator shows customers the typical ₹70,000/kW UP market rate — you can quote higher (with justification) or lower. Customers see the subsidy math from us; the system price comes from you.</p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>What if the customer doesn't close with me?</h4>
+      <p>No commission owed. We only charge on closed deals (defined as: contract signed + net meter activated). If a lead bails or chooses a different vendor outside our network, you pay nothing.</p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>Can I cherry-pick only large deals?</h4>
+      <p>Yes — within reason. You'll set your minimum system size during onboarding (e.g., "only ≥3 kW residential or ≥10 kW commercial"). Leads below your minimum get routed elsewhere. But systematically declining qualified leads in your range affects your rate tier.</p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>Is this exclusive? Can I still work with Justdial/Sulekha?</h4>
+      <p>Non-exclusive. You can run any other marketing channels. Our only requirement: leads we send must remain ours (you can't claim a SolarSubsidies lead came from Justdial to avoid commission). Tracked via Lead Match IDs.</p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>What about disputed commissions?</h4>
+      <p>Standard arbitration: customer-side confirmation of installation via WhatsApp/SMS. If customer confirms install with vendor name + date, commission is owed. Disputes resolved via UPNEDA service record (which is verifiable on portal).</p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>How do I get added to vendor listings on district pages?</h4>
+      <p>After onboarding, accepted vendors are listed on the relevant district pages (e.g., Lucknow.html → MVVNL section → "Trusted local installers"). This drives organic discovery alongside paid lead routing. Listings activate after first successful close.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2 style="font-style:italic; font-variation-settings:'opsz' 144;">Ready to stop paying for tire-kickers?</h2>
+  <p>Application takes 5 minutes. Manual review takes 48-72 hours. We onboard 1-2 vendors per district cluster.</p>
+  <a href="/vendors/apply.html" class="btn btn-primary">Apply for Vendor Network →</a>
+  <p style="font-size:14px; margin-top:24px; margin-bottom:0; opacity:0.7;">Questions? WhatsApp <strong>+91 98765 43210</strong> or email <a href="mailto:vendors@solarsubsidies.com" style="color:var(--ink); font-weight:700;">vendors@solarsubsidies.com</a></p>
+</section>
+
+<footer>
+  <p>© 2026 SolarSubsidies.com · For UPNEDA-approved solar installers in Uttar Pradesh.</p>
+  <p style="margin-top:6px;">
+    <a href="/">Customer site</a> · 
+    <a href="/vendors/apply.html">Apply</a> · 
+    <a href="/privacy.html">Privacy</a> · 
+    <a href="/terms.html">Terms</a>
+  </p>
+</footer>
+
+</body>
+</html>
