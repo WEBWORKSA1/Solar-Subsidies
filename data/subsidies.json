@@ -1,0 +1,174 @@
+{
+  "meta": {
+    "version": "1.0",
+    "last_updated": "2026-05-18",
+    "sources": [
+      "https://pmsuryaghar.gov.in",
+      "https://mnre.gov.in",
+      "https://upneda.org.in",
+      "MNRE Phase II Rooftop Solar Programme guidelines",
+      "PM-KUSUM scheme operational guidelines as amended through 2024"
+    ],
+    "currency": "INR",
+    "notes": "All amounts in INR. Subsidies subject to MNRE/state policy changes. Last reviewed against PM Surya Ghar portal rates valid through FY 2026-27."
+  },
+  "schemes": {
+    "pm_surya_ghar": {
+      "id": "pm_surya_ghar",
+      "name": "PM Surya Ghar Muft Bijli Yojana",
+      "name_hi": "पीएम सूर्य घर मुफ्त बिजली योजना",
+      "type": "central",
+      "category": "residential_rooftop",
+      "launched": "2024-02-15",
+      "effective_from": "2024-02-15",
+      "effective_to": "2027-03-31",
+      "applies_to": "residential",
+      "scheme_outlay_cr": 75021,
+      "target_households": 10000000,
+      "target_date": "2027-03-31",
+      "promise": "Up to 300 free units per month per household",
+      "tiers": [
+        {"size_min_kw": 0, "size_max_kw": 1, "per_kw": 30000, "description": "Up to 1 kW"},
+        {"size_min_kw": 1.01, "size_max_kw": 2, "per_kw": 30000, "description": "1-2 kW slab"},
+        {"size_min_kw": 2.01, "size_max_kw": 3, "per_kw": 18000, "description": "2-3 kW additional slab"},
+        {"size_min_kw": 3.01, "size_max_kw": 999, "per_kw": 0, "description": "Capped at ₹78,000 above 3 kW"}
+      ],
+      "max_subsidy": 78000,
+      "ghs_rwa": {
+        "per_kw": 18000,
+        "max_capacity_kw": 500,
+        "includes_ev_charging": true,
+        "description": "Group Housing Societies / Resident Welfare Associations"
+      },
+      "disbursal": "Direct bank transfer after net meter installation and DISCOM verification",
+      "portal": "https://pmsuryaghar.gov.in"
+    },
+    "upneda_state": {
+      "id": "upneda_state",
+      "name": "UPNEDA State Top-up Subsidy",
+      "name_hi": "यूपीनेडा राज्य अनुदान",
+      "type": "state",
+      "state": "up",
+      "category": "residential_rooftop",
+      "umbrella_policy": "Uttar Pradesh Solar Energy Policy 2022",
+      "effective_from": "2022-04-01",
+      "effective_to": "2027-03-31",
+      "applies_to": "residential",
+      "per_kw": 15000,
+      "max_subsidy": 30000,
+      "max_capacity_kw_for_subsidy": 2,
+      "stacks_with": ["pm_surya_ghar"],
+      "max_combined_subsidy": 108000,
+      "disbursal": "Auto-disbursed via PM Surya Ghar portal — no separate application",
+      "notes": "Effectively ₹15,000/kW for first 2 kW, capped at ₹30,000 total. Combined with central, 3 kW system in UP receives ₹1,08,000 — highest residential subsidy in India.",
+      "portal": "https://upneda.org.in"
+    },
+    "pm_kusum_a": {
+      "id": "pm_kusum_a",
+      "name": "PM-KUSUM Component A",
+      "name_hi": "पीएम-कुसुम घटक A",
+      "type": "central",
+      "category": "farmer_solar_plant",
+      "effective_from": "2019-03-01",
+      "effective_to": "2026-03-31",
+      "phase_2_planned": "Post March 2026",
+      "applies_to": "farmer",
+      "description": "Decentralized ground-mounted grid-connected solar plants on barren/fallow farmland",
+      "plant_size_min_kw": 500,
+      "plant_size_max_kw": 2000,
+      "max_distance_from_substation_km": 5,
+      "revenue_model": "25-year PPA with DISCOM at fixed tariff",
+      "subsidy": "None — guaranteed PPA revenue instead",
+      "eligible_entities": ["Individual farmer", "Cooperative", "Panchayat", "FPO", "Water User Association", "Solar developer"]
+    },
+    "pm_kusum_b": {
+      "id": "pm_kusum_b",
+      "name": "PM-KUSUM Component B",
+      "name_hi": "पीएम-कुसुम घटक B",
+      "type": "central_plus_state",
+      "category": "farmer_off_grid_pump",
+      "effective_from": "2019-03-01",
+      "effective_to": "2026-03-31",
+      "applies_to": "farmer",
+      "description": "Standalone off-grid solar pumps for farmers without grid connection",
+      "pump_size_max_hp": 7.5,
+      "subsidy_structure": {
+        "central_pct": 30,
+        "state_pct_min": 30,
+        "farmer_pct_max": 40,
+        "farmer_loan_eligible_pct": 30,
+        "farmer_out_of_pocket_min_pct": 10
+      },
+      "benchmark_costs_per_hp": {
+        "3hp": 230000,
+        "5hp": 320000,
+        "7.5hp": 470000,
+        "10hp": 580000
+      },
+      "north_eastern_special_subsidy_pct": 50,
+      "portal": "https://pmkusum.mnre.gov.in"
+    },
+    "pm_kusum_c": {
+      "id": "pm_kusum_c",
+      "name": "PM-KUSUM Component C",
+      "name_hi": "पीएम-कुसुम घटक C",
+      "type": "central_plus_state",
+      "category": "farmer_grid_pump_solarization",
+      "effective_from": "2019-03-01",
+      "effective_to": "2026-03-31",
+      "applies_to": "farmer",
+      "description": "Solarization of existing grid-connected agricultural pumps",
+      "variants": {
+        "c1_individual": {"description": "Solarize individual pump — solar PV up to 2x pump capacity"},
+        "c2_feeder": {"description": "Feeder-level solarization — aggregator-led", "requires_aggregator": true}
+      },
+      "subsidy_structure": {
+        "central_pct": 30,
+        "state_pct_min": 30,
+        "farmer_pct_max": 40
+      },
+      "up_state_portal": "https://upneda.org.in"
+    },
+    "up_solar_policy_2022": {
+      "id": "up_solar_policy_2022",
+      "name": "Uttar Pradesh Solar Energy Policy 2022",
+      "name_hi": "उत्तर प्रदेश सौर ऊर्जा नीति 2022",
+      "type": "state_policy",
+      "state": "up",
+      "effective_from": "2022-01-01",
+      "effective_to": "2027-03-31",
+      "target_capacity_mw": 22000,
+      "rooftop_target_mw": 4500,
+      "incentives": [
+        "Stamp duty exemption",
+        "Electricity duty exemption (10 years)",
+        "No permission for rooftop structures under 4.5m",
+        "No State Electrical Inspector approval up to 10 kW",
+        "Net metering and energy banking permitted"
+      ],
+      "implementing_agency": "UPNEDA"
+    }
+  },
+  "pricing_benchmarks": {
+    "currency": "INR",
+    "per_kw_gross_inr": {
+      "by_state": {"up": 70000, "mh": 75000, "gj": 68000, "dl": 72000, "rj": 70000, "hr": 72000, "pb": 73000, "ka": 73000, "tn": 72000, "default": 72000},
+      "by_panel_type": {"mono_perc": 65000, "topcon": 75000, "bifacial": 82000}
+    },
+    "irradiance_default_kwh_m2_day": 5.0,
+    "system_efficiency_factor": 0.75,
+    "system_lifetime_years": 25,
+    "annual_tariff_escalation_pct": 4,
+    "default_tariffs_per_unit": {"residential": 7.0, "commercial": 9.0, "industrial": 8.5, "agricultural": 2.0}
+  },
+  "other_states_subsidy": {
+    "gj": {"name": "Gujarat", "per_kw": 0, "cap": 40000, "note": "Surya Urja Rooftop Yojana flat ₹40k"},
+    "dl": {"name": "Delhi", "per_kw": 0, "cap": 10000, "note": "Capital subsidy + GBI"},
+    "mh": {"name": "Maharashtra", "per_kw": 0, "cap": 0},
+    "rj": {"name": "Rajasthan", "per_kw": 0, "cap": 0},
+    "hr": {"name": "Haryana", "per_kw": 0, "cap": 0},
+    "pb": {"name": "Punjab", "per_kw": 0, "cap": 0},
+    "ka": {"name": "Karnataka", "per_kw": 0, "cap": 0},
+    "tn": {"name": "Tamil Nadu", "per_kw": 0, "cap": 0}
+  }
+}
