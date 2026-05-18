@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vendor Application — SolarSubsidies.com</title>
+<meta name="description" content="Apply to join the SolarSubsidies.com vendor network. UPNEDA-approved installers only. 5-minute application, 48-72 hour review.">
+<link rel="canonical" href="https://solarsubsidies.com/vendors/apply.html">
+<meta name="robots" content="noindex, follow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root { --ink:#0a0a0a; --paper:#faf7f2; --paper-2:#f3ede2; --sun:#ff6b1a; --sun-deep:#d94a00; --sun-light:#ffd166; --leaf:#2d5016; --muted:#5a5a5a; --line:#d4cfc4; --red:#c41e3a; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(--ink); font-size:18px; line-height:1.55; }
+.mono { font-family:'JetBrains Mono',monospace; }
+
+.topbar { border-bottom:1.5px solid var(--ink); background:var(--paper); position:sticky; top:0; z-index:100; }
+.topbar-inner { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:14px 28px; }
+.logo { font-weight:900; font-size:22px; letter-spacing:-0.02em; display:flex; align-items:center; gap:8px; text-decoration:none; color:var(--ink); }
+.logo-sun { width:24px; height:24px; background:var(--sun); border-radius:50%; box-shadow:0 0 0 3px var(--paper),0 0 0 4px var(--ink); }
+.nav a { color:var(--ink); text-decoration:none; font-size:15px; font-weight:500; }
+
+.progress { background:var(--paper-2); border-bottom:1.5px solid var(--ink); padding:14px 28px; }
+.progress-inner { max-width:900px; margin:0 auto; display:flex; align-items:center; gap:12px; }
+.progress-bar { flex:1; height:8px; background:var(--paper); border:1px solid var(--ink); position:relative; overflow:hidden; }
+.progress-fill { height:100%; background:var(--sun); transition:width 0.3s ease; }
+.progress-step { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); white-space:nowrap; }
+.progress-step b { color:var(--ink); }
+
+.wrap { max-width:780px; margin:0 auto; padding:48px 28px 80px; }
+
+.step { display:none; animation:slideIn 0.3s ease-out; }
+.step.active { display:block; }
+@keyframes slideIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+.step-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:14px; }
+.step h1 { font-size:clamp(32px,4.5vw,56px); font-weight:900; letter-spacing:-0.035em; line-height:1.05; margin-bottom:14px; font-variation-settings:'opsz' 144; }
+.step h1 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
+.step .lede { font-size:17px; color:var(--muted); margin-bottom:32px; line-height:1.55; }
+
+.field { margin-bottom:22px; }
+.field label { display:block; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; font-weight:700; margin-bottom:8px; }
+.field input, .field select, .field textarea { width:100%; padding:14px 16px; border:2px solid var(--ink); background:var(--paper); font-family:'Fraunces',serif; font-size:16px; color:var(--ink); outline:none; transition:all 0.15s; }
+.field input:focus, .field select:focus, .field textarea:focus { background:white; box-shadow:3px 3px 0 var(--ink); transform:translate(-1px,-1px); }
+.field textarea { resize:vertical; min-height:100px; font-family:'Fraunces',serif; }
+.field-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.field-help { font-size:13px; color:var(--muted); margin-top:6px; font-style:italic; }
+.field-error { font-size:13px; color:var(--red); margin-top:6px; font-weight:600; display:none; }
+.field-error.show { display:block; }
+
+.district-checks { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:8px; margin-top:12px; max-height:280px; overflow-y:auto; border:1.5px solid var(--ink); padding:14px; background:var(--paper-2); }
+.district-check { display:flex; gap:8px; align-items:center; font-size:14px; padding:4px 0; }
+.district-check input { width:auto; margin:0; }
+
+.checkbox-field { display:flex; gap:12px; align-items:flex-start; padding:14px; border:1.5px solid var(--ink); margin-bottom:12px; background:var(--paper-2); cursor:pointer; transition:all 0.15s; }
+.checkbox-field:hover { background:var(--paper); transform:translate(-1px,-1px); box-shadow:2px 2px 0 var(--ink); }
+.checkbox-field input { width:auto; flex-shrink:0; margin-top:3px; }
+.checkbox-field label { font-family:'Fraunces',serif; font-size:15px; text-transform:none; letter-spacing:normal; font-weight:400; line-height:1.5; cursor:pointer; margin:0; }
+.checkbox-field label b { display:block; font-weight:700; margin-bottom:3px; font-size:16px; }
+
+.nav-row { display:flex; justify-content:space-between; align-items:center; margin-top:40px; padding-top:24px; border-top:1.5px solid var(--ink); gap:14px; }
+.btn { padding:16px 32px; font-family:'Fraunces',serif; font-size:17px; font-weight:700; border:2px solid var(--ink); cursor:pointer; transition:all 0.15s; text-decoration:none; display:inline-block; text-align:center; }
+.btn-primary { background:var(--sun); color:var(--ink); box-shadow:6px 6px 0 var(--ink); }
+.btn-primary:hover { transform:translate(-2px,-2px); box-shadow:8px 8px 0 var(--ink); }
+.btn-primary:disabled { background:var(--paper-2); color:var(--muted); cursor:not-allowed; box-shadow:none; transform:none; opacity:0.6; }
+.btn-secondary { background:transparent; color:var(--ink); }
+.btn-secondary:hover { background:var(--ink); color:var(--paper); }
+
+.confirmation { text-align:center; padding:40px 0; }
+.confirmation .icon { font-size:80px; margin-bottom:24px; line-height:1; }
+.confirmation h1 { font-size:48px; margin-bottom:16px; }
+.confirmation .summary { background:var(--paper-2); border:1.5px solid var(--ink); padding:28px; text-align:left; max-width:560px; margin:32px auto; }
+.confirmation .summary h3 { font-size:18px; margin-bottom:16px; }
+.confirmation .next-steps { max-width:560px; margin:32px auto; text-align:left; }
+.confirmation .next-step-item { display:flex; gap:14px; padding:14px 0; }
+.confirmation .next-step-item .num { font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700; color:var(--sun-deep); flex-shrink:0; width:32px; }
+.confirmation .next-step-item strong { display:block; margin-bottom:4px; }
+.confirmation .next-step-item p { font-size:14px; color:var(--muted); margin:0; }
+
+@media (max-width:640px) {
+  .wrap { padding:32px 20px 80px; }
+  .step h1 { font-size:28px; }
+  .field-row { grid-template-columns:1fr; }
+  .nav-row { flex-direction:column-reverse; gap:10px; }
+  .btn { width:100%; }
+  .district-checks { grid-template-columns:1fr; max-height:240px; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="/" class="logo">
+      <span class="logo-sun"></span>
+      SolarSubsidies<span style="color:var(--sun-deep)">.com</span>
+    </a>
+    <nav>
+      <a href="/vendors/">← Back to vendor info</a>
+    </nav>
+  </div>
+</header>
+
+<div class="progress">
+  <div class="progress-inner">
+    <div class="progress-step"><b>Step <span id="stepNum">1</span></b> of 4</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+    <div class="progress-step" id="progressLabel">Company basics</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- STEP 1: COMPANY BASICS -->
+<div class="step active" id="step1">
+  <div class="step-kicker mono">§ Step 1 of 4 · Company basics</div>
+  <h1>Tell us about your <em>company.</em></h1>
+  <p class="lede">5-minute application. We'll manually review within 48-72 hours and WhatsApp you the result.</p>
+  
+  <div class="field">
+    <label for="companyName">Company name (registered)</label>
+    <input type="text" id="companyName" name="companyName" placeholder="e.g., Surya Solar Solutions Pvt Ltd" required>
+    <div class="field-error" id="err_companyName">Required</div>
+  </div>
+  
+  <div class="field">
+    <label for="brandName">Brand name (if different)</label>
+    <input type="text" id="brandName" name="brandName" placeholder="e.g., SuryaSolar (optional)">
+    <div class="field-help">Trading/brand name customers will see</div>
+  </div>
+  
+  <div class="field-row">
+    <div class="field">
+      <label for="contactName">Primary contact</label>
+      <input type="text" id="contactName" name="contactName" placeholder="Owner / Director name" required>
+      <div class="field-error" id="err_contactName">Required</div>
+    </div>
+    <div class="field">
+      <label for="contactRole">Their role</label>
+      <select id="contactRole" name="contactRole">
+        <option value="owner">Owner / Founder</option>
+        <option value="director">Director</option>
+        <option value="partner">Partner</option>
+        <option value="sales_head">Head of Sales</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="field-row">
+    <div class="field">
+      <label for="phone">WhatsApp phone</label>
+      <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required pattern="[+]?[0-9\-\s]{10,15}">
+      <div class="field-error" id="err_phone">Valid 10-digit phone required</div>
+    </div>
+    <div class="field">
+      <label for="email">Business email</label>
+      <input type="email" id="email" name="email" placeholder="contact@company.com" required>
+      <div class="field-error" id="err_email">Valid email required</div>
+    </div>
+  </div>
+  
+  <div class="field">
+    <label for="website">Website</label>
+    <input type="url" id="website" name="website" placeholder="https://yourcompany.com">
+    <div class="field-help">Optional but helps review. Include if available.</div>
+  </div>
+  
+  <div class="field">
+    <label for="hq">Head office city + state</label>
+    <input type="text" id="hq" name="hq" placeholder="e.g., Lucknow, UP" required>
+    <div class="field-error" id="err_hq">Required</div>
+  </div>
+  
+  <!-- Honeypot -->
+  <input type="text" name="honeypot" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off">
+  
+  <div class="nav-row">
+    <span></span>
+    <button class="btn btn-primary" id="step1Next" onclick="goToStep(2)">Continue →</button>
+  </div>
+</div>
+
+<!-- STEP 2: APPROVALS & EXPERIENCE -->
+<div class="step" id="step2">
+  <div class="step-kicker mono">§ Step 2 of 4 · Approvals & experience</div>
+  <h1>Show us your <em>credentials.</em></h1>
+  <p class="lede">We onboard only MNRE-empanelled + UPNEDA-approved installers. These are non-negotiable. Have approval numbers ready.</p>
+  
+  <div class="field">
+    <label for="mnreNumber">MNRE empanellment number</label>
+    <input type="text" id="mnreNumber" name="mnreNumber" placeholder="e.g., MNRE/RTS/2024/XXX" required>
+    <div class="field-help">From <a href="https://mnre.gov.in" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:underline;">mnre.gov.in</a> empanellment list. We'll verify.</div>
+    <div class="field-error" id="err_mnreNumber">MNRE empanellment is mandatory</div>
+  </div>
+  
+  <div class="field">
+    <label for="upnedaNumber">UPNEDA approved vendor ID</label>
+    <input type="text" id="upnedaNumber" name="upnedaNumber" placeholder="e.g., UPNEDA/SOL/2024/XXX" required>
+    <div class="field-help">From <a href="https://upneda.org.in" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:underline;">upneda.org.in</a>. Required for state subsidy disbursal.</div>
+    <div class="field-error" id="err_upnedaNumber">UPNEDA approval is mandatory</div>
+  </div>
+  
+  <div class="field-row">
+    <div class="field">
+      <label for="gstin">GSTIN</label>
+      <input type="text" id="gstin" name="gstin" placeholder="22ABCDE1234F1Z5" required pattern="[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}">
+      <div class="field-error" id="err_gstin">Valid 15-char GSTIN required</div>
+    </div>
+    <div class="field">
+      <label for="pan">PAN</label>
+      <input type="text" id="pan" name="pan" placeholder="ABCDE1234F" required pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}">
+      <div class="field-error" id="err_pan">Valid 10-char PAN required</div>
+    </div>
+  </div>
+  
+  <div class="field">
+    <label for="yearsActive">Years actively installing rooftop solar</label>
+    <select id="yearsActive" name="yearsActive" required>
+      <option value="">Select...</option>
+      <option value="<1">Less than 1 year</option>
+      <option value="1-2">1-2 years</option>
+      <option value="3-5">3-5 years</option>
+      <option value="5-10">5-10 years</option>
+      <option value=">10">More than 10 years</option>
+    </select>
+  </div>
+  
+  <div class="field">
+    <label for="installsCompleted">Residential installs completed in last 24 months</label>
+    <select id="installsCompleted" name="installsCompleted" required>
+      <option value="">Select...</option>
+      <option value="<25">Less than 25 (below minimum)</option>
+      <option value="25-50">25-50</option>
+      <option value="51-150">51-150</option>
+      <option value="151-500">151-500</option>
+      <option value=">500">More than 500</option>
+    </select>
+    <div class="field-help">Minimum 25 required. We'll verify via UPNEDA service records.</div>
+  </div>
+  
+  <div class="field">
+    <label for="teamSize">In-house installation team size</label>
+    <select id="teamSize" name="teamSize" required>
+      <option value="">Select...</option>
+      <option value="1-3">1-3 people (sub-contracted crews)</option>
+      <option value="4-10">4-10 in-house</option>
+      <option value="11-25">11-25 in-house</option>
+      <option value="26-50">26-50 in-house</option>
+      <option value=">50">More than 50 in-house</option>
+    </select>
+    <div class="field-help">Resellers without in-house crews are not eligible.</div>
+  </div>
+  
+  <div class="nav-row">
+    <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
+    <button class="btn btn-primary" id="step2Next" onclick="goToStep(3)">Continue →</button>
+  </div>
+</div>
+
+<!-- STEP 3: COVERAGE -->
+<div class="step" id="step3">
+  <div class="step-kicker mono">§ Step 3 of 4 · Coverage & capacity</div>
+  <h1>Which <em>districts</em> can you service?</h1>
+  <p class="lede">Select all UP districts where you can do site visits within 48 hours of lead assignment. We route leads only to vendors serving that district.</p>
+  
+  <div class="field">
+    <label>UP districts you service</label>
+    <div class="field-help" style="margin-top:0; margin-bottom:8px;">Select all that apply. You can update later.</div>
+    <div class="district-checks" id="districtChecks">
+      <!-- Loaded dynamically from districts-up.json -->
+      <div style="grid-column: 1/-1; padding:20px; text-align:center; color:var(--muted); font-style:italic;">Loading districts...</div>
+    </div>
+    <div class="field-error" id="err_districts">Select at least one district</div>
+  </div>
+  
+  <div class="field">
+    <label for="minSystemSize">Minimum system size you'll quote</label>
+    <select id="minSystemSize" name="minSystemSize" required>
+      <option value="1">1 kW — quote any size</option>
+      <option value="2">2 kW minimum</option>
+      <option value="3" selected>3 kW minimum (recommended)</option>
+      <option value="5">5 kW minimum</option>
+      <option value="10">10 kW minimum (large/commercial only)</option>
+    </select>
+    <div class="field-help">Smaller leads will be routed to vendors with lower minimums.</div>
+  </div>
+  
+  <div class="field">
+    <label>Property types you handle</label>
+    <div class="checkbox-field">
+      <input type="checkbox" id="prop_independent" name="prop_independent" checked>
+      <label for="prop_independent"><b>Independent homes (kothi/villa)</b>Standard 3-10 kW residential rooftop</label>
+    </div>
+    <div class="checkbox-field">
+      <input type="checkbox" id="prop_builder" name="prop_builder">
+      <label for="prop_builder"><b>Builder floors</b>3-4 floor buildings with top-floor consent</label>
+    </div>
+    <div class="checkbox-field">
+      <input type="checkbox" id="prop_apartment" name="prop_apartment">
+      <label for="prop_apartment"><b>RWA / Group Housing</b>Requires society approval — longer cycle</label>
+    </div>
+    <div class="checkbox-field">
+      <input type="checkbox" id="prop_farm" name="prop_farm">
+      <label for="prop_farm"><b>Farm / Agricultural</b>Farmhouses + PM-KUSUM eligible properties</label>
+    </div>
+    <div class="checkbox-field">
+      <input type="checkbox" id="prop_commercial" name="prop_commercial">
+      <label for="prop_commercial"><b>Commercial</b>Shops, offices, factory rooftops</label>
+    </div>
+  </div>
+  
+  <div class="field">
+    <label for="leadCapacity">How many leads can you absorb per week?</label>
+    <select id="leadCapacity" name="leadCapacity" required>
+      <option value="1-3">1-3 leads/week</option>
+      <option value="4-10" selected>4-10 leads/week</option>
+      <option value="11-25">11-25 leads/week</option>
+      <option value="26-50">26-50 leads/week</option>
+      <option value=">50">More than 50/week</option>
+    </select>
+    <div class="field-help">Honest capacity helps us not overload you. You can adjust later.</div>
+  </div>
+  
+  <div class="nav-row">
+    <button class="btn btn-secondary" onclick="goToStep(2)">← Back</button>
+    <button class="btn btn-primary" id="step3Next" onclick="goToStep(4)">Continue →</button>
+  </div>
+</div>
+
+<!-- STEP 4: COMMITMENTS & SUBMIT -->
+<div class="step" id="step4">
+  <div class="step-kicker mono">§ Step 4 of 4 · Commitments</div>
+  <h1>Final <em>commitments.</em></h1>
+  <p class="lede">By submitting, you agree to the following. Detailed vendor agreement will be sent for signature if you're accepted.</p>
+  
+  <div class="checkbox-field">
+    <input type="checkbox" id="agree_response" name="agree_response" required>
+    <label for="agree_response"><b>I'll respond to assigned leads within 4 business hours</b>Repeated 24hr+ delays on HOT leads = removal from network.</label>
+  </div>
+  
+  <div class="checkbox-field">
+    <input type="checkbox" id="agree_panels" name="agree_panels" required>
+    <label for="agree_panels"><b>I use only BIS-certified panels and CEA-approved inverters</b>Customers can verify panel certification on the rear label.</label>
+  </div>
+  
+  <div class="checkbox-field">
+    <input type="checkbox" id="agree_commission" name="agree_commission" required>
+    <label for="agree_commission"><b>I agree to 7-8% commission on closed deals</b>Payable on net meter activation, invoice net-30. No upfront, no monthly fees.</label>
+  </div>
+  
+  <div class="checkbox-field">
+    <input type="checkbox" id="agree_exclusive" name="agree_exclusive" required>
+    <label for="agree_exclusive"><b>I won't redirect SolarSubsidies leads to external channels</b>Tracked via Lead Match IDs. Bypassing commission = network removal + potential legal action.</label>
+  </div>
+  
+  <div class="checkbox-field">
+    <input type="checkbox" id="agree_quality" name="agree_quality" required>
+    <label for="agree_quality"><b>I'll honor warranties on panels (25yr) and inverter (5-10yr standard)</b>Customer-facing warranty terms shared during quote — vendor honors them.</label>
+  </div>
+  
+  <div class="checkbox-field">
+    <input type="checkbox" id="agree_verify" name="agree_verify" required>
+    <label for="agree_verify"><b>I authorize SolarSubsidies to verify my MNRE + UPNEDA status</b>Direct check with MNRE/UPNEDA portals. Application requires this consent.</label>
+  </div>
+  
+  <div class="field">
+    <label for="notes">Anything else we should know? (optional)</label>
+    <textarea id="notes" name="notes" rows="4" placeholder="e.g., specialization, awards, current marketing channels, questions..."></textarea>
+  </div>
+  
+  <div class="nav-row">
+    <button class="btn btn-secondary" onclick="goToStep(3)">← Back</button>
+    <button class="btn btn-primary" id="submitBtn" onclick="submitApplication()">Submit Application →</button>
+  </div>
+</div>
+
+<!-- STEP 5: CONFIRMATION -->
+<div class="step" id="step5">
+  <div class="confirmation">
+    <div class="icon">📋</div>
+    <h1>Application <em>received!</em></h1>
+    <p class="lede" style="max-width:580px; margin:0 auto 24px;">Our team will review your MNRE + UPNEDA status, install history, and capacity. Decision within 48-72 hours via WhatsApp.</p>
+    
+    <div class="summary">
+      <h3>What we'll verify</h3>
+      <div style="font-size:15px;">
+        <div style="padding:8px 0; border-bottom:1px solid var(--line);"><strong>Application ID:</strong> <span class="mono" id="appId">—</span></div>
+        <div style="padding:8px 0; border-bottom:1px solid var(--line);">MNRE empanellment status (current/valid)</div>
+        <div style="padding:8px 0; border-bottom:1px solid var(--line);">UPNEDA approved vendor status (current/valid)</div>
+        <div style="padding:8px 0; border-bottom:1px solid var(--line);">UPNEDA service records (install volume in last 24 months)</div>
+        <div style="padding:8px 0; border-bottom:1px solid var(--line);">GST + PAN verification</div>
+        <div style="padding:8px 0;">Customer complaint history (NCDRC + UPNEDA helpdesk)</div>
+      </div>
+    </div>
+    
+    <div class="next-steps">
+      <div class="next-step-item">
+        <div class="num mono">01</div>
+        <div>
+          <strong>Within 48-72 hours:</strong>
+          <p>You'll receive a WhatsApp message from our team with the application decision. Approved vendors get a vendor agreement to e-sign.</p>
+        </div>
+      </div>
+      <div class="next-step-item">
+        <div class="num mono">02</div>
+        <div>
+          <strong>If approved — onboarding call:</strong>
+          <p>30-minute call to walk through lead routing, commission tracking, and dispute resolution. Add you to vendor network WhatsApp.</p>
+        </div>
+      </div>
+      <div class="next-step-item">
+        <div class="num mono">03</div>
+        <div>
+          <strong>Leads start flowing:</strong>
+          <p>HOT/WARM leads in your selected districts route to you within 4 hours of customer submission. Start closing deals immediately.</p>
+        </div>
+      </div>
+    </div>
+    
+    <p style="font-size:13px; color:var(--muted); margin-top:32px;">Questions while waiting? WhatsApp <strong>+91 98765 43210</strong> or email <a href="mailto:vendors@solarsubsidies.com" style="color:var(--ink);">vendors@solarsubsidies.com</a></p>
+    
+    <div style="margin-top:32px;">
+      <a href="/" class="btn btn-secondary">← Back to homepage</a>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const appState = {
+  step: 1,
+  selectedDistricts: []
+};
+
+// Load districts dynamically
+fetch('/data/districts-up.json')
+  .then(r => r.json())
+  .then(data => {
+    const container = document.getElementById('districtChecks');
+    container.innerHTML = '';
+    const sorted = [...data.districts].sort((a, b) => a.name.localeCompare(b.name));
+    sorted.forEach(d => {
+      const div = document.createElement('div');
+      div.className = 'district-check';
+      div.innerHTML = `
+        <input type="checkbox" id="d_${d.slug}" value="${d.slug}" name="districts">
+        <label for="d_${d.slug}">${d.name} <span style="color:var(--muted); font-size:12px;">(${d.discom})</span></label>
+      `;
+      container.appendChild(div);
+    });
+  })
+  .catch(err => {
+    console.error('Districts load failed:', err);
+    document.getElementById('districtChecks').innerHTML = '<div style="padding:20px; color:var(--red);">Failed to load districts. Please refresh.</div>';
+  });
+
+function goToStep(n) {
+  if (n > appState.step) {
+    if (!validateStep(appState.step)) return;
+  }
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById(`step${n}`).classList.add('active');
+  appState.step = n;
+  
+  const labels = { 1: 'Company basics', 2: 'Approvals & experience', 3: 'Coverage & capacity', 4: 'Commitments', 5: 'Done!' };
+  const pct = (n / 4) * 100;
+  document.getElementById('stepNum').textContent = Math.min(n, 4);
+  document.getElementById('progressLabel').textContent = labels[n];
+  document.getElementById('progressFill').style.width = `${Math.min(pct, 100)}%`;
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function validateStep(n) {
+  const required = {
+    1: ['companyName', 'contactName', 'phone', 'email', 'hq'],
+    2: ['mnreNumber', 'upnedaNumber', 'gstin', 'pan', 'yearsActive', 'installsCompleted', 'teamSize'],
+    3: [], // validates checkboxes
+    4: ['agree_response', 'agree_panels', 'agree_commission', 'agree_exclusive', 'agree_quality', 'agree_verify']
+  };
+  
+  let valid = true;
+  
+  (required[n] || []).forEach(fieldId => {
+    const el = document.getElementById(fieldId);
+    const err = document.getElementById('err_' + fieldId);
+    
+    if (el.type === 'checkbox') {
+      if (!el.checked) {
+        valid = false;
+        alert('Please agree to all commitments before submitting.');
+        return;
+      }
+    } else if (!el.value || !el.value.trim()) {
+      valid = false;
+      if (err) err.classList.add('show');
+      el.focus();
+    } else {
+      if (err) err.classList.remove('show');
+      
+      // Pattern validation
+      if (el.pattern && el.value && !new RegExp('^' + el.pattern + '$').test(el.value)) {
+        valid = false;
+        if (err) err.classList.add('show');
+        el.focus();
+      }
+    }
+  });
+  
+  // Step 3: must select ≥1 district
+  if (n === 3) {
+    const selected = document.querySelectorAll('input[name="districts"]:checked');
+    appState.selectedDistricts = Array.from(selected).map(c => c.value);
+    if (appState.selectedDistricts.length === 0) {
+      document.getElementById('err_districts').classList.add('show');
+      valid = false;
+    } else {
+      document.getElementById('err_districts').classList.remove('show');
+    }
+  }
+  
+  // Step 2: warn on under-25 installs
+  if (n === 2) {
+    const installs = document.getElementById('installsCompleted').value;
+    if (installs === '<25') {
+      const proceed = confirm('You indicated less than 25 installs in 24 months. This is below our minimum threshold and your application may be rejected. Continue anyway?');
+      if (!proceed) valid = false;
+    }
+  }
+  
+  return valid;
+}
+
+async function submitApplication() {
+  if (!validateStep(4)) return;
+  
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting...';
+  
+  // Collect property types
+  const propertyTypes = [];
+  if (document.getElementById('prop_independent').checked) propertyTypes.push('independent_home');
+  if (document.getElementById('prop_builder').checked) propertyTypes.push('builder_floor');
+  if (document.getElementById('prop_apartment').checked) propertyTypes.push('apartment');
+  if (document.getElementById('prop_farm').checked) propertyTypes.push('farm');
+  if (document.getElementById('prop_commercial').checked) propertyTypes.push('commercial');
+  
+  const payload = {
+    companyName: document.getElementById('companyName').value.trim(),
+    brandName: document.getElementById('brandName').value.trim() || null,
+    contactName: document.getElementById('contactName').value.trim(),
+    contactRole: document.getElementById('contactRole').value,
+    phone: document.getElementById('phone').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    website: document.getElementById('website').value.trim() || null,
+    hq: document.getElementById('hq').value.trim(),
+    
+    mnreNumber: document.getElementById('mnreNumber').value.trim(),
+    upnedaNumber: document.getElementById('upnedaNumber').value.trim(),
+    gstin: document.getElementById('gstin').value.trim().toUpperCase(),
+    pan: document.getElementById('pan').value.trim().toUpperCase(),
+    yearsActive: document.getElementById('yearsActive').value,
+    installsCompleted: document.getElementById('installsCompleted').value,
+    teamSize: document.getElementById('teamSize').value,
+    
+    coverageDistricts: appState.selectedDistricts,
+    minSystemSizeKw: parseFloat(document.getElementById('minSystemSize').value),
+    propertyTypes,
+    leadCapacityPerWeek: document.getElementById('leadCapacity').value,
+    
+    notes: document.getElementById('notes').value.trim() || null,
+    
+    agreed: {
+      response_4hr: document.getElementById('agree_response').checked,
+      bis_certified: document.getElementById('agree_panels').checked,
+      commission_7_8: document.getElementById('agree_commission').checked,
+      no_redirect: document.getElementById('agree_exclusive').checked,
+      warranties: document.getElementById('agree_quality').checked,
+      verify_consent: document.getElementById('agree_verify').checked
+    },
+    
+    honeypot: document.querySelector('input[name="honeypot"]').value,
+    source: 'vendor_apply_v1'
+  };
+  
+  let appId = 'V-' + Date.now().toString(36).toUpperCase();
+  
+  try {
+    const res = await fetch('/api/vendor-apply', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    
+    if (res.ok) {
+      const result = await res.json();
+      appId = result.applicationId || appId;
+    } else {
+      const err = await res.json();
+      console.error('Submit failed:', err);
+    }
+  } catch (err) {
+    console.error('Network error:', err);
+    // Fallback: WhatsApp admin manually
+    const message = encodeURIComponent(
+      `Vendor application — ${payload.companyName}\n` +
+      `Contact: ${payload.contactName} (${payload.phone})\n` +
+      `MNRE: ${payload.mnreNumber}\n` +
+      `UPNEDA: ${payload.upnedaNumber}\n` +
+      `Districts: ${payload.coverageDistricts.length}\n` +
+      `Installs/24mo: ${payload.installsCompleted}`
+    );
+    window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
+  }
+  
+  document.getElementById('appId').textContent = appId.slice(0, 12).toUpperCase();
+  goToStep(5);
+}
+</script>
+
+</body>
+</html>
