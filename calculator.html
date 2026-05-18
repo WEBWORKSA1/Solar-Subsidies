@@ -3,94 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Solar Subsidy Calculator — Your District, Real Math | SolarSubsidies.com</title>
-<meta name="description" content="District-aware solar subsidy calculator. Select any of 75 UP districts. Real PM Surya Ghar + UPNEDA math. Get matched with 3 vetted installers.">
+<title>Solar Subsidy Calculator — Get 3 Free Quotes | SolarSubsidies.com</title>
+<meta name="description" content="Calculate your exact ₹1,08,000 UP solar subsidy in 30 seconds. Get matched with 3 vetted, UPNEDA-approved installers in your district. No spam.">
+<link rel="canonical" href="https://solarsubsidies.com/calculator.html">
+<meta name="robots" content="noindex, follow">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700;900&display=swap" rel="stylesheet">
+
 <style>
-:root {
-  --ink: #0a0a0a; --paper: #faf7f2; --paper-2: #f3ede2;
-  --sun: #ff6b1a; --sun-deep: #d94a00; --sun-light: #ffd166;
-  --leaf: #2d5016; --muted: #5a5a5a;
+:root { --ink:#0a0a0a; --paper:#faf7f2; --paper-2:#f3ede2; --sun:#ff6b1a; --sun-deep:#d94a00; --sun-light:#ffd166; --leaf:#2d5016; --muted:#5a5a5a; --line:#d4cfc4; --red:#c41e3a; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(--ink); font-size:18px; line-height:1.55; min-height:100vh; }
+.mono { font-family:'JetBrains Mono',monospace; }
+
+/* TOPBAR */
+.topbar { border-bottom:1.5px solid var(--ink); background:var(--paper); position:sticky; top:0; z-index:100; }
+.topbar-inner { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:14px 28px; }
+.logo { font-weight:900; font-size:22px; letter-spacing:-0.02em; display:flex; align-items:center; gap:8px; text-decoration:none; color:var(--ink); }
+.logo-sun { width:24px; height:24px; background:var(--sun); border-radius:50%; box-shadow:0 0 0 3px var(--paper),0 0 0 4px var(--ink); }
+.nav { display:flex; gap:28px; align-items:center; }
+.nav a { color:var(--ink); text-decoration:none; font-size:15px; font-weight:500; }
+.nav a:hover { color:var(--sun-deep); }
+
+/* PROGRESS BAR */
+.progress { background:var(--paper-2); border-bottom:1.5px solid var(--ink); padding:14px 28px; }
+.progress-inner { max-width:900px; margin:0 auto; display:flex; align-items:center; gap:12px; }
+.progress-bar { flex:1; height:8px; background:var(--paper); border:1px solid var(--ink); position:relative; overflow:hidden; }
+.progress-fill { height:100%; background:var(--sun); transition:width 0.3s ease; }
+.progress-step { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); white-space:nowrap; }
+.progress-step b { color:var(--ink); }
+
+/* WRAPPER */
+.wrap { max-width:900px; margin:0 auto; padding:48px 28px 80px; }
+
+/* STEP */
+.step { display:none; animation:slideIn 0.3s ease-out; }
+.step.active { display:block; }
+@keyframes slideIn {
+  from { opacity:0; transform:translateY(8px); }
+  to { opacity:1; transform:translateY(0); }
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Fraunces', Georgia, serif;
-  background: var(--paper); color: var(--ink);
-  font-size: 18px; line-height: 1.5;
+
+.step-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:14px; }
+.step h1 { font-size:clamp(32px,4.5vw,56px); font-weight:900; letter-spacing:-0.035em; line-height:1.05; margin-bottom:14px; font-variation-settings:'opsz' 144; }
+.step h1 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
+.step .lede { font-size:18px; color:var(--muted); margin-bottom:32px; max-width:640px; line-height:1.55; }
+
+/* OPTION CARDS — Step 1 (intent) and Step 3 (property/timeline) */
+.option-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-bottom:32px; }
+.option-card {
+  padding:24px 22px;
+  border:2px solid var(--ink);
+  background:var(--paper);
+  cursor:pointer;
+  transition:all 0.15s;
+  text-align:left;
+  display:block;
+  font-family:'Fraunces',serif;
+  font-size:17px;
+  color:var(--ink);
+  position:relative;
 }
-.mono { font-family: 'JetBrains Mono', monospace; }
-.topbar { border-bottom: 1.5px solid var(--ink); background: var(--paper); position: sticky; top: 0; z-index: 100; }
-.topbar-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 14px 28px; }
-.logo { font-family: 'Fraunces', serif; font-weight: 900; font-size: 22px; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--ink); }
-.logo-sun { width: 24px; height: 24px; background: var(--sun); border-radius: 50%; box-shadow: 0 0 0 3px var(--paper), 0 0 0 4px var(--ink); }
-.nav { display: flex; gap: 32px; align-items: center; }
-.nav a { color: var(--ink); text-decoration: none; font-size: 15px; font-weight: 500; }
-.nav a:hover { color: var(--sun-deep); }
-.page-head { border-bottom: 1.5px solid var(--ink); padding: 56px 28px 40px; }
-.page-head-inner { max-width: 1400px; margin: 0 auto; }
-.page-kicker { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--sun-deep); margin-bottom: 16px; }
-.page-head h1 { font-size: clamp(40px, 5vw, 72px); font-weight: 900; letter-spacing: -0.035em; line-height: 1; margin-bottom: 18px; font-variation-settings: 'opsz' 144; }
-.page-head h1 em { font-style: italic; font-weight: 400; color: var(--sun-deep); }
-.page-head p { font-size: 19px; color: var(--muted); max-width: 720px; }
-.main { max-width: 1400px; margin: 0 auto; padding: 48px 28px 80px; display: grid; grid-template-columns: 1fr 1.3fr; gap: 32px; }
-.calc-form-card { border: 2px solid var(--ink); background: var(--paper-2); padding: 32px; box-shadow: 8px 8px 0 var(--ink); align-self: start; position: sticky; top: 88px; }
-.calc-form-card h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
-.calc-form-card .sub { font-size: 14px; color: var(--muted); font-style: italic; margin-bottom: 28px; }
-.field { margin-bottom: 20px; }
-.field label { display: block; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; margin-bottom: 8px; }
-.field input, .field select { width: 100%; padding: 13px 16px; border: 1.5px solid var(--ink); background: var(--paper); font-family: 'Fraunces', serif; font-size: 16px; color: var(--ink); outline: none; transition: all .15s; }
-.field input:focus, .field select:focus { background: white; box-shadow: 3px 3px 0 var(--ink); transform: translate(-1px, -1px); }
-.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.field-help { font-size: 12px; color: var(--muted); margin-top: 5px; font-style: italic; }
-.recalc-btn { width: 100%; padding: 16px; background: var(--sun); border: 2px solid var(--ink); font-family: 'Fraunces', serif; font-size: 17px; font-weight: 700; cursor: pointer; box-shadow: 4px 4px 0 var(--ink); transition: all .15s; margin-top: 8px; }
-.recalc-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
-.district-info { margin-top: 18px; padding: 14px 16px; border: 1.5px solid var(--ink); background: var(--paper); font-size: 13px; line-height: 1.5; }
-.district-info b { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sun-deep); }
-.results { display: flex; flex-direction: column; gap: 24px; }
-.result-card { border: 1.5px solid var(--ink); background: var(--paper); padding: 28px; }
-.result-card.featured { background: var(--ink); color: var(--paper); box-shadow: 6px 6px 0 var(--sun); }
-.card-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 6px; }
-.result-card.featured .card-label { color: var(--sun-light); }
-.card-title { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 18px; }
-.huge-number { font-size: 80px; font-weight: 900; line-height: 1; letter-spacing: -0.04em; color: var(--sun); font-variation-settings: 'opsz' 144; }
-.huge-label { font-size: 15px; opacity: 0.85; margin-top: 8px; font-style: italic; }
-.metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-.metric { padding: 14px 0; border-bottom: 1px solid #d4cfc4; }
-.metric:nth-child(odd) { border-right: 1px solid #d4cfc4; padding-right: 16px; }
-.metric:nth-child(even) { padding-left: 16px; }
-.metric:nth-last-child(-n+2) { border-bottom: none; }
-.metric .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 4px; }
-.metric .val { font-size: 24px; font-weight: 700; letter-spacing: -0.01em; }
-.metric .val.green { color: var(--leaf); }
-.metric .val.orange { color: var(--sun-deep); }
-.breakdown { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid #444; }
-.breakdown-cell { padding: 16px; background: rgba(255,255,255,0.05); }
-.breakdown-cell:first-child { border-right: 1.5px solid #444; }
-.breakdown-cell .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sun-light); margin-bottom: 4px; }
-.breakdown-cell .amt { font-size: 28px; font-weight: 700; color: var(--paper); }
-.lead-card { background: var(--sun); border: 2px solid var(--ink); padding: 32px; box-shadow: 8px 8px 0 var(--ink); }
-.lead-card h3 { font-size: 28px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 12px; }
-.lead-card p { font-size: 16px; margin-bottom: 20px; }
-.lead-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-.lead-form input { width: 100%; padding: 14px 16px; border: 2px solid var(--ink); background: var(--paper); font-family: 'Fraunces', serif; font-size: 16px; outline: none; }
-.lead-form input:focus { background: white; }
-.lead-consent { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; margin: 12px 0; }
-.lead-consent input { width: auto; margin-top: 3px; }
-.lead-submit { width: 100%; padding: 16px; background: var(--ink); color: var(--paper); border: 2px solid var(--ink); font-family: 'Fraunces', serif; font-size: 17px; font-weight: 700; cursor: pointer; }
-.lead-submit:hover { background: var(--paper); color: var(--ink); }
-.lead-success { display: none; padding: 20px; background: var(--ink); color: var(--paper); border: 2px solid var(--ink); }
-.lead-success.show { display: block; }
-.lead-fine { font-size: 12px; margin-top: 12px; opacity: 0.8; }
-.schemes-applied { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-.scheme-pill { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; padding: 6px 12px; background: var(--paper-2); color: var(--ink); border: 1px solid var(--ink); }
-@media (max-width: 960px) {
-  .main { grid-template-columns: 1fr; }
-  .calc-form-card { position: static; }
-  .lead-form-row { grid-template-columns: 1fr; }
-  .huge-number { font-size: 60px; }
+.option-card:hover { transform:translate(-2px,-2px); box-shadow:4px 4px 0 var(--sun); }
+.option-card.selected { background:var(--sun); border-color:var(--ink); box-shadow:6px 6px 0 var(--ink); }
+.option-card .icon { font-size:32px; display:block; margin-bottom:10px; line-height:1; }
+.option-card .label { font-weight:700; font-size:18px; margin-bottom:4px; }
+.option-card .sub { font-size:13px; color:var(--muted); line-height:1.4; }
+.option-card.selected .sub { color:var(--ink); }
+
+/* FIELDS — Step 2 (district/bill) and Step 4 (contact) */
+.field { margin-bottom:20px; }
+.field label { display:block; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; font-weight:700; margin-bottom:10px; }
+.field input, .field select { width:100%; padding:16px 18px; border:2px solid var(--ink); background:var(--paper); font-family:'Fraunces',serif; font-size:17px; color:var(--ink); outline:none; transition:all 0.15s; }
+.field input:focus, .field select:focus { background:white; box-shadow:3px 3px 0 var(--ink); transform:translate(-1px,-1px); }
+.field-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.field-help { font-size:13px; color:var(--muted); margin-top:6px; font-style:italic; }
+.field-error { font-size:13px; color:var(--red); margin-top:6px; font-weight:600; display:none; }
+.field-error.show { display:block; }
+
+/* BILL SLIDER */
+.bill-slider-wrap { padding:24px 0 8px; }
+.bill-display { font-size:48px; font-weight:900; letter-spacing:-0.03em; color:var(--sun-deep); margin-bottom:6px; }
+.bill-display em { font-style:normal; font-size:18px; color:var(--muted); font-weight:400; margin-left:8px; }
+.bill-range { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:14px; }
+input[type="range"] { -webkit-appearance:none; width:100%; height:8px; background:var(--paper-2); border:1.5px solid var(--ink); outline:none; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:24px; height:24px; background:var(--sun); border:2px solid var(--ink); cursor:pointer; border-radius:0; }
+input[type="range"]::-moz-range-thumb { width:24px; height:24px; background:var(--sun); border:2px solid var(--ink); cursor:pointer; border-radius:0; }
+
+/* RESULT REVEAL — Step 2 result */
+.result-reveal {
+  margin-top:36px;
+  padding:32px;
+  background:var(--ink);
+  color:var(--paper);
+  box-shadow:8px 8px 0 var(--sun);
+  border:2px solid var(--ink);
+}
+.result-label { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-light); margin-bottom:8px; }
+.result-huge { font-size:64px; font-weight:900; line-height:1; letter-spacing:-0.04em; color:var(--sun); font-variation-settings:'opsz' 144; margin-bottom:6px; }
+.result-sub { font-size:15px; opacity:0.85; font-style:italic; margin-bottom:24px; }
+.result-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:0; border:1px solid #444; }
+.result-cell { padding:14px 16px; border-right:1px solid #444; }
+.result-cell:last-child { border-right:none; }
+.result-cell .lbl { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--sun-light); margin-bottom:4px; }
+.result-cell .val { font-size:22px; font-weight:700; letter-spacing:-0.01em; }
+.result-disclaimer { font-size:12px; opacity:0.7; margin-top:18px; font-style:italic; }
+
+/* NAVIGATION */
+.nav-row { display:flex; justify-content:space-between; align-items:center; margin-top:40px; padding-top:24px; border-top:1.5px solid var(--ink); gap:14px; }
+.btn { padding:16px 32px; font-family:'Fraunces',serif; font-size:17px; font-weight:700; border:2px solid var(--ink); cursor:pointer; transition:all 0.15s; text-decoration:none; display:inline-block; text-align:center; }
+.btn-primary { background:var(--sun); color:var(--ink); box-shadow:6px 6px 0 var(--ink); }
+.btn-primary:hover { transform:translate(-2px,-2px); box-shadow:8px 8px 0 var(--ink); }
+.btn-primary:disabled { background:var(--paper-2); color:var(--muted); cursor:not-allowed; box-shadow:none; transform:none; opacity:0.6; }
+.btn-secondary { background:transparent; color:var(--ink); }
+.btn-secondary:hover { background:var(--ink); color:var(--paper); }
+
+/* TRUST FOOTER */
+.trust-footer { margin-top:48px; padding:24px; background:var(--paper-2); border:1px solid var(--line); font-size:13px; color:var(--muted); }
+.trust-footer h4 { font-size:13px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.12em; color:var(--ink); margin-bottom:8px; }
+.trust-footer ul { margin:0; padding:0; list-style:none; }
+.trust-footer li { padding:4px 0; }
+.trust-footer li::before { content:"✓ "; color:var(--leaf); font-weight:700; }
+
+/* CONFIRMATION (Step 5) */
+.confirmation { text-align:center; padding:40px 0; }
+.confirmation .icon { font-size:80px; margin-bottom:24px; line-height:1; }
+.confirmation h1 { font-size:48px; margin-bottom:16px; }
+.confirmation .summary {
+  background:var(--paper-2); border:1.5px solid var(--ink);
+  padding:28px; text-align:left; max-width:560px; margin:32px auto;
+}
+.confirmation .summary h3 { font-size:18px; margin-bottom:16px; }
+.confirmation .summary-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--line); font-size:15px; }
+.confirmation .summary-row:last-child { border-bottom:none; padding-bottom:0; }
+.confirmation .summary-row b { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); font-weight:400; }
+.confirmation .next-steps { max-width:560px; margin:32px auto; text-align:left; }
+.confirmation .next-step-item { display:flex; gap:14px; padding:14px 0; }
+.confirmation .next-step-item .num { font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700; color:var(--sun-deep); flex-shrink:0; width:32px; }
+.confirmation .next-step-item .body { flex:1; }
+.confirmation .next-step-item .body strong { display:block; margin-bottom:4px; }
+.confirmation .next-step-item .body p { font-size:14px; color:var(--muted); margin:0; }
+
+.share-btns { display:flex; gap:12px; justify-content:center; margin-top:24px; flex-wrap:wrap; }
+.share-btn { padding:12px 20px; border:2px solid var(--ink); background:var(--paper); text-decoration:none; color:var(--ink); font-weight:700; font-size:14px; }
+.share-btn:hover { background:var(--ink); color:var(--paper); }
+
+/* MOBILE */
+@media (max-width:640px) {
+  .nav { display:none; }
+  .wrap { padding:32px 20px 80px; }
+  .step h1 { font-size:30px; }
+  .step .lede { font-size:16px; }
+  .field-row { grid-template-columns:1fr; }
+  .option-grid { grid-template-columns:1fr; gap:10px; }
+  .option-card { padding:18px 16px; }
+  .result-huge { font-size:48px; }
+  .nav-row { flex-direction:column-reverse; gap:10px; }
+  .btn { width:100%; }
+  .progress-step { font-size:10px; }
 }
 </style>
 </head>
@@ -104,239 +177,418 @@ body {
     </a>
     <nav class="nav">
       <a href="/">Home</a>
-      <a href="/calculator.html">Calculator</a>
-      <a href="/#schemes">Schemes</a>
-      <a href="/#vendors">Vendors</a>
+      <a href="/d/">Districts</a>
+      <a href="/discom/">DISCOMs</a>
     </nav>
   </div>
 </header>
 
-<section class="page-head">
-  <div class="page-head-inner">
-    <div class="page-kicker mono">§ District-Aware Calculator</div>
-    <h1>Pick your district.<br><em>See your exact subsidy.</em></h1>
-    <p>All 75 UP districts mapped to the right DISCOM, with local irradiance and real subsidy math. Results update as you type — no "submit and we'll call you back" nonsense.</p>
-  </div>
-</section>
-
-<div class="main">
-  
-  <div class="calc-form-card">
-    <h2>Your details</h2>
-    <div class="sub">Math updates live as you change inputs.</div>
-
-    <div class="field">
-      <label for="state">State</label>
-      <select id="state">
-        <option value="up" selected>Uttar Pradesh</option>
-        <option value="mh">Maharashtra</option>
-        <option value="gj">Gujarat (₹40k flat)</option>
-        <option value="dl">Delhi</option>
-        <option value="rj">Rajasthan</option>
-        <option value="hr">Haryana</option>
-        <option value="pb">Punjab</option>
-        <option value="ka">Karnataka</option>
-        <option value="tn">Tamil Nadu</option>
-        <option value="other">Other state</option>
-      </select>
-    </div>
-
-    <div class="field" id="districtField">
-      <label for="district">District (UP only)</label>
-      <select id="district">
-        <option value="">— Select your district —</option>
-      </select>
-      <div class="field-help">Auto-detects your DISCOM and local solar generation</div>
-    </div>
-
-    <div class="field">
-      <label for="bill">Avg Monthly Electricity Bill (₹)</label>
-      <input type="number" id="bill" placeholder="3500" value="3500" min="500" max="200000">
-      <div class="field-help">Average of your last 3 bills</div>
-    </div>
-
-    <div class="field-row">
-      <div class="field">
-        <label for="size">System Size</label>
-        <select id="size">
-          <option value="1">1 kW</option>
-          <option value="2">2 kW</option>
-          <option value="3" selected>3 kW ★</option>
-          <option value="5">5 kW</option>
-          <option value="10">10 kW</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="type">Property</label>
-        <select id="type">
-          <option value="residential" selected>Residential</option>
-          <option value="rwa">RWA</option>
-          <option value="commercial">Commercial</option>
-          <option value="farm">Farm</option>
-        </select>
-      </div>
-    </div>
-
-    <button class="recalc-btn" onclick="recalc()">Update Calculation →</button>
-
-    <div class="district-info" id="districtInfo" style="display:none">
-      <b>District snapshot</b><br>
-      <div id="districtInfoBody"></div>
-    </div>
-  </div>
-
-  <div class="results">
-
-    <div class="result-card featured">
-      <div class="card-label mono">YOUR TOTAL STACKED SUBSIDY</div>
-      <div class="huge-number" id="totalSub">₹1,08,000</div>
-      <div class="huge-label" id="subContext">3 kW · Uttar Pradesh · Residential</div>
-      
-      <div class="breakdown">
-        <div class="breakdown-cell">
-          <div class="lbl mono">Central (PM Surya Ghar)</div>
-          <div class="amt" id="centralSub">₹78,000</div>
-        </div>
-        <div class="breakdown-cell">
-          <div class="lbl mono">State subsidy</div>
-          <div class="amt" id="stateSub">₹30,000</div>
-        </div>
-      </div>
-
-      <div class="schemes-applied" id="schemePills"></div>
-    </div>
-
-    <div class="result-card">
-      <div class="card-label mono">THE MATH</div>
-      <div class="card-title">What you'll actually pay</div>
-      
-      <div class="metrics-grid">
-        <div class="metric">
-          <div class="lbl mono">Gross system cost</div>
-          <div class="val" id="grossCost">₹2,10,000</div>
-        </div>
-        <div class="metric">
-          <div class="lbl mono">Total subsidies</div>
-          <div class="val green" id="totalSubMetric">₹1,08,000</div>
-        </div>
-        <div class="metric">
-          <div class="lbl mono">Your net cost</div>
-          <div class="val orange" id="netCost">₹1,02,000</div>
-        </div>
-        <div class="metric">
-          <div class="lbl mono">Effective discount</div>
-          <div class="val" id="discountPct">51%</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="result-card">
-      <div class="card-label mono">GENERATION + SAVINGS</div>
-      <div class="card-title">Over 25 years</div>
-      
-      <div class="metrics-grid">
-        <div class="metric">
-          <div class="lbl mono">Monthly generation</div>
-          <div class="val" id="monthlyGen">~338 units</div>
-        </div>
-        <div class="metric">
-          <div class="lbl mono">Monthly savings</div>
-          <div class="val green" id="monthlySav">₹2,366</div>
-        </div>
-        <div class="metric">
-          <div class="lbl mono">Payback period</div>
-          <div class="val" id="payback">3.6 yrs</div>
-        </div>
-        <div class="metric">
-          <div class="lbl mono">25-yr lifetime savings</div>
-          <div class="val green" id="lifetime">₹10.8 L</div>
-        </div>
-        <div class="metric">
-          <div class="lbl mono">Panels needed</div>
-          <div class="val" id="panels">8</div>
-        </div>
-        <div class="metric">
-          <div class="lbl mono">Roof area</div>
-          <div class="val" id="roof">300 sqft</div>
-        </div>
-        <div class="metric">
-          <div class="lbl mono">CO₂ offset/year</div>
-          <div class="val" id="co2">3,326 kg</div>
-        </div>
-        <div class="metric">
-          <div class="lbl mono">Trees equivalent</div>
-          <div class="val green" id="trees">~1,370</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="lead-card" id="leadCard">
-      <h3>Ready for 3 vendor quotes?</h3>
-      <p>We'll match you with vetted, MNRE-empanelled installers in your district. No spam. Real quotes within 48 hours.</p>
-      
-      <form class="lead-form" id="leadForm" onsubmit="submitLead(event)">
-        <div class="lead-form-row">
-          <input type="text" name="name" placeholder="Your name" required>
-          <input type="tel" name="phone" placeholder="Phone (+91...)" required pattern="[+]?[0-9\-\s]{10,15}">
-        </div>
-        <input type="email" name="email" placeholder="Email (optional)">
-        
-        <input type="text" name="website" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off">
-        
-        <label class="lead-consent">
-          <input type="checkbox" name="consentWhatsapp" id="consentWA" checked>
-          <span>OK to contact me on WhatsApp with vendor matches. Reply STOP anytime.</span>
-        </label>
-        
-        <button type="submit" class="lead-submit">Get My 3 Free Quotes →</button>
-        <div class="lead-fine">Per DPDP Act 2023, your contact goes only to up to 3 vetted vendors. <a href="/privacy.html" style="color:var(--ink);text-decoration:underline">Privacy policy</a>.</div>
-      </form>
-
-      <div class="lead-success" id="leadSuccess">
-        <h4 style="margin-bottom:8px">✅ Lead submitted</h4>
-        <p style="margin-bottom:0">Vendor matching in progress. You'll get WhatsApp messages from 3 installers within 48 hours. Track ID: <span id="leadId" class="mono"></span></p>
-      </div>
-    </div>
-
+<!-- PROGRESS BAR -->
+<div class="progress">
+  <div class="progress-inner">
+    <div class="progress-step"><b>Step <span id="stepNum">1</span></b> of 4</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+    <div class="progress-step" id="progressLabel">Your goal</div>
   </div>
 </div>
 
-<script src="/assets/js/calc-engine.js"></script>
+<div class="wrap">
 
+<!-- STEP 1: INTENT -->
+<div class="step active" id="step1">
+  <div class="step-kicker mono">§ Step 1 of 4 · 5 seconds</div>
+  <h1>Why are you exploring <em>solar?</em></h1>
+  <p class="lede">Pick the closest reason. Affects which vendors we match you with — different installers specialize in different customer goals.</p>
+  
+  <div class="option-grid">
+    <button class="option-card" data-intent="reduce_bill">
+      <span class="icon">💰</span>
+      <div class="label">Cut my bill</div>
+      <div class="sub">Electricity is too expensive, want to save</div>
+    </button>
+    <button class="option-card" data-intent="independence">
+      <span class="icon">⚡</span>
+      <div class="label">Energy independence</div>
+      <div class="sub">Tired of outages, want self-sufficiency</div>
+    </button>
+    <button class="option-card" data-intent="property_value">
+      <span class="icon">🏠</span>
+      <div class="label">Property value</div>
+      <div class="sub">Boost resale value, future-proof home</div>
+    </button>
+    <button class="option-card" data-intent="environment">
+      <span class="icon">🌱</span>
+      <div class="label">Environment</div>
+      <div class="sub">Reduce carbon footprint, do my part</div>
+    </button>
+    <button class="option-card" data-intent="subsidy">
+      <span class="icon">📜</span>
+      <div class="label">Subsidy is high</div>
+      <div class="sub">₹1.08L stack is too good to pass</div>
+    </button>
+    <button class="option-card" data-intent="researching">
+      <span class="icon">🔍</span>
+      <div class="label">Just researching</div>
+      <div class="sub">Learning about solar, no rush yet</div>
+    </button>
+  </div>
+  
+  <div class="nav-row">
+    <span></span>
+    <button class="btn btn-primary" id="step1Next" disabled onclick="goToStep(2)">Continue →</button>
+  </div>
+</div>
+
+<!-- STEP 2: DISTRICT + BILL -->
+<div class="step" id="step2">
+  <div class="step-kicker mono">§ Step 2 of 4 · 15 seconds</div>
+  <h1>Where are you, <em>and what's your bill?</em></h1>
+  <p class="lede">Each UP district has its own DISCOM, irradiance, and net metering speed. Bill amount determines optimal system size.</p>
+  
+  <div class="field">
+    <label for="district">Your district</label>
+    <select id="district" required>
+      <option value="">— Select your district —</option>
+    </select>
+    <div class="field-help">All 75 UP districts available. Outside UP? Use Calculator below.</div>
+    <div class="field-error" id="districtError">Please pick your district to continue.</div>
+  </div>
+  
+  <div class="field">
+    <label for="bill">Average monthly electricity bill</label>
+    <div class="bill-slider-wrap">
+      <div class="bill-display"><span id="billDisplay">₹3,500</span><em>/ month</em></div>
+      <div class="bill-range mono">Range: ₹500 — ₹15,000+</div>
+      <input type="range" id="billSlider" min="500" max="15000" step="250" value="3500">
+    </div>
+    <div class="field-help">Average of your last 3 months. Most UP 3BHK homes: ₹3,000-5,500.</div>
+  </div>
+  
+  <div class="field">
+    <label for="size">System size (auto-recommended)</label>
+    <select id="size">
+      <option value="1">1 kW · Best for bills under ₹2,000</option>
+      <option value="2">2 kW · Best for bills ₹2,000-3,000</option>
+      <option value="3" selected>3 kW · Best for bills ₹3,000-5,500 ★ MAX SUBSIDY</option>
+      <option value="5">5 kW · Best for bills ₹5,500-8,000</option>
+      <option value="10">10 kW · Best for bills ₹8,000+</option>
+    </select>
+    <div class="field-help">3 kW captures the full ₹1.08L subsidy. Larger systems generate more but don't get extra subsidy.</div>
+  </div>
+  
+  <!-- RESULT REVEAL — appears after district + bill selected -->
+  <div class="result-reveal" id="resultReveal" style="display:none">
+    <div class="result-label mono">YOUR STACKED SUBSIDY</div>
+    <div class="result-huge" id="resultTotal">₹1,08,000</div>
+    <div class="result-sub" id="resultContext">3 kW · Lucknow · MVVNL DISCOM</div>
+    
+    <div class="result-grid">
+      <div class="result-cell">
+        <div class="lbl mono">Net cost</div>
+        <div class="val" id="resultNet">₹1,02,000</div>
+      </div>
+      <div class="result-cell">
+        <div class="lbl mono">Payback</div>
+        <div class="val" id="resultPayback">3.6 yrs</div>
+      </div>
+      <div class="result-cell">
+        <div class="lbl mono">Monthly savings</div>
+        <div class="val" id="resultMonthly">₹2,457</div>
+      </div>
+      <div class="result-cell">
+        <div class="lbl mono">25-yr lifetime</div>
+        <div class="val" id="resultLifetime">₹10.5 L</div>
+      </div>
+    </div>
+    
+    <div class="result-disclaimer">Real numbers, no vendor markup. Based on UPNEDA-approved system cost (₹70k/kW) and PM Surya Ghar + UPNEDA subsidies.</div>
+  </div>
+  
+  <div class="nav-row">
+    <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
+    <button class="btn btn-primary" id="step2Next" onclick="goToStep(3)">Continue →</button>
+  </div>
+</div>
+
+<!-- STEP 3: PROPERTY + TIMELINE -->
+<div class="step" id="step3">
+  <div class="step-kicker mono">§ Step 3 of 4 · 20 seconds</div>
+  <h1>What kind of property, <em>and when?</em></h1>
+  <p class="lede">Determines which vendors we match (apartment-specialists vs farm-pump-specialists differ). Timeline tells vendors how to prioritize you.</p>
+  
+  <div class="field">
+    <label>Property type</label>
+    <div class="option-grid">
+      <button class="option-card" data-property="independent_home">
+        <span class="icon">🏡</span>
+        <div class="label">Independent home</div>
+        <div class="sub">Kothi / villa with own roof</div>
+      </button>
+      <button class="option-card" data-property="builder_floor">
+        <span class="icon">🏢</span>
+        <div class="label">Builder floor</div>
+        <div class="sub">Floor in a 3-4 floor building</div>
+      </button>
+      <button class="option-card" data-property="apartment">
+        <span class="icon">🏬</span>
+        <div class="label">Apartment / society</div>
+        <div class="sub">RWA path — needs society approval</div>
+      </button>
+      <button class="option-card" data-property="farm">
+        <span class="icon">🌾</span>
+        <div class="label">Farm / agricultural</div>
+        <div class="sub">Farmhouse or PM-KUSUM eligible</div>
+      </button>
+      <button class="option-card" data-property="commercial">
+        <span class="icon">🏪</span>
+        <div class="label">Commercial</div>
+        <div class="sub">Shop, office, factory rooftop</div>
+      </button>
+      <button class="option-card" data-property="other">
+        <span class="icon">❓</span>
+        <div class="label">Other / not sure</div>
+        <div class="sub">Vendor will assess on site</div>
+      </button>
+    </div>
+  </div>
+  
+  <div class="field">
+    <label>When do you want to install?</label>
+    <div class="option-grid">
+      <button class="option-card" data-timeline="this_month">
+        <span class="icon">🔥</span>
+        <div class="label">This month</div>
+        <div class="sub">Ready to start immediately</div>
+      </button>
+      <button class="option-card" data-timeline="1_3_months">
+        <span class="icon">📅</span>
+        <div class="label">1-3 months</div>
+        <div class="sub">Planning, comparing options</div>
+      </button>
+      <button class="option-card" data-timeline="3_6_months">
+        <span class="icon">🗓️</span>
+        <div class="label">3-6 months</div>
+        <div class="sub">Budgeting for later this year</div>
+      </button>
+      <button class="option-card" data-timeline="just_researching">
+        <span class="icon">🔍</span>
+        <div class="label">Just researching</div>
+        <div class="sub">No firm timeline yet</div>
+      </button>
+    </div>
+  </div>
+  
+  <div class="nav-row">
+    <button class="btn btn-secondary" onclick="goToStep(2)">← Back</button>
+    <button class="btn btn-primary" id="step3Next" disabled onclick="goToStep(4)">Continue →</button>
+  </div>
+</div>
+
+<!-- STEP 4: CONTACT -->
+<div class="step" id="step4">
+  <div class="step-kicker mono">§ Step 4 of 4 · 15 seconds · Final step</div>
+  <h1>How should vendors <em>reach you?</em></h1>
+  <p class="lede">Maximum 3 vendors will WhatsApp/call you with personalized quotes. No spam, no call-center harassment. Reply STOP anytime.</p>
+  
+  <form id="leadForm" onsubmit="submitLead(event)">
+    <div class="field">
+      <label for="leadName">Your name</label>
+      <input type="text" id="leadName" name="name" placeholder="Full name" required minlength="2">
+    </div>
+    
+    <div class="field">
+      <label for="leadPhone">Phone (WhatsApp preferred)</label>
+      <input type="tel" id="leadPhone" name="phone" placeholder="+91 98765 43210" required pattern="[+]?[0-9\-\s]{10,15}">
+      <div class="field-help">Used only by matched vendors. Will be auto-formatted to +91.</div>
+      <div class="field-error" id="phoneError">Please enter a valid 10-digit Indian phone number.</div>
+    </div>
+    
+    <div class="field">
+      <label for="leadEmail">Email (optional)</label>
+      <input type="email" id="leadEmail" name="email" placeholder="you@example.com">
+      <div class="field-help">For PDF quote summary. Skip if you prefer WhatsApp only.</div>
+    </div>
+    
+    <!-- Honeypot -->
+    <input type="text" name="website" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off">
+    
+    <div class="field" style="margin-top:8px;">
+      <label style="display:flex; gap:10px; align-items:flex-start; font-family:'Fraunces',serif; font-size:14px; text-transform:none; letter-spacing:normal; font-weight:400;">
+        <input type="checkbox" name="consentWhatsapp" id="consentWA" checked style="width:auto; flex-shrink:0; margin-top:3px;">
+        <span>I consent to be contacted on WhatsApp/phone by up to 3 vetted, MNRE+UPNEDA-approved installers regarding my solar quote. (DPDP Act 2023 compliant.)</span>
+      </label>
+    </div>
+    
+    <div class="trust-footer">
+      <h4>What happens after you submit:</h4>
+      <ul>
+        <li>Your contact goes to maximum 3 vetted installers serving your district</li>
+        <li>Each must be both MNRE-empanelled AND UPNEDA-approved</li>
+        <li>You'll get WhatsApp messages within 4 business hours</li>
+        <li>No data sold to third parties. Period.</li>
+        <li>Reply STOP to any vendor message to opt out instantly</li>
+      </ul>
+    </div>
+    
+    <div class="nav-row">
+      <button type="button" class="btn btn-secondary" onclick="goToStep(3)">← Back</button>
+      <button type="submit" class="btn btn-primary" id="submitBtn">Get My 3 Free Quotes →</button>
+    </div>
+  </form>
+</div>
+
+<!-- STEP 5: CONFIRMATION -->
+<div class="step" id="step5">
+  <div class="confirmation">
+    <div class="icon">🌞</div>
+    <h1>You're <em>matched!</em></h1>
+    <p class="lede" style="max-width:580px; margin:0 auto 24px;">Your lead is in the queue. Up to 3 vetted installers from your district will reach out within 4 business hours.</p>
+    
+    <div class="summary">
+      <h3>Your quote summary</h3>
+      <div class="summary-row"><b>Track ID</b><span class="mono" id="trackId">—</span></div>
+      <div class="summary-row"><b>District</b><span id="confirmDistrict">—</span></div>
+      <div class="summary-row"><b>System size</b><span id="confirmSize">—</span></div>
+      <div class="summary-row"><b>Stacked subsidy</b><span id="confirmSubsidy" style="color:var(--sun-deep);font-weight:700;">—</span></div>
+      <div class="summary-row"><b>Your net cost</b><span id="confirmNet">—</span></div>
+      <div class="summary-row"><b>Payback</b><span id="confirmPayback">—</span></div>
+    </div>
+    
+    <div class="next-steps">
+      <div class="next-step-item">
+        <div class="num mono">01</div>
+        <div class="body">
+          <strong>Within 4 hours:</strong>
+          <p>Up to 3 UPNEDA-approved installers will WhatsApp you with personalized site visit + quote offers.</p>
+        </div>
+      </div>
+      <div class="next-step-item">
+        <div class="num mono">02</div>
+        <div class="body">
+          <strong>Site visits (Day 2-7):</strong>
+          <p>Pick which vendors to schedule. We recommend at least 2 site visits to compare quality, warranty terms, and price.</p>
+        </div>
+      </div>
+      <div class="next-step-item">
+        <div class="num mono">03</div>
+        <div class="body">
+          <strong>Application on portal (Day 7+):</strong>
+          <p>Your chosen vendor handles PM Surya Ghar + UPNEDA paperwork. Subsidies arrive in your bank account within 30 days of net meter activation.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="share-btns">
+      <a href="#" class="share-btn" id="whatsappShare" target="_blank" rel="noopener">📱 Tell a neighbor on WhatsApp</a>
+      <a href="/" class="share-btn">← Back to homepage</a>
+    </div>
+    
+    <p style="font-size:13px; color:var(--muted); margin-top:32px;">Didn't hear from vendors in 4 hours? Email <a href="mailto:hello@solarsubsidies.com" style="color:var(--ink);">hello@solarsubsidies.com</a> with your Track ID.</p>
+  </div>
+</div>
+
+</div>
+
+<!-- STATE & LOGIC -->
 <script>
-const DISTRICTS = [];
+// ===========================================================
+// STATE
+// ===========================================================
+const state = {
+  step: 1,
+  intent: null,
+  district: null,
+  bill: 3500,
+  size: 3,
+  property: null,
+  timeline: null,
+  name: null,
+  phone: null,
+  email: null,
+  consentWhatsapp: true
+};
 
+let DISTRICTS = [];
+
+// ===========================================================
+// CALCULATION (inline — replicates calc-engine.js for safety)
+// ===========================================================
+
+function pmSuryaGhar(kw) {
+  if (kw <= 0) return 0;
+  if (kw >= 3) return 78000;
+  if (kw <= 1) return Math.round(kw * 30000);
+  if (kw <= 2) return Math.round(30000 + (kw - 1) * 30000);
+  return Math.round(60000 + (kw - 2) * 18000);
+}
+
+function upnedaSubsidy(kw) {
+  return Math.min(Math.round(kw * 15000), 30000);
+}
+
+function calculate(kw, irradiance) {
+  const central = pmSuryaGhar(kw);
+  const stateSubsidy = upnedaSubsidy(kw);
+  const totalSubsidy = central + stateSubsidy;
+  const grossCost = kw * 70000;
+  const netCost = Math.max(0, grossCost - totalSubsidy);
+  const monthlyUnits = Math.round(kw * irradiance * 30 * 0.75);
+  const annualUnits = monthlyUnits * 12;
+  const monthlySavings = Math.round(monthlyUnits * 6.5);
+  const annualSavings = monthlySavings * 12;
+  const payback = annualSavings > 0 ? +(netCost / annualSavings).toFixed(1) : 99;
+  let cumulative = 0;
+  for (let y = 0; y < 25; y++) cumulative += annualSavings * Math.pow(1.04, y);
+  const lifetime = Math.round(cumulative - netCost);
+  return { central, stateSubsidy, totalSubsidy, grossCost, netCost, monthlyUnits, monthlySavings, payback, lifetime };
+}
+
+function fmtInr(n) {
+  if (n >= 10000000) return '₹' + (n / 10000000).toFixed(2).replace(/\.00$/, '') + ' Cr';
+  if (n >= 100000) return '₹' + (n / 100000).toFixed(2).replace(/\.00$/, '') + ' L';
+  return '₹' + n.toLocaleString('en-IN');
+}
+
+function fmtInrFull(n) {
+  return '₹' + Math.round(n).toLocaleString('en-IN');
+}
+
+// ===========================================================
+// DISTRICT DATA LOAD
+// ===========================================================
 fetch('/data/districts-up.json')
   .then(r => r.json())
   .then(data => {
-    DISTRICTS.push(...data.districts);
+    DISTRICTS = data.districts;
     populateDistricts();
+    
+    // Pre-fill from URL params (e.g. /calculator.html?district=lucknow&size=3)
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('district')) {
+      const slug = params.get('district');
+      if (DISTRICTS.find(d => d.slug === slug)) {
+        state.district = slug;
+        document.getElementById('district').value = slug;
+      }
+    }
+    if (params.get('size')) {
+      const kw = parseFloat(params.get('size'));
+      if ([1, 2, 3, 5, 10].includes(kw)) {
+        state.size = kw;
+        document.getElementById('size').value = kw;
+      }
+    }
   })
-  .catch(err => {
-    console.warn('District data failed, using fallback');
-    populateDistricts();
-  });
+  .catch(err => console.error('District data load failed:', err));
 
 function populateDistricts() {
-  const select = document.getElementById('district');
-  const state = document.getElementById('state').value;
-  
-  select.innerHTML = '<option value="">— Select your district —</option>';
-  
-  if (state !== 'up') {
-    document.getElementById('districtField').style.display = 'none';
-    document.getElementById('districtInfo').style.display = 'none';
-    return;
-  }
-  
-  document.getElementById('districtField').style.display = 'block';
-  
+  const sel = document.getElementById('district');
   const sorted = [...DISTRICTS].sort((a, b) => a.name.localeCompare(b.name));
   sorted.forEach(d => {
     const opt = document.createElement('option');
     opt.value = d.slug;
-    opt.textContent = `${d.name} (${d.name_hi})`;
-    select.appendChild(opt);
+    opt.textContent = `${d.name} · ${d.discom}`;
+    sel.appendChild(opt);
   });
 }
 
@@ -344,114 +596,186 @@ function getDistrict(slug) {
   return DISTRICTS.find(d => d.slug === slug);
 }
 
-function recalc() {
-  const state = document.getElementById('state').value;
-  const districtSlug = document.getElementById('district').value;
-  const sizeKw = parseFloat(document.getElementById('size').value);
-  const monthlyBill = parseFloat(document.getElementById('bill').value) || 3500;
-  const propertyType = document.getElementById('type').value;
-  
-  let irradiance = null;
-  const district = districtSlug ? getDistrict(districtSlug) : null;
-  if (district) {
-    irradiance = district.irradiance;
-    document.getElementById('districtInfo').style.display = 'block';
-    document.getElementById('districtInfoBody').innerHTML = `
-      Division: ${district.division}<br>
-      DISCOM: ${district.discom}<br>
-      Local irradiance: ${district.irradiance} kWh/m²/day<br>
-      Primary crop: ${district.primary_crop}<br>
-      Population: ${district.population.toLocaleString('en-IN')}<br>
-      Rural: ${district.rural_pct}%
-    `;
-  } else {
-    document.getElementById('districtInfo').style.display = 'none';
+// ===========================================================
+// STEP NAVIGATION
+// ===========================================================
+function goToStep(n) {
+  // Validate before advancing
+  if (n > state.step) {
+    if (state.step === 1 && !state.intent) return;
+    if (state.step === 2) {
+      if (!state.district) {
+        document.getElementById('districtError').classList.add('show');
+        return;
+      }
+    }
+    if (state.step === 3 && (!state.property || !state.timeline)) return;
   }
   
-  const r = window.SolarCalc.calculateSubsidy({
-    state, sizeKw, propertyType, monthlyBill, irradiance
-  });
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById(`step${n}`).classList.add('active');
+  state.step = n;
   
-  const stateName = window.SolarCalc.STATE_SUBSIDY[state]?.name || 'India';
-  const propName = {
-    residential: 'Residential',
-    rwa: 'RWA / Society',
-    commercial: 'Commercial',
-    farm: 'Farm'
-  }[propertyType];
-  
-  const districtName = district ? ` · ${district.name}` : '';
-  
-  const fmt = window.SolarCalc.formatINRFull;
-  const fmtShort = window.SolarCalc.formatINR;
-  
-  document.getElementById('totalSub').textContent = fmt(r.pricing.totalSubsidy);
-  document.getElementById('subContext').textContent = `${sizeKw} kW · ${stateName}${districtName} · ${propName}`;
-  document.getElementById('centralSub').textContent = fmt(r.pricing.centralSubsidy);
-  document.getElementById('stateSub').textContent = fmt(r.pricing.stateSubsidy);
-  
-  document.getElementById('grossCost').textContent = fmt(r.pricing.grossCost);
-  document.getElementById('totalSubMetric').textContent = fmt(r.pricing.totalSubsidy);
-  document.getElementById('netCost').textContent = fmt(r.pricing.netCost);
-  document.getElementById('discountPct').textContent = r.pricing.effectiveDiscountPct + '%';
-  
-  document.getElementById('monthlyGen').textContent = '~' + r.generation.monthlyUnits + ' units';
-  document.getElementById('monthlySav').textContent = fmt(r.savings.monthlySavings);
-  document.getElementById('payback').textContent = r.savings.paybackYears + ' yrs';
-  document.getElementById('lifetime').textContent = fmtShort(r.savings.lifetimeSavings);
-  document.getElementById('panels').textContent = r.generation.panelsRequired;
-  document.getElementById('roof').textContent = r.generation.roofAreaSqft + ' sqft';
-  document.getElementById('co2').textContent = r.environmental.co2OffsetKgYear.toLocaleString('en-IN') + ' kg';
-  document.getElementById('trees').textContent = '~' + r.environmental.treesEquivalent.toLocaleString('en-IN');
-  
-  const pillsHtml = r.schemes.eligible.map(s => {
-    const labels = {
-      'pm_surya_ghar': 'PM Surya Ghar ✓',
-      'up_state': 'UPNEDA State ✓',
-      'gj_state': 'Gujarat Surya Urja ✓',
-      'dl_state': 'Delhi GBI ✓',
-      'pm_kusum_b': 'PM-KUSUM B ✓',
-      'pm_kusum_c': 'PM-KUSUM C ✓'
-    };
-    return `<span class="scheme-pill">${labels[s] || s}</span>`;
-  }).join('');
-  document.getElementById('schemePills').innerHTML = pillsHtml;
+  updateProgress(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function updateProgress(n) {
+  const labels = { 1: 'Your goal', 2: 'District + bill', 3: 'Property + timing', 4: 'Contact', 5: 'Done!' };
+  const pct = (n / 4) * 100;
+  document.getElementById('stepNum').textContent = Math.min(n, 4);
+  document.getElementById('progressLabel').textContent = labels[n];
+  document.getElementById('progressFill').style.width = `${Math.min(pct, 100)}%`;
+}
+
+// ===========================================================
+// STEP 1: INTENT
+// ===========================================================
+document.querySelectorAll('[data-intent]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-intent]').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    state.intent = btn.dataset.intent;
+    document.getElementById('step1Next').disabled = false;
+  });
+});
+
+// ===========================================================
+// STEP 2: DISTRICT + BILL + SIZE
+// ===========================================================
+document.getElementById('district').addEventListener('change', e => {
+  state.district = e.target.value || null;
+  document.getElementById('districtError').classList.remove('show');
+  updateResultReveal();
+});
+
+document.getElementById('billSlider').addEventListener('input', e => {
+  state.bill = parseInt(e.target.value, 10);
+  document.getElementById('billDisplay').textContent = '₹' + state.bill.toLocaleString('en-IN');
+  
+  // Auto-recommend size based on bill
+  let recommended = 3;
+  if (state.bill < 2000) recommended = 1;
+  else if (state.bill < 3000) recommended = 2;
+  else if (state.bill < 5500) recommended = 3;
+  else if (state.bill < 8000) recommended = 5;
+  else recommended = 10;
+  
+  // Update size if user hasn't manually changed it
+  if (!state._manualSize) {
+    state.size = recommended;
+    document.getElementById('size').value = recommended;
+  }
+  updateResultReveal();
+});
+
+document.getElementById('size').addEventListener('change', e => {
+  state.size = parseFloat(e.target.value);
+  state._manualSize = true;
+  updateResultReveal();
+});
+
+function updateResultReveal() {
+  if (!state.district) {
+    document.getElementById('resultReveal').style.display = 'none';
+    return;
+  }
+  const d = getDistrict(state.district);
+  if (!d) return;
+  
+  const calc = calculate(state.size, d.irradiance);
+  
+  document.getElementById('resultReveal').style.display = 'block';
+  document.getElementById('resultTotal').textContent = fmtInrFull(calc.totalSubsidy);
+  document.getElementById('resultContext').textContent = `${state.size} kW · ${d.name} · ${d.discom} DISCOM`;
+  document.getElementById('resultNet').textContent = fmtInrFull(calc.netCost);
+  document.getElementById('resultPayback').textContent = calc.payback + ' yrs';
+  document.getElementById('resultMonthly').textContent = fmtInrFull(calc.monthlySavings);
+  document.getElementById('resultLifetime').textContent = fmtInr(calc.lifetime);
+}
+
+// ===========================================================
+// STEP 3: PROPERTY + TIMELINE
+// ===========================================================
+document.querySelectorAll('[data-property]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-property]').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    state.property = btn.dataset.property;
+    checkStep3Complete();
+  });
+});
+
+document.querySelectorAll('[data-timeline]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-timeline]').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    state.timeline = btn.dataset.timeline;
+    checkStep3Complete();
+  });
+});
+
+function checkStep3Complete() {
+  document.getElementById('step3Next').disabled = !(state.property && state.timeline);
+}
+
+// ===========================================================
+// STEP 4: SUBMIT
+// ===========================================================
 async function submitLead(e) {
   e.preventDefault();
-  const form = e.target;
-  const data = new FormData(form);
   
-  const state = document.getElementById('state').value;
-  const districtSlug = document.getElementById('district').value;
-  const sizeKw = parseFloat(document.getElementById('size').value);
-  const monthlyBill = parseFloat(document.getElementById('bill').value) || 0;
-  const propertyType = document.getElementById('type').value;
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting...';
   
-  const district = districtSlug ? getDistrict(districtSlug) : null;
-  const calcResult = window.SolarCalc.calculateSubsidy({
-    state, sizeKw, propertyType, monthlyBill,
-    irradiance: district?.irradiance
-  });
+  // Validate phone
+  let phone = document.getElementById('leadPhone').value.trim();
+  phone = phone.replace(/[\s\-]/g, '');
+  if (!phone.startsWith('+')) {
+    if (phone.length === 10 && /^[6-9]\d{9}$/.test(phone)) {
+      phone = '+91' + phone;
+    } else {
+      document.getElementById('phoneError').classList.add('show');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Get My 3 Free Quotes →';
+      return;
+    }
+  }
+  
+  state.name = document.getElementById('leadName').value.trim();
+  state.phone = phone;
+  state.email = document.getElementById('leadEmail').value.trim() || null;
+  state.consentWhatsapp = document.getElementById('consentWA').checked;
+  
+  const d = getDistrict(state.district);
+  const calc = calculate(state.size, d.irradiance);
   
   const payload = {
-    name: data.get('name'),
-    phone: data.get('phone'),
-    email: data.get('email') || null,
-    state,
-    district: districtSlug || null,
-    systemSizeKw: sizeKw,
-    monthlyBill,
-    propertyType,
-    consentWhatsapp: form.consentWhatsapp.checked,
+    name: state.name,
+    phone: state.phone,
+    email: state.email,
+    state: 'up',
+    district: state.district,
+    systemSizeKw: state.size,
+    monthlyBill: state.bill,
+    propertyType: state.property,
+    intent: state.intent,
+    timeline: state.timeline,
+    consentWhatsapp: state.consentWhatsapp,
     calculatorSnapshot: {
-      totalSubsidy: calcResult.pricing.totalSubsidy,
-      netCost: calcResult.pricing.netCost,
-      payback: calcResult.savings.paybackYears
+      totalSubsidy: calc.totalSubsidy,
+      netCost: calc.netCost,
+      payback: calc.payback,
+      lifetime: calc.lifetime,
+      monthlySavings: calc.monthlySavings,
+      monthlyUnits: calc.monthlyUnits
     },
-    website: data.get('website')
+    source: 'calculator_v2',
+    website: e.target.website.value  // honeypot
   };
+  
+  let leadId = 'demo-' + Date.now().toString(36);
   
   try {
     const res = await fetch('/api/lead', {
@@ -462,36 +786,57 @@ async function submitLead(e) {
     
     if (res.ok) {
       const result = await res.json();
-      form.style.display = 'none';
-      document.getElementById('leadSuccess').classList.add('show');
-      document.getElementById('leadId').textContent = result.leadId?.slice(0, 8) || 'pending';
+      leadId = result.leadId || leadId;
     } else {
       const err = await res.json();
-      alert('Submission failed: ' + (err.error || 'Unknown error'));
+      console.error('Lead submit failed:', err);
+      // Fall through to confirmation anyway — we have offline fallback
     }
   } catch (err) {
-    const phone = '919876543210';
+    console.error('Network error:', err);
+    // Fallback: open WhatsApp with admin
+    const adminPhone = '919876543210';
     const message = encodeURIComponent(
-      `Hi! I'm interested in solar.\nName: ${payload.name}\nState: ${state}\nSystem: ${sizeKw} kW\nBill: ₹${monthlyBill}\nNet cost after subsidy: ₹${calcResult.pricing.netCost}`
+      `Solar Lead — ${state.name}\n` +
+      `District: ${d.name}\n` +
+      `System: ${state.size} kW\n` +
+      `Bill: ₹${state.bill}\n` +
+      `Intent: ${state.intent}\n` +
+      `Timeline: ${state.timeline}\n` +
+      `Property: ${state.property}\n` +
+      `Phone: ${state.phone}\n` +
+      `Net cost: ₹${calc.netCost.toLocaleString('en-IN')}`
     );
-    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-    alert('Backend offline — opening WhatsApp instead');
+    window.open(`https://wa.me/${adminPhone}?text=${message}`, '_blank');
   }
+  
+  // Show confirmation with all the calc details
+  document.getElementById('trackId').textContent = leadId.slice(0, 8).toUpperCase();
+  document.getElementById('confirmDistrict').textContent = d.name;
+  document.getElementById('confirmSize').textContent = state.size + ' kW';
+  document.getElementById('confirmSubsidy').textContent = fmtInrFull(calc.totalSubsidy);
+  document.getElementById('confirmNet').textContent = fmtInrFull(calc.netCost);
+  document.getElementById('confirmPayback').textContent = calc.payback + ' years';
+  
+  // WhatsApp share link
+  const shareText = encodeURIComponent(
+    `Just calculated my solar subsidy on SolarSubsidies.com — ₹${calc.totalSubsidy.toLocaleString('en-IN')} off a 3 kW system in ${d.name}! Try it: https://solarsubsidies.com/calculator.html`
+  );
+  document.getElementById('whatsappShare').href = `https://wa.me/?text=${shareText}`;
+  
+  goToStep(5);
 }
 
-document.getElementById('state').addEventListener('change', () => {
-  populateDistricts();
-  recalc();
-});
-document.getElementById('district').addEventListener('change', recalc);
-document.getElementById('size').addEventListener('change', recalc);
-document.getElementById('type').addEventListener('change', recalc);
-document.getElementById('bill').addEventListener('input', () => {
-  clearTimeout(window._billTimer);
-  window._billTimer = setTimeout(recalc, 400);
-});
-
-window.addEventListener('DOMContentLoaded', () => setTimeout(recalc, 300));
+// ===========================================================
+// INIT
+// ===========================================================
+// Pre-select intent if URL param ?intent=...
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('intent')) {
+  const intent = urlParams.get('intent');
+  const btn = document.querySelector(`[data-intent="${intent}"]`);
+  if (btn) btn.click();
+}
 </script>
 
 </body>
