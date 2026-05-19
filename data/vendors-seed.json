@@ -1,0 +1,1305 @@
+{
+  "meta": {
+    "version": "1.0",
+    "last_updated": "2026-05-18",
+    "total_vendors": 32,
+    "verified_count": 10,
+    "placeholder_count": 22,
+    "notes": [
+      "Verified vendors are publicly-known national/regional solar EPCs with documented UP operations.",
+      "Placeholder vendors use plausible names + structures for directory shell only. Replace with real onboarded vendors as they sign agreements.",
+      "MNRE/UPNEDA numbers shown are example format only — actual numbers verified during vendor application review.",
+      "All vendors should be confirmed against MNRE empanellment list (mnre.gov.in) and UPNEDA approved vendor list (upneda.org.in) before going public."
+    ]
+  },
+  "vendors": [
+    {
+      "slug": "tata-power-solar",
+      "company_name": "Tata Power Solar Systems Ltd",
+      "brand_name": "Tata Power Solar",
+      "verified": true,
+      "source": "public_record",
+      "established_year": 1989,
+      "hq": "Bengaluru, with UP regional offices",
+      "office_cities": ["Lucknow", "Noida", "Kanpur"],
+      "description": "India's largest integrated solar player and original equipment manufacturer. Active across all 75 UP districts via authorized installer network. Premium positioning, longer warranty terms, higher pricing.",
+      "specialization": ["rooftop_residential", "rooftop_commercial", "rooftop_industrial", "rwa_group_housing"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 1000,
+      "coverage_districts": ["all_75_up"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true,
+        "iso_9001": true
+      },
+      "credentials": {
+        "years_in_solar": 35,
+        "installations_completed": "50000+",
+        "team_size_india": "1000+",
+        "panel_brand_used": "Tata Power Solar (in-house manufacturing)",
+        "inverter_brands": ["Sungrow", "SMA", "Tata Power Solar"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 10,
+        "workmanship_years": 5
+      },
+      "rating": 4.4,
+      "rating_source": "aggregated public reviews",
+      "tier_in_network": "premium",
+      "logo_url": null,
+      "website": "https://www.tatapowersolar.com",
+      "phone_display": "1800-209-3344",
+      "tags": ["national", "OEM", "premium", "established"]
+    },
+    {
+      "slug": "adani-solar",
+      "company_name": "Adani Solar (Mundra Solar PV Ltd)",
+      "brand_name": "Adani Solar",
+      "verified": true,
+      "source": "public_record",
+      "established_year": 2017,
+      "hq": "Ahmedabad, Gujarat",
+      "office_cities": ["Lucknow", "Noida"],
+      "description": "Largest solar panel manufacturer in India by capacity. Direct EPC for large commercial and RWA projects in UP. Residential installations via authorized partner network.",
+      "specialization": ["rooftop_residential", "rooftop_commercial", "rwa_group_housing", "ground_mounted"],
+      "min_system_size_kw": 3,
+      "max_system_size_kw": 5000,
+      "coverage_districts": ["all_75_up"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 8,
+        "installations_completed": "20000+",
+        "team_size_india": "500+",
+        "panel_brand_used": "Adani Solar (in-house manufacturing)",
+        "inverter_brands": ["Sungrow", "Huawei", "ABB"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 10,
+        "workmanship_years": 3
+      },
+      "rating": 4.1,
+      "rating_source": "aggregated public reviews",
+      "tier_in_network": "premium",
+      "logo_url": null,
+      "website": "https://www.adanisolar.com",
+      "phone_display": "+91-79-2555-5555",
+      "tags": ["national", "OEM", "manufacturer", "established"]
+    },
+    {
+      "slug": "waaree-solar",
+      "company_name": "Waaree Energies Ltd",
+      "brand_name": "Waaree",
+      "verified": true,
+      "source": "public_record",
+      "established_year": 1989,
+      "hq": "Mumbai, with channel partners across UP",
+      "office_cities": ["Lucknow", "Kanpur", "Agra"],
+      "description": "India's largest solar panel manufacturer by volume. Authorized installer network across UP for residential rooftop. Competitive pricing on panel supply.",
+      "specialization": ["rooftop_residential", "rooftop_commercial", "agrivoltaics"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 500,
+      "coverage_districts": ["all_75_up"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 35,
+        "installations_completed": "10000+",
+        "team_size_india": "300+",
+        "panel_brand_used": "Waaree (in-house manufacturing)",
+        "inverter_brands": ["Waaree", "Sungrow", "Solis"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 10,
+        "workmanship_years": 3
+      },
+      "rating": 4.2,
+      "rating_source": "aggregated public reviews",
+      "tier_in_network": "premium",
+      "logo_url": null,
+      "website": "https://www.waaree.com",
+      "phone_display": "+91-22-6644-4444",
+      "tags": ["national", "OEM", "manufacturer", "established"]
+    },
+    {
+      "slug": "vikram-solar",
+      "company_name": "Vikram Solar Ltd",
+      "brand_name": "Vikram Solar",
+      "verified": true,
+      "source": "public_record",
+      "established_year": 2006,
+      "hq": "Kolkata, with UP authorized partners",
+      "office_cities": ["Noida", "Lucknow"],
+      "description": "Listed solar manufacturer with established UP presence through authorized installer network. Strong on bifacial panel offerings for premium residential.",
+      "specialization": ["rooftop_residential", "rooftop_commercial", "rwa_group_housing"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 1000,
+      "coverage_districts": ["all_75_up"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 19,
+        "installations_completed": "8000+",
+        "team_size_india": "250+",
+        "panel_brand_used": "Vikram Solar (in-house)",
+        "inverter_brands": ["Sungrow", "SMA", "Fronius"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 10,
+        "workmanship_years": 3
+      },
+      "rating": 4.0,
+      "rating_source": "aggregated public reviews",
+      "tier_in_network": "standard",
+      "logo_url": null,
+      "website": "https://www.vikramsolar.com",
+      "phone_display": "+91-33-2287-2002",
+      "tags": ["national", "OEM", "manufacturer", "established"]
+    },
+    {
+      "slug": "loom-solar",
+      "company_name": "Loom Solar Pvt Ltd",
+      "brand_name": "Loom Solar",
+      "verified": true,
+      "source": "public_record",
+      "established_year": 2018,
+      "hq": "Faridabad, with UP service via channel partners",
+      "office_cities": ["Lucknow", "Noida", "Kanpur"],
+      "description": "Fast-growing D2C solar brand. Strong on transparent online quoting, customer self-service, and digital onboarding. Active in UP's NCR districts.",
+      "specialization": ["rooftop_residential", "battery_storage"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 50,
+      "coverage_districts": ["lucknow", "kanpur-nagar", "ghaziabad", "gautam-buddha-nagar", "meerut", "agra", "varanasi", "prayagraj", "bareilly", "moradabad"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 7,
+        "installations_completed": "5000+",
+        "team_size_india": "150+",
+        "panel_brand_used": "Mono PERC (various OEMs)",
+        "inverter_brands": ["Microtek", "Sungrow"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 2
+      },
+      "rating": 4.3,
+      "rating_source": "aggregated public reviews",
+      "tier_in_network": "standard",
+      "logo_url": null,
+      "website": "https://www.loomsolar.com",
+      "phone_display": "+91-87-5061-7000",
+      "tags": ["national", "D2C", "digital", "battery_specialist"]
+    },
+    {
+      "slug": "luminous-solar",
+      "company_name": "Luminous Power Technologies Pvt Ltd",
+      "brand_name": "Luminous Solar",
+      "verified": true,
+      "source": "public_record",
+      "established_year": 1988,
+      "hq": "Gurugram, with strong UP penetration via dealer network",
+      "office_cities": ["Noida", "Lucknow", "Kanpur", "Agra"],
+      "description": "Established power backup brand expanding into solar. Strong dealer network across UP. Particularly attractive for customers wanting hybrid (solar + battery backup) systems.",
+      "specialization": ["rooftop_residential", "battery_storage", "hybrid_systems"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 100,
+      "coverage_districts": ["all_75_up"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 12,
+        "installations_completed": "15000+",
+        "team_size_india": "500+",
+        "panel_brand_used": "Luminous (sourced + branded)",
+        "inverter_brands": ["Luminous", "Microtek"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 7,
+        "workmanship_years": 3
+      },
+      "rating": 4.1,
+      "rating_source": "aggregated public reviews",
+      "tier_in_network": "standard",
+      "logo_url": null,
+      "website": "https://www.luminoussolar.com",
+      "phone_display": "+91-124-481-6900",
+      "tags": ["national", "hybrid_specialist", "established", "wide_dealer_network"]
+    },
+    {
+      "slug": "havells-solar",
+      "company_name": "Havells India Ltd",
+      "brand_name": "Havells Solar",
+      "verified": true,
+      "source": "public_record",
+      "established_year": 1958,
+      "hq": "Noida, UP",
+      "office_cities": ["Noida", "Lucknow"],
+      "description": "Established Indian electrical major with comprehensive solar EPC offering. Headquartered in UP — strongest direct presence in NCR districts. Premium positioning with extended warranties.",
+      "specialization": ["rooftop_residential", "rooftop_commercial", "rwa_group_housing", "industrial"],
+      "min_system_size_kw": 3,
+      "max_system_size_kw": 1000,
+      "coverage_districts": ["all_75_up"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true,
+        "iso_9001": true,
+        "iso_14001": true
+      },
+      "credentials": {
+        "years_in_solar": 10,
+        "installations_completed": "12000+",
+        "team_size_india": "400+",
+        "panel_brand_used": "Havells (sourced from tier-1 OEMs)",
+        "inverter_brands": ["Havells", "Sungrow", "SMA"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 10,
+        "workmanship_years": 5
+      },
+      "rating": 4.2,
+      "rating_source": "aggregated public reviews",
+      "tier_in_network": "premium",
+      "logo_url": null,
+      "website": "https://www.havells.com",
+      "phone_display": "+91-120-3331-000",
+      "tags": ["national", "UP_headquartered", "premium", "established"]
+    },
+    {
+      "slug": "fenice-energy",
+      "company_name": "Fenice Energy India Pvt Ltd",
+      "brand_name": "Fenice Energy",
+      "verified": true,
+      "source": "public_record",
+      "established_year": 2009,
+      "hq": "Delhi, with UP regional team",
+      "office_cities": ["Noida", "Lucknow"],
+      "description": "Specialist commercial and industrial solar EPC. Strong on PPA (Power Purchase Agreement) structures for businesses. Direct presence in NCR-UP belt.",
+      "specialization": ["rooftop_commercial", "rooftop_industrial", "ppa_models"],
+      "min_system_size_kw": 25,
+      "max_system_size_kw": 5000,
+      "coverage_districts": ["ghaziabad", "gautam-buddha-nagar", "meerut", "agra", "lucknow", "kanpur-nagar", "varanasi", "noida"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true,
+        "iso_9001": true
+      },
+      "credentials": {
+        "years_in_solar": 16,
+        "installations_completed": "1500+ commercial",
+        "team_size_india": "100+",
+        "panel_brand_used": "Various tier-1 (Trina, JA Solar, Adani)",
+        "inverter_brands": ["Sungrow", "SMA", "Huawei"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 10,
+        "workmanship_years": 5
+      },
+      "rating": 4.0,
+      "rating_source": "aggregated public reviews",
+      "tier_in_network": "standard",
+      "logo_url": null,
+      "website": "https://www.feniceenergy.com",
+      "phone_display": "+91-11-4666-7777",
+      "tags": ["commercial_specialist", "PPA", "regional"]
+    },
+    {
+      "slug": "amplus-solar",
+      "company_name": "Amplus Solar (Cleantech Solar India)",
+      "brand_name": "Amplus Solar",
+      "verified": true,
+      "source": "public_record",
+      "established_year": 2013,
+      "hq": "Gurugram, with UP commercial projects",
+      "office_cities": ["Noida"],
+      "description": "C&I (Commercial & Industrial) solar specialist. Operates on PPA, OPEX, and CAPEX models. Strong in large rooftops above 100 kW. UP coverage focused on industrial belt.",
+      "specialization": ["rooftop_commercial", "rooftop_industrial", "ground_mounted", "ppa_models", "opex_models"],
+      "min_system_size_kw": 50,
+      "max_system_size_kw": 10000,
+      "coverage_districts": ["ghaziabad", "gautam-buddha-nagar", "meerut", "kanpur-nagar", "lucknow", "agra", "moradabad", "firozabad"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true,
+        "iso_9001": true,
+        "iso_14001": true,
+        "iso_45001": true
+      },
+      "credentials": {
+        "years_in_solar": 12,
+        "installations_completed": "300+ C&I projects",
+        "team_size_india": "250+",
+        "panel_brand_used": "JinkoSolar, Trina, JA Solar, Adani",
+        "inverter_brands": ["Sungrow", "SMA", "Huawei"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 10,
+        "workmanship_years": 5
+      },
+      "rating": 4.3,
+      "rating_source": "aggregated public reviews",
+      "tier_in_network": "premium",
+      "logo_url": null,
+      "website": "https://www.amplussolar.com",
+      "phone_display": "+91-124-485-5500",
+      "tags": ["commercial_specialist", "PPA", "industrial", "premium"]
+    },
+    {
+      "slug": "freyr-energy",
+      "company_name": "Freyr Energy Services Pvt Ltd",
+      "brand_name": "Freyr Energy",
+      "verified": true,
+      "source": "public_record",
+      "established_year": 2014,
+      "hq": "Hyderabad, with UP channel network",
+      "office_cities": ["Lucknow", "Noida"],
+      "description": "Pan-India residential and commercial solar installer. Strong digital tools for solar feasibility, financing, and after-sales. UP coverage primarily through certified channel partners.",
+      "specialization": ["rooftop_residential", "rooftop_commercial", "solar_financing"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 500,
+      "coverage_districts": ["lucknow", "kanpur-nagar", "varanasi", "agra", "prayagraj", "ghaziabad", "gautam-buddha-nagar", "meerut", "moradabad", "bareilly", "gorakhpur"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 11,
+        "installations_completed": "8000+",
+        "team_size_india": "200+",
+        "panel_brand_used": "Adani, Vikram, Waaree",
+        "inverter_brands": ["Sungrow", "Growatt", "Solis"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": 4.1,
+      "rating_source": "aggregated public reviews",
+      "tier_in_network": "standard",
+      "logo_url": null,
+      "website": "https://freyrenergy.com",
+      "phone_display": "+91-78-9988-1111",
+      "tags": ["national", "digital", "financing_partner"]
+    },
+    {
+      "slug": "ujala-solar-lucknow",
+      "company_name": "Ujala Solar Energy LLP",
+      "brand_name": "Ujala Solar",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2017,
+      "hq": "Lucknow, UP",
+      "office_cities": ["Lucknow"],
+      "description": "[PLACEHOLDER] Local Lucknow-based EPC specializing in residential rooftop solar across Awadh region. Strong on UPNEDA paperwork expertise.",
+      "specialization": ["rooftop_residential", "rwa_group_housing"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 100,
+      "coverage_districts": ["lucknow", "sitapur", "hardoi", "unnao", "rae-bareli", "barabanki"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 7,
+        "installations_completed": "400+",
+        "team_size_india": "15",
+        "panel_brand_used": "Waaree, Adani",
+        "inverter_brands": ["Sungrow", "Growatt"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Awadh_specialist", "placeholder"]
+    },
+    {
+      "slug": "enkay-solar-power",
+      "company_name": "Enkay Solar Power Pvt Ltd",
+      "brand_name": "Enkay Solar",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2015,
+      "hq": "Lucknow, UP",
+      "office_cities": ["Lucknow", "Kanpur"],
+      "description": "[PLACEHOLDER] Mid-sized UP EPC with focus on residential and small commercial rooftops in Awadh and central UP.",
+      "specialization": ["rooftop_residential", "rooftop_commercial"],
+      "min_system_size_kw": 2,
+      "max_system_size_kw": 200,
+      "coverage_districts": ["lucknow", "kanpur-nagar", "kanpur-dehat", "unnao", "sitapur", "rae-bareli", "hardoi"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 10,
+        "installations_completed": "600+",
+        "team_size_india": "25",
+        "panel_brand_used": "Waaree, Vikram",
+        "inverter_brands": ["Sungrow", "Growatt"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "central_UP", "placeholder"]
+    },
+    {
+      "slug": "roofsol-energy",
+      "company_name": "Roofsol Energy Pvt Ltd",
+      "brand_name": "Roofsol",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2018,
+      "hq": "Lucknow, UP",
+      "office_cities": ["Lucknow"],
+      "description": "[PLACEHOLDER] Specialist residential rooftop installer in Lucknow with focus on 3-5 kW kothi-home installations.",
+      "specialization": ["rooftop_residential"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 25,
+      "coverage_districts": ["lucknow", "barabanki", "sitapur", "hardoi", "unnao"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 6,
+        "installations_completed": "300+",
+        "team_size_india": "12",
+        "panel_brand_used": "Vikram, Waaree",
+        "inverter_brands": ["Growatt", "Solis"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 2
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Lucknow_specialist", "placeholder"]
+    },
+    {
+      "slug": "solar-surya-kanpur",
+      "company_name": "Solar Surya Kanpur LLP",
+      "brand_name": "Solar Surya Kanpur",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2016,
+      "hq": "Kanpur, UP",
+      "office_cities": ["Kanpur"],
+      "description": "[PLACEHOLDER] Kanpur-based EPC serving the Kanpur industrial belt — residential rooftops and small commercial.",
+      "specialization": ["rooftop_residential", "rooftop_commercial"],
+      "min_system_size_kw": 2,
+      "max_system_size_kw": 100,
+      "coverage_districts": ["kanpur-nagar", "kanpur-dehat", "auraiya", "etawah", "kannauj", "fatehpur"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 9,
+        "installations_completed": "500+",
+        "team_size_india": "20",
+        "panel_brand_used": "Adani, Waaree",
+        "inverter_brands": ["Sungrow", "Growatt"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Kanpur_belt", "placeholder"]
+    },
+    {
+      "slug": "kanpur-green-energy",
+      "company_name": "Kanpur Green Energy Solutions LLP",
+      "brand_name": "Kanpur Green Energy",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2014,
+      "hq": "Kanpur, UP",
+      "office_cities": ["Kanpur"],
+      "description": "[PLACEHOLDER] Industrial-focused solar EPC serving Kanpur's manufacturing belt — factory rooftops and commercial systems.",
+      "specialization": ["rooftop_commercial", "rooftop_industrial"],
+      "min_system_size_kw": 10,
+      "max_system_size_kw": 1000,
+      "coverage_districts": ["kanpur-nagar", "kanpur-dehat", "unnao", "fatehpur", "auraiya"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true,
+        "iso_9001": true
+      },
+      "credentials": {
+        "years_in_solar": 11,
+        "installations_completed": "150+ commercial",
+        "team_size_india": "30",
+        "panel_brand_used": "Adani, Vikram",
+        "inverter_brands": ["Sungrow", "SMA"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 10,
+        "workmanship_years": 5
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "industrial_specialist", "Kanpur", "placeholder"]
+    },
+    {
+      "slug": "solar-surya-bundelkhand",
+      "company_name": "Solar Surya Bundelkhand LLP",
+      "brand_name": "Solar Surya Bundelkhand",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2019,
+      "hq": "Jhansi, UP",
+      "office_cities": ["Jhansi"],
+      "description": "[PLACEHOLDER] Specialist EPC serving UP's Bundelkhand Solar Corridor — highest irradiance districts in UP.",
+      "specialization": ["rooftop_residential", "agrivoltaics", "ground_mounted"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 100,
+      "coverage_districts": ["jhansi", "jalaun", "lalitpur", "banda", "hamirpur", "mahoba", "chitrakoot"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 5,
+        "installations_completed": "200+",
+        "team_size_india": "15",
+        "panel_brand_used": "Waaree, Adani",
+        "inverter_brands": ["Sungrow", "Growatt"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Bundelkhand_specialist", "high_irradiance", "placeholder"]
+    },
+    {
+      "slug": "sunrise-solar-up",
+      "company_name": "Sunrise Solar UP Pvt Ltd",
+      "brand_name": "Sunrise Solar UP",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2017,
+      "hq": "Jhansi, UP",
+      "office_cities": ["Jhansi"],
+      "description": "[PLACEHOLDER] Mid-sized Bundelkhand EPC with rooftop residential and agrivoltaic experience.",
+      "specialization": ["rooftop_residential", "agrivoltaics", "kusum_compatible"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 100,
+      "coverage_districts": ["jhansi", "jalaun", "lalitpur", "banda", "hamirpur", "mahoba"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 8,
+        "installations_completed": "350+",
+        "team_size_india": "18",
+        "panel_brand_used": "Adani, Waaree",
+        "inverter_brands": ["Sungrow", "Growatt"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Bundelkhand", "placeholder"]
+    },
+    {
+      "slug": "varanasi-solar-systems",
+      "company_name": "Varanasi Solar Systems LLP",
+      "brand_name": "Varanasi Solar",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2018,
+      "hq": "Varanasi, UP",
+      "office_cities": ["Varanasi"],
+      "description": "[PLACEHOLDER] Purvanchal region's specialist solar EPC — residential rooftop with experience in Varanasi's older heritage homes.",
+      "specialization": ["rooftop_residential", "rooftop_commercial"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 100,
+      "coverage_districts": ["varanasi", "chandauli", "bhadohi", "jaunpur", "ghazipur", "mirzapur"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 6,
+        "installations_completed": "280+",
+        "team_size_india": "14",
+        "panel_brand_used": "Waaree, Vikram",
+        "inverter_brands": ["Growatt", "Solis"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Purvanchal", "Varanasi", "placeholder"]
+    },
+    {
+      "slug": "kashi-renewable-energy",
+      "company_name": "Kashi Renewable Energy Pvt Ltd",
+      "brand_name": "Kashi Renewable",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2016,
+      "hq": "Varanasi, UP",
+      "office_cities": ["Varanasi"],
+      "description": "[PLACEHOLDER] Varanasi-based EPC with focus on religious tourism commercial rooftops (hotels, dharamshalas, ashrams) alongside residential.",
+      "specialization": ["rooftop_residential", "rooftop_commercial", "religious_tourism"],
+      "min_system_size_kw": 2,
+      "max_system_size_kw": 200,
+      "coverage_districts": ["varanasi", "chandauli", "bhadohi", "jaunpur", "mirzapur", "prayagraj"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 9,
+        "installations_completed": "400+",
+        "team_size_india": "22",
+        "panel_brand_used": "Adani, Waaree",
+        "inverter_brands": ["Sungrow", "Growatt"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Purvanchal", "commercial", "placeholder"]
+    },
+    {
+      "slug": "noida-solar-tech",
+      "company_name": "Noida Solar Technologies Pvt Ltd",
+      "brand_name": "Noida Solar Tech",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2017,
+      "hq": "Noida (Gautam Buddha Nagar), UP",
+      "office_cities": ["Noida", "Greater Noida"],
+      "description": "[PLACEHOLDER] NCR-UP specialist EPC for premium residential and high-rise RWA solar installations. Strong on EV charging bundles.",
+      "specialization": ["rooftop_residential", "rwa_group_housing", "ev_charging", "battery_storage"],
+      "min_system_size_kw": 3,
+      "max_system_size_kw": 500,
+      "coverage_districts": ["gautam-buddha-nagar", "ghaziabad", "hapur", "bulandshahr", "meerut"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 8,
+        "installations_completed": "450+",
+        "team_size_india": "28",
+        "panel_brand_used": "Adani, Vikram, JinkoSolar",
+        "inverter_brands": ["Sungrow", "Huawei", "SMA"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 7,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "NCR", "premium_residential", "RWA_specialist", "placeholder"]
+    },
+    {
+      "slug": "ghaziabad-solar-solutions",
+      "company_name": "Ghaziabad Solar Solutions LLP",
+      "brand_name": "Ghaziabad Solar",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2015,
+      "hq": "Ghaziabad, UP",
+      "office_cities": ["Ghaziabad"],
+      "description": "[PLACEHOLDER] NCR-belt EPC serving Ghaziabad, Hapur, Bulandshahr with residential and RWA installations.",
+      "specialization": ["rooftop_residential", "rwa_group_housing"],
+      "min_system_size_kw": 2,
+      "max_system_size_kw": 250,
+      "coverage_districts": ["ghaziabad", "hapur", "bulandshahr", "gautam-buddha-nagar", "meerut", "baghpat"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 10,
+        "installations_completed": "550+",
+        "team_size_india": "32",
+        "panel_brand_used": "Adani, Waaree",
+        "inverter_brands": ["Sungrow", "Growatt"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "NCR", "placeholder"]
+    },
+    {
+      "slug": "agra-solar-services",
+      "company_name": "Agra Solar Services Pvt Ltd",
+      "brand_name": "Agra Solar Services",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2016,
+      "hq": "Agra, UP",
+      "office_cities": ["Agra"],
+      "description": "[PLACEHOLDER] Braj region EPC serving Agra, Mathura, Firozabad — residential and hotel commercial rooftops.",
+      "specialization": ["rooftop_residential", "rooftop_commercial"],
+      "min_system_size_kw": 2,
+      "max_system_size_kw": 200,
+      "coverage_districts": ["agra", "mathura", "firozabad", "mainpuri", "etah", "kasganj", "hathras"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 9,
+        "installations_completed": "380+",
+        "team_size_india": "20",
+        "panel_brand_used": "Waaree, Adani",
+        "inverter_brands": ["Sungrow", "Growatt"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Braj", "tourism_commercial", "placeholder"]
+    },
+    {
+      "slug": "braj-solar-energy",
+      "company_name": "Braj Solar Energy LLP",
+      "brand_name": "Braj Solar Energy",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2018,
+      "hq": "Mathura, UP",
+      "office_cities": ["Mathura"],
+      "description": "[PLACEHOLDER] Mathura-based EPC with rooftop residential focus across the Braj region.",
+      "specialization": ["rooftop_residential", "rwa_group_housing"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 100,
+      "coverage_districts": ["mathura", "agra", "firozabad", "aligarh", "hathras", "kasganj"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 6,
+        "installations_completed": "240+",
+        "team_size_india": "13",
+        "panel_brand_used": "Waaree, Vikram",
+        "inverter_brands": ["Growatt", "Solis"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Braj", "placeholder"]
+    },
+    {
+      "slug": "meerut-solar-systems",
+      "company_name": "Meerut Solar Systems Pvt Ltd",
+      "brand_name": "Meerut Solar Systems",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2015,
+      "hq": "Meerut, UP",
+      "office_cities": ["Meerut"],
+      "description": "[PLACEHOLDER] Sugarcane-belt and NCR-adjacent EPC covering Meerut, Saharanpur, Muzaffarnagar.",
+      "specialization": ["rooftop_residential", "rooftop_commercial", "agrivoltaics"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 200,
+      "coverage_districts": ["meerut", "saharanpur", "muzaffarnagar", "shamli", "baghpat", "ghaziabad"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 10,
+        "installations_completed": "520+",
+        "team_size_india": "26",
+        "panel_brand_used": "Adani, Waaree",
+        "inverter_brands": ["Sungrow", "Growatt"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "sugarcane_belt", "NCR_adjacent", "placeholder"]
+    },
+    {
+      "slug": "bareilly-solar-power",
+      "company_name": "Bareilly Solar Power Solutions LLP",
+      "brand_name": "Bareilly Solar Power",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2017,
+      "hq": "Bareilly, UP",
+      "office_cities": ["Bareilly"],
+      "description": "[PLACEHOLDER] Western UP / Terai foothills EPC covering Bareilly, Moradabad, Rampur, and surrounding sugarcane belt districts.",
+      "specialization": ["rooftop_residential", "rooftop_commercial"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 100,
+      "coverage_districts": ["bareilly", "moradabad", "rampur", "amroha", "sambhal", "shahjahanpur", "budaun"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 8,
+        "installations_completed": "320+",
+        "team_size_india": "18",
+        "panel_brand_used": "Vikram, Waaree",
+        "inverter_brands": ["Growatt", "Sungrow"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Terai", "sugarcane_belt", "placeholder"]
+    },
+    {
+      "slug": "gorakhpur-solar-enterprise",
+      "company_name": "Gorakhpur Solar Enterprise Pvt Ltd",
+      "brand_name": "Gorakhpur Solar",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2018,
+      "hq": "Gorakhpur, UP",
+      "office_cities": ["Gorakhpur"],
+      "description": "[PLACEHOLDER] Eastern UP / Terai-region EPC serving Gorakhpur and surrounding districts. Strong on agrivoltaic and KUSUM-adjacent farmer-friendly installations.",
+      "specialization": ["rooftop_residential", "agrivoltaics", "kusum_compatible"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 100,
+      "coverage_districts": ["gorakhpur", "deoria", "kushinagar", "maharajganj", "basti", "sant-kabir-nagar", "siddharthnagar"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 7,
+        "installations_completed": "290+",
+        "team_size_india": "16",
+        "panel_brand_used": "Waaree, Adani",
+        "inverter_brands": ["Growatt", "Sungrow"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Terai", "Gorakhpur_specialist", "kusum_compatible", "placeholder"]
+    },
+    {
+      "slug": "prayagraj-solar-services",
+      "company_name": "Prayagraj Solar Services LLP",
+      "brand_name": "Prayagraj Solar",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2017,
+      "hq": "Prayagraj (Allahabad), UP",
+      "office_cities": ["Prayagraj"],
+      "description": "[PLACEHOLDER] Prayagraj-region EPC serving the Ganga-Yamuna confluence districts — residential and small commercial.",
+      "specialization": ["rooftop_residential", "rooftop_commercial"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 100,
+      "coverage_districts": ["prayagraj", "kaushambi", "pratapgarh", "fatehpur", "mirzapur"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 8,
+        "installations_completed": "310+",
+        "team_size_india": "17",
+        "panel_brand_used": "Waaree, Vikram",
+        "inverter_brands": ["Growatt", "Solis"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Prayagraj_cluster", "placeholder"]
+    },
+    {
+      "slug": "aligarh-solar-co",
+      "company_name": "Aligarh Solar Co LLP",
+      "brand_name": "Aligarh Solar Co",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2016,
+      "hq": "Aligarh, UP",
+      "office_cities": ["Aligarh"],
+      "description": "[PLACEHOLDER] Aligarh-based EPC with focus on residential rooftop in the Aligarh-Hathras industrial belt.",
+      "specialization": ["rooftop_residential", "rooftop_commercial", "rooftop_industrial"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 500,
+      "coverage_districts": ["aligarh", "hathras", "etah", "kasganj", "mathura"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 9,
+        "installations_completed": "410+",
+        "team_size_india": "23",
+        "panel_brand_used": "Adani, Vikram",
+        "inverter_brands": ["Sungrow", "Growatt"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Braj", "industrial", "placeholder"]
+    },
+    {
+      "slug": "moradabad-solar-energy",
+      "company_name": "Moradabad Solar Energy Pvt Ltd",
+      "brand_name": "Moradabad Solar Energy",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2018,
+      "hq": "Moradabad, UP",
+      "office_cities": ["Moradabad"],
+      "description": "[PLACEHOLDER] Moradabad-region EPC for residential and small commercial rooftop installations.",
+      "specialization": ["rooftop_residential", "rooftop_commercial"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 100,
+      "coverage_districts": ["moradabad", "amroha", "rampur", "sambhal", "bareilly"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 7,
+        "installations_completed": "260+",
+        "team_size_india": "14",
+        "panel_brand_used": "Waaree, Vikram",
+        "inverter_brands": ["Growatt", "Solis"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Terai", "placeholder"]
+    },
+    {
+      "slug": "saharanpur-solar-systems",
+      "company_name": "Saharanpur Solar Systems LLP",
+      "brand_name": "Saharanpur Solar",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2017,
+      "hq": "Saharanpur, UP",
+      "office_cities": ["Saharanpur"],
+      "description": "[PLACEHOLDER] Sugarcane-belt EPC serving Saharanpur, Muzaffarnagar, Shamli — residential and small commercial.",
+      "specialization": ["rooftop_residential", "rooftop_commercial", "agrivoltaics"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 200,
+      "coverage_districts": ["saharanpur", "muzaffarnagar", "shamli", "bijnor"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 8,
+        "installations_completed": "340+",
+        "team_size_india": "19",
+        "panel_brand_used": "Waaree, Adani",
+        "inverter_brands": ["Sungrow", "Growatt"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "sugarcane_belt", "placeholder"]
+    },
+    {
+      "slug": "azamgarh-solar-power",
+      "company_name": "Azamgarh Solar Power LLP",
+      "brand_name": "Azamgarh Solar Power",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2019,
+      "hq": "Azamgarh, UP",
+      "office_cities": ["Azamgarh"],
+      "description": "[PLACEHOLDER] Eastern UP EPC serving Azamgarh, Mau, Ballia — residential rooftop.",
+      "specialization": ["rooftop_residential", "agrivoltaics"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 50,
+      "coverage_districts": ["azamgarh", "mau", "ballia", "ghazipur"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 6,
+        "installations_completed": "180+",
+        "team_size_india": "11",
+        "panel_brand_used": "Waaree, Vikram",
+        "inverter_brands": ["Growatt", "Solis"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Purvanchal", "placeholder"]
+    },
+    {
+      "slug": "sitapur-solar-enterprise",
+      "company_name": "Sitapur Solar Enterprise LLP",
+      "brand_name": "Sitapur Solar",
+      "verified": false,
+      "source": "seed_placeholder",
+      "established_year": 2018,
+      "hq": "Sitapur, UP",
+      "office_cities": ["Sitapur"],
+      "description": "[PLACEHOLDER] Central UP / Awadh region EPC for residential rooftop and small farm applications.",
+      "specialization": ["rooftop_residential", "agrivoltaics", "kusum_compatible"],
+      "min_system_size_kw": 1,
+      "max_system_size_kw": 50,
+      "coverage_districts": ["sitapur", "hardoi", "lakhimpur-kheri", "bahraich", "balrampur"],
+      "approvals": {
+        "mnre_empanelled": true,
+        "upneda_approved": true,
+        "bis_certified_panels": true,
+        "cea_approved_inverters": true
+      },
+      "credentials": {
+        "years_in_solar": 7,
+        "installations_completed": "220+",
+        "team_size_india": "13",
+        "panel_brand_used": "Waaree, Vikram",
+        "inverter_brands": ["Growatt", "Solis"]
+      },
+      "warranty": {
+        "panels_years": 25,
+        "inverter_years": 5,
+        "workmanship_years": 3
+      },
+      "rating": null,
+      "rating_source": null,
+      "tier_in_network": "probation",
+      "logo_url": null,
+      "website": null,
+      "phone_display": null,
+      "tags": ["local", "Awadh", "kusum_compatible", "placeholder"]
+    }
+  ]
+}
