@@ -3,19 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PM-KUSUM Component A — Ground-Mounted Solar Plants for UP Farmers | SolarSubsidies.com</title>
-<meta name="description" content="PM-KUSUM Component A: Install 0.5–2 MW solar plant on 4–16 acres of barren land. Earn ₹60K+ per acre per year for 25 years. Eligibility, math, application process for UP farmers.">
+<title>PM-KUSUM Component A — Solar Plant on Barren Land (UP, 0.5–2 MW) | SolarSubsidies.com</title>
+<meta name="description" content="PM-KUSUM Component A in Uttar Pradesh: install 0.5–2 MW solar plant on barren land. Sell power to DISCOM. Earn ₹60K+ per acre per year for 25 years. Full eligibility, math, process.">
 <link rel="canonical" href="https://solarsubsidies.com/kusum/component-a/">
-<meta property="og:title" content="PM-KUSUM Component A — Solar Plant on Barren Land">
-<meta property="og:description" content="4-16 acres of barren land → solar plant → ₹60K+/acre/year for 25 years">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="PM-KUSUM Component A — Solar Plant on UP Farm Land">
+<meta property="og:description" content="Lease barren agri land for 0.5–2 MW solar plant. Earn ₹60K+/acre/year. Detailed eligibility + math.">
 <meta property="og:url" content="https://solarsubsidies.com/kusum/component-a/">
+<meta property="og:type" content="article">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700;900&display=swap" rel="stylesheet">
 
 <style>
-:root { --ink:#0a0a0a; --paper:#faf7f2; --paper-2:#f3ede2; --sun:#ff6b1a; --sun-deep:#d94a00; --sun-light:#ffd166; --leaf:#2d5016; --leaf-deep:#1a3210; --muted:#5a5a5a; --line:#d4cfc4; }
+:root { --ink:#0a0a0a; --paper:#faf7f2; --paper-2:#f3ede2; --sun:#ff6b1a; --sun-deep:#d94a00; --sun-light:#ffd166; --leaf:#2d5016; --leaf-deep:#1a3210; --muted:#5a5a5a; --line:#d4cfc4; --red:#c41e3a; }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
 body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(--ink); font-size:18px; line-height:1.65; }
@@ -30,102 +32,95 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .nav a { color:var(--ink); text-decoration:none; font-size:15px; font-weight:500; }
 .nav a:hover { color:var(--sun-deep); }
 
-.breadcrumb { background:var(--paper-2); padding:10px 28px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; border-bottom:1px solid var(--line); }
+.breadcrumb { padding:12px 28px; border-bottom:1px solid var(--line); background:var(--paper-2); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; }
 .breadcrumb-inner { max-width:1200px; margin:0 auto; }
 .breadcrumb a { color:var(--muted); text-decoration:none; }
-.breadcrumb a:hover { color:var(--sun-deep); }
+.breadcrumb a:hover { color:var(--ink); }
+.breadcrumb b { color:var(--ink); }
 
-.hero { padding:56px 28px 64px; border-bottom:1.5px solid var(--ink); background:linear-gradient(135deg, var(--paper) 0%, var(--paper-2) 100%); }
-.hero-inner { max-width:1200px; margin:0 auto; }
-.hero-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:16px; }
-.hero h1 { font-size:clamp(40px,5.5vw,72px); font-weight:900; letter-spacing:-0.035em; line-height:1.02; margin-bottom:20px; font-variation-settings:'opsz' 144; max-width:920px; }
+.hero { padding:48px 28px 56px; border-bottom:1.5px solid var(--ink); background:linear-gradient(135deg, var(--paper) 0%, var(--paper-2) 100%); }
+.hero-inner { max-width:1100px; margin:0 auto; }
+.component-tag { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:18px; padding:6px 12px; border:1.5px solid var(--sun-deep); font-weight:700; }
+.hero h1 { font-size:clamp(36px,5vw,68px); font-weight:900; letter-spacing:-0.035em; line-height:1.05; margin-bottom:18px; font-variation-settings:'opsz' 144; max-width:880px; }
 .hero h1 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
-.hero h1 .devanagari-line { display:block; font-size:0.45em; font-weight:400; color:var(--leaf); margin-top:10px; }
-.hero .lede { font-size:21px; color:var(--ink); max-width:760px; line-height:1.55; margin-bottom:28px; }
-.hero-cta-row { display:flex; gap:14px; flex-wrap:wrap; margin-top:32px; }
-.btn { display:inline-block; padding:18px 36px; font-family:'Fraunces',serif; font-size:18px; font-weight:700; text-decoration:none; border:2px solid var(--ink); cursor:pointer; transition:all 0.15s; }
+.hero h1 .devanagari-line { display:block; font-size:0.45em; font-weight:400; color:var(--leaf); margin-top:8px; }
+.hero .lede { font-size:20px; max-width:760px; line-height:1.55; margin-bottom:24px; color:var(--ink); }
+.hero-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); margin-top:28px; border-top:1.5px solid var(--ink); border-bottom:1.5px solid var(--ink); }
+.hero-stat { padding:16px 14px; border-right:1px solid var(--line); }
+.hero-stat:last-child { border-right:none; }
+.hero-stat .lbl { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:4px; }
+.hero-stat .val { font-size:22px; font-weight:700; letter-spacing:-0.02em; }
+.hero-stat .val.green { color:var(--leaf); }
+.hero-stat .val.orange { color:var(--sun-deep); }
+
+.section { padding:56px 28px; border-bottom:1.5px solid var(--ink); }
+.section-inner { max-width:1100px; margin:0 auto; }
+.section h2 { font-size:clamp(28px,4vw,44px); font-weight:900; letter-spacing:-0.03em; margin-bottom:18px; line-height:1.05; font-variation-settings:'opsz' 144; }
+.section h2 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
+.section h3 { font-size:22px; font-weight:700; margin:28px 0 10px; letter-spacing:-0.015em; }
+.section p { margin-bottom:14px; max-width:780px; }
+.section p.lede { font-size:19px; max-width:760px; }
+.section ul { margin-left:24px; margin-bottom:16px; }
+.section ul li { margin-bottom:6px; }
+.section-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:12px; }
+
+.btn { display:inline-block; padding:16px 32px; font-family:'Fraunces',serif; font-size:17px; font-weight:700; text-decoration:none; border:2px solid var(--ink); cursor:pointer; transition:all 0.15s; }
 .btn-primary { background:var(--sun); color:var(--ink); box-shadow:6px 6px 0 var(--ink); }
 .btn-primary:hover { transform:translate(-2px,-2px); box-shadow:8px 8px 0 var(--ink); }
 .btn-secondary { background:transparent; color:var(--ink); }
 .btn-secondary:hover { background:var(--ink); color:var(--paper); }
-.hero-stats { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); margin-top:40px; border-top:1.5px solid var(--ink); border-bottom:1.5px solid var(--ink); }
-.hero-stat { padding:20px 16px; border-right:1px solid var(--line); }
-.hero-stat:last-child { border-right:none; }
-.hero-stat .lbl { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px; }
-.hero-stat .val { font-size:26px; font-weight:700; letter-spacing:-0.02em; }
-.hero-stat .val.green { color:var(--leaf); }
-.hero-stat .val.orange { color:var(--sun-deep); }
 
-.section { padding:64px 28px; border-bottom:1.5px solid var(--ink); }
-.section.alt { background:var(--paper-2); }
-.section-inner { max-width:1100px; margin:0 auto; }
-.section h2 { font-size:clamp(32px,4vw,52px); font-weight:900; letter-spacing:-0.03em; margin-bottom:18px; line-height:1.05; font-variation-settings:'opsz' 144; }
-.section h2 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
-.section h3 { font-size:24px; font-weight:700; margin:28px 0 12px; letter-spacing:-0.015em; }
-.section p { margin-bottom:16px; max-width:780px; }
-.section p.lede { font-size:21px; max-width:760px; }
-.section-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:14px; }
-
-.fit-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:32px; }
-.fit-card { padding:28px; border:2px solid var(--ink); background:var(--paper); }
-.fit-card.yes { background:#f0f9eb; }
-.fit-card.no { background:#fef4f4; }
-.fit-card h3 { margin-top:0; font-size:22px; }
-.fit-card ul { margin-left:20px; }
-.fit-card li { margin-bottom:8px; font-size:16px; }
-
-.math-table { width:100%; max-width:760px; border:1.5px solid var(--ink); border-collapse:collapse; margin:24px 0; background:var(--paper); }
+.math-table { width:100%; border:1.5px solid var(--ink); border-collapse:collapse; margin:20px 0 28px; background:var(--paper); }
 .math-table td { padding:14px 18px; border-bottom:1px solid var(--line); }
 .math-table tr:last-child td { border-bottom:none; }
 .math-table td:first-child { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); font-weight:600; }
 .math-table td:last-child { font-weight:700; text-align:right; font-size:17px; }
 .math-table tr.highlight { background:rgba(255,209,102,0.25); }
-.math-table tr.highlight td:last-child { color:var(--sun-deep); font-size:20px; }
+.math-table tr.highlight td:last-child { color:var(--sun-deep); font-size:19px; }
 .math-table tr.subtotal td:last-child { color:var(--leaf); }
 
-.process-steps { display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); gap:0; margin:28px 0; border:1.5px solid var(--ink); }
-.process-step { padding:24px; border-right:1px solid var(--line); }
+.process-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:0; margin:24px 0; border:1.5px solid var(--ink); }
+.process-step { padding:22px; border-right:1px solid var(--line); }
 .process-step:last-child { border-right:none; }
 .process-step .num { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--sun-deep); font-weight:700; letter-spacing:0.1em; margin-bottom:10px; }
-.process-step h4 { font-size:18px; margin:0 0 8px; }
-.process-step p { font-size:14px; color:var(--muted); margin:0; }
+.process-step h4 { font-size:17px; margin:0 0 8px; }
+.process-step p { font-size:14px; color:var(--muted); margin:0; max-width:none; }
 
-.red-flags { background:#fef4f4; border:2px solid #c41e3a; padding:32px; margin:32px 0; box-shadow:6px 6px 0 #c41e3a; }
-.red-flags h3 { color:#c41e3a; margin-top:0; font-family:'JetBrains Mono',monospace; font-size:16px; text-transform:uppercase; letter-spacing:0.15em; margin-bottom:14px; }
-.red-flags ul { margin-left:20px; }
-.red-flags li { margin-bottom:10px; font-size:16px; }
+.callout { padding:24px 28px; margin:24px 0; border:2px solid var(--ink); }
+.callout.warning { background:rgba(217,74,0,0.08); border-color:var(--sun-deep); }
+.callout.success { background:rgba(45,80,22,0.06); border-color:var(--leaf); }
+.callout h4 { margin-top:0; margin-bottom:8px; font-size:15px; text-transform:uppercase; letter-spacing:0.08em; font-family:'JetBrains Mono',monospace; }
+.callout.warning h4 { color:var(--sun-deep); }
+.callout.success h4 { color:var(--leaf); }
+.callout p { font-size:16px; margin-bottom:8px; max-width:none; }
+.callout p:last-child { margin-bottom:0; }
 
-.caveat-box { background:var(--leaf-deep); color:var(--paper); padding:36px; box-shadow:8px 8px 0 var(--sun); margin:36px 0; border:2px solid var(--ink); }
-.caveat-box h3 { color:var(--sun-light); margin-top:0; font-size:18px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.15em; margin-bottom:14px; }
-.caveat-box p { color:var(--paper); margin-bottom:12px; font-size:17px; max-width:none; }
-.caveat-box strong { color:var(--sun-light); }
+.fit-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:24px 0; }
+.fit-card { padding:22px 24px; border:1.5px solid var(--ink); }
+.fit-card.good { background:rgba(45,80,22,0.05); }
+.fit-card.bad { background:rgba(196,30,58,0.04); }
+.fit-card h4 { font-size:14px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:12px; }
+.fit-card.good h4 { color:var(--leaf); }
+.fit-card.bad h4 { color:var(--red); }
+.fit-card ul { margin:0 0 0 18px; font-size:15px; }
+.fit-card li { margin-bottom:6px; }
 
-.faq-item { border-top:1px solid var(--line); padding:24px 0; }
-.faq-item:last-child { border-bottom:1px solid var(--line); }
-.faq-item h4 { font-size:20px; font-weight:700; margin-bottom:10px; line-height:1.3; }
-.faq-item p { color:var(--ink); font-size:17px; }
+.cta-section { padding:64px 28px; text-align:center; background:var(--paper-2); border-bottom:1.5px solid var(--ink); }
+.cta-section h2 { font-size:36px; margin-bottom:14px; }
+.cta-section .lede { font-size:18px; max-width:600px; margin:0 auto 28px; }
 
-.related-components { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:32px; }
-.related-card { padding:20px; border:2px solid var(--ink); background:var(--paper); text-decoration:none; color:var(--ink); transition:all 0.15s; }
-.related-card:hover { transform:translate(-2px,-2px); box-shadow:4px 4px 0 var(--sun); }
-.related-card .code { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--sun-deep); font-weight:700; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:8px; }
-.related-card h4 { font-size:18px; margin:0 0 6px; }
-.related-card p { font-size:13px; color:var(--muted); margin:0; }
-
-footer { padding:40px 28px; text-align:center; font-size:14px; color:var(--muted); border-top:1.5px solid var(--ink); }
+footer { padding:40px 28px; text-align:center; font-size:14px; color:var(--muted); }
 footer a { color:var(--ink); text-decoration:none; }
-footer p { margin-bottom:8px; }
+footer p { margin-bottom:8px; max-width:none; }
 
-@media (max-width: 768px) {
+@media (max-width:768px) {
   .nav a:not(.cta) { display:none; }
-  .hero { padding:40px 20px 48px; }
-  .section { padding:48px 20px; }
-  .hero h1 { font-size:38px; }
+  .hero { padding:32px 20px 40px; }
+  .section { padding:40px 20px; }
+  .cta-section { padding:48px 20px; }
+  .hero h1 { font-size:32px; }
   .hero .lede { font-size:17px; }
-  .hero-cta-row { flex-direction:column; }
-  .btn { width:100%; text-align:center; }
-  .fit-grid { grid-template-columns:1fr; gap:14px; }
-  .related-components { grid-template-columns:1fr; }
+  .fit-grid { grid-template-columns:1fr; }
   .process-step { border-right:none; border-bottom:1px solid var(--line); }
   .process-step:last-child { border-bottom:none; }
   .math-table td { padding:10px 12px; font-size:13px; }
@@ -138,8 +133,7 @@ footer p { margin-bottom:8px; }
 <header class="topbar">
   <div class="topbar-inner">
     <a href="/" class="logo">
-      <span class="logo-sun"></span>
-      SolarSubsidies<span style="color:var(--sun-deep)">.com</span>
+      <span class="logo-sun"></span>SolarSubsidies<span style="color:var(--sun-deep)">.com</span>
     </a>
     <nav class="nav">
       <a href="/">Home</a>
@@ -153,226 +147,182 @@ footer p { margin-bottom:8px; }
 
 <div class="breadcrumb">
   <div class="breadcrumb-inner">
-    <a href="/">Home</a> / <a href="/kusum/">KUSUM</a> / <strong style="color:var(--ink);">Component A</strong>
+    <a href="/">Home</a> · <a href="/kusum/">PM-KUSUM</a> · <b>Component A</b>
   </div>
 </div>
 
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-kicker mono">§ PM-KUSUM Component A · Ground-Mounted Solar Plants</div>
+    <div class="component-tag">§ PM-KUSUM Component A</div>
     <h1>
-      Lease your <em>barren land</em><br>to a solar plant
-      <span class="devanagari-line devanagari">अपनी बंजर भूमि से कमाई करें</span>
+      Solar plant on your<br><em>barren farm land</em>
+      <span class="devanagari devanagari-line">किसान सौर ऊर्जा संयंत्र</span>
     </h1>
-    <p class="lede">If you own 4-16 acres of barren or non-cultivable land within 5 km of an electrical substation, you can host a 0.5-2 MW solar plant. The developer builds it, sells power to UPPCL, and pays you monthly lease income for 25 years.</p>
+    <p class="lede">Install a 0.5–2 MW solar plant on your unused agricultural land. Sell power to UPPCL at ₹3.07/unit for 25 years. Estimated earnings: ₹60,000+ per acre per year. No farming required — your idle land becomes a monthly income stream.</p>
     
-    <div class="hero-cta-row">
-      <a href="/kusum/eligibility/?path=A" class="btn btn-primary">Check My Eligibility →</a>
-      <a href="#math" class="btn btn-secondary">See the math</a>
+    <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:8px;">
+      <a href="/kusum/eligibility/?path=A" class="btn btn-primary">Check Component A Eligibility →</a>
+      <a href="/kusum/" class="btn btn-secondary">← Back to KUSUM overview</a>
     </div>
     
     <div class="hero-stats">
-      <div class="hero-stat"><div class="lbl">Plant Size</div><div class="val">0.5–2 MW</div></div>
-      <div class="hero-stat"><div class="lbl">Land Required</div><div class="val">4–16 acres</div></div>
-      <div class="hero-stat"><div class="lbl">Earn/Acre/Year</div><div class="val green">₹60K+</div></div>
-      <div class="hero-stat"><div class="lbl">PPA Duration</div><div class="val orange">25 years</div></div>
+      <div class="hero-stat"><div class="lbl">Plant size</div><div class="val">0.5–2 MW</div></div>
+      <div class="hero-stat"><div class="lbl">Min land</div><div class="val">4 acres</div></div>
+      <div class="hero-stat"><div class="lbl">Earn/acre/yr</div><div class="val green">₹60K+</div></div>
+      <div class="hero-stat"><div class="lbl">PPA term</div><div class="val">25 years</div></div>
+      <div class="hero-stat"><div class="lbl">Farmer cost</div><div class="val orange">₹0 upfront</div></div>
     </div>
   </div>
 </section>
 
-<!-- WHO QUALIFIES -->
 <section class="section">
   <div class="section-inner">
-    <div class="section-kicker mono">§ Honest fit assessment</div>
-    <h2>Is Component A <em>right for you</em>?</h2>
-    <p class="lede">Component A is the highest-value KUSUM path but the most restrictive. Most farmers won't qualify because of the substation-proximity and land-type requirements. Here's the honest breakdown.</p>
+    <div class="section-kicker mono">§ What is Component A?</div>
+    <h2>How Component <em>A</em> actually works.</h2>
+    <p class="lede">Component A is structurally different from Components B and C. You're not buying a pump — you're leasing your barren land to host a solar power plant.</p>
+    
+    <p>Here's the model: You own barren or uncultivable agricultural land near an electrical substation. Instead of leaving it idle, you partner with a developer (private EPC or RESCO — Renewable Energy Service Company) who builds a 0.5–2 MW solar plant on your land at their cost. They sign a 25-year Power Purchase Agreement (PPA) with UPPCL at ₹3.07/unit. You receive a monthly lease payment for the duration of the PPA.</p>
+    
+    <p>The capex (₹2.5–3.5 crore per MW) is the developer's problem. The MNRE provides a generation-based incentive (GBI) of ₹0.40/unit to the developer for the first 5 years — that's the actual government subsidy. <strong>You, the farmer, pay nothing upfront.</strong> Your only contribution is the land.</p>
+    
+    <div class="callout success">
+      <h4>✅ Why this is structurally good for farmers</h4>
+      <p>Barren land in UP typically generates zero income. Component A converts that into ₹30,000–₹40,000 per acre per year (UPNEDA-published benchmark) for 25 years — guaranteed by PPA. After 25 years, the plant is decommissioned and land returns to you.</p>
+      <p>Compare to typical alternatives: leasing for grazing (₹2,000–5,000/acre/year), informal farming attempts (negative margin on barren land), or selling outright (one-time payment, no ongoing income).</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--paper-2);">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ Eligibility</div>
+    <h2>Do <em>you</em> qualify?</h2>
     
     <div class="fit-grid">
-      <div class="fit-card yes">
-        <h3 style="color:var(--leaf);">✅ Strong fit if:</h3>
+      <div class="fit-card good">
+        <h4>✅ Strong fit</h4>
         <ul>
-          <li>You own <strong>4-16 acres of barren or non-cultivable land</strong> (RoR / Khasra-Khatauni proves ownership)</li>
-          <li>The land is within <strong>5 km of a 33/11 kV electrical substation</strong></li>
-          <li>The land is currently <strong>idle, fallow, or uncultivable</strong> (rocky, saline, low water table) — generating zero income</li>
-          <li>You're comfortable with a <strong>25-year commitment</strong> (the PPA is binding)</li>
-          <li>You're either an individual landowner-farmer, FPO, cooperative, panchayat, or water user association</li>
+          <li>You own 4–16 acres of barren or non-cultivable land</li>
+          <li>Land is within 5 km of a 33/11 kV electrical substation</li>
+          <li>Land has clear ownership documents (RoR / Khasra-Khatauni)</li>
+          <li>You're an individual farmer, FPO, panchayat, cooperative society, or water user association</li>
+          <li>You're comfortable with a 25-year commitment (the land stays leased for 25 years)</li>
+          <li>Your land is not in a forest zone, ecological reserve, or disputed boundary area</li>
         </ul>
       </div>
-      
-      <div class="fit-card no">
-        <h3 style="color:var(--sun-deep);">⚠️ Not a fit if:</h3>
+      <div class="fit-card bad">
+        <h4>⛔ Not a fit</h4>
         <ul>
-          <li>Your land is <strong>actively cultivated</strong> (Component A explicitly excludes productive land)</li>
-          <li>Your land is <strong>more than 5 km from any substation</strong> (transmission costs kill the economics)</li>
-          <li>Land ownership is <strong>disputed</strong> or held jointly without clear title</li>
-          <li>You need to retain <strong>full agricultural use</strong> of the land</li>
-          <li>Your land is in a protected zone (forest, ecological reserve, ASI heritage area)</li>
+          <li>Land is cultivable and currently producing crops (Component A requires uncultivable land)</li>
+          <li>Land is more than 5 km from a substation (transmission costs kill economics)</li>
+          <li>Land ownership is disputed, unclear, or in joint family arrangement without consent</li>
+          <li>You have less than 4 acres of barren land</li>
+          <li>You want short-term income (25-year lease is non-negotiable)</li>
+          <li>You're a tenant farmer without land ownership documents</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- THE MATH -->
-<section class="section alt" id="math">
+<section class="section">
   <div class="section-inner">
-    <div class="section-kicker mono">§ The financial model</div>
-    <h2>How <em>much</em> you earn.</h2>
-    <p>Example: 1 MW plant on 4 acres of your barren land. Developer builds the plant, signs a 25-year Power Purchase Agreement (PPA) with UPPCL at the MNRE-determined feed-in tariff of ₹3.07/unit.</p>
+    <div class="section-kicker mono">§ The math</div>
+    <h2>What you'll <em>earn</em>.</h2>
+    <p>Worked example: 5 acres of barren land near a substation in Banda district, Bundelkhand region (high solar irradiance).</p>
     
     <table class="math-table">
-      <tr><td>Plant capacity</td><td>1 MW</td></tr>
-      <tr><td>Land used</td><td>4 acres</td></tr>
-      <tr><td>Plant capex (developer pays, not you)</td><td>₹3 Crore</td></tr>
-      <tr><td>Annual generation (UP capacity factor ~17%)</td><td>15,00,000 units/year</td></tr>
-      <tr><td>UPPCL feed-in tariff</td><td>₹3.07/unit</td></tr>
-      <tr class="subtotal"><td>Annual gross revenue</td><td>₹46.05 Lakh/year</td></tr>
-      <tr class="highlight"><td>Your earnings (lease + revenue share)</td><td>₹60,000/acre/year</td></tr>
-      <tr><td>Per-year earnings on 4 acres</td><td style="color:var(--leaf);">₹2,40,000/year</td></tr>
-      <tr><td>Total earnings over 25-year PPA</td><td style="color:var(--leaf);">₹60+ Lakh</td></tr>
+      <tr><td>Plant capacity (typical)</td><td>1 MW</td></tr>
+      <tr><td>Capex (developer pays, you pay 0)</td><td>~₹3 Cr</td></tr>
+      <tr><td>Generation per year</td><td>~15,00,000 units (kWh)</td></tr>
+      <tr><td>UPPCL feed-in tariff (UP)</td><td>₹3.07/unit</td></tr>
+      <tr><td>Annual revenue to developer</td><td>~₹46 Lakh</td></tr>
+      <tr class="subtotal"><td>Your lease income (~25% of revenue)</td><td>~₹1.5–2 Lakh/year</td></tr>
+      <tr><td>Per acre per year</td><td style="color:var(--leaf);">₹30,000–₹40,000</td></tr>
+      <tr class="highlight"><td>Total over 25-year PPA</td><td>~₹37–50 Lakh</td></tr>
     </table>
     
-    <h3>Bundelkhand vs Eastern UP variance</h3>
-    <p>Earnings per acre vary by location due to solar irradiance:</p>
-    <ul style="margin-left:24px;">
-      <li><strong>Bundelkhand</strong> (Jhansi, Banda, Lalitpur, Mahoba): ₹65-75K/acre/year (highest irradiance in UP, ~5.5 kWh/m²/day)</li>
-      <li><strong>Western UP</strong> (Agra, Meerut, Aligarh): ₹60-65K/acre/year (mid-range, ~5.0 kWh/m²/day)</li>
-      <li><strong>Eastern UP</strong> (Varanasi, Gorakhpur): ₹55-60K/acre/year (lower, ~4.6 kWh/m²/day, monsoon cloudiness)</li>
+    <p><strong>Geographic variation matters.</strong> Bundelkhand (Banda, Jhansi, Lalitpur, Mahoba) gets higher irradiance — ₹65–75K per acre per year achievable. Eastern UP (Varanasi, Gorakhpur belt) gets lower — ₹55–60K range. Negotiate based on your specific location's solar profile.</p>
+    
+    <h3>What the farmer doesn't pay</h3>
+    <ul>
+      <li>Solar panel cost (developer pays — ~₹2 Cr/MW)</li>
+      <li>Inverter, mounting, cabling, civil works (~₹50L/MW)</li>
+      <li>Substation interconnection (~₹20–30L)</li>
+      <li>Panel cleaning, maintenance, security (developer's 25-year responsibility)</li>
+      <li>Insurance against theft, weather damage, equipment failure</li>
     </ul>
     
-    <div class="caveat-box">
-      <h3>⚠️ The DISCOM payment risk</h3>
-      <p>You don't get this income from the developer — you get it from <strong>UPPCL paying the developer</strong>, who then pays you per the PPA structure. Some UP DISCOMs have been slow to pay solar generators in 2024-25 due to cash-flow issues.</p>
-      <p>Bundelkhand farmers under Component A have reported <strong>60-90 day payment delays</strong>. The income is real and contractually guaranteed, but cash-flow timing is not. Plan for delays in the first 1-2 years until DISCOM operations stabilise.</p>
+    <div class="callout warning">
+      <h4>⚠️ The honest caveat about UPPCL payment delays</h4>
+      <p>The lease income is paid by the developer, who receives revenue from UPPCL. In 2024–25, UPPCL had cash-flow issues that caused 60–90 day payment delays to Component A farmers in some Bundelkhand districts. The developer typically still pays the farmer on time (it's their contractual obligation regardless of UPPCL timing), but worst-case, developers can delay your lease payment if UPPCL withholds revenue.</p>
+      <p><strong>What to verify before signing:</strong> (1) Developer's financial strength — do they have working capital to bridge UPPCL delays? (2) Tripartite agreement that includes a UPPCL payment guarantee. (3) Late-payment penalty clause favoring the farmer.</p>
     </div>
   </div>
 </section>
 
-<!-- THE PROCESS -->
-<section class="section">
+<section class="section" style="background:var(--paper-2);">
   <div class="section-inner">
-    <div class="section-kicker mono">§ The application process</div>
+    <div class="section-kicker mono">§ The process</div>
     <h2>From application to <em>monthly income</em>.</h2>
-    <p>Total timeline: roughly 15-18 months from initial application to operational plant. Yes, that's long. Component A requires substation feasibility studies, PPA negotiations, and full plant construction — it's not a simple subsidy disbursement.</p>
+    <p>Typical timeline: 15–18 months from initial application to commercial operation. Slower than Components B and C because of substation interconnection + PPA negotiation steps.</p>
     
-    <div class="process-steps">
+    <div class="process-grid">
       <div class="process-step">
-        <div class="num mono">Step 01 · Month 1</div>
-        <h4>Application</h4>
-        <p>Apply on PM-KUSUM portal or UPNEDA office with land records, Aadhaar, bank details.</p>
+        <div class="num">Step 01 · Month 1</div>
+        <h4>Eligibility + land verification</h4>
+        <p>Apply on UPNEDA KUSUM portal. Submit land records, Aadhaar, bank details. UPNEDA verifies land ownership and substation proximity.</p>
       </div>
       <div class="process-step">
-        <div class="num mono">Step 02 · Month 1-3</div>
-        <h4>UPNEDA verification</h4>
-        <p>Land ownership + substation proximity (within 5 km) verified. Site feasibility study by DISCOM.</p>
-      </div>
-      <div class="process-step">
-        <div class="num mono">Step 03 · Month 3-6</div>
+        <div class="num">Step 02 · Months 2-3</div>
         <h4>Developer matching</h4>
-        <p>Reverse-bidding auction matches you with empanelled developer. PPA signed (tripartite: you + developer + UPPCL).</p>
+        <p>UPNEDA runs a reverse auction among MNRE-empanelled developers for your site. Developer with lowest tariff bid (or highest farmer payout) wins.</p>
       </div>
       <div class="process-step">
-        <div class="num mono">Step 04 · Month 6-15</div>
-        <h4>Plant construction</h4>
-        <p>Developer builds, commissions, integrates with grid. You receive lease payments from Month 6 onwards.</p>
+        <div class="num">Step 03 · Months 4-5</div>
+        <h4>PPA + lease signing</h4>
+        <p>Tripartite agreement signed: you (landowner), developer, UPPCL. 25-year lease + 25-year PPA. Lease payments begin from commercial operation date.</p>
       </div>
       <div class="process-step">
-        <div class="num mono">Step 05 · Month 15+</div>
-        <h4>Operational</h4>
-        <p>Plant generating, UPPCL paying developer monthly. You receive lease + revenue share per PPA terms.</p>
+        <div class="num">Step 04 · Months 6-15</div>
+        <h4>Construction + commissioning</h4>
+        <p>Developer builds the plant (panels, inverters, transformers, substation interconnection). Site fenced, secured, commissioned. Bi-directional meter installed by UPPCL.</p>
+      </div>
+      <div class="process-step">
+        <div class="num">Step 05 · Month 15+</div>
+        <h4>Commercial operation</h4>
+        <p>Plant generates power. Your monthly lease payment begins, deposited directly into your bank account. Plant operates for 25 years, then decommissioned.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- RED FLAGS -->
-<section class="section alt">
-  <div class="section-inner">
-    <div class="section-kicker mono">§ Watch out for</div>
-    <h2>Component A <em>red flags</em>.</h2>
-    <p>Component A involves long-duration contracts and high-value capex. Bad actors target landowners with promises that sound too good. If you see any of these, walk away or insist on UPNEDA verification before signing anything.</p>
-    
-    <div class="red-flags">
-      <h3>🚩 Refuse to sign if:</h3>
-      <ul>
-        <li>A developer asks you to pay <strong>any money upfront</strong> for "application fees," "site survey," or "connection charges." Legitimate Component A puts zero capex on you.</li>
-        <li>The lease term is <strong>less than 25 years</strong> (PPA standard) — anything shorter is a sign the developer is trying to flip the project before construction</li>
-        <li>No tripartite PPA at signing — the PPA between developer and UPPCL must be in place BEFORE you sign your lease</li>
-        <li>Developer promises returns <strong>significantly above ₹75K/acre/year</strong> — anything over that range is either a non-empanelled developer or a scam</li>
-        <li>Pressure to <strong>sign immediately</strong> without time to verify on UPNEDA portal</li>
-        <li>Lease terms hand over <strong>full title</strong> rather than usage rights — you retain ownership, period</li>
-        <li>No exit clause for <strong>developer default</strong> — what happens if they stop building? The PPA must specify recovery</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
 <section class="section">
   <div class="section-inner">
-    <div class="section-kicker mono">§ Common questions</div>
-    <h2>Component A <em>FAQ</em>.</h2>
+    <div class="section-kicker mono">§ Red flags</div>
+    <h2>What to <em>watch for</em>.</h2>
+    <p>Component A involves long-term contracts with significant downside if structured badly. Walk away from any deal with these red flags:</p>
     
-    <div class="faq-item">
-      <h4>Do I lose ownership of my land for 25 years?</h4>
-      <p>No. You retain full land ownership. The developer gets a 25-year <strong>usage lease</strong>, not a transfer of title. At the end of 25 years, the plant is either decommissioned (your land returned to original state) or you renegotiate a new lease.</p>
-    </div>
-    
-    <div class="faq-item">
-      <h4>What if my land is partly cultivated, partly barren?</h4>
-      <p>You can still apply for the barren portion as long as it's at least 4 acres contiguous. Mixed-use farms (some cultivated + some barren) are explicitly listed as eligible. UPNEDA will inspect to confirm which portions qualify.</p>
-    </div>
-    
-    <div class="faq-item">
-      <h4>What about land that's only seasonally usable?</h4>
-      <p>If land is genuinely barren during 6+ months a year (post-harvest fallow, monsoon-only cultivation, salinity), it can qualify as "fallow" under Component A. Provide documentation of the limited-use pattern during application.</p>
-    </div>
-    
-    <div class="faq-item">
-      <h4>How does the substation proximity actually work?</h4>
-      <p>The substation must be a 33/11 kV (sub-transmission) substation, NOT just a distribution transformer. Your local UPNEDA office can confirm the nearest qualifying substation. Distance is measured as transmission line distance, not as-the-crow-flies. If you're at 4.8 km but the road/right-of-way runs 6 km, you might not qualify.</p>
-    </div>
-    
-    <div class="faq-item">
-      <h4>Can I do Component A AND keep some land for farming?</h4>
-      <p>Yes. The 4-16 acres for the plant is separate from your overall landholding. If you own 20 acres total, you can dedicate 4-8 acres to Component A and continue farming the remaining 12-16 acres. The plant just needs to be on contiguous barren land within 5 km of the substation.</p>
-    </div>
-    
-    <div class="faq-item">
-      <h4>What if my income from the plant is delayed by UPPCL payment issues?</h4>
-      <p>This is a real risk in 2024-25. Some Bundelkhand farmers are seeing 60-90 day delays in lease payments. Two protections: (1) The PPA requires developer to pay you regardless of UPPCL's payment timing (the developer bears the cash-flow risk, not you). (2) Late-payment penalties accrue per the PPA. But practically, if the developer is being squeezed by UPPCL, they may pause payments to you too. Verify recent payment history with existing Component A farmers in your district before signing.</p>
-    </div>
-    
-    <div class="faq-item">
-      <h4>How does this compare to selling the land?</h4>
-      <p>Math comparison: Selling 4 acres of barren UP land at typical ₹3-8 Lakh/acre = ₹12-32 Lakh one-time. Component A on the same 4 acres = ₹2.4 Lakh/year × 25 years = ₹60 Lakh (₹2.5x more), AND you keep ownership. The trade-off: you can't sell during the 25-year lease, and you're exposed to DISCOM payment delays. For most landowner-farmers with truly barren land, Component A is the financially smarter path.</p>
-    </div>
+    <ul style="font-size:17px;">
+      <li><strong>Developer asks for upfront payment from you.</strong> Component A is supposed to be zero-cost for the farmer. Any "setup fee," "documentation fee," or "liaison fee" demand is a scam.</li>
+      <li><strong>Lease term is less than 25 years.</strong> The MNRE scheme requires 25-year PPA. Shorter terms mean the developer is trying to optimize their economics at your expense.</li>
+      <li><strong>No PPA signed with UPPCL at agreement time.</strong> Without a confirmed PPA, the developer has no revenue source — and you have no lease guarantee.</li>
+      <li><strong>Developer is not MNRE-empanelled.</strong> Verify on https://mnre.gov.in. Empanelled developers have technical and financial capacity vetted by the ministry.</li>
+      <li><strong>Vague clauses on payment delays or default.</strong> Demand specific terms: how often, what currency, late-payment penalty, dispute resolution mechanism.</li>
+      <li><strong>Pressure tactics or rushed signing.</strong> A 25-year commitment deserves at least 30 days of legal review. Anyone rushing you is incentivized against your interest.</li>
+    </ul>
   </div>
 </section>
 
-<!-- FINAL CTA -->
-<section class="section alt" style="text-align:center;">
+<section class="cta-section">
   <div class="section-inner">
-    <div class="section-kicker mono">§ Ready to check eligibility?</div>
-    <h2>Find out in <em>2 minutes</em>.</h2>
-    <p class="lede" style="margin-left:auto; margin-right:auto;">Our eligibility check confirms whether your land + substation proximity qualifies for Component A. It also computes your expected annual earnings based on UP district irradiance data.</p>
-    <div style="margin-top:32px;">
-      <a href="/kusum/eligibility/?path=A" class="btn btn-primary">Check Component A Eligibility →</a>
+    <div class="section-kicker mono">§ Ready to check Component A eligibility?</div>
+    <h2>2 minutes. <em>4 questions.</em></h2>
+    <p class="lede">Tells you whether your land meets Component A criteria (size, substation proximity, ownership), estimates your potential annual lease income, and connects you with MNRE-empanelled developers for your district.</p>
+    <div>
+      <a href="/kusum/eligibility/?path=A" class="btn btn-primary">Start Component A Eligibility Check →</a>
     </div>
-    
-    <h3 style="margin-top:48px;">Or explore the other KUSUM components:</h3>
-    <div class="related-components">
-      <a href="/kusum/component-b/" class="related-card">
-        <div class="code">Component B</div>
-        <h4>Standalone Solar Pumps</h4>
-        <p>For farmers without grid electricity. 1-10 HP off-grid solar pumps with 60% subsidy.</p>
-      </a>
-      <a href="/kusum/component-c/" class="related-card">
-        <div class="code">Component C</div>
-        <h4>Grid-Pump Solarisation</h4>
-        <p>For farmers with existing electric pumps. Solar offsets bills + earns from excess.</p>
-      </a>
-    </div>
+    <p style="margin-top:24px; font-size:14px; color:var(--muted);">Not sure if Component A is right for you? <a href="/kusum/component-b/" style="color:var(--sun-deep); font-weight:700;">Compare with Component B</a> (off-grid pump) or <a href="/kusum/component-c/" style="color:var(--sun-deep); font-weight:700;">Component C</a> (grid-pump solarisation).</p>
   </div>
 </section>
 
@@ -380,9 +330,8 @@ footer p { margin-bottom:8px; }
   <p>© 2026 SolarSubsidies.com · Independent KUSUM eligibility research for UP farmers.</p>
   <p>
     <a href="/">Home</a> · 
-    <a href="/kusum/">KUSUM Overview</a> · 
+    <a href="/kusum/">PM-KUSUM</a> · 
     <a href="/kusum/eligibility/">Eligibility Check</a> · 
-    <a href="/calculator.html">Rooftop Calculator</a> · 
     <a href="/d/">UP Districts</a> · 
     <a href="/privacy.html">Privacy</a>
   </p>

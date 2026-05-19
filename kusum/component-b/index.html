@@ -3,19 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PM-KUSUM Component B — Standalone Solar Pumps 60% Subsidy UP | SolarSubsidies.com</title>
-<meta name="description" content="PM-KUSUM Component B: Standalone off-grid solar pump for UP farmers. 1-10 HP options, 60% subsidy (30% central + 30% state), ₹30K-₹56K own funds. Eligibility, math, application timeline.">
+<title>PM-KUSUM Component B — Standalone Solar Pump (UP, 1-10 HP, 60% Subsidy) | SolarSubsidies.com</title>
+<meta name="description" content="PM-KUSUM Component B in Uttar Pradesh: standalone off-grid solar pump for irrigation. 60% subsidy (30% MNRE + 30% UPNEDA). Farmer pays only 40%. Detailed eligibility, pump sizing, math.">
 <link rel="canonical" href="https://solarsubsidies.com/kusum/component-b/">
-<meta property="og:title" content="PM-KUSUM Component B — Standalone Solar Pump 60% Subsidy">
-<meta property="og:description" content="Off-grid solar pump for irrigation. 60% subsidy, you pay ₹30K-₹56K out of pocket.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="PM-KUSUM Component B — Standalone Solar Pump for UP Farmers">
+<meta property="og:description" content="60% subsidy on 1-10 HP solar pumps. Farmer pays 40% (10% own funds, 30% bank loan). Eligibility + costs.">
 <meta property="og:url" content="https://solarsubsidies.com/kusum/component-b/">
+<meta property="og:type" content="article">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700;900&display=swap" rel="stylesheet">
 
 <style>
-:root { --ink:#0a0a0a; --paper:#faf7f2; --paper-2:#f3ede2; --sun:#ff6b1a; --sun-deep:#d94a00; --sun-light:#ffd166; --leaf:#2d5016; --leaf-deep:#1a3210; --muted:#5a5a5a; --line:#d4cfc4; }
+:root { --ink:#0a0a0a; --paper:#faf7f2; --paper-2:#f3ede2; --sun:#ff6b1a; --sun-deep:#d94a00; --sun-light:#ffd166; --leaf:#2d5016; --leaf-deep:#1a3210; --muted:#5a5a5a; --line:#d4cfc4; --red:#c41e3a; }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
 body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(--ink); font-size:18px; line-height:1.65; }
@@ -30,117 +32,112 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .nav a { color:var(--ink); text-decoration:none; font-size:15px; font-weight:500; }
 .nav a:hover { color:var(--sun-deep); }
 
-.breadcrumb { background:var(--paper-2); padding:10px 28px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; border-bottom:1px solid var(--line); }
+.breadcrumb { padding:12px 28px; border-bottom:1px solid var(--line); background:var(--paper-2); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; }
 .breadcrumb-inner { max-width:1200px; margin:0 auto; }
 .breadcrumb a { color:var(--muted); text-decoration:none; }
-.breadcrumb a:hover { color:var(--sun-deep); }
+.breadcrumb a:hover { color:var(--ink); }
+.breadcrumb b { color:var(--ink); }
 
-.hero { padding:56px 28px 64px; border-bottom:1.5px solid var(--ink); background:linear-gradient(135deg, var(--paper) 0%, var(--paper-2) 100%); }
-.hero-inner { max-width:1200px; margin:0 auto; }
-.hero-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:16px; }
-.hero .badge-popular { display:inline-block; background:var(--sun); color:var(--ink); padding:4px 14px; font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.15em; border:1.5px solid var(--ink); margin-bottom:14px; }
-.hero h1 { font-size:clamp(40px,5.5vw,72px); font-weight:900; letter-spacing:-0.035em; line-height:1.02; margin-bottom:20px; font-variation-settings:'opsz' 144; max-width:920px; }
+.hero { padding:48px 28px 56px; border-bottom:1.5px solid var(--ink); background:linear-gradient(135deg, var(--paper) 0%, var(--paper-2) 100%); position:relative; }
+.hero::before { content:"MOST POPULAR"; position:absolute; top:20px; right:28px; background:var(--sun); color:var(--ink); padding:6px 14px; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:0.1em; border:1.5px solid var(--ink); }
+.hero-inner { max-width:1100px; margin:0 auto; }
+.component-tag { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:18px; padding:6px 12px; border:1.5px solid var(--sun-deep); font-weight:700; }
+.hero h1 { font-size:clamp(36px,5vw,68px); font-weight:900; letter-spacing:-0.035em; line-height:1.05; margin-bottom:18px; font-variation-settings:'opsz' 144; max-width:880px; }
 .hero h1 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
-.hero h1 .devanagari-line { display:block; font-size:0.45em; font-weight:400; color:var(--leaf); margin-top:10px; }
-.hero .lede { font-size:21px; color:var(--ink); max-width:760px; line-height:1.55; margin-bottom:28px; }
-.hero-cta-row { display:flex; gap:14px; flex-wrap:wrap; margin-top:32px; }
-.btn { display:inline-block; padding:18px 36px; font-family:'Fraunces',serif; font-size:18px; font-weight:700; text-decoration:none; border:2px solid var(--ink); cursor:pointer; transition:all 0.15s; }
+.hero h1 .devanagari-line { display:block; font-size:0.45em; font-weight:400; color:var(--leaf); margin-top:8px; }
+.hero .lede { font-size:20px; max-width:760px; line-height:1.55; margin-bottom:24px; color:var(--ink); }
+.hero-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); margin-top:28px; border-top:1.5px solid var(--ink); border-bottom:1.5px solid var(--ink); }
+.hero-stat { padding:16px 14px; border-right:1px solid var(--line); }
+.hero-stat:last-child { border-right:none; }
+.hero-stat .lbl { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:4px; }
+.hero-stat .val { font-size:22px; font-weight:700; letter-spacing:-0.02em; }
+.hero-stat .val.green { color:var(--leaf); }
+.hero-stat .val.orange { color:var(--sun-deep); }
+
+.section { padding:56px 28px; border-bottom:1.5px solid var(--ink); }
+.section-inner { max-width:1100px; margin:0 auto; }
+.section h2 { font-size:clamp(28px,4vw,44px); font-weight:900; letter-spacing:-0.03em; margin-bottom:18px; line-height:1.05; font-variation-settings:'opsz' 144; }
+.section h2 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
+.section h3 { font-size:22px; font-weight:700; margin:28px 0 10px; letter-spacing:-0.015em; }
+.section p { margin-bottom:14px; max-width:780px; }
+.section p.lede { font-size:19px; max-width:760px; }
+.section ul { margin-left:24px; margin-bottom:16px; }
+.section ul li { margin-bottom:6px; }
+.section-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:12px; }
+
+.btn { display:inline-block; padding:16px 32px; font-family:'Fraunces',serif; font-size:17px; font-weight:700; text-decoration:none; border:2px solid var(--ink); cursor:pointer; transition:all 0.15s; }
 .btn-primary { background:var(--sun); color:var(--ink); box-shadow:6px 6px 0 var(--ink); }
 .btn-primary:hover { transform:translate(-2px,-2px); box-shadow:8px 8px 0 var(--ink); }
 .btn-secondary { background:transparent; color:var(--ink); }
 .btn-secondary:hover { background:var(--ink); color:var(--paper); }
-.hero-stats { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); margin-top:40px; border-top:1.5px solid var(--ink); border-bottom:1.5px solid var(--ink); }
-.hero-stat { padding:20px 16px; border-right:1px solid var(--line); }
-.hero-stat:last-child { border-right:none; }
-.hero-stat .lbl { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px; }
-.hero-stat .val { font-size:26px; font-weight:700; letter-spacing:-0.02em; }
-.hero-stat .val.green { color:var(--leaf); }
-.hero-stat .val.orange { color:var(--sun-deep); }
 
-.section { padding:64px 28px; border-bottom:1.5px solid var(--ink); }
-.section.alt { background:var(--paper-2); }
-.section-inner { max-width:1100px; margin:0 auto; }
-.section h2 { font-size:clamp(32px,4vw,52px); font-weight:900; letter-spacing:-0.03em; margin-bottom:18px; line-height:1.05; font-variation-settings:'opsz' 144; }
-.section h2 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
-.section h3 { font-size:24px; font-weight:700; margin:28px 0 12px; letter-spacing:-0.015em; }
-.section p { margin-bottom:16px; max-width:780px; }
-.section p.lede { font-size:21px; max-width:760px; }
-.section-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:14px; }
-
-.fit-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:32px; }
-.fit-card { padding:28px; border:2px solid var(--ink); background:var(--paper); }
-.fit-card.yes { background:#f0f9eb; }
-.fit-card.no { background:#fef4f4; }
-.fit-card h3 { margin-top:0; font-size:22px; }
-.fit-card ul { margin-left:20px; }
-.fit-card li { margin-bottom:8px; font-size:16px; }
-
-.pump-table { width:100%; border:1.5px solid var(--ink); border-collapse:collapse; margin:24px 0; background:var(--paper); }
-.pump-table th { background:var(--ink); color:var(--paper); padding:14px 12px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; text-align:left; }
-.pump-table th:not(:first-child) { text-align:right; }
-.pump-table td { padding:14px 12px; border-bottom:1px solid var(--line); font-size:15px; }
-.pump-table td:first-child { font-weight:700; font-family:'JetBrains Mono',monospace; }
-.pump-table td:not(:first-child) { text-align:right; font-weight:600; }
-.pump-table tr:last-child td { border-bottom:none; }
-.pump-table tr.popular { background:rgba(255,209,102,0.25); }
-.pump-table .own-funds { color:var(--leaf); font-weight:800; }
-
-.math-table { width:100%; max-width:760px; border:1.5px solid var(--ink); border-collapse:collapse; margin:24px 0; background:var(--paper); }
+.math-table { width:100%; border:1.5px solid var(--ink); border-collapse:collapse; margin:20px 0 28px; background:var(--paper); }
 .math-table td { padding:14px 18px; border-bottom:1px solid var(--line); }
 .math-table tr:last-child td { border-bottom:none; }
 .math-table td:first-child { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); font-weight:600; }
 .math-table td:last-child { font-weight:700; text-align:right; font-size:17px; }
 .math-table tr.highlight { background:rgba(255,209,102,0.25); }
-.math-table tr.highlight td:last-child { color:var(--sun-deep); font-size:20px; }
+.math-table tr.highlight td:last-child { color:var(--sun-deep); font-size:19px; }
 .math-table tr.subtotal td:last-child { color:var(--leaf); }
 
-.process-steps { display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); gap:0; margin:28px 0; border:1.5px solid var(--ink); }
-.process-step { padding:24px; border-right:1px solid var(--line); }
+.pump-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin:24px 0; }
+.pump-card { padding:24px; border:2px solid var(--ink); background:var(--paper); transition:all 0.15s; }
+.pump-card:hover { transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--sun); }
+.pump-card .hp { font-size:36px; font-weight:900; letter-spacing:-0.03em; line-height:1; margin-bottom:6px; }
+.pump-card .hp small { font-size:14px; font-weight:600; color:var(--muted); letter-spacing:0; }
+.pump-card .pump-type { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--sun-deep); margin-bottom:12px; }
+.pump-card .pump-suit { font-size:13px; color:var(--muted); font-style:italic; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--line); line-height:1.5; }
+.pump-card .pump-row { display:flex; justify-content:space-between; font-size:13px; padding:4px 0; }
+.pump-card .pump-row b { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; font-weight:600; }
+.pump-card .pump-row.total { padding-top:8px; margin-top:6px; border-top:1px solid var(--line); font-weight:700; font-size:15px; }
+.pump-card .pump-row.total span { color:var(--sun-deep); }
+.pump-card .pump-row.own { color:var(--leaf); font-weight:700; }
+
+.process-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:0; margin:24px 0; border:1.5px solid var(--ink); }
+.process-step { padding:22px; border-right:1px solid var(--line); }
 .process-step:last-child { border-right:none; }
 .process-step .num { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--sun-deep); font-weight:700; letter-spacing:0.1em; margin-bottom:10px; }
-.process-step h4 { font-size:18px; margin:0 0 8px; }
-.process-step p { font-size:14px; color:var(--muted); margin:0; }
+.process-step h4 { font-size:17px; margin:0 0 8px; }
+.process-step p { font-size:14px; color:var(--muted); margin:0; max-width:none; }
 
-.red-flags { background:#fef4f4; border:2px solid #c41e3a; padding:32px; margin:32px 0; box-shadow:6px 6px 0 #c41e3a; }
-.red-flags h3 { color:#c41e3a; margin-top:0; font-family:'JetBrains Mono',monospace; font-size:16px; text-transform:uppercase; letter-spacing:0.15em; margin-bottom:14px; }
-.red-flags ul { margin-left:20px; }
-.red-flags li { margin-bottom:10px; font-size:16px; }
+.callout { padding:24px 28px; margin:24px 0; border:2px solid var(--ink); }
+.callout.warning { background:rgba(217,74,0,0.08); border-color:var(--sun-deep); }
+.callout.success { background:rgba(45,80,22,0.06); border-color:var(--leaf); }
+.callout h4 { margin-top:0; margin-bottom:8px; font-size:15px; text-transform:uppercase; letter-spacing:0.08em; font-family:'JetBrains Mono',monospace; }
+.callout.warning h4 { color:var(--sun-deep); }
+.callout.success h4 { color:var(--leaf); }
+.callout p { font-size:16px; margin-bottom:8px; max-width:none; }
+.callout p:last-child { margin-bottom:0; }
 
-.benefits-box { background:#f0f9eb; border:2px solid var(--leaf); padding:32px; margin:32px 0; box-shadow:6px 6px 0 var(--leaf); }
-.benefits-box h3 { color:var(--leaf-deep); margin-top:0; font-family:'JetBrains Mono',monospace; font-size:16px; text-transform:uppercase; letter-spacing:0.15em; margin-bottom:14px; }
-.benefits-box ul { margin-left:20px; }
-.benefits-box li { margin-bottom:10px; font-size:16px; }
+.fit-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:24px 0; }
+.fit-card { padding:22px 24px; border:1.5px solid var(--ink); }
+.fit-card.good { background:rgba(45,80,22,0.05); }
+.fit-card.bad { background:rgba(196,30,58,0.04); }
+.fit-card h4 { font-size:14px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:12px; }
+.fit-card.good h4 { color:var(--leaf); }
+.fit-card.bad h4 { color:var(--red); }
+.fit-card ul { margin:0 0 0 18px; font-size:15px; }
+.fit-card li { margin-bottom:6px; }
 
-.faq-item { border-top:1px solid var(--line); padding:24px 0; }
-.faq-item:last-child { border-bottom:1px solid var(--line); }
-.faq-item h4 { font-size:20px; font-weight:700; margin-bottom:10px; line-height:1.3; }
-.faq-item p { color:var(--ink); font-size:17px; }
+.cta-section { padding:64px 28px; text-align:center; background:var(--paper-2); border-bottom:1.5px solid var(--ink); }
+.cta-section h2 { font-size:36px; margin-bottom:14px; }
+.cta-section .lede { font-size:18px; max-width:600px; margin:0 auto 28px; }
 
-.related-components { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:32px; }
-.related-card { padding:20px; border:2px solid var(--ink); background:var(--paper); text-decoration:none; color:var(--ink); transition:all 0.15s; }
-.related-card:hover { transform:translate(-2px,-2px); box-shadow:4px 4px 0 var(--sun); }
-.related-card .code { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--sun-deep); font-weight:700; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:8px; }
-.related-card h4 { font-size:18px; margin:0 0 6px; }
-.related-card p { font-size:13px; color:var(--muted); margin:0; }
-
-footer { padding:40px 28px; text-align:center; font-size:14px; color:var(--muted); border-top:1.5px solid var(--ink); }
+footer { padding:40px 28px; text-align:center; font-size:14px; color:var(--muted); }
 footer a { color:var(--ink); text-decoration:none; }
-footer p { margin-bottom:8px; }
+footer p { margin-bottom:8px; max-width:none; }
 
-@media (max-width: 768px) {
+@media (max-width:768px) {
   .nav a:not(.cta) { display:none; }
-  .hero { padding:40px 20px 48px; }
-  .section { padding:48px 20px; }
-  .hero h1 { font-size:38px; }
+  .hero { padding:32px 20px 40px; }
+  .hero::before { right:20px; top:14px; font-size:10px; padding:4px 10px; }
+  .section { padding:40px 20px; }
+  .cta-section { padding:48px 20px; }
+  .hero h1 { font-size:32px; }
   .hero .lede { font-size:17px; }
-  .hero-cta-row { flex-direction:column; }
-  .btn { width:100%; text-align:center; }
-  .fit-grid { grid-template-columns:1fr; gap:14px; }
-  .related-components { grid-template-columns:1fr; }
+  .fit-grid { grid-template-columns:1fr; }
   .process-step { border-right:none; border-bottom:1px solid var(--line); }
   .process-step:last-child { border-bottom:none; }
-  .pump-table { font-size:13px; }
-  .pump-table th, .pump-table td { padding:10px 8px; }
   .math-table td { padding:10px 12px; font-size:13px; }
   .math-table td:last-child { font-size:15px; }
 }
@@ -151,8 +148,7 @@ footer p { margin-bottom:8px; }
 <header class="topbar">
   <div class="topbar-inner">
     <a href="/" class="logo">
-      <span class="logo-sun"></span>
-      SolarSubsidies<span style="color:var(--sun-deep)">.com</span>
+      <span class="logo-sun"></span>SolarSubsidies<span style="color:var(--sun-deep)">.com</span>
     </a>
     <nav class="nav">
       <a href="/">Home</a>
@@ -166,315 +162,247 @@ footer p { margin-bottom:8px; }
 
 <div class="breadcrumb">
   <div class="breadcrumb-inner">
-    <a href="/">Home</a> / <a href="/kusum/">KUSUM</a> / <strong style="color:var(--ink);">Component B</strong>
+    <a href="/">Home</a> · <a href="/kusum/">PM-KUSUM</a> · <b>Component B</b>
   </div>
 </div>
 
 <section class="hero">
   <div class="hero-inner">
-    <div class="badge-popular mono">MOST COMMON KUSUM PATH</div>
-    <div class="hero-kicker mono">§ PM-KUSUM Component B · Standalone Solar Pumps</div>
+    <div class="component-tag">§ PM-KUSUM Component B</div>
     <h1>
-      Off-grid solar pump,<br><em>60% subsidy</em>
-      <span class="devanagari-line devanagari">स्वतंत्र सौर पंप योजना</span>
+      Standalone solar pump<br><em>for off-grid farms</em>
+      <span class="devanagari devanagari-line">किसान सौर पंप योजना</span>
     </h1>
-    <p class="lede">If you irrigate your land with diesel pumps, unreliable grid electricity, or rain-fed only, Component B installs a standalone solar pump on your farm. 1-10 HP options. 60% subsidy. Your minimum out-of-pocket: ₹30,500 (5 HP pump).</p>
+    <p class="lede">For farmers without reliable grid electricity. Get a 1–10 HP standalone solar pump installed on your farm. 60% subsidy from MNRE + UPNEDA. You pay only 40% — of which up to 30% can be a bank loan. The most common KUSUM path.</p>
     
-    <div class="hero-cta-row">
-      <a href="/kusum/eligibility/?path=B" class="btn btn-primary">Check My Eligibility →</a>
-      <a href="#pump-sizes" class="btn btn-secondary">See all pump sizes</a>
+    <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:8px;">
+      <a href="/kusum/eligibility/?path=B" class="btn btn-primary">Check Component B Eligibility →</a>
+      <a href="/kusum/" class="btn btn-secondary">← Back to KUSUM overview</a>
     </div>
     
     <div class="hero-stats">
-      <div class="hero-stat"><div class="lbl">Pump Range</div><div class="val">1–10 HP</div></div>
-      <div class="hero-stat"><div class="lbl">Total Subsidy</div><div class="val orange">60%</div></div>
-      <div class="hero-stat"><div class="lbl">Min Own Funds (5 HP)</div><div class="val green">₹30.5K</div></div>
+      <div class="hero-stat"><div class="lbl">Pump size</div><div class="val">1–10 HP</div></div>
+      <div class="hero-stat"><div class="lbl">Subsidy</div><div class="val orange">60%</div></div>
+      <div class="hero-stat"><div class="lbl">Min land</div><div class="val">0.5 acre</div></div>
       <div class="hero-stat"><div class="lbl">Timeline</div><div class="val">~4 months</div></div>
+      <div class="hero-stat"><div class="lbl">AMC bundled</div><div class="val green">5 years</div></div>
     </div>
   </div>
 </section>
 
-<!-- WHO QUALIFIES -->
 <section class="section">
   <div class="section-inner">
-    <div class="section-kicker mono">§ Honest fit assessment</div>
-    <h2>Is Component B <em>right for you</em>?</h2>
-    <p class="lede">Component B is the most accessible KUSUM path. About 60% of UP farmers can qualify. It targets off-grid agriculture and unreliable-grid farmers — the people for whom solar pumps make the biggest difference.</p>
+    <div class="section-kicker mono">§ What is Component B?</div>
+    <h2>How Component <em>B</em> works.</h2>
+    <p class="lede">Component B replaces your diesel pump (or installs a new pump if you have none) with a standalone solar pump that runs entirely off solar panels. No grid electricity needed.</p>
+    
+    <p>The pump is sized to match your farm — typically 1 HP for vegetable plots up to 10 HP for commercial sugarcane farms. Solar panels generate the electricity directly. Water flows during sunlight hours. Excess water can be stored in a tank for evening use.</p>
+    
+    <p>The subsidy math is straightforward: MNRE-fixed benchmark cost per HP, 30% paid by MNRE (Central), 30% paid by UPNEDA (State), 40% paid by the farmer. Of the farmer's 40%, up to 30% can be a NABARD-channelled bank loan (PNB, SBI, BoB at 7–9% interest). Minimum out-of-pocket: 10% of the total cost in cash.</p>
+    
+    <div class="callout success">
+      <h4>✅ Why this is the most popular KUSUM path</h4>
+      <p>Component B works for the largest farmer segment: rain-fed agriculture, diesel-pump dependence, or unreliable grid supply (Bundelkhand, Terai foothills, off-grid pockets across UP). Total subsidy: 60%. Bank loan eligible for another 30%. Farmer's minimum cash outlay: just 10%. Plus a mandatory 5-year vendor maintenance contract.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--paper-2);">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ Pump options</div>
+    <h2>Pick the <em>right size</em> for your farm.</h2>
+    <p>Pump capacity is determined by farm size, primary crop, water table depth, and water source type. Our eligibility check recommends the right HP based on your inputs.</p>
+    
+    <div class="pump-grid">
+      <div class="pump-card">
+        <div class="hp">1 <small>HP</small></div>
+        <div class="pump-type">Surface Pump</div>
+        <div class="pump-suit">Vegetable plots, small orchards, drip irrigation (0.5–1 acre)</div>
+        <div class="pump-row"><b>Pump cost</b><span>₹95,000</span></div>
+        <div class="pump-row"><b>Subsidy (60%)</b><span style="color:var(--leaf);">−₹57,000</span></div>
+        <div class="pump-row total"><b>Your share</b><span>₹38,000</span></div>
+        <div class="pump-row"><b>Bank loan</b><span>₹28,500</span></div>
+        <div class="pump-row own"><b>Own funds</b><span>₹9,500</span></div>
+      </div>
+      <div class="pump-card">
+        <div class="hp">2 <small>HP</small></div>
+        <div class="pump-type">Surface Pump</div>
+        <div class="pump-suit">1–2 acre vegetable/fruit farms, sprinkler systems</div>
+        <div class="pump-row"><b>Pump cost</b><span>₹1,38,000</span></div>
+        <div class="pump-row"><b>Subsidy (60%)</b><span style="color:var(--leaf);">−₹82,800</span></div>
+        <div class="pump-row total"><b>Your share</b><span>₹55,200</span></div>
+        <div class="pump-row"><b>Bank loan</b><span>₹41,400</span></div>
+        <div class="pump-row own"><b>Own funds</b><span>₹13,800</span></div>
+      </div>
+      <div class="pump-card">
+        <div class="hp">3 <small>HP</small></div>
+        <div class="pump-type">Submersible Pump</div>
+        <div class="pump-suit">2–3 acre mixed cropping, limited sugarcane area</div>
+        <div class="pump-row"><b>Pump cost</b><span>₹2,07,000</span></div>
+        <div class="pump-row"><b>Subsidy (60%)</b><span style="color:var(--leaf);">−₹1,24,200</span></div>
+        <div class="pump-row total"><b>Your share</b><span>₹82,800</span></div>
+        <div class="pump-row"><b>Bank loan</b><span>₹62,100</span></div>
+        <div class="pump-row own"><b>Own funds</b><span>₹20,700</span></div>
+      </div>
+      <div class="pump-card" style="background:var(--paper-2); border-color:var(--sun-deep);">
+        <div class="hp">5 <small>HP</small></div>
+        <div class="pump-type">Submersible BLDC</div>
+        <div class="pump-suit">3–5 acre sugarcane, paddy, wheat (most common choice)</div>
+        <div class="pump-row"><b>Pump cost</b><span>₹3,05,000</span></div>
+        <div class="pump-row"><b>Subsidy (60%)</b><span style="color:var(--leaf);">−₹1,83,000</span></div>
+        <div class="pump-row total"><b>Your share</b><span>₹1,22,000</span></div>
+        <div class="pump-row"><b>Bank loan</b><span>₹91,500</span></div>
+        <div class="pump-row own"><b>Own funds</b><span>₹30,500</span></div>
+      </div>
+      <div class="pump-card">
+        <div class="hp">7.5 <small>HP</small></div>
+        <div class="pump-type">Submersible BLDC</div>
+        <div class="pump-suit">5–8 acre paddy/sugarcane, deeper borewells (>100 ft)</div>
+        <div class="pump-row"><b>Pump cost</b><span>₹4,25,000</span></div>
+        <div class="pump-row"><b>Subsidy (60%)</b><span style="color:var(--leaf);">−₹2,55,000</span></div>
+        <div class="pump-row total"><b>Your share</b><span>₹1,70,000</span></div>
+        <div class="pump-row"><b>Bank loan</b><span>₹1,27,500</span></div>
+        <div class="pump-row own"><b>Own funds</b><span>₹42,500</span></div>
+      </div>
+      <div class="pump-card">
+        <div class="hp">10 <small>HP</small></div>
+        <div class="pump-type">Submersible BLDC</div>
+        <div class="pump-suit">8+ acre commercial farms, deep aquifers (>150 ft)</div>
+        <div class="pump-row"><b>Pump cost</b><span>₹5,58,000</span></div>
+        <div class="pump-row"><b>Subsidy (60%)</b><span style="color:var(--leaf);">−₹3,34,800</span></div>
+        <div class="pump-row total"><b>Your share</b><span>₹2,23,200</span></div>
+        <div class="pump-row"><b>Bank loan</b><span>₹1,67,400</span></div>
+        <div class="pump-row own"><b>Own funds</b><span>₹55,800</span></div>
+      </div>
+    </div>
+    
+    <h3>How we recommend your HP</h3>
+    <p>Land size is the primary driver, but two adjustments matter:</p>
+    <ul>
+      <li><strong>Crop type:</strong> Sugarcane and paddy are water-intensive — bump up one HP tier. Vegetables and orchards use less water — can drop down one tier.</li>
+      <li><strong>Water table depth:</strong> Borewells below 100 ft require minimum 5 HP. Below 150 ft requires minimum 7.5 HP for adequate lift.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ Eligibility</div>
+    <h2>Do <em>you</em> qualify?</h2>
     
     <div class="fit-grid">
-      <div class="fit-card yes">
-        <h3 style="color:var(--leaf);">✅ Strong fit if:</h3>
+      <div class="fit-card good">
+        <h4>✅ Strong fit</h4>
         <ul>
-          <li>You own <strong>0.5+ acres of agricultural land</strong> (RoR / Khasra-Khatauni proves ownership)</li>
-          <li>You currently use a <strong>diesel pump, manual lift, or rain-fed irrigation</strong></li>
-          <li>OR your <strong>grid electricity is unreliable</strong> (frequent outages, can't run pump during sowing/peak season)</li>
-          <li>You have an <strong>identifiable water source</strong> — borewell, open well, pond, river, or canal</li>
-          <li>You can fund <strong>10% own funds upfront</strong> (₹9,500-₹56,000 depending on pump HP)</li>
-          <li>You have a <strong>NABARD-eligible bank account</strong> (PNB, SBI, Bank of Baroda, Canara, regional rural banks)</li>
+          <li>You own at least 0.5 acres of agricultural land</li>
+          <li>You have an identifiable water source: borewell, well, pond, river, or canal</li>
+          <li>Your current irrigation is rain-fed, diesel pump, or unreliable grid electricity</li>
+          <li>You have valid land records (RoR / Khasra-Khatauni) in your name</li>
+          <li>You have an Aadhaar-linked bank account</li>
+          <li>You can put up 10% own funds (₹10K to ₹60K depending on pump size) within 30 days of approval</li>
         </ul>
       </div>
-      
-      <div class="fit-card no">
-        <h3 style="color:var(--sun-deep);">⚠️ Not a fit if:</h3>
+      <div class="fit-card bad">
+        <h4>⛔ Not a fit</h4>
         <ul>
-          <li>You're a <strong>tenant farmer without land ownership</strong> (Component B requires ownership documents)</li>
-          <li>You already have <strong>reliable grid-connected electric pump</strong> — Component C is your path, not B</li>
-          <li>You don't have an <strong>identified water source</strong> — drill a borewell first, then apply</li>
-          <li>Your land is <strong>under 0.5 acres</strong> — below KUSUM minimums</li>
-          <li>You already received <strong>Component B subsidy in past 5 years</strong> (anti-double-subsidy rule)</li>
+          <li>You're a tenant farmer without land ownership documents</li>
+          <li>You have less than 0.5 acres of agricultural land</li>
+          <li>You have no identifiable water source on your land</li>
+          <li>You already received a KUSUM-B subsidy in the past 5 years (anti-double-subsidy rule)</li>
+          <li>You have reliable grid electricity already (Component C is the better fit)</li>
+          <li>You can't cover even the 10% own funds portion</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PUMP SIZES TABLE -->
-<section class="section alt" id="pump-sizes">
+<section class="section" style="background:var(--paper-2);">
   <div class="section-inner">
-    <div class="section-kicker mono">§ Pump options + costs</div>
-    <h2>Choose your <em>pump size</em>.</h2>
-    <p>Component B supports 1 HP to 10 HP solar pumps. The right size depends on your land area, crop type, and water table depth. Our eligibility check recommends the optimal HP for your specific situation.</p>
-    
-    <table class="pump-table">
-      <thead>
-        <tr>
-          <th>Pump HP</th>
-          <th>Total Cost</th>
-          <th>Central Subsidy</th>
-          <th>State Subsidy</th>
-          <th>Bank Loan</th>
-          <th>Own Funds</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1 HP</td>
-          <td>₹95,000</td>
-          <td>₹28,500</td>
-          <td>₹28,500</td>
-          <td>₹28,500</td>
-          <td class="own-funds">₹9,500</td>
-        </tr>
-        <tr>
-          <td>2 HP</td>
-          <td>₹1,38,000</td>
-          <td>₹41,400</td>
-          <td>₹41,400</td>
-          <td>₹41,400</td>
-          <td class="own-funds">₹13,800</td>
-        </tr>
-        <tr>
-          <td>3 HP</td>
-          <td>₹2,07,000</td>
-          <td>₹62,100</td>
-          <td>₹62,100</td>
-          <td>₹62,100</td>
-          <td class="own-funds">₹20,700</td>
-        </tr>
-        <tr class="popular">
-          <td>5 HP ★</td>
-          <td>₹3,05,000</td>
-          <td>₹91,500</td>
-          <td>₹91,500</td>
-          <td>₹91,500</td>
-          <td class="own-funds">₹30,500</td>
-        </tr>
-        <tr>
-          <td>7.5 HP</td>
-          <td>₹4,25,000</td>
-          <td>₹1,27,500</td>
-          <td>₹1,27,500</td>
-          <td>₹1,27,500</td>
-          <td class="own-funds">₹42,500</td>
-        </tr>
-        <tr>
-          <td>10 HP</td>
-          <td>₹5,58,000</td>
-          <td>₹1,67,400</td>
-          <td>₹1,67,400</td>
-          <td>₹1,67,400</td>
-          <td class="own-funds">₹55,800</td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <p style="font-size:14px; color:var(--muted); font-style:italic;">★ Most common size for 3-5 acre farms with sugarcane/paddy cultivation. "Bank Loan" portion is NABARD-channelled at 7-9% agricultural lending rates, repayable over 5-7 years.</p>
-    
-    <h3>How to pick the right HP</h3>
-    <ul style="margin-left:24px; font-size:16px;">
-      <li><strong>Under 0.5 acres</strong> → 1 HP (vegetable plots, small orchards, drip irrigation)</li>
-      <li><strong>0.5-1 acre</strong> → 2 HP (small farms, light irrigation needs)</li>
-      <li><strong>1-2 acres</strong> → 3 HP (mixed cropping, moderate water needs)</li>
-      <li><strong>2-4 acres</strong> → 5 HP (sugarcane, paddy, wheat — most common)</li>
-      <li><strong>4-7 acres</strong> → 7.5 HP (larger farms, deeper borewells over 100 ft)</li>
-      <li><strong>7+ acres</strong> → 10 HP (commercial farms, very deep aquifers over 150 ft)</li>
-    </ul>
-    
-    <p><strong>Adjustments:</strong> Water-intensive crops (sugarcane, paddy) bump you up one size. Vegetables/orchards bump you down one size. Water table below 100 ft requires minimum 5 HP regardless of land area. Our eligibility check applies all these adjustments automatically.</p>
-  </div>
-</section>
-
-<!-- THE 5 HP MATH -->
-<section class="section">
-  <div class="section-inner">
-    <div class="section-kicker mono">§ Worked example · 5 HP pump (most common)</div>
-    <h2>What you'll <em>actually pay</em>.</h2>
-    <p>Most common scenario: farmer with 3-5 acres, sugarcane or paddy cultivation, water table 50-100 ft deep, currently using diesel or unreliable grid pump.</p>
+    <div class="section-kicker mono">§ The math (5 HP example)</div>
+    <h2>What you'll actually <em>pay</em>.</h2>
+    <p>The most common scenario: farmer with 3–5 acres, currently rain-fed or diesel-pumping, applies for a 5 HP standalone solar pump.</p>
     
     <table class="math-table">
-      <tr><td>MNRE benchmark cost (5 HP submersible BLDC)</td><td>₹3,05,000</td></tr>
+      <tr><td>Pump cost (MNRE benchmark)</td><td>₹3,05,000</td></tr>
       <tr class="subtotal"><td>Central subsidy (MNRE 30%)</td><td>− ₹91,500</td></tr>
       <tr class="subtotal"><td>State subsidy (UPNEDA 30%)</td><td>− ₹91,500</td></tr>
       <tr class="highlight"><td>Your share (40%)</td><td>₹1,22,000</td></tr>
-      <tr><td>&nbsp;&nbsp;→ NABARD bank loan (30%)</td><td>₹91,500</td></tr>
+      <tr><td>&nbsp;&nbsp;→ Bank loan eligible (30%)</td><td>₹91,500</td></tr>
       <tr><td>&nbsp;&nbsp;→ Your own funds (10%)</td><td style="color:var(--leaf);">₹30,500</td></tr>
     </table>
     
-    <p>Of your ₹1,22,000 share, up to ₹91,500 (30% of total) can be financed through a NABARD-channelled bank loan at 7-9% agricultural rates. <strong>Your minimum out-of-pocket cash: ₹30,500.</strong> Loan tenure typically 5-7 years; Kisan Credit Card holders get the lower rate.</p>
+    <p>Of your ₹1,22,000 share, up to ₹91,500 can be a NABARD-channelled bank loan via PNB, SBI, or Bank of Baroda at 7–9% interest over 5–7 years. <strong>Your minimum out-of-pocket: ₹30,500.</strong> Subsidy is paid directly to the vendor — you don't wait for any reimbursement.</p>
     
-    <div class="benefits-box">
-      <h3>✅ What you get with Component B</h3>
-      <ul>
-        <li><strong>Zero recurring irrigation cost</strong> — no diesel bills (₹15,000-₹30,000/year saved), no electricity bills</li>
-        <li><strong>5-year comprehensive maintenance</strong> bundled with installation (free parts + labour for 5 years)</li>
-        <li><strong>No grid dependency</strong> — works during power cuts, ideal for monsoon sowing season</li>
-        <li><strong>Direct subsidy disbursement to vendor</strong> — you don't "wait" for subsidy refund; you pay only your 40% share, vendor handles the rest</li>
-        <li><strong>BLDC submersible pump</strong> — efficient, low-maintenance, designed for solar-only operation</li>
-      </ul>
+    <div class="callout success">
+      <h4>✅ What you save by ditching diesel</h4>
+      <p>A 5 HP diesel pump uses 1.5–2 litres of diesel per hour. At ~₹95/litre and 5 hours/day average, that's ₹14,000+ per month during peak irrigation season, or ₹70K–1L per year. A solar pump eliminates this entirely. <strong>Annual fuel savings alone pay back the farmer's ₹1.22L share in 1.5–2 years.</strong></p>
     </div>
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="section alt">
-  <div class="section-inner">
-    <div class="section-kicker mono">§ Application process</div>
-    <h2>From application to <em>working pump</em>.</h2>
-    <p>Total timeline: ~4 months from initial application to operational pump. Faster if your district has UPNEDA quota slots open; slower during peak sowing season (June-August) when applications surge.</p>
-    
-    <div class="process-steps">
-      <div class="process-step">
-        <div class="num mono">Step 01 · Day 1-7</div>
-        <h4>Apply + Vendor Match</h4>
-        <p>Apply on PM-KUSUM portal or via empanelled vendor. We match you with an MNRE-pump vendor in your district.</p>
-      </div>
-      <div class="process-step">
-        <div class="num mono">Step 02 · Day 7-37</div>
-        <h4>Documents + Field Verification</h4>
-        <p>Submit Aadhaar, land records, bank details, water source proof. UPNEDA field officer visits (15-30 days).</p>
-      </div>
-      <div class="process-step">
-        <div class="num mono">Step 03 · Day 37-90</div>
-        <h4>Sanction + Bank Loan</h4>
-        <p>Subsidy sanction order from UPNEDA. Bank loan approval if applying (30-45 days separately).</p>
-      </div>
-      <div class="process-step">
-        <div class="num mono">Step 04 · Day 90-115</div>
-        <h4>Pump Allocation</h4>
-        <p>UPNEDA allocates pump from empanelled manufacturer (Shakti Pumps, KSB India, Lubi, Greaves Cotton).</p>
-      </div>
-      <div class="process-step">
-        <div class="num mono">Step 05 · Day 115-130</div>
-        <h4>Installation</h4>
-        <p>Vendor installs pump (15-30 days post-allocation). 5-year AMC begins. You pay your 40% share to vendor.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- RED FLAGS -->
 <section class="section">
   <div class="section-inner">
-    <div class="section-kicker mono">§ Watch out for</div>
-    <h2>Component B <em>red flags</em>.</h2>
-    <p>Component B is the most common KUSUM path, which means it attracts the most middlemen and dodgy operators. If you see any of these, walk away or insist on UPNEDA verification.</p>
+    <div class="section-kicker mono">§ The process</div>
+    <h2>From application to <em>working pump</em>.</h2>
+    <p>Typical timeline: ~4 months from application to operational pump. Faster if UPNEDA quota slots are open in your district; slower during peak sowing season (June–August).</p>
     
-    <div class="red-flags">
-      <h3>🚩 Refuse to sign if:</h3>
-      <ul>
-        <li>Vendor asks for <strong>full payment upfront</strong> before subsidy approval — you should only pay your 40% AFTER UPNEDA sanctions the subsidy</li>
-        <li>Vendor is <strong>not on the UPNEDA empanelled installer list</strong> (verify at upneda.org.in or call UPNEDA district office)</li>
-        <li>Vendor offers a pump <strong>significantly cheaper than benchmark cost</strong> — they're likely cutting corners on pump quality or VFD specifications</li>
-        <li>Pump capacity is <strong>oversized for your landholding</strong> (more than 1 HP per 1 acre is usually wasteful and may trigger regulatory issues)</li>
-        <li>No <strong>5-year comprehensive AMC in writing</strong> — this is mandatory under KUSUM, don't sign without it</li>
-        <li>Vendor pressures you to <strong>not apply for the bank loan portion</strong> and instead pay full ₹1,22,000 cash — they're trying to skip NABARD documentation that protects you</li>
-        <li>Pump is from a <strong>non-BIS-certified manufacturer</strong> or uses non-BLDC motor — KUSUM mandates BIS + BLDC standards</li>
-      </ul>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="num">Step 01 · Day 1-7</div>
+        <h4>Apply on UPNEDA portal</h4>
+        <p>Submit land records, Aadhaar, bank details, water source proof on PM-KUSUM portal or via UPNEDA district office.</p>
+      </div>
+      <div class="process-step">
+        <div class="num">Step 02 · Day 7-30</div>
+        <h4>Field verification</h4>
+        <p>UPNEDA officer visits your land. Verifies size, water source, no existing grid pump. Documents site photos + GPS coordinates.</p>
+      </div>
+      <div class="process-step">
+        <div class="num">Step 03 · Day 30-90</div>
+        <h4>Pump allocation</h4>
+        <p>UPNEDA allocates pump from MNRE-approved vendor list. Reverse auction picks lowest-bid vendor. Farmer's loan approved if applicable.</p>
+      </div>
+      <div class="process-step">
+        <div class="num">Step 04 · Day 90-120</div>
+        <h4>Installation</h4>
+        <p>Vendor installs pump, solar array, integrates with water source. 5-year comprehensive maintenance contract activated.</p>
+      </div>
+      <div class="process-step">
+        <div class="num">Step 05 · Day 120+</div>
+        <h4>Operational + AMC</h4>
+        <p>Pump operational. Vendor responsible for free parts + labour for 5 years from commissioning date.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="section alt">
+<section class="section" style="background:var(--paper-2);">
   <div class="section-inner">
-    <div class="section-kicker mono">§ Common questions</div>
-    <h2>Component B <em>FAQ</em>.</h2>
+    <div class="section-kicker mono">§ Red flags</div>
+    <h2>What to <em>watch for</em>.</h2>
+    <p>Component B is straightforward but has known scam patterns. Walk away from vendors with these red flags:</p>
     
-    <div class="faq-item">
-      <h4>I have a small piece of land (0.5 acres). Is 1 HP really enough?</h4>
-      <p>For vegetable plots or drip-irrigation orchards, yes. A 1 HP surface pump can irrigate 0.5-1 acre of light-water crops with drip systems. If you grow water-intensive crops (paddy, sugarcane) even on a small plot, consider 2 HP instead — the marginal cost is only ₹4,300 more in own funds for double the capacity.</p>
-    </div>
-    
-    <div class="faq-item">
-      <h4>What if my borewell is very deep (over 150 ft)?</h4>
-      <p>You need minimum 7.5 HP submersible pump for borewells over 150 ft. The deeper the water table, the more head pressure required, and a smaller pump will either fail to lift water or burn out under load. Our eligibility check automatically bumps you to 7.5 HP if you report a deep borewell — don't try to economise on pump size here.</p>
-    </div>
-    
-    <div class="faq-item">
-      <h4>Can I take a bank loan if I'm not a Kisan Credit Card holder?</h4>
-      <p>Yes. NABARD-channelled banks (PNB, SBI, BoB, Canara, RRBs) offer KUSUM loans to any farmer with land documents + Aadhaar + bank account. Interest rates are slightly higher without KCC (typically 8-9% vs 7-8% with KCC). Tenure 5-7 years. The loan is secured against the pump itself (collateral) — no additional security required.</p>
-    </div>
-    
-    <div class="faq-item">
-      <h4>What happens if my pump breaks down within 5 years?</h4>
-      <p>The vendor is contractually obligated to fix it free of cost. Component B installations come with a <strong>mandatory 5-year comprehensive AMC</strong> — covering parts + labour. If your pump fails, contact the installing vendor first. If they don't respond, escalate to UPNEDA district office. Vendors who fail to honour AMC lose their empanellment.</p>
-    </div>
-    
-    <div class="faq-item">
-      <h4>Can I get Component B AND PM Surya Ghar on my home?</h4>
-      <p>Yes. They're entirely separate schemes with separate budgets. A farmer can install a KUSUM-B solar pump on the farm AND a PM Surya Ghar rooftop solar system on the farmhouse independently. The pump serves the farm load; the rooftop serves the household load. No double-counting.</p>
-    </div>
-    
-    <div class="faq-item">
-      <h4>I have an old electric pump. Can I scrap it and apply for Component B?</h4>
-      <p>Not quite. If you have an existing grid-connected electric pump, you should apply for <strong>Component C</strong> (grid-pump solarisation) instead. Component B is specifically for farmers without grid-connected pumps. Trying to disconnect your existing pump to qualify for B would be flagged during UPNEDA field verification.</p>
-    </div>
-    
-    <div class="faq-item">
-      <h4>Does the pump come with a battery backup for night-time irrigation?</h4>
-      <p>No. Standard KUSUM Component B pumps are <strong>direct solar-powered</strong> — they pump during sunlight hours only. The reasoning: solar pumps are designed to fill overhead storage tanks during the day; you use stored water for evening/night irrigation if needed. Battery-backed versions exist commercially but are not subsidised under KUSUM (the cost-benefit doesn't work — batteries add 40-50% to system cost for marginal benefit).</p>
-    </div>
-    
-    <div class="faq-item">
-      <h4>What's the lifespan of a KUSUM Component B pump?</h4>
-      <p>Solar panels: 25-year manufacturer warranty (typically 80%+ output at year 25). Pump motor (BLDC submersible): 7-10 years lifespan, replaceable. VFD (Variable Frequency Drive): 5-7 years. Total system: 20-25 years usable life with one or two motor replacements over time. The 5-year AMC covers initial issues; after that, replacements are at your cost (a new BLDC motor runs ₹15,000-₹40,000 depending on HP).</p>
-    </div>
+    <ul style="font-size:17px;">
+      <li><strong>Vendor not on MNRE empanelled list.</strong> Only MNRE-empanelled pump manufacturers (Shakti Pumps, KSB India, Lubi, Greaves Cotton, Jain Irrigation, etc.) and their authorized installers can deliver KUSUM-B pumps. Verify on mnre.gov.in.</li>
+          <li><strong>Asking for full payment upfront before subsidy approval.</strong> The subsidy is paid directly to the vendor by UPNEDA. You only pay your 40% share — and only after sanction order is issued. Anyone demanding full payment upfront is running a scam.</li>
+      <li><strong>Pump capacity oversized for your landholding.</strong> Some vendors push 7.5 HP pumps on 2-acre farms because the commission is higher. UPNEDA can reject the application or claw back subsidy if the pump is unjustifiably oversized.</li>
+      <li><strong>No 5-year warranty in the written contract.</strong> KUSUM mandates 5 years of free comprehensive maintenance. If it's not in writing, it doesn't exist. Get it in the contract before signing.</li>
+      <li><strong>Vendor doesn't visit your site before quoting.</strong> A real vendor needs to see the borewell depth, panel area, water source distance before quoting. "Standard rate, no site visit needed" is a scam pattern.</li>
+      <li><strong>Asks you to inflate the benchmark cost.</strong> Some vendors try to inflate the invoice to claim higher subsidy and split the excess with the farmer. This is fraud. UPNEDA audits randomly; if caught, both vendor and farmer face penalties + subsidy clawback.</li>
+    </ul>
   </div>
 </section>
 
-<!-- FINAL CTA -->
-<section class="section" style="text-align:center;">
+<section class="cta-section">
   <div class="section-inner">
-    <div class="section-kicker mono">§ Ready to check eligibility?</div>
-    <h2>Find out in <em>2 minutes</em>.</h2>
-    <p class="lede" style="margin-left:auto; margin-right:auto;">Our eligibility check confirms whether you qualify for Component B and computes the exact pump HP, cost breakdown, and your minimum out-of-pocket — based on your specific land, water, and crop situation.</p>
-    <div style="margin-top:32px;">
-      <a href="/kusum/eligibility/?path=B" class="btn btn-primary">Check Component B Eligibility →</a>
+    <div class="section-kicker mono">§ Ready to check Component B eligibility?</div>
+    <h2>2 minutes. <em>5 questions.</em></h2>
+    <p class="lede">Tells you the exact pump HP you should request, your subsidy amount, your bank loan portion, and your minimum out-of-pocket — for your specific land size, crop, and water source. Then connects you with MNRE-empanelled KUSUM pump vendors in your district.</p>
+    <div>
+      <a href="/kusum/eligibility/?path=B" class="btn btn-primary">Start Component B Eligibility Check →</a>
     </div>
-    
-    <h3 style="margin-top:48px;">Or explore the other KUSUM components:</h3>
-    <div class="related-components">
-      <a href="/kusum/component-a/" class="related-card">
-        <div class="code">Component A</div>
-        <h4>Ground-Mounted Solar Plants</h4>
-        <p>For landowners with 4-16 acres of barren land. Earn ₹60K+/acre/year for 25 years.</p>
-      </a>
-      <a href="/kusum/component-c/" class="related-card">
-        <div class="code">Component C</div>
-        <h4>Grid-Pump Solarisation</h4>
-        <p>For farmers with existing electric pumps. Solar offsets bills + earns from excess.</p>
-      </a>
-    </div>
+    <p style="margin-top:24px; font-size:14px; color:var(--muted);">Have an existing grid-connected pump? <a href="/kusum/component-c/" style="color:var(--sun-deep); font-weight:700;">Look at Component C instead</a>. Have 4+ acres of barren land? <a href="/kusum/component-a/" style="color:var(--sun-deep); font-weight:700;">Component A might be more valuable</a>.</p>
   </div>
 </section>
 
@@ -482,9 +410,8 @@ footer p { margin-bottom:8px; }
   <p>© 2026 SolarSubsidies.com · Independent KUSUM eligibility research for UP farmers.</p>
   <p>
     <a href="/">Home</a> · 
-    <a href="/kusum/">KUSUM Overview</a> · 
+    <a href="/kusum/">PM-KUSUM</a> · 
     <a href="/kusum/eligibility/">Eligibility Check</a> · 
-    <a href="/calculator.html">Rooftop Calculator</a> · 
     <a href="/d/">UP Districts</a> · 
     <a href="/privacy.html">Privacy</a>
   </p>
