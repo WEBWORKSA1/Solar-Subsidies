@@ -1,10 +1,11 @@
 /**
- * /api/lead.js — Vercel Serverless Function (v0.6)
+ * /api/lead.js — Vercel Serverless Function (v0.9)
  * 
  * Captures lead from 4-step calculator, writes to Supabase, scores it,
  * notifies admin, AND triggers vendor matching automatically.
  * 
- * NEW in v0.6: Auto-calls matchLead() after capture to assign vendor + start SLA clock.
+ * v0.6: Auto-calls matchLead() after capture to assign vendor + start SLA clock.
+ * v0.9: Captures preferredVendorSlug when customer arrives from vendor profile page.
  * 
  * ENV VARS REQUIRED:
  *   SUPABASE_URL
@@ -49,7 +50,8 @@ export default async function handler(req, res) {
       timeline = null,
       consentWhatsapp = false,
       calculatorSnapshot = null,
-      source = 'calculator_v2'
+      source = 'calculator_v2',
+      preferredVendorSlug = null  // v0.9: customer's vendor preference from profile page
     } = req.body;
 
     if (req.body.website) {
@@ -68,6 +70,11 @@ export default async function handler(req, res) {
     if (!name || name.length < 2) {
       return res.status(400).json({ error: 'Name required' });
     }
+    
+    // Validate preferredVendorSlug format if provided (alphanumeric + hyphen only, max 80 chars)
+    const cleanPreferredSlug = preferredVendorSlug && /^[a-z0-9-]{1,80}$/.test(preferredVendorSlug)
+      ? preferredVendorSlug
+      : null;
 
     let normalizedPhone = phone;
     if (phone) {
@@ -114,6 +121,7 @@ export default async function handler(req, res) {
           consent_whatsapp: consentWhatsapp,
           calculator_snapshot: calculatorSnapshot,
           source,
+          preferred_vendor_slug: cleanPreferredSlug,  // v0.9
           status: 'new',
           ip: req.headers['x-forwarded-for'] || null,
           user_agent: req.headers['user-agent'] || null
@@ -142,7 +150,8 @@ export default async function handler(req, res) {
           name, phone: normalizedPhone, email,
           state, district, systemSizeKw, monthlyBill,
           propertyType, intent, timeline,
-          leadScore, leadTier, leadId
+          leadScore, leadTier, leadId,
+          preferredVendorSlug: cleanPreferredSlug
         }
       });
     }
@@ -158,7 +167,8 @@ export default async function handler(req, res) {
             name, phone: normalizedPhone, email,
             state, district, systemSizeKw, monthlyBill,
             propertyType, intent, timeline,
-            leadScore, leadTier, leadId
+            leadScore, leadTier, leadId,
+            preferredVendorSlug: cleanPreferredSlug
           }
         });
       }
@@ -170,19 +180,19 @@ export default async function handler(req, res) {
         provider: whatsappProvider,
         apiKey: process.env.WHATSAPP_API_KEY,
         toPhone: normalizedPhone,
-        leadData: { name, state, systemSizeKw, district }
+        leadData: { name, state, systemSizeKw, district, preferredVendorSlug: cleanPreferredSlug }
       });
     }
 
-    // ===== AUTO-MATCH VENDOR (v0.6) =====
+    // ===== AUTO-MATCH VENDOR =====
     // Trigger vendor matching for HOT/WARM leads only. COLD leads get manual review.
+    // The matching engine reads preferred_vendor_slug from the lead row and routes accordingly.
     let matchResult = null;
     if (leadId && leadTier !== 'COLD') {
       try {
         matchResult = await matchLead(leadId, []);
         console.log('Match result:', JSON.stringify(matchResult));
       } catch (matchErr) {
-        // Match failure doesn't kill the lead — admin alerted, can broker manually
         console.error('Auto-match failed (non-fatal):', matchErr);
       }
     }
@@ -194,6 +204,7 @@ export default async function handler(req, res) {
       leadTier,
       matched: matchResult?.matched || false,
       vendorName: matchResult?.vendorName || null,
+      assignmentMethod: matchResult?.assignmentMethod || null,
       message: 'Lead captured. Vendor matching in progress.'
     });
 
@@ -253,11 +264,17 @@ async function sendLeadWelcomeWhatsApp({ provider, apiKey, toPhone, leadData }) 
   const districtName = leadData.district 
     ? leadData.district.charAt(0).toUpperCase() + leadData.district.slice(1).replace(/-/g, ' ') 
     : 'your district';
+  
+  // v0.9: Tailored welcome copy if customer came from a vendor profile
+  const vendorLine = leadData.preferredVendorSlug
+    ? `we're routing your request directly to your chosen installer`
+    : `we're matching you with a vetted, UPNEDA-approved installer`;
+  
   const message = `Hi ${leadData.name || 'there'}! 👋
 
 Thanks for using SolarSubsidies.com.
 
-Based on your ${leadData.systemSizeKw}kW system in ${districtName}, we're matching you with a vetted, UPNEDA-approved installer.
+Based on your ${leadData.systemSizeKw}kW system in ${districtName}, ${vendorLine}.
 
 ✓ They'll reach out within 4 business hours
 ✓ No spam, no call-center harassment  
@@ -300,7 +317,12 @@ function formatAdminMessage(d) {
     'other': 'Other'
   };
   
-  return `${tierEmoji} ${d.leadTier} LEAD (score ${d.leadScore}/10)
+  // v0.9: Show preferred-vendor flag in admin message
+  const preferredLine = d.preferredVendorSlug
+    ? `\n⭐ PREFERRED VENDOR REQUESTED: ${d.preferredVendorSlug}`
+    : '';
+  
+  return `${tierEmoji} ${d.leadTier} LEAD (score ${d.leadScore}/10)${preferredLine}
 
 👤 ${d.name}
 📞 ${d.phone || '—'}
