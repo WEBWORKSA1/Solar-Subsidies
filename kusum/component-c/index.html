@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PM-KUSUM Component C — Grid-Pump Solarisation 60% Subsidy UP | SolarSubsidies.com</title>
+<meta name="description" content="PM-KUSUM Component C: Solarise your existing grid-connected agricultural pump. 60% subsidy. Reduce your electricity bill + earn ₹3.50/unit from excess generation. Math, eligibility, application process.">
+<link rel="canonical" href="https://solarsubsidies.com/kusum/component-c/">
+<meta property="og:title" content="PM-KUSUM Component C — Solarise Your Existing Pump">
+<meta property="og:description" content="Add solar to your grid-connected pump. Cut bills + sell excess at ₹3.50/unit. 60% subsidy.">
+<meta property="og:url" content="https://solarsubsidies.com/kusum/component-c/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root { --ink:#0a0a0a; --paper:#faf7f2; --paper-2:#f3ede2; --sun:#ff6b1a; --sun-deep:#d94a00; --sun-light:#ffd166; --leaf:#2d5016; --leaf-deep:#1a3210; --muted:#5a5a5a; --line:#d4cfc4; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(--ink); font-size:18px; line-height:1.65; }
+.mono { font-family:'JetBrains Mono',monospace; }
+.devanagari { font-family:'Noto Sans Devanagari',serif; }
+
+.topbar { border-bottom:1.5px solid var(--ink); background:var(--paper); position:sticky; top:0; z-index:100; }
+.topbar-inner { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:14px 28px; }
+.logo { font-weight:900; font-size:22px; letter-spacing:-0.02em; display:flex; align-items:center; gap:8px; text-decoration:none; color:var(--ink); }
+.logo-sun { width:24px; height:24px; background:var(--sun); border-radius:50%; box-shadow:0 0 0 3px var(--paper),0 0 0 4px var(--ink); }
+.nav { display:flex; gap:28px; align-items:center; }
+.nav a { color:var(--ink); text-decoration:none; font-size:15px; font-weight:500; }
+.nav a:hover { color:var(--sun-deep); }
+
+.breadcrumb { background:var(--paper-2); padding:10px 28px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; border-bottom:1px solid var(--line); }
+.breadcrumb-inner { max-width:1200px; margin:0 auto; }
+.breadcrumb a { color:var(--muted); text-decoration:none; }
+.breadcrumb a:hover { color:var(--sun-deep); }
+
+.hero { padding:56px 28px 64px; border-bottom:1.5px solid var(--ink); background:linear-gradient(135deg, var(--paper) 0%, var(--paper-2) 100%); }
+.hero-inner { max-width:1200px; margin:0 auto; }
+.hero-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:16px; }
+.hero h1 { font-size:clamp(40px,5.5vw,72px); font-weight:900; letter-spacing:-0.035em; line-height:1.02; margin-bottom:20px; font-variation-settings:'opsz' 144; max-width:920px; }
+.hero h1 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
+.hero h1 .devanagari-line { display:block; font-size:0.45em; font-weight:400; color:var(--leaf); margin-top:10px; }
+.hero .lede { font-size:21px; color:var(--ink); max-width:760px; line-height:1.55; margin-bottom:28px; }
+.hero-cta-row { display:flex; gap:14px; flex-wrap:wrap; margin-top:32px; }
+.btn { display:inline-block; padding:18px 36px; font-family:'Fraunces',serif; font-size:18px; font-weight:700; text-decoration:none; border:2px solid var(--ink); cursor:pointer; transition:all 0.15s; }
+.btn-primary { background:var(--sun); color:var(--ink); box-shadow:6px 6px 0 var(--ink); }
+.btn-primary:hover { transform:translate(-2px,-2px); box-shadow:8px 8px 0 var(--ink); }
+.btn-secondary { background:transparent; color:var(--ink); }
+.btn-secondary:hover { background:var(--ink); color:var(--paper); }
+.hero-stats { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); margin-top:40px; border-top:1.5px solid var(--ink); border-bottom:1.5px solid var(--ink); }
+.hero-stat { padding:20px 16px; border-right:1px solid var(--line); }
+.hero-stat:last-child { border-right:none; }
+.hero-stat .lbl { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px; }
+.hero-stat .val { font-size:26px; font-weight:700; letter-spacing:-0.02em; }
+.hero-stat .val.green { color:var(--leaf); }
+.hero-stat .val.orange { color:var(--sun-deep); }
+
+.section { padding:64px 28px; border-bottom:1.5px solid var(--ink); }
+.section.alt { background:var(--paper-2); }
+.section-inner { max-width:1100px; margin:0 auto; }
+.section h2 { font-size:clamp(32px,4vw,52px); font-weight:900; letter-spacing:-0.03em; margin-bottom:18px; line-height:1.05; font-variation-settings:'opsz' 144; }
+.section h2 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
+.section h3 { font-size:24px; font-weight:700; margin:28px 0 12px; letter-spacing:-0.015em; }
+.section p { margin-bottom:16px; max-width:780px; }
+.section p.lede { font-size:21px; max-width:760px; }
+.section-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:14px; }
+
+.subcomponent-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:32px; }
+.subcomponent-card { padding:28px; border:2px solid var(--ink); background:var(--paper); }
+.subcomponent-card h3 { margin-top:0; font-size:22px; font-family:'JetBrains Mono',monospace; }
+.subcomponent-card .code { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--sun-deep); font-weight:700; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:8px; }
+.subcomponent-card p { font-size:15px; }
+
+.fit-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:32px; }
+.fit-card { padding:28px; border:2px solid var(--ink); background:var(--paper); }
+.fit-card.yes { background:#f0f9eb; }
+.fit-card.no { background:#fef4f4; }
+.fit-card h3 { margin-top:0; font-size:22px; }
+.fit-card ul { margin-left:20px; }
+.fit-card li { margin-bottom:8px; font-size:16px; }
+
+.math-table { width:100%; max-width:760px; border:1.5px solid var(--ink); border-collapse:collapse; margin:24px 0; background:var(--paper); }
+.math-table td { padding:14px 18px; border-bottom:1px solid var(--line); }
+.math-table tr:last-child td { border-bottom:none; }
+.math-table td:first-child { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); font-weight:600; }
+.math-table td:last-child { font-weight:700; text-align:right; font-size:17px; }
+.math-table tr.highlight { background:rgba(255,209,102,0.25); }
+.math-table tr.highlight td:last-child { color:var(--sun-deep); font-size:20px; }
+.math-table tr.subtotal td:last-child { color:var(--leaf); }
+
+.process-steps { display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); gap:0; margin:28px 0; border:1.5px solid var(--ink); }
+.process-step { padding:24px; border-right:1px solid var(--line); }
+.process-step:last-child { border-right:none; }
+.process-step .num { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--sun-deep); font-weight:700; letter-spacing:0.1em; margin-bottom:10px; }
+.process-step h4 { font-size:18px; margin:0 0 8px; }
+.process-step p { font-size:14px; color:var(--muted); margin:0; }
+
+.red-flags { background:#fef4f4; border:2px solid #c41e3a; padding:32px; margin:32px 0; box-shadow:6px 6px 0 #c41e3a; }
+.red-flags h3 { color:#c41e3a; margin-top:0; font-family:'JetBrains Mono',monospace; font-size:16px; text-transform:uppercase; letter-spacing:0.15em; margin-bottom:14px; }
+.red-flags ul { margin-left:20px; }
+.red-flags li { margin-bottom:10px; font-size:16px; }
+
+.faq-item { border-top:1px solid var(--line); padding:24px 0; }
+.faq-item:last-child { border-bottom:1px solid var(--line); }
+.faq-item h4 { font-size:20px; font-weight:700; margin-bottom:10px; line-height:1.3; }
+.faq-item p { color:var(--ink); font-size:17px; }
+
+.related-components { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:32px; }
+.related-card { padding:20px; border:2px solid var(--ink); background:var(--paper); text-decoration:none; color:var(--ink); transition:all 0.15s; }
+.related-card:hover { transform:translate(-2px,-2px); box-shadow:4px 4px 0 var(--sun); }
+.related-card .code { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--sun-deep); font-weight:700; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:8px; }
+.related-card h4 { font-size:18px; margin:0 0 6px; }
+.related-card p { font-size:13px; color:var(--muted); margin:0; }
+
+footer { padding:40px 28px; text-align:center; font-size:14px; color:var(--muted); border-top:1.5px solid var(--ink); }
+footer a { color:var(--ink); text-decoration:none; }
+footer p { margin-bottom:8px; }
+
+@media (max-width: 768px) {
+  .nav a:not(.cta) { display:none; }
+  .hero { padding:40px 20px 48px; }
+  .section { padding:48px 20px; }
+  .hero h1 { font-size:38px; }
+  .hero .lede { font-size:17px; }
+  .hero-cta-row { flex-direction:column; }
+  .btn { width:100%; text-align:center; }
+  .fit-grid, .subcomponent-grid { grid-template-columns:1fr; gap:14px; }
+  .related-components { grid-template-columns:1fr; }
+  .process-step { border-right:none; border-bottom:1px solid var(--line); }
+  .process-step:last-child { border-bottom:none; }
+  .math-table td { padding:10px 12px; font-size:13px; }
+  .math-table td:last-child { font-size:15px; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="/" class="logo">
+      <span class="logo-sun"></span>
+      SolarSubsidies<span style="color:var(--sun-deep)">.com</span>
+    </a>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/kusum/" style="color:var(--sun-deep); font-weight:700;">KUSUM</a>
+      <a href="/calculator.html">Rooftop</a>
+      <a href="/d/">Districts</a>
+      <a href="/vendors/directory/">Vendors</a>
+    </nav>
+  </div>
+</header>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="/">Home</a> / <a href="/kusum/">KUSUM</a> / <strong style="color:var(--ink);">Component C</strong>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker mono">§ PM-KUSUM Component C · Grid-Pump Solarisation</div>
+    <h1>
+      Add solar to your<br><em>existing electric pump</em>
+      <span class="devanagari-line devanagari">अपने मौजूदा बिजली पंप पर सौर ऊर्जा</span>
+    </h1>
+    <p class="lede">If you already have a grid-connected electric pump for irrigation, Component C adds solar capacity to your existing setup. Use solar power preferentially during the day. Sell excess generation back to the DISCOM at ₹3.50/unit. Annual benefit: ₹30K+ on a 5 HP pump.</p>
+    
+    <div class="hero-cta-row">
+      <a href="/kusum/eligibility/?path=C" class="btn btn-primary">Check My Eligibility →</a>
+      <a href="#math" class="btn btn-secondary">See the math</a>
+    </div>
+    
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="lbl">Pump Range</div><div class="val">1–10 HP</div></div>
+      <div class="hero-stat"><div class="lbl">Total Subsidy</div><div class="val orange">60%</div></div>
+      <div class="hero-stat"><div class="lbl">Excess Sale Tariff</div><div class="val green">₹3.50/unit</div></div>
+      <div class="hero-stat"><div class="lbl">Payback</div><div class="val">~4.2 yrs</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TWO SUB-COMPONENTS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ Component C has two sub-paths</div>
+    <h2>Two ways to <em>solarise</em>.</h2>
+    <p class="lede">Component C has two implementation models. C1 is for individual farmer pumps; C2 is for whole agricultural feeders shared by multiple farmers. Most individual applications are C1.</p>
+    
+    <div class="subcomponent-grid">
+      <div class="subcomponent-card">
+        <div class="code">Sub-component C1</div>
+        <h3>Individual Pump Solarisation</h3>
+        <p>Solar panels installed for your specific grid-connected pump. Your pump uses solar preferentially during the day; excess generation goes to the DISCOM via a bi-directional meter. This is the most common Component C application.</p>
+        <p><strong>You apply individually. DISCOM installs the bi-directional meter. Excess sells at ₹3.50/unit.</strong></p>
+      </div>
+      
+      <div class="subcomponent-card">
+        <div class="code">Sub-component C2</div>
+        <h3>Feeder-Level Solarisation</h3>
+        <p>A solar plant solarises an entire agricultural feeder serving multiple farmers in a village. Implemented by the DISCOM with consent from the farmers connected to that feeder. Reduces DISCOM peak load while keeping farmer tariffs unchanged.</p>
+        <p><strong>Initiated by DISCOM, not individual farmer. Requires village-level consent.</strong></p>
+      </div>
+    </div>
+    
+    <p style="margin-top:24px; font-size:16px;">For most individual UP farmers reading this page, <strong>C1 is what you'll apply for</strong>. The rest of this page focuses on C1. If you're a panchayat or FPO interested in C2 feeder solarisation, contact your local UPNEDA district office directly.</p>
+  </div>
+</section>
+
+<!-- WHO QUALIFIES -->
+<section class="section alt">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ Honest fit assessment</div>
+    <h2>Is Component C <em>right for you</em>?</h2>
+    <p class="lede">Component C only works if you already have a grid-connected pump AND you actually use it enough for solar to pay back. Low-usage farms see weak ROI. High-bill farms see strong returns.</p>
+    
+    <div class="fit-grid">
+      <div class="fit-card yes">
+        <h3 style="color:var(--leaf);">✅ Strong fit if:</h3>
+        <ul>
+          <li>You have an <strong>existing grid-connected electric pump</strong> on agricultural land</li>
+          <li>Your monthly electricity bill for the pump is <strong>₹500+</strong> (this is the threshold for solar to pay back)</li>
+          <li>You use the pump <strong>4+ months per year</strong> (sufficient solar generation to capture)</li>
+          <li>Your DISCOM has a <strong>net metering policy</strong> for agricultural connections (UPPCL does, MVVNL/PuVVNL/etc all do)</li>
+          <li>You own the land where the pump is installed</li>
+          <li>You can fund <strong>10% own funds upfront</strong> (₹13K-₹68K depending on solar capacity)</li>
+        </ul>
+      </div>
+      
+      <div class="fit-card no">
+        <h3 style="color:var(--sun-deep);">⚠️ Not a fit if:</h3>
+        <ul>
+          <li>You <strong>don't have an existing grid pump</strong> — Component B (off-grid) is your path, not C</li>
+          <li>Your <strong>monthly pump bill is under ₹500</strong> — payback period stretches to 8+ years; not worth the capex</li>
+          <li>You use the pump <strong>less than 3 months/year</strong> — solar generates surplus you can't use, and excess-sale alone won't pay back</li>
+          <li>Your <strong>pump motor is over 10 years old</strong> — replace it first, then solarise</li>
+          <li>You're a <strong>tenant farmer</strong> on the land — Component C requires ownership documents</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE MATH -->
+<section class="section" id="math">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ Worked example · 5 HP pump solarisation</div>
+    <h2>What you'll <em>pay and earn</em>.</h2>
+    <p>Example: You have an existing 5 HP grid-connected pump. We solarise it with a 6 kWp solar array. The pump now runs on solar by day, draws grid power if needed, and any excess solar generation feeds back to UPPCL at ₹3.50/unit.</p>
+    
+    <h3>Cost side</h3>
+    <table class="math-table">
+      <tr><td>Solar capacity added</td><td>6 kWp</td></tr>
+      <tr><td>Benchmark cost (6 kWp solar add-on)</td><td>₹3,22,500</td></tr>
+      <tr class="subtotal"><td>Central subsidy (MNRE 30%)</td><td>− ₹96,750</td></tr>
+      <tr class="subtotal"><td>State subsidy (UPNEDA 30%)</td><td>− ₹96,750</td></tr>
+      <tr class="highlight"><td>Your share (40%)</td><td>₹1,29,000</td></tr>
+      <tr><td>&nbsp;&nbsp;→ NABARD bank loan (30%)</td><td>₹96,750</td></tr>
+      <tr><td>&nbsp;&nbsp;→ Your own funds (10%)</td><td style="color:var(--leaf);">₹32,250</td></tr>
+    </table>
+    
+    <h3>Benefit side (annually)</h3>
+    <table class="math-table">
+      <tr><td>Annual solar generation (6 kWp, UP irradiance)</td><td>9,000 kWh/year</td></tr>
+      <tr><td>Self-consumption (used by your pump)</td><td>5,400 kWh (60%)</td></tr>
+      <tr><td>Excess exported to DISCOM</td><td>3,600 kWh (40%)</td></tr>
+      <tr><td>Annual pump bill savings</td><td style="color:var(--leaf);">₹18,000</td></tr>
+      <tr><td>Annual excess-sale income (₹3.50/unit × 3,600 kWh)</td><td style="color:var(--leaf);">₹12,600</td></tr>
+      <tr class="highlight"><td>Total annual benefit</td><td>₹30,600</td></tr>
+      <tr><td>Payback period</td><td>~4.2 years</td></tr>
+    </table>
+    
+    <h3>7.5 HP variant (also common)</h3>
+    <p>If you have a 7.5 HP existing pump, the solar add-on is 9 kWp. Total cost ₹4,83,750. Your share ₹1,93,500 (₹1,45,125 loan + ₹48,375 own funds). Annual benefit ₹45,900. Same ~4.2-year payback.</p>
+    
+    <h3>Why C is sometimes better than B for grid-connected farmers</h3>
+    <p>If you already have a grid pump and were thinking about replacing it with a Component B solar pump, run the numbers. Component C lets you keep using your existing pump (and grid power as backup during cloudy days/early morning) while adding solar that pays back in ~4 years AND keeps generating income for 20+ years after that.</p>
+    <p>Component B replaces your pump entirely (one-time benefit). Component C augments it (ongoing dual benefit). For most farmers with reliable grid connections, C is the smarter math.</p>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section alt">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ Application process</div>
+    <h2>From application to <em>net meter active</em>.</h2>
+    <p>Total timeline: ~4 months from initial application to operational solar with net metering. Faster than Component A (which involves plant construction), similar timeline to Component B.</p>
+    
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="num mono">Step 01 · Day 1-7</div>
+        <h4>Apply with Pump Details</h4>
+        <p>Apply on UPNEDA portal with your existing pump connection number, electricity bill, land records.</p>
+      </div>
+      <div class="process-step">
+        <div class="num mono">Step 02 · Day 7-30</div>
+        <h4>DISCOM Feasibility Check</h4>
+        <p>UPPCL verifies pump existence + consumption history. Confirms net metering eligibility for your connection.</p>
+      </div>
+      <div class="process-step">
+        <div class="num mono">Step 03 · Day 30-60</div>
+        <h4>Vendor Empanelment + Sizing</h4>
+        <p>UPNEDA-empanelled vendor assesses your site, sizes the solar array (typically 1.2× pump HP in kWp).</p>
+      </div>
+      <div class="process-step">
+        <div class="num mono">Step 04 · Day 60-105</div>
+        <h4>Installation + Net Meter</h4>
+        <p>Vendor installs solar array (15-30 days). DISCOM installs bi-directional meter (10-15 days post-installation).</p>
+      </div>
+      <div class="process-step">
+        <div class="num mono">Step 05 · Day 105-120</div>
+        <h4>Commissioning</h4>
+        <p>System commissioned, net metering active. Excess generation credited monthly to your DISCOM bill.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RED FLAGS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ Watch out for</div>
+    <h2>Component C <em>red flags</em>.</h2>
+    <p>Component C is technically more complex than B because it involves grid integration. The vendor needs both solar EPC skills AND net-metering paperwork experience. Choose carefully.</p>
+    
+    <div class="red-flags">
+      <h3>🚩 Refuse to sign if:</h3>
+      <ul>
+        <li>Vendor doesn't mention <strong>bi-directional meter installation by DISCOM</strong> as part of the process — without this, you can't export excess generation</li>
+        <li>Vendor sizes the solar array <strong>at exactly your pump HP in kWp</strong> instead of 1.2× — undersizing kills the excess-export economics</li>
+        <li>Vendor claims you can <strong>still draw subsidised agricultural tariff</strong> on the grid side after solarisation — UP rules don't permit this, your tariff slab may change</li>
+        <li>Vendor is <strong>not on the UPNEDA empanelled list</strong> for Component C specifically (some vendors are empanelled only for B, not C)</li>
+        <li>Pump itself is <strong>over 10 years old</strong> and vendor doesn't recommend replacement first — solarising a failing pump is throwing good money after bad</li>
+        <li>No <strong>written guarantee of net-meter installation timeline</strong> from DISCOM (without the meter, excess generation gets wasted)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section alt">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ Common questions</div>
+    <h2>Component C <em>FAQ</em>.</h2>
+    
+    <div class="faq-item">
+      <h4>What happens to my existing electricity connection — do I keep paying bills?</h4>
+      <p>Yes, you keep the grid connection. The solar reduces how much grid power you use (typically by 50-60%), so your bills shrink significantly. You also receive credits for excess solar generation exported to the grid. Some months you may have a near-zero bill or even a credit. The grid acts as backup for cloudy days and early-morning irrigation before solar kicks in.</p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>What's the difference between net metering and gross metering?</h4>
+      <p>Net metering: your meter spins backward when you export solar excess, and your bill is calculated on net consumption (grid imports minus solar exports). This is what UP offers under Component C. Gross metering pays you separately for all solar generation while you pay full retail for grid imports — generally less favourable but used in some states. UP's net metering rate is ₹3.50/unit for agricultural excess, which is a feed-in tariff.</p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>What if my pump is on a single-phase connection?</h4>
+      <p>Single-phase pumps up to 3 HP are fine. Above 3 HP, agricultural pumps are typically three-phase. If you have a 5+ HP pump, it's almost certainly three-phase already, which is what Component C is designed for. Single-phase systems require simpler solar setups (no three-phase inverter needed) but follow the same subsidy math.</p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>How much will my electricity bill actually drop?</h4>
+      <p>Typical drop: 50-65% in the first year after net metering goes live. Why not 100%? Because solar generates during daylight only, but agricultural pumps sometimes run early morning (before sunrise) or late evening (after sunset) when farmers prefer reduced wind/evaporation. The grid covers those hours. The 35-50% remaining bill is from those non-solar-hours.</p>
+      <p>Example: If your pre-solar bill was ₹2,500/month, expect ₹900-₹1,200/month post-solar. Plus you'll see export credits when you don't use the pump (monsoon, winter fallow).</p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>What if my excess generation exceeds my consumption for the year?</h4>
+      <p>Annual credit settlement works as follows: at year-end (typically March 31), UPPCL settles any net positive balance (more exports than imports across the year) at the feed-in tariff of ₹3.50/unit, paid directly to your bank account. Most agricultural Component C installations end the year with a small positive balance — additional income of ₹2,000-₹8,000 depending on system size.</p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>Do I need to maintain the solar panels?</h4>
+      <p>Minimal maintenance: clean panels every 2-3 months during dry season (dust accumulation reduces output by 5-15%). The vendor's 5-year AMC covers panel inspection, inverter checkup, and any equipment failures. After 5 years, you're responsible for cleaning (which is a 30-minute job with water + soft cloth) and any inverter replacement (₹15,000-₹40,000 every 5-7 years).</p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>Can I add battery backup to a Component C system?</h4>
+      <p>Technically yes, but batteries are not subsidised under KUSUM. Adding batteries to a 6 kWp system would add ₹1.5-₹2.5 Lakh in cost (no subsidy) for the ability to run the pump at night or during outages. Most agricultural users don't need night-time pumping, so the ROI doesn't work. Skip the batteries unless you have a specific reason (e.g., aquaculture, dairy with continuous pumping needs).</p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>What happens when I sell or transfer the land?</h4>
+      <p>The solar system and pump transfer with the land (it's a fixture, not movable equipment). The net-metering connection is tied to the property's electricity connection number, which transfers to the new owner along with the deed. The new owner inherits the AMC (if still active) and the income stream. Disclose the Component C installation as a property feature — it typically increases land value by 4-6% in agricultural areas of UP.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="section" style="text-align:center;">
+  <div class="section-inner">
+    <div class="section-kicker mono">§ Ready to check eligibility?</div>
+    <h2>Find out in <em>2 minutes</em>.</h2>
+    <p class="lede" style="margin-left:auto; margin-right:auto;">Our eligibility check confirms whether your existing pump qualifies for Component C, sizes the solar array, and computes your exact cost breakdown + annual benefit based on your specific bill amount and usage pattern.</p>
+    <div style="margin-top:32px;">
+      <a href="/kusum/eligibility/?path=C" class="btn btn-primary">Check Component C Eligibility →</a>
+    </div>
+    
+    <h3 style="margin-top:48px;">Or explore the other KUSUM components:</h3>
+    <div class="related-components">
+      <a href="/kusum/component-a/" class="related-card">
+        <div class="code">Component A</div>
+        <h4>Ground-Mounted Solar Plants</h4>
+        <p>For landowners with 4-16 acres of barren land. Earn ₹60K+/acre/year for 25 years.</p>
+      </a>
+      <a href="/kusum/component-b/" class="related-card">
+        <div class="code">Component B</div>
+        <h4>Standalone Solar Pumps</h4>
+        <p>For farmers without grid electricity. 1-10 HP off-grid solar pumps with 60% subsidy.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 SolarSubsidies.com · Independent KUSUM eligibility research for UP farmers.</p>
+  <p>
+    <a href="/">Home</a> · 
+    <a href="/kusum/">KUSUM Overview</a> · 
+    <a href="/kusum/eligibility/">Eligibility Check</a> · 
+    <a href="/calculator.html">Rooftop Calculator</a> · 
+    <a href="/d/">UP Districts</a> · 
+    <a href="/privacy.html">Privacy</a>
+  </p>
+</footer>
+
+</body>
+</html>
