@@ -1,0 +1,11 @@
+vendor_id,vendor_name,tier,specialization,contact_name,phone,email,hq_city,districts_covered,mnre_empanelled,upneda_approved,gstin_active,website,priority_score,contacted_date,first_response_date,demo_scheduled_date,demo_completed_date,agreement_sent_date,agreement_signed_date,onboarded_date,first_lead_date,first_close_date,stage,response_status,notes,follow_up_date
+,,T1,rooftop+kusum,,,,,,,,,,9,,,,,,,,,,prospect,not_contacted,Tier-1 prospect: both MNRE+UPNEDA empanelled,
+,,T1,rooftop,,,,,,,,,,8,,,,,,,,,,prospect,not_contacted,Tier-1 prospect: both MNRE+UPNEDA empanelled,
+,,T1,kusum,,,,,,,,,,8,,,,,,,,,,prospect,not_contacted,Tier-1 prospect: both MNRE+UPNEDA empanelled,
+,,T3,rooftop,,,,,,,,,,5,,,,,,,,,,prospect,not_contacted,Tier-3 prospect: UPNEDA only (regional),
+,,T3,rooftop+kusum,,,,,,,,,,6,,,,,,,,,,prospect,not_contacted,Tier-3 prospect: UPNEDA only (regional),
+EXAMPLE_1,Roofsol Energy Pvt Ltd,T3,rooftop,(LOOK UP),(LOOK UP),(LOOK UP),Lucknow,"lucknow, barabanki, sitapur, hardoi, unnao",FALSE,TRUE,(VERIFY),(LOOK UP),5,,,,,,,,,,prospect,not_contacted,From placeholder seed — verify before contact,
+EXAMPLE_2,Solar Surya Bundelkhand LLP,T3,rooftop+kusum,(LOOK UP),(LOOK UP),(LOOK UP),Jhansi,"jhansi, jalaun, lalitpur, banda, hamirpur, mahoba, chitrakoot",FALSE,TRUE,(VERIFY),(LOOK UP),7,,,,,,,,,,prospect,not_contacted,Drought-district priority — Bundelkhand,
+EXAMPLE_3,Noida Solar Technologies,T3,rooftop,(LOOK UP),(LOOK UP),(LOOK UP),Noida,"gautam-buddha-nagar, ghaziabad, hapur, bulandshahr, meerut",FALSE,TRUE,(VERIFY),(LOOK UP),6,,,,,,,,,,prospect,not_contacted,NCR coverage — high lead-volume region,
+EXAMPLE_4,Tata Power Solar,T2-national,rooftop,(corporate desk),1800-209-3344,(corporate),Bengaluru,all_75_up,TRUE,TRUE,(verify),https://www.tatapowersolar.com,3,,,,,,,,,,prospect,not_contacted,National — won't sign 7%. Try in Phase 2 as flat-fee per qualified lead instead.,
+EXAMPLE_5,Loom Solar,T2-national,rooftop,(corporate desk),87-5061-7000,(corporate),Faridabad,"lucknow, kanpur-nagar, ghaziabad, gautam-buddha-nagar, meerut, agra, varanasi, prayagraj, bareilly, moradabad",TRUE,TRUE,(verify),https://www.loomsolar.com,5,,,,,,,,,,prospect,not_contacted,D2C national — may sign for digital channel boost,
