@@ -76,7 +76,7 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
   color:var(--ink);
   cursor:pointer;
 }
-.component-card:hover { transform:translate(-3px,-3px); box-shadow:8px 8px 0 var(--sun); }
+.component-card:hover { transform:translate(-3px,-3px); box-shadow:8px 8px 0 var(--sun); background:var(--paper); }
 .component-card.most-popular { background:var(--paper-2); }
 .component-card.most-popular::before { content:"MOST POPULAR"; position:absolute; top:-12px; right:24px; background:var(--sun); color:var(--ink); padding:4px 12px; font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.1em; border:1.5px solid var(--ink); }
 .component-card .code { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--sun-deep); font-weight:700; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:10px; }
@@ -88,9 +88,12 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .component-card .num-item .val { font-weight:700; font-size:16px; }
 .component-card .num-item .val.orange { color:var(--sun-deep); }
 .component-card .num-item .val.green { color:var(--leaf); }
-.component-card .read-more { font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--sun-deep); margin-top:12px; padding-top:12px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; }
-.component-card .read-more::after { content:"→"; font-size:18px; transition:transform 0.15s; }
+.component-card .card-actions { display:flex; gap:8px; align-items:center; margin-top:8px; padding-top:14px; border-top:1px solid var(--line); }
+.component-card .read-more { flex:1; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink); font-weight:700; }
+.component-card .read-more::after { content:" →"; transition:transform 0.15s; display:inline-block; }
 .component-card:hover .read-more::after { transform:translateX(4px); }
+.component-card .skip-link { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--sun-deep); text-decoration:underline; font-weight:600; padding:4px 8px; }
+.component-card .skip-link:hover { color:var(--ink); }
 
 .moat-callout { background:var(--leaf-deep); color:var(--paper); padding:36px; box-shadow:8px 8px 0 var(--sun); margin:36px 0; border:2px solid var(--ink); }
 .moat-callout h3 { color:var(--sun-light); margin-top:0; font-size:18px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.15em; margin-bottom:14px; }
@@ -206,12 +209,12 @@ footer p { margin-bottom:8px; }
   </div>
 </section>
 
-<!-- THE THREE COMPONENTS — NOW EACH CARD IS A FULL CLICKABLE LINK TO DETAIL PAGE -->
+<!-- THE THREE COMPONENTS -->
 <section class="section" id="components" style="background:var(--paper-2);">
   <div class="section-inner">
     <div class="section-kicker mono">§ KUSUM has three components</div>
     <h2>Which <em>KUSUM</em> applies to you?</h2>
-    <p class="lede">KUSUM isn't one scheme — it's three. Each has different eligibility, different subsidy math, different timelines. Click any card below to read the full details, or skip ahead to the 2-minute eligibility check.</p>
+    <p class="lede">KUSUM isn't one scheme — it's three. Each has different eligibility, different subsidy math, different timelines. Click any card to read the full details, or use the eligibility check to be routed automatically.</p>
     
     <div class="component-grid">
       <a href="/kusum/component-a/" class="component-card">
@@ -224,7 +227,10 @@ footer p { margin-bottom:8px; }
           <div class="num-item"><b>Earn/acre/yr</b><div class="val green">₹60K+</div></div>
           <div class="num-item"><b>PPA term</b><div class="val">25 yrs</div></div>
         </div>
-        <div class="read-more">Read full details</div>
+        <div class="card-actions">
+          <span class="read-more">Read full details</span>
+          <a href="/kusum/eligibility/?path=A" class="skip-link" onclick="event.stopPropagation();">Skip to eligibility</a>
+        </div>
       </a>
       
       <a href="/kusum/component-b/" class="component-card most-popular">
@@ -237,7 +243,10 @@ footer p { margin-bottom:8px; }
           <div class="num-item"><b>You pay</b><div class="val orange">₹1.22L</div></div>
           <div class="num-item"><b>Own funds</b><div class="val green">₹30.5K</div></div>
         </div>
-        <div class="read-more">Read full details</div>
+        <div class="card-actions">
+          <span class="read-more">Read full details</span>
+          <a href="/kusum/eligibility/?path=B" class="skip-link" onclick="event.stopPropagation();">Skip to eligibility</a>
+        </div>
       </a>
       
       <a href="/kusum/component-c/" class="component-card">
@@ -250,7 +259,10 @@ footer p { margin-bottom:8px; }
           <div class="num-item"><b>Annual savings</b><div class="val green">₹30K+</div></div>
           <div class="num-item"><b>Payback</b><div class="val">~4.2 yrs</div></div>
         </div>
-        <div class="read-more">Read full details</div>
+        <div class="card-actions">
+          <span class="read-more">Read full details</span>
+          <a href="/kusum/eligibility/?path=C" class="skip-link" onclick="event.stopPropagation();">Skip to eligibility</a>
+        </div>
       </a>
     </div>
     
@@ -274,9 +286,7 @@ footer p { margin-bottom:8px; }
       <tr><td style="padding:14px 18px; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); padding-left:32px;">Your own funds (cash)</td><td style="padding:14px 18px; font-weight:700; color:var(--leaf-deep);">₹30,500 (10%)</td></tr>
     </table>
     
-    <p>Of your ₹1,22,000 share, up to ₹91,500 (30% of total cost) can be a NABARD-channelled bank loan via PNB, SBI, or Bank of Baroda. <strong>Your minimum out-of-pocket: ₹30,500.</strong></p>
-    
-    <p style="margin-top:24px;"><a href="/kusum/component-b/" style="color:var(--sun-deep); font-weight:700;">→ Full Component B details (all pump sizes, FAQs, red flags)</a></p>
+    <p>Of your ₹1,22,000 share, up to ₹91,500 (30% of total cost) can be a NABARD-channelled bank loan via PNB, SBI, or Bank of Baroda. <strong>Your minimum out-of-pocket: ₹30,500.</strong> <a href="/kusum/component-b/" style="color:var(--sun-deep); font-weight:700;">See full Component B breakdown →</a></p>
   </div>
 </section>
 
@@ -317,27 +327,8 @@ footer p { margin-bottom:8px; }
   </div>
 </section>
 
-<!-- DOCUMENTS REQUIRED -->
-<section class="section">
-  <div class="section-inner">
-    <div class="section-kicker mono">§ Documents you'll need</div>
-    <h2>What to keep <em>ready</em>.</h2>
-    <p>None of these need to be ready today — you can start the eligibility check without any documents. Gather these once you confirm you're applying.</p>
-    
-    <ul style="margin-left:24px; font-size:17px;">
-      <li><strong>Aadhaar</strong> (farmer + spouse if married)</li>
-      <li><strong>Land records</strong> — RoR / Khasra-Khatauni for UP, proving ownership of the agricultural land</li>
-      <li><strong>Bank account proof</strong> — NABARD-channelled bank preferred (PNB, SBI, BoB, Canara Bank). Account must be Aadhaar-linked.</li>
-      <li><strong>Water source proof</strong> — borewell certificate from drilling company, or GPS photograph of well/pond</li>
-      <li><strong>Recent electricity bill</strong> (Component C only — to verify existing grid connection)</li>
-      <li><strong>Photograph of installation site</strong></li>
-      <li><strong>Caste certificate</strong> (if SC/ST applying for reserved quota slot)</li>
-    </ul>
-  </div>
-</section>
-
 <!-- FAQ -->
-<section class="section" style="background:var(--paper-2);">
+<section class="section">
   <div class="section-inner">
     <div class="section-kicker mono">§ KUSUM FAQ for UP farmers</div>
     <h2>Common questions, <em>direct answers</em>.</h2>
@@ -360,7 +351,7 @@ footer p { margin-bottom:8px; }
     <div class="faq-item">
       <h4>What's the difference between Component B and Component C?</h4>
       <p>Component B is for farmers <em>without</em> grid electricity — the solar pump is completely standalone, runs only on solar. Component C is for farmers <em>with</em> grid electricity — the solar adds capacity to your existing electric pump, you use solar power preferentially, and excess generation gets sold back to the DISCOM at ₹3.50/unit.</p>
-      <p>Component B suits drought-prone, off-grid areas (most of Bundelkhand, parts of Terai). Component C suits well-electrified districts where farmers want to reduce their existing pump bills.</p>
+      <p>Component B suits drought-prone, off-grid areas (most of Bundelkhand, parts of Terai). Component C suits well-electrified districts where farmers want to reduce their existing pump bills. <a href="/kusum/component-b/" style="color:var(--sun-deep); font-weight:700;">Read Component B details</a> · <a href="/kusum/component-c/" style="color:var(--sun-deep); font-weight:700;">Read Component C details</a></p>
     </div>
     
     <div class="faq-item">
@@ -381,13 +372,13 @@ footer p { margin-bottom:8px; }
     <div class="faq-item">
       <h4>Is the income from Component A (selling power to DISCOM) really ₹60K+ per acre per year?</h4>
       <p>That's the MNRE-calculated estimate for a 1 MW plant on 4 acres of land at UP's feed-in tariff of ₹3.07/unit. The exact number depends on solar irradiance at your location, plant capacity factor (typically 18-22% in UP), and tariff (which can rise modestly over the 25-year PPA period). Bundelkhand districts get the higher end (₹65-75K/acre) due to higher irradiance; eastern UP districts get the lower end (₹55-60K/acre).</p>
-      <p>One important caveat: you don't get this income directly. It's paid by the DISCOM (UPPCL) monthly to your bank account. Some UP DISCOMs have been slow to pay — Bundelkhand farmers have reported 60-90 day delays during 2024-25 due to UPPCL cash-flow issues. This is a real concern for Component A; we list it in eligibility-check warnings.</p>
+      <p>One important caveat: you don't get this income directly. It's paid by the DISCOM (UPPCL) monthly to your bank account. Some UP DISCOMs have been slow to pay — Bundelkhand farmers have reported 60-90 day delays during 2024-25 due to UPPCL cash-flow issues. This is a real concern for Component A; we list it in eligibility-check warnings. <a href="/kusum/component-a/" style="color:var(--sun-deep); font-weight:700;">Full Component A details →</a></p>
     </div>
   </div>
 </section>
 
 <!-- FINAL CTA -->
-<section class="section" style="text-align:center;">
+<section class="section" style="text-align:center; background:var(--paper-2);">
   <div class="section-inner">
     <div class="section-kicker mono">§ Ready to check eligibility?</div>
     <h2>2 minutes. <em>5 questions.</em><br>Free.</h2>
@@ -402,10 +393,10 @@ footer p { margin-bottom:8px; }
   <p>© 2026 SolarSubsidies.com · Independent KUSUM eligibility research for UP farmers.</p>
   <p>
     <a href="/">Home</a> · 
+    <a href="/kusum/eligibility/">Eligibility Check</a> · 
     <a href="/kusum/component-a/">Component A</a> · 
     <a href="/kusum/component-b/">Component B</a> · 
     <a href="/kusum/component-c/">Component C</a> · 
-    <a href="/kusum/eligibility/">Eligibility Check</a> · 
     <a href="/calculator.html">Rooftop Calculator</a> · 
     <a href="/d/">UP Districts</a> · 
     <a href="/privacy.html">Privacy</a>

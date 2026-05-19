@@ -1,33 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
   <url>
     <loc>https://solarsubsidies.com/</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  
+  <!-- Calculator (rooftop) -->
   <url>
-    <loc>https://solarsubsidies.com/#calculator</loc>
-    <lastmod>2026-05-18</lastmod>
+    <loc>https://solarsubsidies.com/calculator.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- KUSUM hub -->
+  <url>
+    <loc>https://solarsubsidies.com/kusum/</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://solarsubsidies.com/#schemes</loc>
-    <lastmod>2026-05-18</lastmod>
+    <loc>https://solarsubsidies.com/kusum/eligibility/</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- KUSUM Component Detail Pages (v0.8.2) -->
+  <url>
+    <loc>https://solarsubsidies.com/kusum/component-a/</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://solarsubsidies.com/#vendors</loc>
-    <lastmod>2026-05-18</lastmod>
+    <loc>https://solarsubsidies.com/kusum/component-b/</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://solarsubsidies.com/kusum/component-c/</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Vendor Directory -->
+  <url>
+    <loc>https://solarsubsidies.com/vendors/directory/</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://solarsubsidies.com/#compare</loc>
-    <lastmod>2026-05-18</lastmod>
+    <loc>https://solarsubsidies.com/vendors/apply.html</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  
+  <!-- District index -->
+  <url>
+    <loc>https://solarsubsidies.com/d/</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Legal -->
+  <url>
+    <loc>https://solarsubsidies.com/privacy.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://solarsubsidies.com/terms.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <!-- NOTE: District pages (/d/{slug}.html) and vendor profile pages (/vendors/{slug}.html)
+       are generated at Vercel build time. Vercel post-build hook regenerates this sitemap
+       to include them automatically. -->
 </urlset>
