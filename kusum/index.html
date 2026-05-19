@@ -65,8 +65,18 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .section-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:14px; }
 
 .component-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:20px; margin-top:32px; }
-.component-card { padding:32px; border:2px solid var(--ink); background:var(--paper); transition:all 0.15s; position:relative; }
-.component-card:hover { transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--sun); }
+.component-card {
+  display:block;
+  padding:32px;
+  border:2px solid var(--ink);
+  background:var(--paper);
+  transition:all 0.15s;
+  position:relative;
+  text-decoration:none;
+  color:var(--ink);
+  cursor:pointer;
+}
+.component-card:hover { transform:translate(-3px,-3px); box-shadow:8px 8px 0 var(--sun); }
 .component-card.most-popular { background:var(--paper-2); }
 .component-card.most-popular::before { content:"MOST POPULAR"; position:absolute; top:-12px; right:24px; background:var(--sun); color:var(--ink); padding:4px 12px; font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.1em; border:1.5px solid var(--ink); }
 .component-card .code { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--sun-deep); font-weight:700; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:10px; }
@@ -78,8 +88,9 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .component-card .num-item .val { font-weight:700; font-size:16px; }
 .component-card .num-item .val.orange { color:var(--sun-deep); }
 .component-card .num-item .val.green { color:var(--leaf); }
-.component-card .check-link { display:inline-block; margin-top:12px; padding:10px 18px; background:var(--ink); color:var(--paper); text-decoration:none; font-weight:700; font-size:14px; }
-.component-card .check-link:hover { background:var(--sun); color:var(--ink); }
+.component-card .read-more { font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--sun-deep); margin-top:12px; padding-top:12px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; }
+.component-card .read-more::after { content:"→"; font-size:18px; transition:transform 0.15s; }
+.component-card:hover .read-more::after { transform:translateX(4px); }
 
 .moat-callout { background:var(--leaf-deep); color:var(--paper); padding:36px; box-shadow:8px 8px 0 var(--sun); margin:36px 0; border:2px solid var(--ink); }
 .moat-callout h3 { color:var(--sun-light); margin-top:0; font-size:18px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.15em; margin-bottom:14px; }
@@ -195,15 +206,15 @@ footer p { margin-bottom:8px; }
   </div>
 </section>
 
-<!-- THE THREE COMPONENTS -->
+<!-- THE THREE COMPONENTS — NOW EACH CARD IS A FULL CLICKABLE LINK TO DETAIL PAGE -->
 <section class="section" id="components" style="background:var(--paper-2);">
   <div class="section-inner">
     <div class="section-kicker mono">§ KUSUM has three components</div>
     <h2>Which <em>KUSUM</em> applies to you?</h2>
-    <p class="lede">KUSUM isn't one scheme — it's three. Each has different eligibility, different subsidy math, different timelines. Our 2-minute eligibility check tells you which one(s) you qualify for.</p>
+    <p class="lede">KUSUM isn't one scheme — it's three. Each has different eligibility, different subsidy math, different timelines. Click any card below to read the full details, or skip ahead to the 2-minute eligibility check.</p>
     
     <div class="component-grid">
-      <div class="component-card">
+      <a href="/kusum/component-a/" class="component-card">
         <div class="code">Component A</div>
         <h3>Ground-Mounted Solar Plants</h3>
         <div class="for-whom">For farmers with 4-16 acres of barren land within 5 km of a substation. Earn monthly income by selling power to DISCOM.</div>
@@ -213,10 +224,10 @@ footer p { margin-bottom:8px; }
           <div class="num-item"><b>Earn/acre/yr</b><div class="val green">₹60K+</div></div>
           <div class="num-item"><b>PPA term</b><div class="val">25 yrs</div></div>
         </div>
-        <a href="/kusum/eligibility/?path=A" class="check-link">Check Component A eligibility →</a>
-      </div>
+        <div class="read-more">Read full details</div>
+      </a>
       
-      <div class="component-card most-popular">
+      <a href="/kusum/component-b/" class="component-card most-popular">
         <div class="code">Component B</div>
         <h3>Standalone Solar Pumps</h3>
         <div class="for-whom">For farmers without reliable grid electricity. Off-grid solar pump for irrigation. The most common KUSUM path.</div>
@@ -226,10 +237,10 @@ footer p { margin-bottom:8px; }
           <div class="num-item"><b>You pay</b><div class="val orange">₹1.22L</div></div>
           <div class="num-item"><b>Own funds</b><div class="val green">₹30.5K</div></div>
         </div>
-        <a href="/kusum/eligibility/?path=B" class="check-link">Check Component B eligibility →</a>
-      </div>
+        <div class="read-more">Read full details</div>
+      </a>
       
-      <div class="component-card">
+      <a href="/kusum/component-c/" class="component-card">
         <div class="code">Component C</div>
         <h3>Grid-Pump Solarisation</h3>
         <div class="for-whom">For farmers with existing grid-connected electric pumps. Add solar, offset bills, sell excess to DISCOM.</div>
@@ -239,8 +250,8 @@ footer p { margin-bottom:8px; }
           <div class="num-item"><b>Annual savings</b><div class="val green">₹30K+</div></div>
           <div class="num-item"><b>Payback</b><div class="val">~4.2 yrs</div></div>
         </div>
-        <a href="/kusum/eligibility/?path=C" class="check-link">Check Component C eligibility →</a>
-      </div>
+        <div class="read-more">Read full details</div>
+      </a>
     </div>
     
     <p style="margin-top:32px; font-size:16px;"><strong>Don't know which one applies?</strong> <a href="/kusum/eligibility/" style="color:var(--sun-deep); font-weight:700;">Use the eligibility check →</a> — it asks 5 questions and tells you which component(s) you qualify for, along with exact subsidy math.</p>
@@ -265,15 +276,7 @@ footer p { margin-bottom:8px; }
     
     <p>Of your ₹1,22,000 share, up to ₹91,500 (30% of total cost) can be a NABARD-channelled bank loan via PNB, SBI, or Bank of Baroda. <strong>Your minimum out-of-pocket: ₹30,500.</strong></p>
     
-    <h3>Other pump sizes</h3>
-    <p>Different farm sizes need different pumps. Eligibility check computes the right HP for your specific land + crop + water table depth.</p>
-    <ul style="margin-left:24px; font-size:16px;">
-      <li><strong>1 HP</strong> (₹95,000 total → your share ₹38,000) — vegetable plots, small orchards</li>
-      <li><strong>3 HP</strong> (₹2,07,000 → your share ₹82,800) — mixed cropping 2-3 acres</li>
-      <li><strong>5 HP</strong> (₹3,05,000 → your share ₹1,22,000) — sugarcane/paddy 3-5 acres</li>
-      <li><strong>7.5 HP</strong> (₹4,25,000 → your share ₹1,70,000) — deeper borewells, larger farms</li>
-      <li><strong>10 HP</strong> (₹5,58,000 → your share ₹2,23,200) — commercial farms, water-intensive crops</li>
-    </ul>
+    <p style="margin-top:24px;"><a href="/kusum/component-b/" style="color:var(--sun-deep); font-weight:700;">→ Full Component B details (all pump sizes, FAQs, red flags)</a></p>
   </div>
 </section>
 
@@ -399,6 +402,9 @@ footer p { margin-bottom:8px; }
   <p>© 2026 SolarSubsidies.com · Independent KUSUM eligibility research for UP farmers.</p>
   <p>
     <a href="/">Home</a> · 
+    <a href="/kusum/component-a/">Component A</a> · 
+    <a href="/kusum/component-b/">Component B</a> · 
+    <a href="/kusum/component-c/">Component C</a> · 
     <a href="/kusum/eligibility/">Eligibility Check</a> · 
     <a href="/calculator.html">Rooftop Calculator</a> · 
     <a href="/d/">UP Districts</a> · 
