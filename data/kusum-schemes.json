@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "version": "1.0",
+    "last_updated": "2026-05-19",
+    "scheme_name": "Pradhan Mantri Kisan Urja Suraksha evam Utthaan Mahabhiyan (PM-KUSUM)",
+    "ministry": "Ministry of New and Renewable Energy (MNRE), Government of India",
+    "scheme_url": "https://pmkusum.mnre.gov.in",
+    "state_implementation_url_up": "https://upneda.org.in",
+    "notes": [
+      "PM-KUSUM is structured in three components (A, B, C) launched in 2019, with PM-KUSUM 2.0 enhancements in 2024.",
+      "Subsidy structure varies by state. UP-specific data reflects UPNEDA implementation rules.",
+      "Benchmark costs are MNRE-fixed for subsidy calculation; actual market prices may vary ±15%.",
+      "Bank loan portion typically through NABARD-channelled banks (PNB, SBI, BoB) — subject to credit appraisal."
+    ]
+  },
+  
+  "subsidy_structure_up": {
+    "central_share_pct": 30,
+    "state_share_pct": 30,
+    "farmer_share_pct": 40,
+    "farmer_loan_eligible_pct": 30,
+    "farmer_own_funds_min_pct": 10,
+    "notes": "UP follows the standard 30/30/40 split. Of the farmer's 40%, up to 30% can be bank loan and 10% must be own funds."
+  },
+  
+  "component_a": {
+    "name": "Component A — Decentralised Ground-Mounted Solar Power Plants",
+    "short_description": "Install 500 kW to 2 MW solar plants on barren/non-cultivable land. Sell power to DISCOM. Earn monthly income.",
+    "eligibility": {
+      "applicant_types": ["individual_farmer", "fpo", "panchayat", "cooperative_society", "water_user_association"],
+      "min_land_acres": 4,
+      "max_land_acres": 16,
+      "land_type_required": ["barren", "uncultivable", "fallow", "pastoral"],
+      "land_ownership_required": true,
+      "max_distance_to_substation_km": 5,
+      "min_capacity_mw": 0.5,
+      "max_capacity_mw": 2.0
+    },
+    "subsidy_basis": "Per-MW capex, with PPA-based monthly earnings rather than direct subsidy",
+    "financial_model": {
+      "benchmark_capex_per_mw_inr": 30000000,
+      "feed_in_tariff_inr_per_unit_up": 3.07,
+      "generation_per_mw_units_per_year": 1500000,
+      "annual_revenue_per_mw_inr": 4605000,
+      "payback_years_estimated": "6-8",
+      "earnings_per_acre_per_year_inr_estimated": 60000,
+      "ppa_duration_years": 25
+    },
+    "process_steps": [
+      "Apply on PM-KUSUM portal (pmkusum.mnre.gov.in) or UPNEDA office",
+      "UPNEDA verifies land ownership + substation proximity",
+      "DISCOM signs PPA at MNRE-set feed-in tariff",
+      "Vendor empanelled by MNRE installs plant (12-18 months)",
+      "Commissioning + commercial operation",
+      "Monthly DISCOM payment direct to farmer bank account"
+    ],
+    "typical_timeline_months": 18,
+    "best_fit_for": "Landowner-farmers with 4-16 acres of barren/idle land within 5 km of a 33/11 kV substation. Land otherwise generating zero income.",
+    "deal_breakers": [
+      "Land is cultivable or in use (would require diversion permissions)",
+      "More than 5 km from substation (transmission costs kill economics)",
+      "Land ownership disputed or unclear",
+      "Land in protected zone (forest, ecological)"
+    ]
+  },
+  
+  "component_b": {
+    "name": "Component B — Standalone Solar Pumps",
+    "short_description": "Install standalone (off-grid) solar pump for irrigation. No electricity connection needed. 60% subsidy.",
+    "eligibility": {
+      "applicant_types": ["individual_farmer", "fpo"],
+      "min_land_acres": 0.5,
+      "max_land_acres": null,
+      "current_grid_connection_required": false,
+      "water_source_required": ["borewell", "open_well", "pond", "river", "canal"],
+      "land_ownership_required": true,
+      "max_pump_hp": 10,
+      "min_pump_hp": 1
+    },
+    "subsidy_basis": "Per-pump benchmark cost (MNRE-fixed by HP), with 30% central + 30% state subsidy",
+    "pump_options": [
+      {
+        "hp": 1,
+        "type": "Surface Pump",
+        "benchmark_cost_inr": 95000,
+        "subsidy_central_inr": 28500,
+        "subsidy_state_inr": 28500,
+        "farmer_share_inr": 38000,
+        "farmer_loan_eligible_inr": 28500,
+        "farmer_own_funds_inr": 9500,
+        "suitable_for": "Vegetable plots, small orchards, drip irrigation (0.5-1 acre)"
+      },
+      {
+        "hp": 2,
+        "type": "Surface Pump",
+        "benchmark_cost_inr": 138000,
+        "subsidy_central_inr": 41400,
+        "subsidy_state_inr": 41400,
+        "farmer_share_inr": 55200,
+        "farmer_loan_eligible_inr": 41400,
+        "farmer_own_funds_inr": 13800,
+        "suitable_for": "1-2 acre vegetable/fruit farms, sprinkler systems"
+      },
+      {
+        "hp": 3,
+        "type": "Submersible Pump",
+        "benchmark_cost_inr": 207000,
+        "subsidy_central_inr": 62100,
+        "subsidy_state_inr": 62100,
+        "farmer_share_inr": 82800,
+        "farmer_loan_eligible_inr": 62100,
+        "farmer_own_funds_inr": 20700,
+        "suitable_for": "2-3 acre mixed cropping, sugarcane (limited area)"
+      },
+      {
+        "hp": 5,
+        "type": "Submersible Pump (BLDC)",
+        "benchmark_cost_inr": 305000,
+        "subsidy_central_inr": 91500,
+        "subsidy_state_inr": 91500,
+        "farmer_share_inr": 122000,
+        "farmer_loan_eligible_inr": 91500,
+        "farmer_own_funds_inr": 30500,
+        "suitable_for": "3-5 acre sugarcane, paddy, wheat farms"
+      },
+      {
+        "hp": 7.5,
+        "type": "Submersible Pump (BLDC)",
+        "benchmark_cost_inr": 425000,
+        "subsidy_central_inr": 127500,
+        "subsidy_state_inr": 127500,
+        "farmer_share_inr": 170000,
+        "farmer_loan_eligible_inr": 127500,
+        "farmer_own_funds_inr": 42500,
+        "suitable_for": "5-8 acre paddy/sugarcane, deeper borewells (>100 ft)"
+      },
+      {
+        "hp": 10,
+        "type": "Submersible Pump (BLDC)",
+        "benchmark_cost_inr": 558000,
+        "subsidy_central_inr": 167400,
+        "subsidy_state_inr": 167400,
+        "farmer_share_inr": 223200,
+        "farmer_loan_eligible_inr": 167400,
+        "farmer_own_funds_inr": 55800,
+        "suitable_for": "8+ acre commercial farms, deep aquifers (>150 ft), water-intensive crops"
+      }
+    ],
+    "pump_recommendation_logic": {
+      "land_under_0_5_acres": 1,
+      "land_0_5_to_1_acres": 2,
+      "land_1_to_2_acres": 3,
+      "land_2_to_4_acres": 5,
+      "land_4_to_7_acres": 7.5,
+      "land_above_7_acres": 10,
+      "adjustments": {
+        "sugarcane_or_paddy_multiplier": 1.2,
+        "vegetables_or_orchard_multiplier": 0.8,
+        "water_table_below_100ft_min_hp": 5,
+        "water_table_below_150ft_min_hp": 7.5
+      }
+    },
+    "process_steps": [
+      "Apply on PM-KUSUM portal or UPNEDA district office",
+      "Submit land records, Aadhaar, bank details, water source proof",
+      "Field verification by UPNEDA (15-30 days)",
+      "Pump procurement allocation (60-90 days)",
+      "Empanelled vendor installs (15-30 days post-allocation)",
+      "5-year comprehensive maintenance bundled by vendor",
+      "Subsidy disbursed direct to vendor (farmer pays only their 40% share)"
+    ],
+    "typical_timeline_months": 4,
+    "best_fit_for": "Farmers without reliable grid electricity for irrigation, especially in Bundelkhand and Terai regions of UP with frequent power cuts during sowing season.",
+    "deal_breakers": [
+      "Land less than 0.5 acres",
+      "No identifiable water source",
+      "Already received KUSUM-B subsidy in past 5 years"
+    ]
+  },
+  
+  "component_c": {
+    "name": "Component C — Solarisation of Grid-Connected Agricultural Pumps",
+    "short_description": "Add solar to your existing electric pump. Use solar power for irrigation. Sell excess to DISCOM. 60% subsidy.",
+    "sub_components": [
+      {
+        "code": "C1",
+        "name": "Individual Pump Solarisation",
+        "description": "Solar panels installed for a single farmer's existing grid-connected pump. Excess generation sold to DISCOM."
+      },
+      {
+        "code": "C2",
+        "name": "Feeder-Level Solarisation",
+        "description": "Solar plant solarises an entire agricultural feeder serving multiple farmers. Implemented by DISCOM with farmer consent."
+      }
+    ],
+    "eligibility_c1": {
+      "applicant_types": ["individual_farmer", "fpo"],
+      "existing_grid_pump_required": true,
+      "min_pump_hp": 1,
+      "max_pump_hp": 10,
+      "minimum_active_use_months_per_year": 4,
+      "land_ownership_required": true
+    },
+    "subsidy_basis": "Per-kW of solar capacity added (sized to match pump load)",
+    "solar_sizing_logic": "Solar capacity in kWp ≈ pump HP × 1.2 (to allow for excess generation)",
+    "earnings_logic": {
+      "self_consumption_savings_inr_per_unit": 0,
+      "excess_export_tariff_up_inr_per_unit": 3.50,
+      "typical_excess_export_pct_of_generation": 40,
+      "farmer_continues_to_pay_existing_pump_tariff": "Yes, but solar offsets most consumption"
+    },
+    "example_5hp_pump_solarisation": {
+      "pump_hp": 5,
+      "solar_kwp_recommended": 6,
+      "benchmark_cost_inr": 322500,
+      "subsidy_central_inr": 96750,
+      "subsidy_state_inr": 96750,
+      "farmer_share_inr": 129000,
+      "farmer_loan_eligible_inr": 96750,
+      "annual_generation_kwh": 9000,
+      "self_consumption_kwh": 5400,
+      "excess_export_kwh": 3600,
+      "annual_excess_earnings_inr": 12600,
+      "annual_pump_bill_savings_inr_estimated": 18000,
+      "total_annual_benefit_inr": 30600,
+      "payback_years": 4.2
+    },
+    "example_7_5hp_pump_solarisation": {
+      "pump_hp": 7.5,
+      "solar_kwp_recommended": 9,
+      "benchmark_cost_inr": 483750,
+      "subsidy_central_inr": 145125,
+      "subsidy_state_inr": 145125,
+      "farmer_share_inr": 193500,
+      "farmer_loan_eligible_inr": 145125,
+      "annual_generation_kwh": 13500,
+      "annual_excess_earnings_inr": 18900,
+      "annual_pump_bill_savings_inr_estimated": 27000,
+      "total_annual_benefit_inr": 45900,
+      "payback_years": 4.2
+    },
+    "process_steps": [
+      "Apply via UPNEDA portal with existing pump connection number",
+      "DISCOM verifies pump existence + consumption history",
+      "Vendor empanelment + solar sizing assessment",
+      "Installation (15-30 days)",
+      "Bi-directional meter installation by DISCOM",
+      "Solar pump operational + DISCOM credits monthly excess"
+    ],
+    "typical_timeline_months": 4,
+    "best_fit_for": "Farmers with reliable electricity but high pump bills (₹500+/month). Solar offsets 60% of consumption + earns from excess. Net financial benefit ~₹25-50K/year on 5-7.5 HP pumps."
+  },
+  
+  "ineligibility_scenarios": [
+    {
+      "scenario": "Tenant farmer without land ownership",
+      "explanation": "KUSUM A/B/C require land ownership documents. Tenant farmers ineligible unless landowner applies.",
+      "alternative": "Some states have lease-based variants; not yet in UP. Encourage landowner partnership."
+    },
+    {
+      "scenario": "Less than 0.5 acres land",
+      "explanation": "Component B not viable below 0.5 acres. Component A requires 4+ acres minimum.",
+      "alternative": "Consider PM Surya Ghar for residential rooftop solar instead."
+    },
+    {
+      "scenario": "No water source",
+      "explanation": "KUSUM Component B requires identifiable water source (borewell, well, tank). Without water, a pump is pointless.",
+      "alternative": "Drill borewell first, then apply. UPNEDA does not subsidize borewell drilling."
+    },
+    {
+      "scenario": "Already received KUSUM subsidy in past 5 years",
+      "explanation": "Anti-double-subsidy rule. Same farmer cannot stack multiple KUSUM-B installations.",
+      "alternative": "Consider PM Surya Ghar rooftop on farmhouse — separate scheme, separate budget."
+    },
+    {
+      "scenario": "Land more than 5 km from substation (for Component A only)",
+      "explanation": "Transmission costs make Component A uneconomic at distance.",
+      "alternative": "Component B works regardless of substation distance — pursue that path."
+    }
+  ],
+  
+  "ranking_factors_for_application_priority": {
+    "high_priority": [
+      "Tribal/SC/ST farmers (UPNEDA reserves quotas)",
+      "Women-headed households",
+      "Drought-affected districts (Bundelkhand)",
+      "FPOs with 50+ members (Component A consolidation)"
+    ],
+    "standard_priority": [
+      "Individual farmers with land documents",
+      "Established borewells with consistent water table"
+    ],
+    "documents_required": [
+      "Aadhaar (farmer + spouse)",
+      "Land records (RoR / Khasra-Khatauni for UP)",
+      "Bank account proof (NABARD-channelled bank preferred)",
+      "Recent electricity bill (Component C only)",
+      "Water source proof (borewell certificate or photograph + GPS coordinates)",
+      "Photograph of installation site",
+      "Caste certificate (if SC/ST applying for quota slot)"
+    ]
+  },
+  
+  "kusum_specialist_vendor_requirements": {
+    "mnre_pump_empanellment_required": true,
+    "upneda_kusum_approved_vendor_required": true,
+    "additional_certifications": [
+      "BIS-certified solar panels",
+      "BIS-certified VFD (Variable Frequency Drive)",
+      "BLDC submersible pump compliance (IS 17385)",
+      "5-year comprehensive maintenance capability"
+    ],
+    "different_from_rooftop_installers": "Most rooftop solar installers cannot do KUSUM. Borewell expertise, pump fitting, VFD integration require specialist crews. MNRE maintains a separate empanelled-vendor list for KUSUM pumps."
+  }
+}
