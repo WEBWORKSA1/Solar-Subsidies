@@ -28,6 +28,16 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .nav a { color:var(--ink); text-decoration:none; font-size:15px; font-weight:500; }
 .nav a:hover { color:var(--sun-deep); }
 
+/* PREFERRED VENDOR BANNER */
+.preferred-vendor-banner { background:var(--leaf); color:var(--paper); padding:14px 28px; border-bottom:1.5px solid var(--ink); display:none; }
+.preferred-vendor-banner.active { display:block; }
+.preferred-vendor-banner-inner { max-width:900px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.preferred-vendor-banner-left { display:flex; align-items:center; gap:12px; font-size:15px; }
+.preferred-vendor-banner .icon { font-size:20px; }
+.preferred-vendor-banner strong { color:var(--sun-light); font-weight:700; }
+.preferred-vendor-banner a { color:var(--paper); text-decoration:underline; font-size:13px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.1em; }
+.preferred-vendor-banner a:hover { color:var(--sun-light); }
+
 /* PROGRESS BAR */
 .progress { background:var(--paper-2); border-bottom:1.5px solid var(--ink); padding:14px 28px; }
 .progress-inner { max-width:900px; margin:0 auto; display:flex; align-items:center; gap:12px; }
@@ -52,7 +62,7 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .step h1 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
 .step .lede { font-size:18px; color:var(--muted); margin-bottom:32px; max-width:640px; line-height:1.55; }
 
-/* OPTION CARDS — Step 1 (intent) and Step 3 (property/timeline) */
+/* OPTION CARDS */
 .option-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-bottom:32px; }
 .option-card {
   padding:24px 22px;
@@ -74,7 +84,7 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .option-card .sub { font-size:13px; color:var(--muted); line-height:1.4; }
 .option-card.selected .sub { color:var(--ink); }
 
-/* FIELDS — Step 2 (district/bill) and Step 4 (contact) */
+/* FIELDS */
 .field { margin-bottom:20px; }
 .field label { display:block; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; font-weight:700; margin-bottom:10px; }
 .field input, .field select { width:100%; padding:16px 18px; border:2px solid var(--ink); background:var(--paper); font-family:'Fraunces',serif; font-size:17px; color:var(--ink); outline:none; transition:all 0.15s; }
@@ -93,7 +103,7 @@ input[type="range"] { -webkit-appearance:none; width:100%; height:8px; backgroun
 input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:24px; height:24px; background:var(--sun); border:2px solid var(--ink); cursor:pointer; border-radius:0; }
 input[type="range"]::-moz-range-thumb { width:24px; height:24px; background:var(--sun); border:2px solid var(--ink); cursor:pointer; border-radius:0; }
 
-/* RESULT REVEAL — Step 2 result */
+/* RESULT REVEAL */
 .result-reveal {
   margin-top:36px;
   padding:32px;
@@ -128,7 +138,7 @@ input[type="range"]::-moz-range-thumb { width:24px; height:24px; background:var(
 .trust-footer li { padding:4px 0; }
 .trust-footer li::before { content:"✓ "; color:var(--leaf); font-weight:700; }
 
-/* CONFIRMATION (Step 5) */
+/* CONFIRMATION */
 .confirmation { text-align:center; padding:40px 0; }
 .confirmation .icon { font-size:80px; margin-bottom:24px; line-height:1; }
 .confirmation h1 { font-size:48px; margin-bottom:16px; }
@@ -164,6 +174,7 @@ input[type="range"]::-moz-range-thumb { width:24px; height:24px; background:var(
   .nav-row { flex-direction:column-reverse; gap:10px; }
   .btn { width:100%; }
   .progress-step { font-size:10px; }
+  .preferred-vendor-banner-inner { flex-direction:column; align-items:flex-start; }
 }
 </style>
 </head>
@@ -178,10 +189,22 @@ input[type="range"]::-moz-range-thumb { width:24px; height:24px; background:var(
     <nav class="nav">
       <a href="/">Home</a>
       <a href="/d/">Districts</a>
-      <a href="/discom/">DISCOMs</a>
+      <a href="/vendors/directory/">Vendors</a>
+      <a href="/kusum/">KUSUM</a>
     </nav>
   </div>
 </header>
+
+<!-- PREFERRED VENDOR BANNER (appears when arriving from a vendor profile) -->
+<div class="preferred-vendor-banner" id="preferredVendorBanner">
+  <div class="preferred-vendor-banner-inner">
+    <div class="preferred-vendor-banner-left">
+      <span class="icon">✓</span>
+      <span>You'll be matched with <strong id="preferredVendorName">—</strong> after completing the calculator.</span>
+    </div>
+    <a href="/calculator.html">Change vendor →</a>
+  </div>
+</div>
 
 <!-- PROGRESS BAR -->
 <div class="progress">
@@ -276,7 +299,6 @@ input[type="range"]::-moz-range-thumb { width:24px; height:24px; background:var(
     <div class="field-help">3 kW captures the full ₹1.08L subsidy. Larger systems generate more but don't get extra subsidy.</div>
   </div>
   
-  <!-- RESULT REVEAL — appears after district + bill selected -->
   <div class="result-reveal" id="resultReveal" style="display:none">
     <div class="result-label mono">YOUR STACKED SUBSIDY</div>
     <div class="result-huge" id="resultTotal">₹1,08,000</div>
@@ -387,8 +409,8 @@ input[type="range"]::-moz-range-thumb { width:24px; height:24px; background:var(
 <!-- STEP 4: CONTACT -->
 <div class="step" id="step4">
   <div class="step-kicker mono">§ Step 4 of 4 · 15 seconds · Final step</div>
-  <h1>How should vendors <em>reach you?</em></h1>
-  <p class="lede">Maximum 3 vendors will WhatsApp/call you with personalized quotes. No spam, no call-center harassment. Reply STOP anytime.</p>
+  <h1 id="step4Heading">How should vendors <em>reach you?</em></h1>
+  <p class="lede" id="step4Lede">Maximum 3 vendors will WhatsApp/call you with personalized quotes. No spam, no call-center harassment. Reply STOP anytime.</p>
   
   <form id="leadForm" onsubmit="submitLead(event)">
     <div class="field">
@@ -409,17 +431,16 @@ input[type="range"]::-moz-range-thumb { width:24px; height:24px; background:var(
       <div class="field-help">For PDF quote summary. Skip if you prefer WhatsApp only.</div>
     </div>
     
-    <!-- Honeypot -->
     <input type="text" name="website" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off">
     
     <div class="field" style="margin-top:8px;">
       <label style="display:flex; gap:10px; align-items:flex-start; font-family:'Fraunces',serif; font-size:14px; text-transform:none; letter-spacing:normal; font-weight:400;">
         <input type="checkbox" name="consentWhatsapp" id="consentWA" checked style="width:auto; flex-shrink:0; margin-top:3px;">
-        <span>I consent to be contacted on WhatsApp/phone by up to 3 vetted, MNRE+UPNEDA-approved installers regarding my solar quote. (DPDP Act 2023 compliant.)</span>
+        <span id="consentText">I consent to be contacted on WhatsApp/phone by up to 3 vetted, MNRE+UPNEDA-approved installers regarding my solar quote. (DPDP Act 2023 compliant.)</span>
       </label>
     </div>
     
-    <div class="trust-footer">
+    <div class="trust-footer" id="trustFooter">
       <h4>What happens after you submit:</h4>
       <ul>
         <li>Your contact goes to maximum 3 vetted installers serving your district</li>
@@ -441,12 +462,13 @@ input[type="range"]::-moz-range-thumb { width:24px; height:24px; background:var(
 <div class="step" id="step5">
   <div class="confirmation">
     <div class="icon">🌞</div>
-    <h1>You're <em>matched!</em></h1>
-    <p class="lede" style="max-width:580px; margin:0 auto 24px;">Your lead is in the queue. Up to 3 vetted installers from your district will reach out within 4 business hours.</p>
+    <h1 id="confirmHeading">You're <em>matched!</em></h1>
+    <p class="lede" id="confirmLede" style="max-width:580px; margin:0 auto 24px;">Your lead is in the queue. Up to 3 vetted installers from your district will reach out within 4 business hours.</p>
     
     <div class="summary">
       <h3>Your quote summary</h3>
       <div class="summary-row"><b>Track ID</b><span class="mono" id="trackId">—</span></div>
+      <div class="summary-row" id="confirmVendorRow" style="display:none;"><b>Vendor</b><span id="confirmVendorName" style="font-weight:700;">—</span></div>
       <div class="summary-row"><b>District</b><span id="confirmDistrict">—</span></div>
       <div class="summary-row"><b>System size</b><span id="confirmSize">—</span></div>
       <div class="summary-row"><b>Stacked subsidy</b><span id="confirmSubsidy" style="color:var(--sun-deep);font-weight:700;">—</span></div>
@@ -458,8 +480,8 @@ input[type="range"]::-moz-range-thumb { width:24px; height:24px; background:var(
       <div class="next-step-item">
         <div class="num mono">01</div>
         <div class="body">
-          <strong>Within 4 hours:</strong>
-          <p>Up to 3 UPNEDA-approved installers will WhatsApp you with personalized site visit + quote offers.</p>
+          <strong id="step01Title">Within 4 hours:</strong>
+          <p id="step01Body">Up to 3 UPNEDA-approved installers will WhatsApp you with personalized site visit + quote offers.</p>
         </div>
       </div>
       <div class="next-step-item">
@@ -489,7 +511,6 @@ input[type="range"]::-moz-range-thumb { width:24px; height:24px; background:var(
 
 </div>
 
-<!-- STATE & LOGIC -->
 <script>
 // ===========================================================
 // STATE
@@ -505,15 +526,17 @@ const state = {
   name: null,
   phone: null,
   email: null,
-  consentWhatsapp: true
+  consentWhatsapp: true,
+  // v0.9: preferred vendor (when arriving from /vendors/{slug}.html)
+  preferredVendorSlug: null,
+  preferredVendorName: null
 };
 
 let DISTRICTS = [];
 
 // ===========================================================
-// CALCULATION (inline — replicates calc-engine.js for safety)
+// CALC HELPERS
 // ===========================================================
-
 function pmSuryaGhar(kw) {
   if (kw <= 0) return 0;
   if (kw >= 3) return 78000;
@@ -521,11 +544,7 @@ function pmSuryaGhar(kw) {
   if (kw <= 2) return Math.round(30000 + (kw - 1) * 30000);
   return Math.round(60000 + (kw - 2) * 18000);
 }
-
-function upnedaSubsidy(kw) {
-  return Math.min(Math.round(kw * 15000), 30000);
-}
-
+function upnedaSubsidy(kw) { return Math.min(Math.round(kw * 15000), 30000); }
 function calculate(kw, irradiance) {
   const central = pmSuryaGhar(kw);
   const stateSubsidy = upnedaSubsidy(kw);
@@ -533,24 +552,69 @@ function calculate(kw, irradiance) {
   const grossCost = kw * 70000;
   const netCost = Math.max(0, grossCost - totalSubsidy);
   const monthlyUnits = Math.round(kw * irradiance * 30 * 0.75);
-  const annualUnits = monthlyUnits * 12;
   const monthlySavings = Math.round(monthlyUnits * 6.5);
   const annualSavings = monthlySavings * 12;
   const payback = annualSavings > 0 ? +(netCost / annualSavings).toFixed(1) : 99;
   let cumulative = 0;
   for (let y = 0; y < 25; y++) cumulative += annualSavings * Math.pow(1.04, y);
-  const lifetime = Math.round(cumulative - netCost);
-  return { central, stateSubsidy, totalSubsidy, grossCost, netCost, monthlyUnits, monthlySavings, payback, lifetime };
+  return { central, stateSubsidy, totalSubsidy, grossCost, netCost, monthlyUnits, monthlySavings, payback, lifetime: Math.round(cumulative - netCost) };
 }
-
 function fmtInr(n) {
   if (n >= 10000000) return '₹' + (n / 10000000).toFixed(2).replace(/\.00$/, '') + ' Cr';
   if (n >= 100000) return '₹' + (n / 100000).toFixed(2).replace(/\.00$/, '') + ' L';
   return '₹' + n.toLocaleString('en-IN');
 }
+function fmtInrFull(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
 
-function fmtInrFull(n) {
-  return '₹' + Math.round(n).toLocaleString('en-IN');
+// ===========================================================
+// v0.9: PREFERRED VENDOR HANDLING
+// ===========================================================
+// When arriving from /vendors/{slug}.html, the URL has ?preferred_vendor=<slug>
+// We fetch that vendor's name from the public API, show a banner, and tailor copy.
+async function loadPreferredVendor() {
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('preferred_vendor');
+  if (!slug) return;
+  
+  state.preferredVendorSlug = slug;
+  
+  // Try to fetch vendor name from public API. Fallback: slug-to-name humanization.
+  try {
+    const res = await fetch(`/api/vendors-public?slug=${encodeURIComponent(slug)}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.vendor) {
+        state.preferredVendorName = data.vendor.brand_name || data.vendor.company_name;
+      }
+    }
+  } catch (e) { /* silent */ }
+  
+  // Fallback if API fails: humanize the slug
+  if (!state.preferredVendorName) {
+    state.preferredVendorName = slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  }
+  
+  // Show banner + tailor copy throughout the flow
+  document.getElementById('preferredVendorName').textContent = state.preferredVendorName;
+  document.getElementById('preferredVendorBanner').classList.add('active');
+  
+  // Customize Step 4 copy (since they want this specific vendor, not "up to 3")
+  document.getElementById('step4Heading').innerHTML = `Tell <em>${state.preferredVendorName}</em><br>how to reach you.`;
+  document.getElementById('step4Lede').textContent = `${state.preferredVendorName} will WhatsApp/call you within 4 business hours with a personalized quote.`;
+  document.getElementById('consentText').textContent = `I consent to be contacted on WhatsApp/phone by ${state.preferredVendorName} regarding my solar quote. If they are unavailable in my district, I consent to be matched with the next-best-fit MNRE+UPNEDA-approved installer. (DPDP Act 2023 compliant.)`;
+  document.getElementById('trustFooter').innerHTML = `
+    <h4>What happens after you submit:</h4>
+    <ul>
+      <li>Your contact goes directly to ${state.preferredVendorName}</li>
+      <li>If they decline or are over capacity, we route to next-best-fit vendor in your district</li>
+      <li>You'll get a WhatsApp message within 4 business hours</li>
+      <li>No data sold to third parties</li>
+      <li>Reply STOP to opt out instantly</li>
+    </ul>
+  `;
+  
+  // Customize submit button copy
+  document.getElementById('submitBtn').textContent = `Get My Quote from ${state.preferredVendorName.split(' ').slice(0, 2).join(' ')} →`;
 }
 
 // ===========================================================
@@ -562,7 +626,6 @@ fetch('/data/districts-up.json')
     DISTRICTS = data.districts;
     populateDistricts();
     
-    // Pre-fill from URL params (e.g. /calculator.html?district=lucknow&size=3)
     const params = new URLSearchParams(window.location.search);
     if (params.get('district')) {
       const slug = params.get('district');
@@ -591,16 +654,12 @@ function populateDistricts() {
     sel.appendChild(opt);
   });
 }
-
-function getDistrict(slug) {
-  return DISTRICTS.find(d => d.slug === slug);
-}
+function getDistrict(slug) { return DISTRICTS.find(d => d.slug === slug); }
 
 // ===========================================================
 // STEP NAVIGATION
 // ===========================================================
 function goToStep(n) {
-  // Validate before advancing
   if (n > state.step) {
     if (state.step === 1 && !state.intent) return;
     if (state.step === 2) {
@@ -611,11 +670,9 @@ function goToStep(n) {
     }
     if (state.step === 3 && (!state.property || !state.timeline)) return;
   }
-  
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById(`step${n}`).classList.add('active');
   state.step = n;
-  
   updateProgress(n);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -652,16 +709,12 @@ document.getElementById('district').addEventListener('change', e => {
 document.getElementById('billSlider').addEventListener('input', e => {
   state.bill = parseInt(e.target.value, 10);
   document.getElementById('billDisplay').textContent = '₹' + state.bill.toLocaleString('en-IN');
-  
-  // Auto-recommend size based on bill
   let recommended = 3;
   if (state.bill < 2000) recommended = 1;
   else if (state.bill < 3000) recommended = 2;
   else if (state.bill < 5500) recommended = 3;
   else if (state.bill < 8000) recommended = 5;
   else recommended = 10;
-  
-  // Update size if user hasn't manually changed it
   if (!state._manualSize) {
     state.size = recommended;
     document.getElementById('size').value = recommended;
@@ -682,9 +735,7 @@ function updateResultReveal() {
   }
   const d = getDistrict(state.district);
   if (!d) return;
-  
   const calc = calculate(state.size, d.irradiance);
-  
   document.getElementById('resultReveal').style.display = 'block';
   document.getElementById('resultTotal').textContent = fmtInrFull(calc.totalSubsidy);
   document.getElementById('resultContext').textContent = `${state.size} kW · ${d.name} · ${d.discom} DISCOM`;
@@ -729,7 +780,6 @@ async function submitLead(e) {
   submitBtn.disabled = true;
   submitBtn.textContent = 'Submitting...';
   
-  // Validate phone
   let phone = document.getElementById('leadPhone').value.trim();
   phone = phone.replace(/[\s\-]/g, '');
   if (!phone.startsWith('+')) {
@@ -738,7 +788,9 @@ async function submitLead(e) {
     } else {
       document.getElementById('phoneError').classList.add('show');
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Get My 3 Free Quotes →';
+      submitBtn.textContent = state.preferredVendorName ? 
+        `Get My Quote from ${state.preferredVendorName.split(' ').slice(0, 2).join(' ')} →` :
+        'Get My 3 Free Quotes →';
       return;
     }
   }
@@ -763,6 +815,8 @@ async function submitLead(e) {
     intent: state.intent,
     timeline: state.timeline,
     consentWhatsapp: state.consentWhatsapp,
+    // v0.9: preferred vendor passed through to matching engine
+    preferredVendorSlug: state.preferredVendorSlug,
     calculatorSnapshot: {
       totalSubsidy: calc.totalSubsidy,
       netCost: calc.netCost,
@@ -771,11 +825,12 @@ async function submitLead(e) {
       monthlySavings: calc.monthlySavings,
       monthlyUnits: calc.monthlyUnits
     },
-    source: 'calculator_v2',
-    website: e.target.website.value  // honeypot
+    source: state.preferredVendorSlug ? `vendor_profile_${state.preferredVendorSlug}` : 'calculator_v2',
+    website: e.target.website.value
   };
   
   let leadId = 'demo-' + Date.now().toString(36);
+  let assignedVendorName = null;
   
   try {
     const res = await fetch('/api/lead', {
@@ -783,34 +838,23 @@ async function submitLead(e) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
-    
     if (res.ok) {
       const result = await res.json();
       leadId = result.leadId || leadId;
+      assignedVendorName = result.vendorName || null;
     } else {
-      const err = await res.json();
-      console.error('Lead submit failed:', err);
-      // Fall through to confirmation anyway — we have offline fallback
+      console.error('Lead submit failed:', await res.json());
     }
   } catch (err) {
     console.error('Network error:', err);
-    // Fallback: open WhatsApp with admin
     const adminPhone = '919876543210';
     const message = encodeURIComponent(
-      `Solar Lead — ${state.name}\n` +
-      `District: ${d.name}\n` +
-      `System: ${state.size} kW\n` +
-      `Bill: ₹${state.bill}\n` +
-      `Intent: ${state.intent}\n` +
-      `Timeline: ${state.timeline}\n` +
-      `Property: ${state.property}\n` +
-      `Phone: ${state.phone}\n` +
-      `Net cost: ₹${calc.netCost.toLocaleString('en-IN')}`
+      `Solar Lead — ${state.name}\nDistrict: ${d.name}\nSystem: ${state.size} kW\nBill: ₹${state.bill}\nPhone: ${state.phone}\nPreferred vendor: ${state.preferredVendorSlug || 'none'}`
     );
     window.open(`https://wa.me/${adminPhone}?text=${message}`, '_blank');
   }
   
-  // Show confirmation with all the calc details
+  // Confirmation
   document.getElementById('trackId').textContent = leadId.slice(0, 8).toUpperCase();
   document.getElementById('confirmDistrict').textContent = d.name;
   document.getElementById('confirmSize').textContent = state.size + ' kW';
@@ -818,7 +862,27 @@ async function submitLead(e) {
   document.getElementById('confirmNet').textContent = fmtInrFull(calc.netCost);
   document.getElementById('confirmPayback').textContent = calc.payback + ' years';
   
-  // WhatsApp share link
+  // v0.9: Tailor confirmation copy if preferred vendor was matched
+  if (state.preferredVendorName) {
+    const vendorToShow = assignedVendorName || state.preferredVendorName;
+    document.getElementById('confirmVendorRow').style.display = 'flex';
+    document.getElementById('confirmVendorName').textContent = vendorToShow;
+    
+    // Update headings + step 01 to reflect the routing
+    if (assignedVendorName && assignedVendorName !== state.preferredVendorName) {
+      // Preferred vendor was unavailable, fallback happened
+      document.getElementById('confirmHeading').innerHTML = 'You\'re <em>matched!</em>';
+      document.getElementById('confirmLede').innerHTML = `${state.preferredVendorName} was unavailable in ${d.name} — we've routed your lead to <strong>${assignedVendorName}</strong> instead, who is the next-best-fit MNRE+UPNEDA-approved installer in your district.`;
+      document.getElementById('step01Title').textContent = 'Within 4 hours:';
+      document.getElementById('step01Body').textContent = `${assignedVendorName} will WhatsApp you with a personalized site visit + quote offer.`;
+    } else {
+      document.getElementById('confirmHeading').innerHTML = `${state.preferredVendorName.split(' ').slice(0, 2).join(' ')} is <em>on it</em>.`;
+      document.getElementById('confirmLede').textContent = `Your lead has been sent directly to ${state.preferredVendorName}. They'll WhatsApp you within 4 business hours.`;
+      document.getElementById('step01Title').textContent = `Within 4 hours (${state.preferredVendorName}):`;
+      document.getElementById('step01Body').textContent = `${state.preferredVendorName} will WhatsApp you with a personalized site visit + quote offer.`;
+    }
+  }
+  
   const shareText = encodeURIComponent(
     `Just calculated my solar subsidy on SolarSubsidies.com — ₹${calc.totalSubsidy.toLocaleString('en-IN')} off a 3 kW system in ${d.name}! Try it: https://solarsubsidies.com/calculator.html`
   );
@@ -830,7 +894,8 @@ async function submitLead(e) {
 // ===========================================================
 // INIT
 // ===========================================================
-// Pre-select intent if URL param ?intent=...
+loadPreferredVendor();
+
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.get('intent')) {
   const intent = urlParams.get('intent');
