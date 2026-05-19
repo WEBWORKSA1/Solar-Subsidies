@@ -1,0 +1,254 @@
+{
+  "_meta": {
+    "description": "PM-KUSUM scheme rules for Uttar Pradesh, as published by MNRE and UPNEDA. Component-level subsidy + eligibility data.",
+    "last_verified": "2026-05-18",
+    "primary_sources": [
+      "https://mnre.gov.in/pm-kusum/",
+      "https://upneda.org.in/kusum",
+      "PM-KUSUM Implementation Guidelines, MNRE 2024 revision"
+    ],
+    "important_disclaimer": "Subsidy rates and eligibility may change. Always verify with official sources or vendor before financial commitment."
+  },
+  "components": {
+    "A": {
+      "name": "Component A — Decentralized Solar Power Plants on Barren Land",
+      "name_short": "Land Lease / Solar Plant",
+      "description": "Farmer leases barren/uncultivable land for 500 kW–2 MW solar plants. Developer (private or RESCO) builds, operates, sells power to DISCOM. Farmer receives lease rent for 25 years.",
+      "capacity_range_kw": [500, 2000],
+      "who_qualifies": [
+        "Individual farmers owning barren/uncultivable land",
+        "Farmer producer organisations (FPOs)",
+        "Cooperatives, panchayats, water user associations"
+      ],
+      "land_requirements": {
+        "min_acres": 2,
+        "max_acres_per_mw": 5,
+        "land_type": ["barren", "uncultivable", "fallow"],
+        "proximity_constraint": "Within 5 km of 33/11 kV substation with available capacity"
+      },
+      "farmer_cost": 0,
+      "farmer_revenue_per_year_inr": {
+        "low": 30000,
+        "high": 40000,
+        "unit": "per acre per year for 25 years",
+        "note": "Rate negotiated with developer; UPNEDA publishes benchmark rates."
+      },
+      "subsidy_structure": "No direct subsidy to farmer. Developer earns generation-based incentive (GBI) of ₹0.40/unit for first 5 years.",
+      "timeline_months": {
+        "application_to_approval": 3,
+        "approval_to_commissioning": 12,
+        "total": 15
+      },
+      "how_to_apply": [
+        "Apply on UPNEDA KUSUM portal with land ownership documents",
+        "UPNEDA verifies land + substation proximity",
+        "Match with empanelled developer via reverse bidding",
+        "Sign 25-year lease + PPA tripartite agreement",
+        "Developer constructs, commissions, hands over revenue stream"
+      ],
+      "red_flags": [
+        "Developer asking for upfront payment from farmer",
+        "Lease term less than 25 years",
+        "No PPA between developer and DISCOM at signing"
+      ]
+    },
+    "B": {
+      "name": "Component B — Standalone Off-Grid Solar Pumps",
+      "name_short": "Off-Grid Solar Pump",
+      "description": "Standalone solar pumps for irrigation on land WITHOUT grid electricity connection. Replaces diesel pumps. Up to 10 HP capacity.",
+      "capacity_range_hp": [3, 10],
+      "who_qualifies": [
+        "Individual farmers without grid electricity on agricultural land",
+        "Land must be cultivable (not barren)",
+        "Pump capacity must match landholding (rough rule: 1 HP per 2.5 acres)"
+      ],
+      "subsidy_structure": {
+        "central": 30,
+        "state": 30,
+        "farmer": 40,
+        "unit": "percent of benchmark cost",
+        "note": "Farmer 40% can be financed via NABARD or commercial bank loan at 7-9% interest."
+      },
+      "benchmark_costs_inr": {
+        "3_hp": { "total": 230000, "central_subsidy": 69000, "state_subsidy": 69000, "farmer_share": 92000 },
+        "5_hp": { "total": 304000, "central_subsidy": 91200, "state_subsidy": 91200, "farmer_share": 121600 },
+        "7_5_hp": { "total": 421000, "central_subsidy": 126300, "state_subsidy": 126300, "farmer_share": 168400 },
+        "10_hp": { "total": 580000, "central_subsidy": 174000, "state_subsidy": 174000, "farmer_share": 232000 }
+      },
+      "timeline_months": {
+        "application_to_approval": 1,
+        "approval_to_installation": 3,
+        "total": 4
+      },
+      "how_to_apply": [
+        "Apply on UPNEDA KUSUM portal (upneda.org.in/kusum)",
+        "Upload land documents (khasra/khatauni), Aadhaar, bank account",
+        "UPNEDA verifies — no existing grid pump on the land",
+        "Select empanelled installer from list",
+        "Pay 40% farmer share (or take loan)",
+        "Installer installs within 90 days of payment",
+        "Joint commissioning report submitted to UPNEDA"
+      ],
+      "benefits": [
+        "Zero recurring electricity/diesel cost (saves ₹15,000-30,000/year)",
+        "5-year manufacturer warranty on pump and panels",
+        "No grid dependency — works during outages",
+        "Mobile-mounted variant available for crop rotation across plots"
+      ],
+      "red_flags": [
+        "Installer not on UPNEDA empanelled list",
+        "Asking for full payment upfront before subsidy approval",
+        "Pump capacity oversized for landholding (regulatory issue)",
+        "No 5-year warranty in written contract"
+      ]
+    },
+    "C": {
+      "name": "Component C — Grid-Connected Solar Pumps + Feeder-Level Solarization",
+      "name_short": "Grid-Connected Pump",
+      "description": "Existing grid-connected pumps converted to solar+grid hybrid. Excess generation feeds back to DISCOM at ~₹3.50/unit. Two sub-modes: individual pump solarization, or feeder-level solarization where entire agricultural feeder is solar-fed.",
+      "capacity_range_hp": [3, 10],
+      "who_qualifies": [
+        "Individual farmers with existing grid-connected agricultural pump",
+        "Land must be cultivable",
+        "DISCOM must have net metering provision for agricultural connections"
+      ],
+      "subsidy_structure": {
+        "central": 30,
+        "state": 30,
+        "farmer": 40,
+        "unit": "percent of benchmark cost",
+        "note": "Identical to Component B. Difference is grid connection requirement."
+      },
+      "benchmark_costs_inr": {
+        "3_hp": { "total": 230000, "central_subsidy": 69000, "state_subsidy": 69000, "farmer_share": 92000 },
+        "5_hp": { "total": 304000, "central_subsidy": 91200, "state_subsidy": 91200, "farmer_share": 121600 },
+        "7_5_hp": { "total": 421000, "central_subsidy": 126300, "state_subsidy": 126300, "farmer_share": 168400 },
+        "10_hp": { "total": 580000, "central_subsidy": 174000, "state_subsidy": 174000, "farmer_share": 232000 }
+      },
+      "excess_generation_tariff_inr_per_unit": 3.50,
+      "timeline_months": {
+        "application_to_approval": 1,
+        "approval_to_installation": 3,
+        "total": 4
+      },
+      "how_to_apply": [
+        "Apply on UPNEDA KUSUM portal",
+        "Submit existing electricity bill (proves grid connection)",
+        "Land documents, Aadhaar, bank account",
+        "DISCOM does feasibility for net metering",
+        "Pay 40% farmer share or finance via loan",
+        "Installer installs, DISCOM installs bi-directional meter free",
+        "Excess generation credited monthly"
+      ],
+      "benefits": [
+        "Daytime irrigation without grid load (reduces DISCOM peak stress)",
+        "Sell excess to DISCOM at ₹3.50/unit",
+        "Acts as income source during non-irrigation months (monsoon, winter fallow)",
+        "Existing pump infrastructure reused (saves cost vs Component B)"
+      ],
+      "red_flags": [
+        "DISCOM hasn't approved net metering for agricultural connections",
+        "Existing pump motor is more than 10 years old (replacement needed first)",
+        "Feeder-level proposals require village-level consent"
+      ]
+    }
+  },
+  "district_priority": {
+    "high_priority": {
+      "description": "UP districts with strongest KUSUM-fit: high rural %, water-intensive crops, low grid reliability",
+      "districts": [
+        "banda", "jhansi", "jalaun", "lalitpur", "mahoba", "hamirpur", "chitrakoot",
+        "sitapur", "hardoi", "unnao", "rae-bareli", "barabanki", "sultanpur",
+        "pratapgarh", "kaushambi", "mirzapur", "sonbhadra", "bahraich", "shravasti",
+        "balrampur", "siddharthnagar", "kheri", "pilibhit", "shahjahanpur", "budaun"
+      ]
+    },
+    "medium_priority": {
+      "description": "Moderate KUSUM market — mixed urban/rural with some agricultural belt",
+      "districts": [
+        "varanasi", "prayagraj", "lucknow", "kanpur-nagar", "kanpur-dehat",
+        "agra", "mathura", "aligarh", "meerut", "muzaffarnagar", "saharanpur",
+        "bareilly", "moradabad", "firozabad", "etawah", "farrukhabad"
+      ]
+    },
+    "low_priority": {
+      "description": "Predominantly urban — small KUSUM market, focus on rooftop instead",
+      "districts": [
+        "ghaziabad", "gautam-buddha-nagar", "hapur", "bulandshahr", "baghpat"
+      ]
+    }
+  },
+  "eligibility_decision_tree": {
+    "description": "Logic for the /kusum/calculator.html wizard. Used to route farmers to right component.",
+    "questions": [
+      {
+        "id": "land_owned",
+        "text": "Do you own agricultural land?",
+        "type": "yes_no",
+        "if_no": "NOT_ELIGIBLE_LAND"
+      },
+      {
+        "id": "land_acres",
+        "text": "How much agricultural land do you own?",
+        "type": "select",
+        "options": ["<1 acre", "1-2 acres", "2-5 acres", "5-10 acres", ">10 acres"],
+        "if_under_1_acre": "BORDERLINE_TOO_SMALL"
+      },
+      {
+        "id": "land_type",
+        "text": "Is this land cultivable or barren?",
+        "type": "select",
+        "options": ["All cultivable", "Mostly cultivable, some barren", "Mostly barren/fallow", "All barren"],
+        "routes_to": {
+          "all_barren": "COMPONENT_A_LIKELY",
+          "mostly_barren": "COMPONENT_A_LIKELY_OR_B"
+        }
+      },
+      {
+        "id": "grid_connection",
+        "text": "Do you have an electricity grid connection on the agricultural land?",
+        "type": "yes_no",
+        "routes_to": {
+          "yes": "COMPONENT_C_PATH",
+          "no": "COMPONENT_B_PATH"
+        }
+      },
+      {
+        "id": "current_pump",
+        "text": "What kind of pump do you currently use for irrigation?",
+        "type": "select",
+        "options": ["Diesel pump", "Electric pump (grid)", "No pump", "Manual / animal-drawn"]
+      },
+      {
+        "id": "crops",
+        "text": "What are your primary crops?",
+        "type": "multi_select",
+        "options": ["Wheat", "Rice", "Sugarcane", "Mustard", "Pulses", "Vegetables", "Fruits", "Other"]
+      },
+      {
+        "id": "motivation",
+        "text": "What's your main reason for considering solar?",
+        "type": "select",
+        "options": [
+          "Save on diesel cost",
+          "Save on electricity bill",
+          "Generate income from excess power",
+          "Lease barren land",
+          "Reliable irrigation during outages",
+          "Just exploring"
+        ]
+      },
+      {
+        "id": "financing",
+        "text": "Can you finance the 40% farmer share?",
+        "type": "select",
+        "options": [
+          "Yes, will pay from savings",
+          "Need bank/NABARD loan",
+          "Cannot afford even with loan",
+          "Not sure yet"
+        ]
+      }
+    ]
+  }
+}
