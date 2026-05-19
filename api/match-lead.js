@@ -2,12 +2,13 @@
  * /api/match-lead.js — Lead-vendor matching engine
  * 
  * Called internally after lead capture. Picks best vendor for a lead based on:
- *   1. Active vendors covering lead's district
- *   2. Min system size compatibility
- *   3. Property type compatibility
- *   4. Tier priority (premium > standard > probation)
- *   5. Current capacity utilization (least-loaded first)
- *   6. Avg response time (faster first)
+ *   1. (v0.9 NEW) Honor customer's preferred vendor if they chose one on profile page
+ *   2. Active vendors covering lead's district
+ *   3. Min system size compatibility
+ *   4. Property type compatibility
+ *   5. Tier priority (premium > standard > probation)
+ *   6. Current capacity utilization (least-loaded first)
+ *   7. Avg response time (faster first)
  * 
  * Creates lead_assignments row with 24hr expiry. Notifies vendor via WhatsApp.
  * 
@@ -64,6 +65,52 @@ export async function matchLead(leadId, excludeVendorIds = []) {
     return { matched: false, reason: 'COLD leads not auto-matched — manual broker' };
   }
 
+  // ============================================================
+  // v0.9: PREFERRED VENDOR PATH
+  // ============================================================
+  // If the customer arrived from /vendors/{slug}.html, lead.preferred_vendor_slug is set.
+  // Try that vendor first. If they pass minimum eligibility (active + covers district +
+  // system size compatible), assign to them regardless of tier/capacity/performance.
+  // Capacity-overloaded preferred vendor still gets the lead — customer's choice wins.
+  //
+  // Fall back to normal scoring ONLY if preferred vendor is:
+  //   - Not in the database
+  //   - Inactive or suspended
+  //   - Doesn't cover this district
+  //   - Doesn't handle this system size
+  //   - In the excludeVendorIds list (e.g. already declined this lead)
+  
+  if (lead.preferred_vendor_slug && excludeVendorIds.length === 0) {
+    const preferredUrl = `${supabaseUrl}/rest/v1/vendors?slug=eq.${encodeURIComponent(lead.preferred_vendor_slug)}&select=*&limit=1`;
+    const preferredRes = await fetch(preferredUrl, {
+      headers: { 'apikey': supabaseKey, 'Authorization': `Bearer ${supabaseKey}` }
+    });
+    const preferred = (await preferredRes.json())?.[0];
+    
+    if (preferred && 
+        preferred.active === true && 
+        preferred.tier !== 'suspended' &&
+        (preferred.coverage_districts || []).includes(lead.district_slug) &&
+        (preferred.min_system_size_kw || 0) <= (lead.system_size_kw || 3) &&
+        (!preferred.property_types?.length || preferred.property_types.includes(lead.property_type)) &&
+        !excludeVendorIds.includes(preferred.id)) {
+      
+      // Preferred vendor passes minimum eligibility → honor customer's choice
+      console.log(`[match-lead] Honoring preferred vendor: ${preferred.company_name} for lead ${leadId}`);
+      
+      const result = await assignToVendor(lead, preferred, leadId, 'preferred', 0);
+      return result;
+    } else if (preferred) {
+      console.log(`[match-lead] Preferred vendor ${lead.preferred_vendor_slug} failed eligibility — falling back to scoring`);
+    } else {
+      console.log(`[match-lead] Preferred vendor slug ${lead.preferred_vendor_slug} not found — falling back to scoring`);
+    }
+  }
+  
+  // ============================================================
+  // STANDARD MATCHING PATH (no preference OR preferred vendor unavailable)
+  // ============================================================
+  
   // 2. Find eligible vendors
   let candidateUrl = `${supabaseUrl}/rest/v1/vendors?select=*` +
     `&active=eq.true` +
@@ -81,14 +128,13 @@ export async function matchLead(leadId, excludeVendorIds = []) {
   });
   const candidates = await vendorRes.json();
   
-  // 3. Filter by property type compatibility (vendor must accept this property type)
+  // 3. Filter by property type compatibility
   const eligible = candidates.filter(v => {
     if (!v.property_types || v.property_types.length === 0) return true;
     return v.property_types.includes(lead.property_type);
   });
   
   if (eligible.length === 0) {
-    // No vendor found — write a placeholder assignment for admin triage
     await fetch(`${supabaseUrl}/rest/v1/leads?id=eq.${leadId}`, {
       method: 'PATCH',
       headers: {
@@ -102,20 +148,15 @@ export async function matchLead(leadId, excludeVendorIds = []) {
   }
   
   // 4. Score each candidate
-  // Higher score = better match
   for (const v of eligible) {
     let score = 0;
     
-    // Tier preference (premium > standard > probation)
     if (v.tier === 'premium') score += 30;
     else if (v.tier === 'standard') score += 20;
     else if (v.tier === 'probation') score += 10;
     
-    // For HOT leads, premium gets bigger boost
     if (lead.lead_tier === 'HOT' && v.tier === 'premium') score += 20;
     
-    // Capacity utilization — less loaded vendor wins
-    // Count active assignments this week
     const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
     const activeUrl = `${supabaseUrl}/rest/v1/lead_assignments?` +
       `vendor_id=eq.${v.id}&created_at=gte.${since}` +
@@ -129,19 +170,16 @@ export async function matchLead(leadId, excludeVendorIds = []) {
     const capacity = v.lead_capacity_per_week || 5;
     const utilizationPct = (activeCount / capacity) * 100;
     
-    // Penalize over-loaded vendors heavily
     if (utilizationPct >= 100) score -= 50;
     else if (utilizationPct >= 75) score -= 20;
     else if (utilizationPct >= 50) score -= 5;
     
-    // Reward fast responders
     if (v.avg_response_time_minutes !== null) {
       if (v.avg_response_time_minutes < 60) score += 10;
       else if (v.avg_response_time_minutes < 120) score += 5;
       else if (v.avg_response_time_minutes > 480) score -= 10;
     }
     
-    // Reward proven closers
     if (v.leads_closed >= 5) {
       const closeRate = v.leads_received > 0 ? (v.leads_closed / v.leads_received) : 0;
       if (closeRate >= 0.3) score += 15;
@@ -153,15 +191,26 @@ export async function matchLead(leadId, excludeVendorIds = []) {
     v._utilizationPct = utilizationPct;
   }
   
-  // Sort descending by match score
   eligible.sort((a, b) => b._matchScore - a._matchScore);
   const winner = eligible[0];
   
-  // 5. Calculate commission preview
-  const grossValue = (lead.system_size_kw || 3) * 70000;
-  const commissionAmount = grossValue * (winner.commission_rate / 100);
+  return await assignToVendor(lead, winner, leadId, 
+    excludeVendorIds.length > 0 ? 'reassign' : 'auto', 
+    excludeVendorIds.length,
+    { matchScore: winner._matchScore, utilizationPct: winner._utilizationPct, candidatesConsidered: eligible.length }
+  );
+}
+
+// ============================================================
+// HELPER: Create assignment row + notify vendor
+// Extracted so both "preferred" and "auto" paths share the same logic
+// ============================================================
+async function assignToVendor(lead, vendor, leadId, assignmentMethod, reassignCount, extra = {}) {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   
-  // 6. Create lead_assignments row
+  const grossValue = (lead.system_size_kw || 3) * 70000;
+  const commissionAmount = grossValue * (vendor.commission_rate / 100);
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
   
   const assignRes = await fetch(`${supabaseUrl}/rest/v1/lead_assignments`, {
@@ -174,18 +223,18 @@ export async function matchLead(leadId, excludeVendorIds = []) {
     },
     body: JSON.stringify({
       lead_id: leadId,
-      vendor_id: winner.id,
-      assignment_method: excludeVendorIds.length > 0 ? 'reassign' : 'auto',
+      vendor_id: vendor.id,
+      assignment_method: assignmentMethod,
       district_slug: lead.district_slug,
       lead_tier: lead.lead_tier,
       lead_score: lead.lead_score,
       system_size_kw: lead.system_size_kw,
       gross_system_value: grossValue,
-      commission_rate: winner.commission_rate,
+      commission_rate: vendor.commission_rate,
       commission_amount: Math.round(commissionAmount * 100) / 100,
       commission_status: 'pending',
       expires_at: expiresAt,
-      reassign_count: excludeVendorIds.length
+      reassign_count: reassignCount
     })
   });
   
@@ -199,7 +248,6 @@ export async function matchLead(leadId, excludeVendorIds = []) {
     return { matched: false, reason: 'DB write failed', detail: err };
   }
   
-  // 7. Update lead status
   await fetch(`${supabaseUrl}/rest/v1/leads?id=eq.${leadId}`, {
     method: 'PATCH',
     headers: {
@@ -210,28 +258,30 @@ export async function matchLead(leadId, excludeVendorIds = []) {
     body: JSON.stringify({ status: 'assigned' })
   });
   
-  // 8. Notify vendor via WhatsApp
   await notifyVendor({
-    vendor: winner,
+    vendor,
     lead,
     assignmentId,
     commissionAmount,
-    expiresAt
+    expiresAt,
+    isPreferred: assignmentMethod === 'preferred'
   });
   
   return {
     matched: true,
-    vendorId: winner.id,
-    vendorName: winner.company_name,
+    vendorId: vendor.id,
+    vendorName: vendor.company_name,
     assignmentId,
-    matchScore: winner._matchScore,
-    utilizationPct: winner._utilizationPct,
+    assignmentMethod,
     commissionAmount: Math.round(commissionAmount),
-    candidatesConsidered: eligible.length
+    ...extra
   };
 }
 
-async function notifyVendor({ vendor, lead, assignmentId, commissionAmount, expiresAt }) {
+// ============================================================
+// VENDOR NOTIFICATION (with preferred-vendor flag)
+// ============================================================
+async function notifyVendor({ vendor, lead, assignmentId, commissionAmount, expiresAt, isPreferred = false }) {
   const provider = process.env.WHATSAPP_PROVIDER || 'webhook';
   const apiKey = process.env.WHATSAPP_API_KEY;
   if (!apiKey) return;
@@ -268,8 +318,12 @@ async function notifyVendor({ vendor, lead, assignmentId, commissionAmount, expi
   
   const expiryHours = Math.round((new Date(expiresAt) - new Date()) / (1000 * 60 * 60));
   
-  const message = `${tierEmoji} NEW LEAD ASSIGNED — ${lead.lead_tier}
-
+  // v0.9: Highlight when this is a preferred-vendor match (customer picked YOU specifically)
+  const preferredFlag = isPreferred 
+    ? '\n⭐ CUSTOMER REQUESTED YOU SPECIFICALLY (from your vendor profile page)\n'
+    : '';
+  
+  const message = `${tierEmoji} NEW LEAD ASSIGNED — ${lead.lead_tier}${preferredFlag}
 Score: ${lead.lead_score}/10
 👤 ${lead.name}
 📞 ${lead.phone}
