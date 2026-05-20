@@ -4,6 +4,8 @@
  * Writes to kusum_leads table using column names defined in
  * data/0008_kusum_and_directory.sql (the canonical migration).
  *
+ * v0.9 P1: Auto-calls matchKusumLead() for HOT/WARM leads after insert.
+ *
  * IMPORTANT — schema differences from rooftop lead pipeline:
  *   - kusum_lead_score / kusum_lead_tier (NOT lead_score / lead_tier)
  *   - land_owned_acres (NOT land_area_acres)
@@ -30,7 +32,10 @@
  *   ADMIN_PHONE
  *   KUSUM_LEAD_PHONES (optional, comma-separated additional escalation)
  *   MSG91_INTEGRATED_NUMBER (only if WHATSAPP_PROVIDER=msg91)
+ *   MATCH_INTERNAL_TOKEN (required for v0.9 auto-routing)
  */
+
+import { matchKusumLead } from './match-kusum-lead.js';
 
 const ALLOWED_ORIGINS = [
   'https://solarsubsidies.com',
@@ -118,12 +123,10 @@ export default async function handler(req, res) {
     const waterSource = mapWaterSource(payload.water_source_type);
     
     // Compute estimated_system_kw from recommended_pump_hp or recommended_capacity_mw
-    // Rule of thumb: 1 HP ≈ 0.75 kW; 1 MW = 1000 kW
     let estimatedSystemKw = null;
     if (payload.recommended_capacity_mw) {
       estimatedSystemKw = Math.round(payload.recommended_capacity_mw * 1000 * 100) / 100;
     } else if (payload.recommended_pump_hp) {
-      // Solar capacity sized at ~1.2x pump HP in kW; pump_hp * 0.75 * 1.2 ≈ pump_hp * 0.9
       estimatedSystemKw = Math.round(payload.recommended_pump_hp * 0.9 * 100) / 100;
     }
     
@@ -139,41 +142,31 @@ export default async function handler(req, res) {
       estimated_annual_benefit_inr: payload.estimated_annual_benefit_inr || null,
       distance_to_substation_km: payload.distance_to_substation_km || null,
       priority_quota: priorityQuota,
+      sc_st_quota: payload.sc_st_quota || false,
       source_irrigation_input: payload.current_irrigation_source || null,
       source_water_input: payload.water_source_type || null,
-      source_recommended_input: payload.recommended_component || null
+      source_recommended_input: payload.recommended_component || null,
+      preferred_language: payload.preferred_language || 'en',
+      preferred_path: payload.preferred_path || null
     };
     
     const dbRecord = {
-      // Contact
       name: payload.name,
       phone: normalizedPhone,
       email: payload.email || null,
-      
-      // Location
       district_slug: payload.district || null,
       village_or_tehsil: payload.village_or_tehsil || null,
-      
-      // Land
       land_owned_acres: payload.land_area_acres || null,
       land_ownership_proof: payload.land_ownership_proof || null,
-      
-      // Pump situation
       pump_situation: pumpSituation,
       pump_hp: payload.existing_pump_hp || payload.recommended_pump_hp || null,
       existing_pump_age: payload.existing_pump_age || null,
-      
-      // Water
       water_source: waterSource,
       water_depth_ft: payload.water_table_depth_ft || null,
       irrigation_acres: payload.irrigation_acres || payload.land_area_acres || null,
-      
-      // Crops + economics
       primary_crops: payload.primary_crop || null,
       current_electricity_bill_monthly: payload.current_electricity_bill_inr_per_month || null,
       current_diesel_spend_monthly: payload.current_diesel_spend_monthly || null,
-      
-      // Computed eligibility
       recommended_component: recommendedComponent,
       estimated_system_kw: estimatedSystemKw,
       estimated_gross_cost: payload.benchmark_cost_inr ? Math.round(payload.benchmark_cost_inr) : null,
@@ -183,15 +176,9 @@ export default async function handler(req, res) {
       estimated_loan_eligible: payload.farmer_loan_eligible_inr ? Math.round(payload.farmer_loan_eligible_inr) : null,
       estimated_payback_years: payload.payback_years || null,
       estimated_diesel_savings_annual: payload.estimated_annual_benefit_inr ? Math.round(payload.estimated_annual_benefit_inr) : null,
-      
-      // Lead scoring (canonical column names)
       kusum_lead_score: leadScore,
       kusum_lead_tier: leadTier,
-      
-      // Status
       status: status,
-      
-      // Consent + tracking
       consent_whatsapp: payload.consent_whatsapp || false,
       consent_aadhaar_data: payload.consent_aadhaar_data || false,
       calculator_snapshot: calculatorSnapshot,
@@ -250,7 +237,6 @@ export default async function handler(req, res) {
         }
       });
       
-      // Additional escalation phones for HOT KUSUM leads
       if (leadTier === 'HOT' && process.env.KUSUM_LEAD_PHONES) {
         const extras = process.env.KUSUM_LEAD_PHONES.split(',').map(p => p.trim()).filter(Boolean);
         for (const extra of extras) {
@@ -258,15 +244,7 @@ export default async function handler(req, res) {
             provider,
             apiKey: process.env.WHATSAPP_API_KEY,
             toPhone: extra,
-            leadData: {
-              ...payload,
-              phone: normalizedPhone,
-              leadId,
-              leadScore,
-              leadTier,
-              priorityQuota,
-              recommendedComponent
-            }
+            leadData: { ...payload, phone: normalizedPhone, leadId, leadScore, leadTier, priorityQuota, recommendedComponent }
           });
         }
       }
@@ -282,6 +260,23 @@ export default async function handler(req, res) {
       });
     }
     
+    // ===== v0.9 P1: AUTO-ROUTE TO KUSUM-SPECIALIST VENDOR =====
+    // Only for HOT and WARM leads that are eligible AND have a leadId
+    let matchResult = null;
+    if (isEligible && leadId && (leadTier === 'HOT' || leadTier === 'WARM')) {
+      try {
+        matchResult = await matchKusumLead(leadId, []);
+        if (matchResult.matched) {
+          console.log(`KUSUM auto-routed: leadId=${leadId} → vendor=${matchResult.vendorName} (score=${matchResult.score})`);
+        } else {
+          console.log(`KUSUM auto-route declined: ${matchResult.reason}`);
+        }
+      } catch (matchErr) {
+        console.error('KUSUM auto-route exception:', matchErr);
+        matchResult = { matched: false, reason: 'exception', detail: matchErr.message };
+      }
+    }
+    
     return res.status(200).json({
       success: true,
       leadId,
@@ -289,6 +284,10 @@ export default async function handler(req, res) {
       leadTier,
       eligible: isEligible,
       recommendedComponent,
+      matched: matchResult?.matched || false,
+      vendorName: matchResult?.vendorName || null,
+      assignmentMethod: matchResult?.assignmentMethod || null,
+      matchReason: matchResult?.reason || null,
       message: 'KUSUM lead captured.'
     });
     
@@ -301,51 +300,45 @@ export default async function handler(req, res) {
 // =====================================================
 // KUSUM-SPECIFIC SCORING
 // =====================================================
-// Different from rooftop. Land + water + grid context matter most.
-// Timeline matters less (KUSUM is inherently 90-120 days).
-// Priority quotas matter (drought district = Bundelkhand gets priority).
 function scoreKusumLead(p) {
   let score = 5;
   let priorityQuota = null;
   
-  // INELIGIBLE = automatic COLD, no scoring
   if (p.recommended_component === 'INELIGIBLE') {
     return { leadScore: 1, leadTier: 'COLD', priorityQuota: null };
   }
   
-  // Component A is highest-value (₹Cr+ projects, premium routing)
   if (p.recommended_component === 'A') score += 4;
-  // Component B is most common, baseline
   else if (p.recommended_component === 'B') score += 2;
-  // Component C (C1 or C2) is good, slightly lower value
   else if (p.recommended_component === 'C1' || p.recommended_component === 'C2') score += 2;
   
-  // Land area signals seriousness (uses frontend field name: land_area_acres)
   const acres = p.land_area_acres || 0;
   if (acres >= 10) score += 2;
   else if (acres >= 4) score += 1.5;
   else if (acres >= 2) score += 1;
   else if (acres >= 1) score += 0.5;
   
-  // Recommended pump HP (frontend field: recommended_pump_hp)
   if (p.recommended_pump_hp >= 7.5) score += 1;
   else if (p.recommended_pump_hp >= 5) score += 0.5;
   
-  // Has water source = ready to install (frontend field: water_source_type)
   if (p.water_source_type && p.water_source_type !== 'none') score += 1;
   else score -= 1;
   
-  // Crop type — water-intensive crops mean higher pump need
   if (p.primary_crop === 'sugarcane' || p.primary_crop === 'paddy') score += 0.5;
+  
+  // SC/ST priority quota (UPNEDA reservation)
+  if (p.sc_st_quota === true) {
+    score += 1;
+    priorityQuota = priorityQuota || 'SC_ST_QUOTA';
+  }
   
   // Drought district priority (Bundelkhand)
   const bundelkhand = ['jhansi', 'jalaun', 'lalitpur', 'banda', 'hamirpur', 'mahoba', 'chitrakoot'];
   if (bundelkhand.includes(p.district)) {
     score += 1;
-    priorityQuota = 'DROUGHT_DISTRICT';
+    priorityQuota = priorityQuota || 'DROUGHT_DISTRICT';
   }
   
-  // Clamp 1-10
   score = Math.max(1, Math.min(10, Math.round(score)));
   const tier = score >= 8 ? 'HOT' : score >= 5 ? 'WARM' : 'COLD';
   
@@ -388,7 +381,7 @@ ${leadData.recommended_capacity_mw ? `Plant: ${leadData.recommended_capacity_mw}
 ${leadData.priorityQuota ? `⭐ PRIORITY QUOTA: ${leadData.priorityQuota}\n` : ''}Lead ID: ${leadData.leadId || 'pending'}
 Time: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
 
-⚠️ KUSUM vendor different from rooftop — route to MNRE-pump-empanelled vendor only`;
+⚠️ Auto-routing to KUSUM-specialist will execute. Check admin dashboard KUSUM tab.`;
   
   return await sendWhatsApp(provider, apiKey, toPhone, message);
 }
@@ -436,10 +429,8 @@ async function sendWhatsApp(provider, apiKey, toPhone, message) {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            apiKey,
-            campaignName: 'kusum_lead_notification',
-            destination: toPhone,
-            userName: 'SolarSubsidies',
+            apiKey, campaignName: 'kusum_lead_notification',
+            destination: toPhone, userName: 'SolarSubsidies',
             templateParams: [message]
           })
         });
@@ -462,8 +453,7 @@ async function sendWhatsApp(provider, apiKey, toPhone, message) {
             integrated_number: process.env.MSG91_INTEGRATED_NUMBER,
             content_type: 'template',
             payload: {
-              to: [toPhone],
-              type: 'template',
+              to: [toPhone], type: 'template',
               template: { name: 'kusum_lead_alert', body_text: [message] }
             }
           })
