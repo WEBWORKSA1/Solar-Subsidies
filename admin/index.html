@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root { --ink:#0a0a0a; --paper:#faf7f2; --paper-2:#f3ede2; --sun:#ff6b1a; --sun-deep:#d94a00; --sun-light:#ffd166; --leaf:#2d5016; --muted:#5a5a5a; --line:#d4cfc4; --red:#c41e3a; --blue:#1e5fc4; }
+:root { --ink:#0a0a0a; --paper:#faf7f2; --paper-2:#f3ede2; --sun:#ff6b1a; --sun-deep:#d94a00; --sun-light:#ffd166; --leaf:#2d5016; --leaf-deep:#1a3210; --muted:#5a5a5a; --line:#d4cfc4; --red:#c41e3a; --blue:#1e5fc4; }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { -webkit-text-size-adjust:100%; }
 body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(--ink); font-size:15px; line-height:1.5; }
@@ -24,7 +24,6 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 
 .wrap { max-width:1400px; margin:0 auto; padding:24px 20px 60px; }
 
-/* LOGIN */
 #loginScreen { max-width:480px; margin:80px auto; padding:40px; border:2px solid var(--ink); background:var(--paper-2); box-shadow:8px 8px 0 var(--ink); }
 #loginScreen h1 { font-size:32px; margin-bottom:8px; letter-spacing:-0.025em; }
 #loginScreen h1 em { font-style:italic; color:var(--sun-deep); font-weight:400; }
@@ -44,16 +43,15 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .btn.success { background:var(--leaf); color:var(--paper); border-color:var(--leaf); }
 .btn.warning { background:var(--sun-light); }
 
-/* TABS */
 .tabs { display:flex; gap:4px; border-bottom:1.5px solid var(--ink); margin-bottom:20px; overflow-x:auto; white-space:nowrap; }
 .tab { padding:12px 18px; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; cursor:pointer; border:1.5px solid transparent; border-bottom:none; font-weight:700; color:var(--muted); background:transparent; }
 .tab.active { background:var(--paper-2); border-color:var(--ink); color:var(--ink); }
+.tab.kusum-tab.active { background:var(--leaf-deep); color:var(--sun-light); border-color:var(--leaf-deep); }
 .tab .badge { display:inline-block; margin-left:6px; padding:1px 7px; background:var(--sun); color:var(--ink); border-radius:10px; font-size:10px; font-weight:700; }
 .tab .badge.red { background:var(--red); color:var(--paper); }
 .tab-content { display:none; }
 .tab-content.active { display:block; }
 
-/* STATS GRID */
 .stat-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:0; border:1.5px solid var(--ink); margin-bottom:32px; }
 .stat { padding:16px 18px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
 .stat .lbl { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:4px; }
@@ -61,14 +59,13 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .stat .val.orange { color:var(--sun-deep); }
 .stat .val.green { color:var(--leaf); }
 .stat .val.red { color:var(--red); }
+.stat .val.kusum { color:var(--sun-deep); }
 .stat .sub { font-size:11px; color:var(--muted); margin-top:4px; font-style:italic; }
 
-/* FILTERS */
 .filters { display:flex; gap:10px; margin-bottom:14px; flex-wrap:wrap; align-items:center; padding:12px 16px; background:var(--paper-2); border:1.5px solid var(--ink); }
 .filters label { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); font-weight:700; }
 .filters select { padding:6px 10px; border:1.5px solid var(--ink); background:var(--paper); font-family:'Fraunces',serif; font-size:14px; }
 
-/* TABLES */
 .table { width:100%; border-collapse:collapse; border:1.5px solid var(--ink); background:var(--paper); font-size:13px; }
 .table th { background:var(--paper-2); padding:10px 12px; text-align:left; font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; font-weight:700; border-bottom:1.5px solid var(--ink); white-space:nowrap; }
 .table td { padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
@@ -77,7 +74,6 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .table .actions { white-space:nowrap; }
 .table-scroll { overflow-x:auto; }
 
-/* PILLS */
 .pill { display:inline-block; padding:3px 9px; font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.08em; font-weight:700; border:1px solid transparent; }
 .pill.HOT { background:var(--sun); color:var(--ink); }
 .pill.WARM { background:var(--sun-light); color:var(--ink); }
@@ -92,6 +88,7 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .pill.premium { background:var(--sun); color:var(--ink); }
 .pill.standard { background:var(--leaf); color:var(--paper); }
 .pill.probation { background:var(--paper-2); border-color:var(--ink); }
+.pill.unverified_listing { background:#ddd; color:var(--muted); border-color:var(--line); }
 .pill.suspended { background:var(--red); color:var(--paper); }
 .pill.owed { background:var(--sun-deep); color:var(--paper); }
 .pill.invoiced { background:var(--blue); color:var(--paper); }
@@ -110,8 +107,15 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .pill.health-POOR_RESPONSE { background:var(--red); color:var(--paper); }
 .pill.health-POOR_CLOSE { background:var(--sun-deep); color:var(--paper); }
 .pill.health-TIER_REVIEW_DUE { background:var(--blue); color:var(--paper); }
+/* KUSUM-specific pills */
+.pill.comp-A { background:#7c3aed; color:var(--paper); }
+.pill.comp-B { background:var(--leaf); color:var(--paper); }
+.pill.comp-C1 { background:var(--blue); color:var(--paper); }
+.pill.comp-C2 { background:#1e7fc4; color:var(--paper); }
+.pill.comp-ineligible { background:var(--red); color:var(--paper); }
+.pill.comp-needs_review { background:var(--sun-light); }
+.pill.kusum-only { background:var(--leaf-deep); color:var(--sun-light); }
 
-/* MODAL */
 .modal-overlay { position:fixed; inset:0; background:rgba(10,10,10,0.7); z-index:200; display:none; align-items:center; justify-content:center; padding:20px; }
 .modal-overlay.show { display:flex; }
 .modal { background:var(--paper); border:2px solid var(--ink); box-shadow:8px 8px 0 var(--ink); max-width:600px; width:100%; padding:28px; max-height:90vh; overflow-y:auto; }
@@ -129,6 +133,8 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .alert.success { background:#e5ffe5; }
 .alert.info { background:var(--paper-2); }
 .alert.warning { background:rgba(255,209,102,0.4); }
+.alert.kusum { background:var(--leaf-deep); color:var(--paper); border-color:var(--leaf-deep); }
+.alert.kusum strong { color:var(--sun-light); }
 .spinner { display:inline-block; width:14px; height:14px; border:2px solid var(--paper-2); border-top-color:var(--sun); border-radius:50%; animation:spin 0.8s linear infinite; vertical-align:middle; }
 @keyframes spin { to { transform:rotate(360deg); } }
 
@@ -164,7 +170,6 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 
 <div class="wrap">
 
-<!-- LOGIN -->
 <div id="loginScreen">
   <h1>Admin <em>login</em></h1>
   <p>Enter your admin token to access the dashboard.</p>
@@ -177,24 +182,22 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
   <p style="font-size:12px; color:var(--muted); margin-top:24px; font-style:italic;">Token stored only in localStorage on this device. Logout clears it.</p>
 </div>
 
-<!-- AUTHED -->
 <div id="authedView" style="display:none;">
   
-  <!-- STATS -->
   <div class="stat-grid" id="statsGrid">
     <div class="empty-state" style="grid-column:1/-1">Loading stats...</div>
   </div>
   
-  <!-- TABS -->
   <div class="tabs">
-    <button class="tab active" data-tab="leads" onclick="switchTab('leads')">Leads <span id="leadsBadge" class="badge"></span></button>
+    <button class="tab active" data-tab="leads" onclick="switchTab('leads')">Rooftop Leads <span id="leadsBadge" class="badge"></span></button>
+    <button class="tab kusum-tab" data-tab="kusum" onclick="switchTab('kusum')">🌾 KUSUM Leads <span id="kusumBadge" class="badge"></span></button>
     <button class="tab" data-tab="vendors" onclick="switchTab('vendors')">Vendors</button>
     <button class="tab" data-tab="applications" onclick="switchTab('applications')">Applications <span id="appsBadge" class="badge red"></span></button>
     <button class="tab" data-tab="commissions" onclick="switchTab('commissions')">Commissions</button>
     <button class="tab" data-tab="coverage" onclick="switchTab('coverage')">Coverage</button>
   </div>
   
-  <!-- LEADS TAB -->
+  <!-- ROOFTOP LEADS TAB -->
   <div id="leadsTab" class="tab-content active">
     <div class="filters">
       <label>Status:</label>
@@ -219,6 +222,50 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
     <div class="table-scroll" id="leadsTable"></div>
   </div>
   
+  <!-- KUSUM LEADS TAB (v0.8.3) -->
+  <div id="kusumTab" class="tab-content">
+    <div class="alert kusum">
+      <strong>🌾 KUSUM Leads</strong> — Separate pipeline from rooftop. Different scoring, different vendor pool (handles_kusum=true), different commission (5%), different SLA (48hr expiry). Component A leads route premium; Bundelkhand drought districts get priority routing.
+    </div>
+    
+    <div class="stat-grid" id="kusumStatsGrid">
+      <div class="empty-state" style="grid-column:1/-1">Loading KUSUM stats...</div>
+    </div>
+    
+    <div class="filters">
+      <label>Status:</label>
+      <select id="kusumFilter" onchange="loadKusumLeads()">
+        <option value="">All</option>
+        <option value="open">Open (eligible, in-progress)</option>
+        <option value="unmatched">Unmatched (need vendor)</option>
+        <option value="assigned">Assigned</option>
+        <option value="ineligible">Ineligible</option>
+        <option value="won">Commissioned (won)</option>
+        <option value="dead">Dead (declined/no-response)</option>
+      </select>
+      <label>Tier:</label>
+      <select id="kusumTier" onchange="loadKusumLeads()">
+        <option value="all">All tiers</option>
+        <option value="HOT">HOT</option>
+        <option value="WARM">WARM</option>
+        <option value="COLD">COLD</option>
+      </select>
+      <label>Component:</label>
+      <select id="kusumComponent" onchange="loadKusumLeads()">
+        <option value="all">All components</option>
+        <option value="A">A (Solar Plant)</option>
+        <option value="B">B (Standalone Pump)</option>
+        <option value="C1">C1 (Individual Solarisation)</option>
+        <option value="C2">C2 (Feeder Solarisation)</option>
+        <option value="ineligible">Ineligible</option>
+        <option value="needs_review">Needs Review</option>
+      </select>
+      <button class="btn sm secondary" onclick="loadKusumLeads()">↻ Refresh</button>
+      <span id="kusumCount" class="mono" style="font-size:11px; color:var(--muted); margin-left:auto;"></span>
+    </div>
+    <div class="table-scroll" id="kusumTable"></div>
+  </div>
+  
   <!-- VENDORS TAB -->
   <div id="vendorsTab" class="tab-content">
     <div class="filters">
@@ -228,6 +275,7 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
         <option value="premium">Premium</option>
         <option value="standard">Standard</option>
         <option value="probation">Probation</option>
+        <option value="unverified_listing">Unverified listing</option>
         <option value="suspended">Suspended</option>
       </select>
       <label>Active:</label>
@@ -235,6 +283,12 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
         <option value="">All</option>
         <option value="true" selected>Active only</option>
         <option value="false">Inactive only</option>
+      </select>
+      <label>KUSUM:</label>
+      <select id="vendorKusum" onchange="loadVendors()">
+        <option value="">All</option>
+        <option value="true">KUSUM-specialist only</option>
+        <option value="false">Non-KUSUM only</option>
       </select>
       <button class="btn sm secondary" onclick="loadVendors()">↻ Refresh</button>
       <span id="vendorsCount" class="mono" style="font-size:11px; color:var(--muted); margin-left:auto;"></span>
@@ -296,22 +350,12 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 
 </div>
 
-<!-- LEAD DETAIL MODAL -->
-<div class="modal-overlay" id="leadModal">
-  <div class="modal" id="leadModalContent">Loading...</div>
-</div>
+<!-- MODALS -->
+<div class="modal-overlay" id="leadModal"><div class="modal" id="leadModalContent">Loading...</div></div>
+<div class="modal-overlay" id="kusumModal"><div class="modal" id="kusumModalContent">Loading...</div></div>
+<div class="modal-overlay" id="vendorModal"><div class="modal" id="vendorModalContent">Loading...</div></div>
+<div class="modal-overlay" id="appModal"><div class="modal" id="appModalContent">Loading...</div></div>
 
-<!-- VENDOR DETAIL MODAL -->
-<div class="modal-overlay" id="vendorModal">
-  <div class="modal" id="vendorModalContent">Loading...</div>
-</div>
-
-<!-- APPLICATION DETAIL MODAL -->
-<div class="modal-overlay" id="appModal">
-  <div class="modal" id="appModalContent">Loading...</div>
-</div>
-
-<!-- FORCE-ASSIGN MODAL -->
 <div class="modal-overlay" id="forceAssignModal">
   <div class="modal">
     <h3>FORCE ASSIGN LEAD</h3>
@@ -329,17 +373,43 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
   </div>
 </div>
 
+<div class="modal-overlay" id="forceAssignKusumModal">
+  <div class="modal">
+    <h3>FORCE ASSIGN KUSUM LEAD</h3>
+    <h4 id="forceAssignKusumTitle">—</h4>
+    <div class="alert kusum"><strong>⚠️ Only KUSUM-specialist vendors</strong> (handles_kusum=true) are listed below. Force-assigning to a non-KUSUM vendor is possible but will be flagged.</div>
+    <div class="field">
+      <label>Pick KUSUM-specialist vendor</label>
+      <select id="forceAssignKusumVendor">
+        <option value="">Loading KUSUM vendors...</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Or pick ANY vendor (override KUSUM filter)</label>
+      <select id="forceAssignKusumAnyVendor">
+        <option value="">— skip (use KUSUM-specialist above) —</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="submitForceAssignKusum()">Assign</button>
+      <button class="btn secondary" onclick="closeModal('forceAssignKusumModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <script>
-// ============================================================
-// STATE
-// ============================================================
 let token = localStorage.getItem('admin_token') || null;
 let stats = null;
+let kusumStats = null;
 let vendorsCache = [];
+let kusumVendorsCache = [];
+let allVendorsCache = [];
 let currentLeadModalId = null;
+let currentKusumModalId = null;
 let currentVendorModalId = null;
 let currentAppModalId = null;
 let currentForceAssignLeadId = null;
+let currentForceAssignKusumLeadId = null;
 
 // ============================================================
 // AUTH
@@ -386,11 +456,9 @@ async function boot() {
   
   await loadStats();
   await loadLeads();
+  await loadKusumStatsBadge();  // Just update badge count
 }
 
-// ============================================================
-// API HELPERS
-// ============================================================
 async function apiGet(action, params = {}) {
   const qs = new URLSearchParams({ action, ...params }).toString();
   const res = await fetch(`/api/admin?${qs}`, {
@@ -410,9 +478,6 @@ async function apiPost(action, body) {
   return await res.json();
 }
 
-// ============================================================
-// STATS
-// ============================================================
 async function loadStats() {
   const data = await apiGet('stats');
   if (!data) return;
@@ -422,7 +487,7 @@ async function loadStats() {
   const fmtINR = (n) => '₹' + fmt(n);
   
   document.getElementById('statsGrid').innerHTML = `
-    <div class="stat"><div class="lbl">Leads (lifetime)</div><div class="val">${fmt(stats.total_leads)}</div><div class="sub">${fmt(stats.leads_24h)} in 24h · ${fmt(stats.leads_7d)} in 7d</div></div>
+    <div class="stat"><div class="lbl">Rooftop Leads</div><div class="val">${fmt(stats.total_leads)}</div><div class="sub">${fmt(stats.leads_24h)} in 24h · ${fmt(stats.leads_7d)} in 7d</div></div>
     <div class="stat"><div class="lbl">Hot leads</div><div class="val orange">${fmt(stats.hot_total)}</div><div class="sub">All-time</div></div>
     <div class="stat"><div class="lbl">Unmatched</div><div class="val ${stats.unmatched_count > 0 ? 'red' : ''}">${fmt(stats.unmatched_count)}</div><div class="sub">No vendor available</div></div>
     <div class="stat"><div class="lbl">Active vendors</div><div class="val">${fmt(stats.active_vendors)}</div><div class="sub">${fmt(stats.premium_vendors)}P · ${fmt(stats.standard_vendors)}S · ${fmt(stats.probation_vendors)}Pr</div></div>
@@ -435,7 +500,6 @@ async function loadStats() {
     <div class="stat"><div class="lbl">Commission paid</div><div class="val green">${fmtINR(stats.commission_paid)}</div><div class="sub">${fmtINR(stats.commission_paid_30d)} in 30d</div></div>
   `;
   
-  // Update tab badges
   if (stats.unmatched_count > 0) {
     document.getElementById('leadsBadge').textContent = stats.unmatched_count;
     document.getElementById('leadsBadge').className = 'badge red';
@@ -450,9 +514,17 @@ async function loadStats() {
   }
 }
 
-// ============================================================
-// TAB SWITCHING
-// ============================================================
+async function loadKusumStatsBadge() {
+  // Lightweight badge update for the KUSUM tab
+  try {
+    const data = await apiGet('kusum-stats');
+    if (data?.stats?.unmatched > 0) {
+      document.getElementById('kusumBadge').textContent = data.stats.unmatched;
+      document.getElementById('kusumBadge').className = 'badge red';
+    }
+  } catch (e) { /* silently fail — table may not exist yet */ }
+}
+
 function switchTab(name) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
@@ -460,6 +532,7 @@ function switchTab(name) {
   document.getElementById(name + 'Tab').classList.add('active');
   
   if (name === 'leads') loadLeads();
+  if (name === 'kusum') { loadKusumStats(); loadKusumLeads(); }
   if (name === 'vendors') loadVendors();
   if (name === 'applications') loadApplications();
   if (name === 'commissions') loadCommissions();
@@ -467,7 +540,7 @@ function switchTab(name) {
 }
 
 // ============================================================
-// LEADS
+// ROOFTOP LEADS
 // ============================================================
 async function loadLeads() {
   const filter = document.getElementById('leadFilter').value;
@@ -564,13 +637,10 @@ async function openLeadModal(leadId) {
 }
 
 async function reassignLead(leadId) {
-  if (!confirm('Auto-reassign to next best vendor? Current assignment will be marked declined.')) return;
+  if (!confirm('Auto-reassign to next best vendor?')) return;
   const result = await apiPost('reassign-lead', { leadId });
-  if (result?.matched) {
-    alert(`✅ Reassigned to ${result.vendorName}`);
-  } else {
-    alert(`⚠️ Could not reassign: ${result?.reason || 'No eligible vendor'}`);
-  }
+  if (result?.matched) alert(`✅ Reassigned to ${result.vendorName}`);
+  else alert(`⚠️ Could not reassign: ${result?.reason || 'No eligible vendor'}`);
   closeModal('leadModal');
   loadStats(); loadLeads();
 }
@@ -579,7 +649,6 @@ async function openForceAssign(leadId, customerName) {
   currentForceAssignLeadId = leadId;
   document.getElementById('forceAssignTitle').textContent = customerName;
   
-  // Load vendors if not cached
   if (vendorsCache.length === 0) {
     const data = await apiGet('vendors', { active: 'true' });
     vendorsCache = data?.vendors || [];
@@ -597,11 +666,8 @@ async function submitForceAssign() {
   const vendorId = document.getElementById('forceAssignVendor').value;
   if (!vendorId) return;
   const result = await apiPost('force-assign', { leadId: currentForceAssignLeadId, vendorId });
-  if (result?.success) {
-    alert(`✅ Lead force-assigned to ${result.vendorName}`);
-  } else {
-    alert('Failed: ' + (result?.error || 'unknown'));
-  }
+  if (result?.success) alert(`✅ Lead force-assigned to ${result.vendorName}`);
+  else alert('Failed: ' + (result?.error || 'unknown'));
   closeModal('forceAssignModal');
   loadStats(); loadLeads();
 }
@@ -612,26 +678,254 @@ async function markActivated(assignmentId) {
     assignmentId,
     fields: { outcome: 'net_meter_activated', commission_status: 'owed', net_meter_activated_at: new Date().toISOString() }
   });
-  if (result?.success) {
-    alert('✅ Commission marked as owed. Now go to Commissions tab to invoice.');
-  } else {
-    alert('Failed: ' + (result?.error || 'unknown'));
-  }
+  if (result?.success) alert('✅ Commission marked as owed. Now go to Commissions tab to invoice.');
+  else alert('Failed: ' + (result?.error || 'unknown'));
   closeModal('leadModal');
   loadStats(); loadLeads();
 }
 
 // ============================================================
-// VENDORS
+// KUSUM LEADS (v0.8.3)
+// ============================================================
+async function loadKusumStats() {
+  const data = await apiGet('kusum-stats');
+  if (!data) return;
+  kusumStats = data.stats || {};
+  
+  const fmt = (n) => Math.round(n || 0).toLocaleString('en-IN');
+  const fmtINR = (n) => '₹' + fmt(n);
+  
+  document.getElementById('kusumStatsGrid').innerHTML = `
+    <div class="stat"><div class="lbl">Total KUSUM leads</div><div class="val kusum">${fmt(kusumStats.total_kusum_leads)}</div><div class="sub">${fmt(kusumStats.leads_24h)} in 24h · ${fmt(kusumStats.leads_7d)} in 7d</div></div>
+    <div class="stat"><div class="lbl">HOT KUSUM</div><div class="val orange">${fmt(kusumStats.hot_kusum)}</div><div class="sub">${fmt(kusumStats.warm_kusum)} WARM</div></div>
+    <div class="stat"><div class="lbl">Unmatched</div><div class="val ${kusumStats.unmatched > 0 ? 'red' : ''}">${fmt(kusumStats.unmatched)}</div><div class="sub">No KUSUM vendor available</div></div>
+    <div class="stat"><div class="lbl">Component breakdown</div><div class="val">A:${fmt(kusumStats.component_a)} B:${fmt(kusumStats.component_b)} C:${fmt(kusumStats.component_c1 + kusumStats.component_c2)}</div><div class="sub">${fmt(kusumStats.ineligible_kusum)} ineligible</div></div>
+    <div class="stat"><div class="lbl">KUSUM vendors</div><div class="val">${fmt(kusumStats.kusum_vendors_active)}</div><div class="sub">${fmt(kusumStats.kusum_vendors_premium)}P · ${fmt(kusumStats.kusum_vendors_standard)}S · ${fmt(kusumStats.kusum_vendors_probation)}Pr</div></div>
+    <div class="stat"><div class="lbl">Assigned</div><div class="val">${fmt(kusumStats.assigned)}</div><div class="sub">Awaiting vendor response</div></div>
+    <div class="stat"><div class="lbl">In progress</div><div class="val">${fmt(kusumStats.in_progress)}</div><div class="sub">Site survey → sanction</div></div>
+    <div class="stat"><div class="lbl">Commissioned</div><div class="val green">${fmt(kusumStats.commissioned)}</div><div class="sub">${fmt(kusumStats.dead)} dead</div></div>
+    <div class="stat"><div class="lbl">KUSUM commission owed</div><div class="val orange">${fmtINR(kusumStats.kusum_commission_owed)}</div><div class="sub">Ready to invoice</div></div>
+    <div class="stat"><div class="lbl">KUSUM invoiced</div><div class="val">${fmtINR(kusumStats.kusum_commission_invoiced)}</div></div>
+    <div class="stat"><div class="lbl">KUSUM paid</div><div class="val green">${fmtINR(kusumStats.kusum_commission_paid)}</div></div>
+  `;
+  
+  if (kusumStats.unmatched > 0) {
+    document.getElementById('kusumBadge').textContent = kusumStats.unmatched;
+    document.getElementById('kusumBadge').className = 'badge red';
+  } else {
+    document.getElementById('kusumBadge').textContent = '';
+  }
+}
+
+async function loadKusumLeads() {
+  const filter = document.getElementById('kusumFilter').value;
+  const tier = document.getElementById('kusumTier').value;
+  const component = document.getElementById('kusumComponent').value;
+  document.getElementById('kusumTable').innerHTML = '<div class="empty-state">Loading KUSUM leads...</div>';
+  
+  const params = {};
+  if (filter) params.filter = filter;
+  if (tier && tier !== 'all') params.tier = tier;
+  if (component && component !== 'all') params.component = component;
+  
+  const data = await apiGet('kusum-leads', params);
+  if (!data) return;
+  
+  document.getElementById('kusumCount').textContent = `${data.count} KUSUM leads`;
+  
+  if (data.leads.length === 0) {
+    document.getElementById('kusumTable').innerHTML = '<div class="empty-state">No KUSUM leads match filters.</div>';
+    return;
+  }
+  
+  const componentLabels = {
+    'A': 'Solar Plant',
+    'B': 'Standalone Pump',
+    'C1': 'Grid Solarisation',
+    'C2': 'Feeder Solarisation',
+    'ineligible': 'Ineligible',
+    'needs_review': 'Needs Review'
+  };
+  
+  const rows = data.leads.map(l => {
+    const ago = timeAgo(l.created_at);
+    const districtName = l.district_slug ? cap(l.district_slug.replace(/-/g, ' ')) : '—';
+    const compLabel = componentLabels[l.recommended_component] || l.recommended_component;
+    const compClass = `comp-${l.recommended_component}`;
+    const computedStatus = !l.assignment_id ? (l.recommended_component === 'ineligible' ? 'INELIGIBLE' : 'UNMATCHED') :
+      (l.outcome === 'commissioned' ? 'CLOSED_WON' :
+        (['declined_by_vendor', 'declined_by_farmer', 'rejected_by_upneda', 'no_response'].includes(l.outcome) ? 'DEAD' :
+          (l.outcome === 'pending' ? 'AWAITING_VENDOR' : 'IN_PROGRESS')));
+    
+    return `<tr>
+      <td><span class="pill ${l.kusum_lead_tier || 'COLD'}">${l.kusum_lead_tier || 'COLD'}</span></td>
+      <td>${escapeHtml(l.name)}<br><span class="mono" style="font-size:11px; color:var(--muted);">${l.phone}</span></td>
+      <td>${districtName}<br><span style="font-size:11px; color:var(--muted);">${l.land_owned_acres || '—'} acres</span></td>
+      <td><span class="pill ${compClass}">${l.recommended_component || '—'}</span><br><span style="font-size:11px; color:var(--muted);">${compLabel}</span></td>
+      <td><span class="pill ${computedStatus}">${computedStatus.replace(/_/g, ' ')}</span></td>
+      <td>${l.vendor_name || '<span style="color:var(--muted);">—</span>'}</td>
+      <td>${l.commission_status ? `<span class="pill ${l.commission_status}">${l.commission_status}</span>` : ''}</td>
+      <td class="mono" style="font-size:11px;">${ago}</td>
+      <td class="actions">
+        <button class="btn sm secondary" onclick="openKusumModal('${l.kusum_lead_id}')">View</button>
+      </td>
+    </tr>`;
+  }).join('');
+  
+  document.getElementById('kusumTable').innerHTML = `
+    <table class="table">
+      <thead><tr><th>Tier</th><th>Farmer</th><th>District / Land</th><th>Component</th><th>Status</th><th>Vendor</th><th>Commission</th><th>Age</th><th></th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  `;
+}
+
+async function openKusumModal(kusumLeadId) {
+  currentKusumModalId = kusumLeadId;
+  const data = await apiGet('kusum-leads', { limit: 200 });
+  if (!data) return;
+  const lead = data.leads.find(l => l.kusum_lead_id === kusumLeadId);
+  if (!lead) return;
+  
+  const districtName = lead.district_slug ? cap(lead.district_slug.replace(/-/g, ' ')) : '—';
+  const componentLabels = {
+    'A': '🏛️ Component A · Ground-Mounted Solar Plant',
+    'B': '💧 Component B · Standalone Solar Pump',
+    'C1': '⚡ Component C1 · Individual Pump Solarisation',
+    'C2': '⚡ Component C2 · Feeder-Level Solarisation',
+    'ineligible': '❌ Ineligible',
+    'needs_review': '⚠️ Needs Manual Review'
+  };
+  const pumpSituationLabels = {
+    'no_pump': 'No pump (new install)',
+    'diesel_pump': 'Diesel pump (replacement target)',
+    'electric_grid_pump': 'Grid-connected electric pump (solarisation target)',
+    'wants_solar_plant': 'Wants Component A solar plant on land',
+    'unsure': 'Unsure'
+  };
+  const waterSourceLabels = {
+    'borewell': 'Borewell',
+    'open_well': 'Open well (kuan)',
+    'canal': 'Canal',
+    'pond_river': 'Pond / River',
+    'unsure': 'Unsure'
+  };
+  
+  const isUnmatched = !lead.assignment_id && lead.recommended_component !== 'ineligible';
+  const isEligible = lead.recommended_component !== 'ineligible' && lead.recommended_component !== 'needs_review';
+  
+  let actions = '';
+  if (isUnmatched) {
+    actions += `<button class="btn" onclick="reassignKusumLead('${lead.kusum_lead_id}')">🔄 Auto-route to KUSUM specialist</button>`;
+    actions += `<button class="btn warning" onclick="openForceAssignKusum('${lead.kusum_lead_id}','${escapeHtml(lead.name)}')">Force-assign</button>`;
+  }
+  if (lead.assignment_id && lead.outcome !== 'commissioned' && lead.outcome !== 'declined_by_vendor') {
+    actions += `<button class="btn" onclick="reassignKusumLead('${lead.kusum_lead_id}')">🔄 Reassign vendor</button>`;
+  }
+  if (lead.assignment_id && lead.outcome !== 'commissioned') {
+    actions += `<button class="btn secondary" onclick="markKusumCommissioned('${lead.assignment_id}')">✅ Mark commissioned</button>`;
+  }
+  
+  document.getElementById('kusumModalContent').innerHTML = `
+    <h3>KUSUM LEAD DETAIL</h3>
+    <h4>${escapeHtml(lead.name)} — <span class="pill ${lead.kusum_lead_tier || 'COLD'}">${lead.kusum_lead_tier || 'COLD'}</span> · Score ${lead.kusum_lead_score || '—'}/10</h4>
+    <div class="alert kusum">
+      <strong>${componentLabels[lead.recommended_component] || lead.recommended_component}</strong>
+      ${lead.vendor_name ? `<br>Assigned to <strong>${escapeHtml(lead.vendor_name)}</strong>` : ''}
+      ${lead.outcome ? `<br>Outcome: <strong>${lead.outcome.replace(/_/g, ' ')}</strong>` : ''}
+    </div>
+    <div class="modal-grid">
+      <div class="modal-field"><b>Phone</b><div class="val mono">${lead.phone}</div></div>
+      <div class="modal-field"><b>District</b><div class="val">${districtName}</div></div>
+      <div class="modal-field"><b>Land owned</b><div class="val">${lead.land_owned_acres || '—'} acres</div></div>
+      <div class="modal-field"><b>Irrigation acres</b><div class="val">${lead.irrigation_acres || '—'}</div></div>
+      <div class="modal-field"><b>Pump situation</b><div class="val">${pumpSituationLabels[lead.pump_situation] || lead.pump_situation || '—'}</div></div>
+      <div class="modal-field"><b>Pump HP</b><div class="val">${lead.pump_hp || '—'}</div></div>
+      <div class="modal-field"><b>Estimated system</b><div class="val">${lead.estimated_system_kw ? lead.estimated_system_kw + ' kW' : '—'}</div></div>
+      <div class="modal-field"><b>Recommended component</b><div class="val">${lead.recommended_component || '—'}</div></div>
+      <div class="modal-field"><b>System cost</b><div class="val">₹${(lead.estimated_gross_cost || 0).toLocaleString('en-IN')}</div></div>
+      <div class="modal-field"><b>Farmer contribution</b><div class="val">₹${(lead.estimated_farmer_contribution || 0).toLocaleString('en-IN')}</div></div>
+      ${lead.commission_amount ? `<div class="modal-field"><b>Commission</b><div class="val">₹${Math.round(lead.commission_amount).toLocaleString('en-IN')}</div></div>` : ''}
+      <div class="modal-field"><b>Submitted</b><div class="val">${timeAgo(lead.created_at)}</div></div>
+    </div>
+    ${actions ? `<div class="modal-actions">${actions}<button class="btn secondary" onclick="closeModal('kusumModal')">Close</button></div>` : `<div class="modal-actions"><button class="btn secondary" onclick="closeModal('kusumModal')">Close</button></div>`}
+  `;
+  document.getElementById('kusumModal').classList.add('show');
+}
+
+async function reassignKusumLead(kusumLeadId) {
+  if (!confirm('Auto-route to KUSUM-specialist vendor?')) return;
+  const result = await apiPost('reassign-kusum-lead', { kusumLeadId });
+  if (result?.matched) alert(`✅ Routed to ${result.vendorName} (score ${result.score})`);
+  else alert(`⚠️ Could not route: ${result?.reason || 'No eligible KUSUM vendor'}`);
+  closeModal('kusumModal');
+  loadKusumStats(); loadKusumLeads();
+}
+
+async function openForceAssignKusum(kusumLeadId, farmerName) {
+  currentForceAssignKusumLeadId = kusumLeadId;
+  document.getElementById('forceAssignKusumTitle').textContent = farmerName;
+  
+  // Load KUSUM-specialist vendors
+  const kusumData = await apiGet('vendors', { active: 'true', kusum: 'true' });
+  kusumVendorsCache = kusumData?.vendors || [];
+  
+  // Load all vendors for the override dropdown
+  const allData = await apiGet('vendors', { active: 'true' });
+  allVendorsCache = allData?.vendors || [];
+  
+  document.getElementById('forceAssignKusumVendor').innerHTML = kusumVendorsCache.length > 0
+    ? kusumVendorsCache.map(v => `<option value="${v.id}">${escapeHtml(v.company_name)} — ${v.tier} · ${v.district_count || 0} districts</option>`).join('')
+    : '<option value="">No KUSUM-specialist vendors active</option>';
+  
+  document.getElementById('forceAssignKusumAnyVendor').innerHTML = '<option value="">— skip —</option>' + 
+    allVendorsCache.map(v => `<option value="${v.id}">${escapeHtml(v.company_name)} — ${v.tier} ${v.handles_kusum ? '🌾' : ''}</option>`).join('');
+  
+  closeModal('kusumModal');
+  document.getElementById('forceAssignKusumModal').classList.add('show');
+}
+
+async function submitForceAssignKusum() {
+  let vendorId = document.getElementById('forceAssignKusumAnyVendor').value || document.getElementById('forceAssignKusumVendor').value;
+  if (!vendorId) return alert('Pick a vendor first.');
+  
+  const result = await apiPost('force-assign-kusum', { kusumLeadId: currentForceAssignKusumLeadId, vendorId });
+  if (result?.success) {
+    let msg = `✅ KUSUM lead force-assigned to ${result.vendorName}`;
+    if (!result.kusumSpecialist) msg += '\n\n⚠️ NOTE: This vendor is NOT a KUSUM specialist. They may not be able to handle the installation correctly.';
+    alert(msg);
+  } else {
+    alert('Failed: ' + (result?.error || 'unknown'));
+  }
+  closeModal('forceAssignKusumModal');
+  loadKusumStats(); loadKusumLeads();
+}
+
+async function markKusumCommissioned(assignmentId) {
+  if (!confirm('Mark KUSUM installation as commissioned? This triggers commission OWED.')) return;
+  const result = await apiPost('update-kusum-assignment', {
+    assignmentId,
+    fields: { outcome: 'commissioned', commission_status: 'owed' }
+  });
+  if (result?.success) alert('✅ KUSUM commission marked as owed.');
+  else alert('Failed: ' + (result?.error || 'unknown'));
+  closeModal('kusumModal');
+  loadKusumStats(); loadKusumLeads();
+}
+
+// ============================================================
+// VENDORS (unchanged from previous + KUSUM filter)
 // ============================================================
 async function loadVendors() {
   const tier = document.getElementById('vendorTier').value;
   const active = document.getElementById('vendorActive').value;
+  const kusum = document.getElementById('vendorKusum').value;
   document.getElementById('vendorsTable').innerHTML = '<div class="empty-state">Loading...</div>';
   
   const params = {};
   if (tier && tier !== 'all') params.tier = tier;
   if (active) params.active = active;
+  if (kusum) params.kusum = kusum;
   
   const data = await apiGet('vendors', params);
   if (!data) return;
@@ -647,14 +941,14 @@ async function loadVendors() {
   
   const rows = data.vendors.map(v => `
     <tr>
-      <td><strong>${escapeHtml(v.company_name)}</strong><br><span class="mono" style="font-size:11px; color:var(--muted);">${v.phone}</span></td>
+      <td><strong>${escapeHtml(v.company_name)}</strong>${v.handles_kusum ? ' <span class="pill kusum-only">🌾 KUSUM</span>' : ''}<br><span class="mono" style="font-size:11px; color:var(--muted);">${v.phone || '—'}</span></td>
       <td><span class="pill ${v.tier}">${v.tier}</span></td>
       <td>${v.commission_rate}%</td>
       <td>${v.district_count || 0}</td>
-      <td>${v.open_leads_now} / ${v.lead_capacity_per_week}/wk</td>
+      <td>${v.open_leads_now || 0} / ${v.lead_capacity_per_week || '?'}/wk</td>
       <td>${v.leads_received || 0} → ${v.leads_closed || 0}<br><span style="font-size:11px; color:var(--muted);">${v.close_rate_pct || 0}% close</span></td>
-      <td>₹${fmt(v.total_commission_owed - v.total_commission_paid)}</td>
-      <td><span class="pill health-${v.health_flag}">${v.health_flag}</span></td>
+      <td>₹${fmt((v.total_commission_owed || 0) - (v.total_commission_paid || 0))}</td>
+      <td><span class="pill health-${v.health_flag || 'OK'}">${v.health_flag || 'OK'}</span></td>
       <td class="actions"><button class="btn sm secondary" onclick="openVendorModal('${v.id}')">View</button></td>
     </tr>
   `).join('');
@@ -676,30 +970,29 @@ async function openVendorModal(vendorId) {
   
   document.getElementById('vendorModalContent').innerHTML = `
     <h3>VENDOR DETAIL</h3>
-    <h4>${escapeHtml(v.company_name)}</h4>
+    <h4>${escapeHtml(v.company_name)} ${v.handles_kusum ? '<span class="pill kusum-only">🌾 KUSUM</span>' : ''}</h4>
     <div class="modal-grid">
       <div class="modal-field"><b>Contact</b><div class="val">${escapeHtml(v.contact_name || '—')}</div></div>
-      <div class="modal-field"><b>Phone</b><div class="val mono">${v.phone}</div></div>
+      <div class="modal-field"><b>Phone</b><div class="val mono">${v.phone || '—'}</div></div>
       <div class="modal-field"><b>Email</b><div class="val">${v.email || '—'}</div></div>
       <div class="modal-field"><b>Tier</b><div class="val"><span class="pill ${v.tier}">${v.tier}</span></div></div>
       <div class="modal-field"><b>Commission rate</b><div class="val">${v.commission_rate}%</div></div>
-      <div class="modal-field"><b>Capacity</b><div class="val">${v.lead_capacity_per_week}/week</div></div>
+      <div class="modal-field"><b>Capacity</b><div class="val">${v.lead_capacity_per_week || '?'}/week</div></div>
       <div class="modal-field"><b>Districts</b><div class="val">${v.district_count || 0} covered</div></div>
-      <div class="modal-field"><b>Min size</b><div class="val">${v.min_system_size_kw || 3} kW</div></div>
+      <div class="modal-field"><b>KUSUM specialist</b><div class="val">${v.handles_kusum ? '✅ Yes' : '❌ No'}</div></div>
+      ${v.kusum_components ? `<div class="modal-field"><b>KUSUM components</b><div class="val">${(v.kusum_components || []).join(', ') || '—'}</div></div>` : ''}
       <div class="modal-field"><b>Leads received</b><div class="val">${v.leads_received || 0}</div></div>
       <div class="modal-field"><b>Leads closed</b><div class="val">${v.leads_closed || 0}</div></div>
-      <div class="modal-field"><b>Response rate</b><div class="val">${v.response_rate_pct || 0}%</div></div>
       <div class="modal-field"><b>Close rate</b><div class="val">${v.close_rate_pct || 0}%</div></div>
       <div class="modal-field"><b>Commission owed</b><div class="val">₹${fmt(v.total_commission_owed)}</div></div>
       <div class="modal-field"><b>Commission paid</b><div class="val">₹${fmt(v.total_commission_paid)}</div></div>
-      <div class="modal-field"><b>Health</b><div class="val"><span class="pill health-${v.health_flag}">${v.health_flag}</span></div></div>
-      <div class="modal-field"><b>Stale leads</b><div class="val">${v.stale_leads || 0} (>12hr no resp)</div></div>
     </div>
     <div class="alert info">Districts: ${(v.coverage_districts || []).map(d => cap(d.replace(/-/g, ' '))).join(', ') || '—'}</div>
     <div class="modal-actions">
       <button class="btn warning" onclick="changeTier('${v.id}','premium')">↑ Premium</button>
       <button class="btn warning" onclick="changeTier('${v.id}','standard')">→ Standard</button>
       <button class="btn warning" onclick="changeTier('${v.id}','probation')">↓ Probation</button>
+      <button class="btn ${v.handles_kusum ? 'secondary' : ''}" onclick="toggleKusumSpecialist('${v.id}', ${!v.handles_kusum})">${v.handles_kusum ? '🌾 Remove KUSUM' : '🌾 Mark as KUSUM specialist'}</button>
       <button class="btn danger" onclick="suspendVendor('${v.id}')">⏸ Suspend</button>
       ${v.active === false ? `<button class="btn success" onclick="reactivateVendor('${v.id}')">▶ Reactivate</button>` : ''}
       <button class="btn secondary" onclick="closeModal('vendorModal')">Close</button>
@@ -715,6 +1008,24 @@ async function changeTier(vendorId, tier) {
   if (result?.success) alert(`✅ Updated to ${tier}`); else alert('Failed');
   closeModal('vendorModal');
   loadStats(); loadVendors();
+}
+
+async function toggleKusumSpecialist(vendorId, makeKusum) {
+  const action = makeKusum ? 'mark as KUSUM specialist (handles_kusum=true)' : 'remove KUSUM specialist status';
+  if (!confirm(`${action.charAt(0).toUpperCase() + action.slice(1)}?\n\nKUSUM specialists need MNRE pump empanellment + UPNEDA approval. Only flag if verified.`)) return;
+  
+  const fields = { handles_kusum: makeKusum };
+  if (makeKusum) {
+    const components = prompt('Which KUSUM components do they handle? Enter as comma-separated: A,B,C (or any subset)');
+    if (components) {
+      fields.kusum_components = components.split(',').map(c => c.trim().toUpperCase()).filter(c => ['A', 'B', 'C', 'C1', 'C2'].includes(c));
+    }
+  }
+  
+  const result = await apiPost('update-vendor', { vendorId, fields });
+  if (result?.success) alert(`✅ Updated`); else alert('Failed');
+  closeModal('vendorModal');
+  loadVendors();
 }
 
 async function suspendVendor(vendorId) {
@@ -733,7 +1044,7 @@ async function reactivateVendor(vendorId) {
 }
 
 // ============================================================
-// APPLICATIONS
+// APPLICATIONS (unchanged)
 // ============================================================
 async function loadApplications() {
   const status = document.getElementById('appStatus').value;
@@ -775,7 +1086,6 @@ async function openAppModal(appId) {
   const data = await apiGet('applications', { status: 'pending_review' });
   let app = data?.applications.find(x => x.id === appId);
   if (!app) {
-    // Try other statuses
     for (const st of ['under_review', 'approved', 'rejected', 'auto_rejected']) {
       const d = await apiGet('applications', { status: st });
       app = d?.applications.find(x => x.id === appId);
@@ -835,15 +1145,12 @@ async function openAppModal(appId) {
 
 async function approveApplication(appId) {
   const notes = document.getElementById('appReviewNotes').value.trim();
-  if (!notes) { alert('Please add review notes before approving (what you verified).'); return; }
-  if (!confirm('Approve and promote to vendor table? Vendor gets created with probation tier + 7% commission. You will manually send them the agreement.')) return;
+  if (!notes) { alert('Please add review notes before approving.'); return; }
+  if (!confirm('Approve and promote to vendor table?')) return;
   
   const result = await apiPost('approve-app', { applicationId: appId, notes });
-  if (result?.success) {
-    alert(`✅ Vendor created. ID: ${result.vendorId?.slice(0, 8)}. Now send them the agreement template!`);
-  } else {
-    alert('Failed: ' + (result?.error || 'unknown'));
-  }
+  if (result?.success) alert(`✅ Vendor created. ID: ${result.vendorId?.slice(0, 8)}.`);
+  else alert('Failed: ' + (result?.error || 'unknown'));
   closeModal('appModal');
   loadStats(); loadApplications();
 }
@@ -860,7 +1167,7 @@ async function rejectApplication(appId) {
 }
 
 // ============================================================
-// COMMISSIONS
+// COMMISSIONS (unchanged)
 // ============================================================
 async function loadCommissions() {
   const status = document.getElementById('commissionStatus').value;
@@ -878,7 +1185,7 @@ async function loadCommissions() {
   
   document.getElementById('commissionsSummary').innerHTML = `
     <div class="stat-grid" style="margin-bottom:0;">
-      <div class="stat"><div class="lbl">Owed (need to invoice)</div><div class="val orange">${fmt(s.owed)}</div><div class="sub">${s.owed_count || 0} commissions</div></div>
+      <div class="stat"><div class="lbl">Owed</div><div class="val orange">${fmt(s.owed)}</div><div class="sub">${s.owed_count || 0} commissions</div></div>
       <div class="stat"><div class="lbl">Invoiced</div><div class="val">${fmt(s.invoiced)}</div><div class="sub">${s.invoiced_count || 0} commissions</div></div>
       <div class="stat"><div class="lbl">Paid</div><div class="val green">${fmt(s.paid)}</div><div class="sub">${s.paid_count || 0} commissions</div></div>
       <div class="stat"><div class="lbl">Disputed</div><div class="val red">${fmt(s.disputed)}</div><div class="sub">${s.disputed_count || 0} commissions</div></div>
@@ -893,11 +1200,8 @@ async function loadCommissions() {
   const rows = data.commissions.map(c => {
     const districtName = c.district_slug ? cap(c.district_slug.replace(/-/g, ' ')) : '—';
     let actions = '';
-    if (c.commission_status === 'owed') {
-      actions = `<button class="btn sm" onclick="markCommissionInvoiced('${c.assignment_id}')">📄 Mark invoiced</button>`;
-    } else if (c.commission_status === 'invoiced') {
-      actions = `<button class="btn sm success" onclick="markCommissionPaid('${c.assignment_id}')">✅ Mark paid</button>`;
-    }
+    if (c.commission_status === 'owed') actions = `<button class="btn sm" onclick="markCommissionInvoiced('${c.assignment_id}')">📄 Mark invoiced</button>`;
+    else if (c.commission_status === 'invoiced') actions = `<button class="btn sm success" onclick="markCommissionPaid('${c.assignment_id}')">✅ Mark paid</button>`;
     actions += ` <button class="btn sm danger" onclick="waiveCommissionFn('${c.assignment_id}')">Waive</button>`;
     
     return `<tr>
@@ -919,21 +1223,21 @@ async function loadCommissions() {
 }
 
 async function markCommissionInvoiced(assignmentId) {
-  const invoiceNumber = prompt('Invoice number (optional, for your records):');
+  const invoiceNumber = prompt('Invoice number (optional):');
   const result = await apiPost('mark-invoiced', { assignmentId, invoiceNumber });
-  if (result?.success) alert('✅ Marked invoiced. Vendor has net-30 to pay.');
+  if (result?.success) alert('✅ Marked invoiced. Net-30 to pay.');
   loadStats(); loadCommissions();
 }
 
 async function markCommissionPaid(assignmentId) {
-  if (!confirm('Mark as PAID? This is final.')) return;
+  if (!confirm('Mark as PAID? Final.')) return;
   const result = await apiPost('mark-paid', { assignmentId });
   if (result?.success) alert('✅ Marked paid');
   loadStats(); loadCommissions();
 }
 
 async function waiveCommissionFn(assignmentId) {
-  const reason = prompt('Reason for waiving this commission:');
+  const reason = prompt('Reason for waiving:');
   if (!reason) return;
   const result = await apiPost('waive-commission', { assignmentId, reason });
   if (result?.success) alert('✅ Waived');
@@ -941,7 +1245,7 @@ async function waiveCommissionFn(assignmentId) {
 }
 
 // ============================================================
-// COVERAGE
+// COVERAGE (unchanged)
 // ============================================================
 async function loadCoverage() {
   document.getElementById('coverageGrid').innerHTML = '<div class="empty-state" style="grid-column:1/-1;">Loading...</div>';
@@ -995,12 +1299,10 @@ function timeAgo(dt) {
 }
 function closeModal(id) { document.getElementById(id).classList.remove('show'); }
 
-// Enter to submit on login
 document.getElementById('adminTokenInput').addEventListener('keypress', e => {
   if (e.key === 'Enter') login();
 });
 
-// Boot
 if (token) boot();
 </script>
 
