@@ -17,19 +17,29 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
 body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(--ink); font-size:18px; line-height:1.55; min-height:100vh; }
+body.lang-hi { font-family:'Noto Sans Devanagari','Fraunces',Georgia,serif; }
 .mono { font-family:'JetBrains Mono',monospace; }
 .devanagari { font-family:'Noto Sans Devanagari',serif; }
 
 .topbar { border-bottom:1.5px solid var(--ink); background:var(--paper); position:sticky; top:0; z-index:100; }
-.topbar-inner { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:14px 28px; }
+.topbar-inner { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:14px 28px; gap:14px; }
 .logo { font-weight:900; font-size:22px; letter-spacing:-0.02em; display:flex; align-items:center; gap:8px; text-decoration:none; color:var(--ink); }
 .logo-sun { width:24px; height:24px; background:var(--sun); border-radius:50%; box-shadow:0 0 0 3px var(--paper),0 0 0 4px var(--ink); }
-.nav { display:flex; gap:28px; align-items:center; }
+.nav { display:flex; gap:14px; align-items:center; }
 .nav a { color:var(--ink); text-decoration:none; font-size:15px; font-weight:500; }
+
+.lang-toggle { display:inline-flex; border:1.5px solid var(--ink); background:var(--paper); overflow:hidden; }
+.lang-toggle button { background:transparent; border:none; padding:8px 14px; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:0.1em; cursor:pointer; color:var(--ink); transition:all 0.15s; }
+.lang-toggle button.active { background:var(--ink); color:var(--paper); }
+.lang-toggle button:not(.active):hover { background:var(--paper-2); }
+
+.path-banner { background:var(--leaf-deep); color:var(--paper); padding:14px 28px; text-align:center; font-size:14px; }
+.path-banner strong { color:var(--sun-light); }
+.path-banner a { color:var(--sun-light); }
 
 .progress { background:var(--paper-2); border-bottom:1.5px solid var(--ink); padding:14px 28px; }
 .progress-inner { max-width:900px; margin:0 auto; display:flex; align-items:center; gap:12px; }
-.progress-bar { flex:1; height:8px; background:var(--paper); border:1px solid var(--ink); position:relative; overflow:hidden; }
+.progress-bar { flex:1; height:8px; background:var(--paper); border:1px solid var(--ink); position:relative; overflow:hidden; min-width:60px; }
 .progress-fill { height:100%; background:var(--leaf); transition:width 0.3s ease; }
 .progress-step { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); white-space:nowrap; }
 .progress-step b { color:var(--ink); }
@@ -41,7 +51,7 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 @keyframes slideIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 
 .step-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:14px; }
-.step h1 { font-size:clamp(32px,4.5vw,52px); font-weight:900; letter-spacing:-0.035em; line-height:1.05; margin-bottom:14px; font-variation-settings:'opsz' 144; }
+.step h1 { font-size:clamp(28px,4.5vw,52px); font-weight:900; letter-spacing:-0.035em; line-height:1.05; margin-bottom:14px; font-variation-settings:'opsz' 144; }
 .step h1 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
 .step .lede { font-size:18px; color:var(--muted); margin-bottom:32px; max-width:640px; line-height:1.55; }
 .step .devanagari-line { display:block; font-size:0.45em; color:var(--leaf); margin-top:6px; }
@@ -55,12 +65,14 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
   transition:all 0.15s;
   text-align:left;
   display:block;
-  font-family:'Fraunces',serif;
+  font-family:inherit;
   font-size:16px;
   color:var(--ink);
   position:relative;
+  min-height:90px;
 }
 .option-card:hover { transform:translate(-2px,-2px); box-shadow:4px 4px 0 var(--sun); }
+.option-card:active { transform:translate(0,0); box-shadow:2px 2px 0 var(--sun); }
 .option-card.selected { background:var(--leaf); color:var(--paper); border-color:var(--ink); box-shadow:6px 6px 0 var(--ink); }
 .option-card .icon { font-size:30px; display:block; margin-bottom:8px; line-height:1; }
 .option-card .label { font-weight:700; font-size:17px; margin-bottom:4px; }
@@ -69,22 +81,30 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 
 .field { margin-bottom:20px; }
 .field label { display:block; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; font-weight:700; margin-bottom:10px; }
-.field input, .field select { width:100%; padding:16px 18px; border:2px solid var(--ink); background:var(--paper); font-family:'Fraunces',serif; font-size:17px; color:var(--ink); outline:none; transition:all 0.15s; }
+.field label .why { font-family:inherit; font-size:11px; text-transform:none; letter-spacing:normal; font-weight:400; color:var(--sun-deep); cursor:help; text-decoration:underline dotted; margin-left:8px; }
+.field input, .field select { width:100%; padding:16px 18px; border:2px solid var(--ink); background:var(--paper); font-family:inherit; font-size:17px; color:var(--ink); outline:none; transition:all 0.15s; }
 .field input:focus, .field select:focus { background:white; box-shadow:3px 3px 0 var(--ink); transform:translate(-1px,-1px); }
 .field-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 .field-help { font-size:13px; color:var(--muted); margin-top:6px; font-style:italic; }
 .field-error { font-size:13px; color:var(--red); margin-top:6px; font-weight:600; display:none; }
 .field-error.show { display:block; }
 
+.checkbox-field { display:flex; gap:10px; align-items:flex-start; padding:14px 16px; border:1.5px solid var(--ink); background:var(--paper); cursor:pointer; transition:all 0.15s; }
+.checkbox-field:hover { background:var(--paper-2); }
+.checkbox-field input { width:auto; flex-shrink:0; margin-top:2px; }
+.checkbox-field .text { flex:1; font-size:15px; line-height:1.4; }
+.checkbox-field .text b { display:block; font-weight:700; margin-bottom:4px; font-family:inherit; text-transform:none; letter-spacing:normal; font-size:15px; }
+.checkbox-field .text span { color:var(--muted); font-size:13px; }
+
 .nav-row { display:flex; justify-content:space-between; align-items:center; margin-top:40px; padding-top:24px; border-top:1.5px solid var(--ink); gap:14px; }
-.btn { padding:16px 32px; font-family:'Fraunces',serif; font-size:17px; font-weight:700; border:2px solid var(--ink); cursor:pointer; transition:all 0.15s; text-decoration:none; display:inline-block; text-align:center; }
+.btn { padding:16px 32px; font-family:inherit; font-size:17px; font-weight:700; border:2px solid var(--ink); cursor:pointer; transition:all 0.15s; text-decoration:none; display:inline-block; text-align:center; }
 .btn-primary { background:var(--leaf); color:var(--paper); box-shadow:6px 6px 0 var(--ink); }
 .btn-primary:hover { transform:translate(-2px,-2px); box-shadow:8px 8px 0 var(--ink); }
+.btn-primary:active { transform:translate(0,0); box-shadow:3px 3px 0 var(--ink); }
 .btn-primary:disabled { background:var(--paper-2); color:var(--muted); cursor:not-allowed; box-shadow:none; transform:none; opacity:0.6; }
 .btn-secondary { background:transparent; color:var(--ink); }
 .btn-secondary:hover { background:var(--ink); color:var(--paper); }
 
-/* RESULT SCREEN */
 .result-hero { padding:36px; border:2px solid var(--ink); background:var(--leaf-deep); color:var(--paper); margin-bottom:28px; box-shadow:8px 8px 0 var(--sun); }
 .result-hero.ineligible { background:var(--paper-2); color:var(--ink); box-shadow:8px 8px 0 var(--muted); }
 .result-component { font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.15em; color:var(--sun-light); text-transform:uppercase; margin-bottom:10px; font-weight:700; }
@@ -111,22 +131,34 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .confirmation .icon { font-size:64px; margin-bottom:20px; }
 .confirmation h1 { font-size:42px; margin-bottom:16px; }
 .confirmation .summary { background:var(--paper-2); border:1.5px solid var(--ink); padding:24px; text-align:left; max-width:520px; margin:28px auto; }
-.confirmation .summary div { padding:8px 0; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; font-size:14px; }
+.confirmation .summary div { padding:8px 0; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; font-size:14px; flex-wrap:wrap; gap:8px; }
 .confirmation .summary div:last-child { border-bottom:none; }
 .confirmation .summary div b { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); font-weight:400; }
 
 @media (max-width:640px) {
-  .nav { display:none; }
-  .wrap { padding:32px 20px 80px; }
-  .step h1 { font-size:28px; }
-  .step .lede { font-size:16px; }
+  .nav a { display:none; }
+  .nav .lang-toggle { display:inline-flex; }
+  .topbar-inner { padding:12px 16px; }
+  .progress { padding:10px 16px; }
+  .progress-inner { gap:8px; }
+  .progress-step { font-size:10px; letter-spacing:0.08em; }
+  .progress-step:last-child { display:none; }
+  .path-banner { padding:10px 16px; font-size:13px; }
+  .wrap { padding:24px 16px 64px; }
+  .step h1 { font-size:24px; }
+  .step .lede { font-size:15px; margin-bottom:24px; }
   .field-row { grid-template-columns:1fr; }
   .option-grid { grid-template-columns:1fr; gap:10px; }
-  .nav-row { flex-direction:column-reverse; gap:10px; }
-  .btn { width:100%; }
-  .result-headline { font-size:26px; }
+  .option-card { padding:18px 16px; min-height:80px; }
+  .option-card .icon { font-size:26px; }
+  .nav-row { flex-direction:column-reverse; gap:10px; padding-top:20px; }
+  .btn { width:100%; padding:14px 20px; font-size:16px; }
+  .result-headline { font-size:24px; }
+  .result-hero { padding:24px 20px; }
   .math-table td { padding:10px 12px; font-size:13px; }
   .math-table td:last-child { font-size:15px; }
+  .confirmation h1 { font-size:30px; }
+  .lead-card { padding:24px 20px; }
 }
 </style>
 </head>
@@ -138,14 +170,23 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
       <span class="logo-sun"></span>SolarSubsidies<span style="color:var(--sun-deep)">.com</span>
     </a>
     <nav class="nav">
-      <a href="/kusum/">← Back to KUSUM</a>
+      <a href="/kusum/" data-i18n="back_to_kusum">← Back to KUSUM</a>
+      <div class="lang-toggle">
+        <button data-lang="en" class="active">EN</button>
+        <button data-lang="hi">हिं</button>
+      </div>
     </nav>
   </div>
 </header>
 
+<!-- Contextual banner for ?path= deep-links -->
+<div class="path-banner" id="pathBanner" style="display:none;">
+  <span id="pathBannerText"></span>
+</div>
+
 <div class="progress">
   <div class="progress-inner">
-    <div class="progress-step"><b>Step <span id="stepNum">1</span></b> of 6</div>
+    <div class="progress-step"><b><span data-i18n="step">Step</span> <span id="stepNum">1</span></b> <span data-i18n="of">of</span> 6</div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:16.6%"></div></div>
     <div class="progress-step" id="progressLabel">Land ownership</div>
   </div>
@@ -155,168 +196,168 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 
 <!-- STEP 1: APPLICANT TYPE + LAND OWNERSHIP -->
 <div class="step active" id="step1">
-  <div class="step-kicker mono">§ Step 1 of 6 · ~15 seconds</div>
-  <h1>Do you <em>own</em> agricultural land?<span class="devanagari devanagari-line">क्या आपके पास कृषि भूमि है?</span></h1>
-  <p class="lede">KUSUM requires land ownership. Tenant farmers, lease-holders, and sharecroppers are not currently eligible directly (we'll explain alternatives if this applies to you).</p>
+  <div class="step-kicker mono" data-i18n="step1_kicker">§ Step 1 of 6 · ~15 seconds</div>
+  <h1 data-i18n="step1_title_html">Do you <em>own</em> agricultural land?</h1>
+  <p class="lede" data-i18n="step1_lede">KUSUM requires land ownership. Tenant farmers, lease-holders, and sharecroppers are not currently eligible directly (we'll explain alternatives if this applies to you).</p>
   
   <div class="option-grid">
     <button class="option-card" data-applicant="individual_farmer">
       <span class="icon">🌾</span>
-      <div class="label">I own farm land</div>
-      <div class="sub">Individual farmer with land records</div>
+      <div class="label" data-i18n="opt_individual_label">I own farm land</div>
+      <div class="sub" data-i18n="opt_individual_sub">Individual farmer with land records</div>
     </button>
     <button class="option-card" data-applicant="fpo">
       <span class="icon">👥</span>
-      <div class="label">FPO / Cooperative</div>
-      <div class="sub">Farmer Producer Organisation</div>
+      <div class="label" data-i18n="opt_fpo_label">FPO / Cooperative</div>
+      <div class="sub" data-i18n="opt_fpo_sub">Farmer Producer Organisation</div>
     </button>
     <button class="option-card" data-applicant="panchayat">
       <span class="icon">🏛️</span>
-      <div class="label">Gram Panchayat</div>
-      <div class="sub">Village body applying for community plant</div>
+      <div class="label" data-i18n="opt_panchayat_label">Gram Panchayat</div>
+      <div class="sub" data-i18n="opt_panchayat_sub">Village body applying for community plant</div>
     </button>
     <button class="option-card" data-applicant="tenant_farmer">
       <span class="icon">📝</span>
-      <div class="label">Tenant farmer</div>
-      <div class="sub">I farm but don't own the land</div>
+      <div class="label" data-i18n="opt_tenant_label">Tenant farmer</div>
+      <div class="sub" data-i18n="opt_tenant_sub">I farm but don't own the land</div>
     </button>
   </div>
   
   <div class="nav-row">
     <span></span>
-    <button class="btn btn-primary" id="step1Next" disabled onclick="goToStep(2)">Continue →</button>
+    <button class="btn btn-primary" id="step1Next" disabled onclick="goToStep(2)" data-i18n="continue">Continue →</button>
   </div>
 </div>
 
 <!-- STEP 2: LAND AREA -->
 <div class="step" id="step2">
-  <div class="step-kicker mono">§ Step 2 of 6 · ~20 seconds</div>
-  <h1>How much <em>land</em> do you own?<span class="devanagari devanagari-line">आपके पास कितनी जमीन है?</span></h1>
-  <p class="lede">Different KUSUM components have different land requirements. Component A needs 4+ acres; Component B works from 0.5 acres; Component C depends on your existing pump.</p>
+  <div class="step-kicker mono" data-i18n="step2_kicker">§ Step 2 of 6 · ~20 seconds</div>
+  <h1 data-i18n="step2_title_html">How much <em>land</em> do you own?</h1>
+  <p class="lede" data-i18n="step2_lede">Different KUSUM components have different land requirements. Component A needs 4+ acres; Component B works from 0.5 acres; Component C depends on your existing pump.</p>
   
   <div class="field">
-    <label>Total land area (in acres)</label>
+    <label data-i18n="land_acres_label">Total land area (in acres)</label>
     <input type="number" id="landAcres" min="0" max="100" step="0.1" placeholder="e.g., 3.5">
-    <div class="field-help">1 acre = ~0.4 hectares = 40 gunthas (in some UP areas: ~1.6 bigha)</div>
-    <div class="field-error" id="err_landAcres">Please enter land area</div>
+    <div class="field-help" data-i18n="land_acres_help">1 acre = ~0.4 hectares = 40 gunthas (in some UP areas: ~1.6 bigha)</div>
+    <div class="field-error" id="err_landAcres" data-i18n="land_acres_err">Please enter land area</div>
   </div>
   
   <div class="field">
-    <label>Land type</label>
+    <label data-i18n="land_type_label">Land type</label>
     <select id="landType">
-      <option value="">Select...</option>
-      <option value="cultivated">Already cultivated (paddy, sugarcane, wheat, vegetables)</option>
-      <option value="barren_uncultivable">Barren / non-cultivable (suitable for ground-mount solar plant)</option>
-      <option value="fallow">Fallow / temporarily uncultivated</option>
-      <option value="pastoral">Pastoral / grazing land</option>
-      <option value="mixed">Mixed (some cultivated, some barren)</option>
+      <option value="" data-i18n="select_placeholder">Select...</option>
+      <option value="cultivated" data-i18n="land_cultivated">Already cultivated (paddy, sugarcane, wheat, vegetables)</option>
+      <option value="barren_uncultivable" data-i18n="land_barren">Barren / non-cultivable (suitable for ground-mount solar plant)</option>
+      <option value="fallow" data-i18n="land_fallow">Fallow / temporarily uncultivated</option>
+      <option value="pastoral" data-i18n="land_pastoral">Pastoral / grazing land</option>
+      <option value="mixed" data-i18n="land_mixed">Mixed (some cultivated, some barren)</option>
     </select>
   </div>
   
   <div class="field">
-    <label>Primary crop</label>
+    <label data-i18n="primary_crop_label">Primary crop</label>
     <select id="primaryCrop">
-      <option value="">Select...</option>
+      <option value="" data-i18n="select_placeholder">Select...</option>
       <option value="sugarcane">Sugarcane (गन्ना)</option>
       <option value="paddy">Paddy / Rice (धान)</option>
       <option value="wheat">Wheat (गेहूँ)</option>
       <option value="vegetables">Vegetables (सब्जियाँ)</option>
       <option value="orchard">Fruit orchard (फल का बाग)</option>
       <option value="pulses">Pulses / Lentils (दालें)</option>
-      <option value="mixed">Mixed cropping</option>
-      <option value="none">No crops currently (barren land)</option>
+      <option value="mixed" data-i18n="crop_mixed">Mixed cropping</option>
+      <option value="none" data-i18n="crop_none">No crops currently (barren land)</option>
     </select>
   </div>
   
   <div class="nav-row">
-    <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
-    <button class="btn btn-primary" id="step2Next" onclick="goToStep(3)">Continue →</button>
+    <button class="btn btn-secondary" onclick="goToStep(1)" data-i18n="back">← Back</button>
+    <button class="btn btn-primary" id="step2Next" onclick="goToStep(3)" data-i18n="continue">Continue →</button>
   </div>
 </div>
 
 <!-- STEP 3: WATER + IRRIGATION -->
 <div class="step" id="step3">
-  <div class="step-kicker mono">§ Step 3 of 6 · ~20 seconds</div>
-  <h1>Water + <em>irrigation</em>.<span class="devanagari devanagari-line">पानी और सिंचाई</span></h1>
-  <p class="lede">The biggest split in KUSUM: do you have grid electricity for irrigation (Component C), or are you off-grid / unreliable supply (Component B)? Your answer determines the math.</p>
+  <div class="step-kicker mono" data-i18n="step3_kicker">§ Step 3 of 6 · ~20 seconds</div>
+  <h1 data-i18n="step3_title_html">Water + <em>irrigation</em>.</h1>
+  <p class="lede" data-i18n="step3_lede">The biggest split in KUSUM: do you have grid electricity for irrigation (Component C), or are you off-grid / unreliable supply (Component B)? Your answer determines the math.</p>
   
   <div class="field">
-    <label>Current irrigation method</label>
+    <label data-i18n="irrigation_label">Current irrigation method</label>
     <div class="option-grid" style="margin-bottom:0;">
       <button class="option-card" data-irrigation="rain_fed">
         <span class="icon">☔</span>
-        <div class="label">Rain-fed only</div>
-        <div class="sub">No pump, dependent on monsoon</div>
+        <div class="label" data-i18n="irr_rainfed_label">Rain-fed only</div>
+        <div class="sub" data-i18n="irr_rainfed_sub">No pump, dependent on monsoon</div>
       </button>
       <button class="option-card" data-irrigation="electric_pump_grid">
         <span class="icon">⚡</span>
-        <div class="label">Electric pump (reliable grid)</div>
-        <div class="sub">Steady power, monthly bill</div>
+        <div class="label" data-i18n="irr_grid_label">Electric pump (reliable grid)</div>
+        <div class="sub" data-i18n="irr_grid_sub">Steady power, monthly bill</div>
       </button>
       <button class="option-card" data-irrigation="electric_pump_unreliable">
         <span class="icon">⚠️</span>
-        <div class="label">Electric pump (unreliable)</div>
-        <div class="sub">Frequent outages, especially summer</div>
+        <div class="label" data-i18n="irr_unreliable_label">Electric pump (unreliable)</div>
+        <div class="sub" data-i18n="irr_unreliable_sub">Frequent outages, especially summer</div>
       </button>
       <button class="option-card" data-irrigation="diesel_pump">
         <span class="icon">⛽</span>
-        <div class="label">Diesel pump</div>
-        <div class="sub">No grid connection, costly fuel</div>
+        <div class="label" data-i18n="irr_diesel_label">Diesel pump</div>
+        <div class="sub" data-i18n="irr_diesel_sub">No grid connection, costly fuel</div>
       </button>
       <button class="option-card" data-irrigation="manual_lift">
         <span class="icon">🪱</span>
-        <div class="label">Manual lift / animal</div>
-        <div class="sub">Bullock or hand-pumped</div>
+        <div class="label" data-i18n="irr_manual_label">Manual lift / animal</div>
+        <div class="sub" data-i18n="irr_manual_sub">Bullock or hand-pumped</div>
       </button>
       <button class="option-card" data-irrigation="canal_irrigation">
         <span class="icon">💧</span>
-        <div class="label">Canal irrigation</div>
-        <div class="sub">Reliable canal water access</div>
+        <div class="label" data-i18n="irr_canal_label">Canal irrigation</div>
+        <div class="sub" data-i18n="irr_canal_sub">Reliable canal water access</div>
       </button>
     </div>
   </div>
   
   <div class="field">
-    <label>Primary water source on your land</label>
+    <label data-i18n="water_source_label">Primary water source on your land</label>
     <select id="waterSource">
-      <option value="">Select...</option>
+      <option value="" data-i18n="select_placeholder">Select...</option>
       <option value="borewell">Borewell (tube well)</option>
-      <option value="open_well">Open well (kuan)</option>
-      <option value="pond">Pond / Tank (talab)</option>
+      <option value="open_well">Open well (कुआँ / kuan)</option>
+      <option value="pond">Pond / Tank (तालाब / talab)</option>
       <option value="river">River / Stream nearby</option>
       <option value="canal">Canal connection</option>
-      <option value="none">No water source yet</option>
+      <option value="none" data-i18n="water_none">No water source yet</option>
     </select>
   </div>
   
   <div class="field">
-    <label>Approximate water table depth (only for borewells)</label>
+    <label data-i18n="water_table_label">Approximate water table depth (only for borewells)</label>
     <select id="waterTable">
-      <option value="">Skip / Not sure</option>
-      <option value="50">Shallow (under 50 ft)</option>
-      <option value="100">Medium (50-100 ft)</option>
-      <option value="150">Deep (100-150 ft)</option>
-      <option value="200">Very deep (above 150 ft) — requires higher HP pump</option>
+      <option value="" data-i18n="skip_not_sure">Skip / Not sure</option>
+      <option value="50" data-i18n="depth_shallow">Shallow (under 50 ft)</option>
+      <option value="100" data-i18n="depth_medium">Medium (50-100 ft)</option>
+      <option value="150" data-i18n="depth_deep">Deep (100-150 ft)</option>
+      <option value="200" data-i18n="depth_verydeep">Very deep (above 150 ft) — requires higher HP pump</option>
     </select>
-    <div class="field-help">Helps us recommend the right pump capacity. Skip if you don't have a borewell.</div>
+    <div class="field-help" data-i18n="water_table_help">Helps us recommend the right pump capacity. Skip if you don't have a borewell.</div>
   </div>
   
   <div class="nav-row">
-    <button class="btn btn-secondary" onclick="goToStep(2)">← Back</button>
-    <button class="btn btn-primary" id="step3Next" disabled onclick="goToStep(4)">Continue →</button>
+    <button class="btn btn-secondary" onclick="goToStep(2)" data-i18n="back">← Back</button>
+    <button class="btn btn-primary" id="step3Next" disabled onclick="goToStep(4)" data-i18n="continue">Continue →</button>
   </div>
 </div>
 
-<!-- STEP 4: ELECTRICITY (conditional) + DISTRICT -->
+<!-- STEP 4: ELECTRICITY (conditional) + DISTRICT + SC/ST QUOTA -->
 <div class="step" id="step4">
-  <div class="step-kicker mono">§ Step 4 of 6 · ~30 seconds</div>
-  <h1>Electricity + <em>location</em>.<span class="devanagari devanagari-line">बिजली और जिला</span></h1>
-  <p class="lede">For Component C eligibility (grid-pump solarisation), we need to know your existing setup. Location determines which UPNEDA district office handles your application.</p>
+  <div class="step-kicker mono" data-i18n="step4_kicker">§ Step 4 of 6 · ~30 seconds</div>
+  <h1 data-i18n="step4_title_html">Electricity + <em>location</em>.</h1>
+  <p class="lede" data-i18n="step4_lede">For Component C eligibility (grid-pump solarisation), we need to know your existing setup. Location determines which UPNEDA district office handles your application.</p>
   
   <div class="field" id="existingPumpField" style="display:none;">
-    <label>Existing pump capacity (HP)</label>
+    <label data-i18n="existing_pump_label">Existing pump capacity (HP)</label>
     <select id="existingPumpHp">
-      <option value="">Select your pump size...</option>
+      <option value="" data-i18n="select_pump_size">Select your pump size...</option>
       <option value="1">1 HP</option>
       <option value="2">2 HP</option>
       <option value="3">3 HP</option>
@@ -327,82 +368,95 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
   </div>
   
   <div class="field" id="electricityBillField" style="display:none;">
-    <label>Average monthly pump electricity bill (₹)</label>
+    <label data-i18n="electricity_bill_label">Average monthly pump electricity bill (₹)</label>
     <input type="number" id="electricityBill" min="0" max="50000" placeholder="e.g., 800">
-    <div class="field-help">Approximate — your average over the last 3-4 months</div>
+    <div class="field-help" data-i18n="electricity_bill_help">Approximate — your average over the last 3-4 months</div>
   </div>
   
   <div class="field" id="substationField" style="display:none;">
-    <label>Approximate distance from your land to nearest electrical substation (km)</label>
+    <label data-i18n="substation_label">Approximate distance from your land to nearest electrical substation (km)</label>
     <select id="substationKm">
-      <option value="">Skip / Not sure</option>
-      <option value="1">Within 1 km</option>
-      <option value="3">1-3 km</option>
-      <option value="5">3-5 km</option>
-      <option value="10">5-10 km</option>
-      <option value="20">More than 10 km</option>
+      <option value="" data-i18n="skip_not_sure">Skip / Not sure</option>
+      <option value="1" data-i18n="sub_within1">Within 1 km</option>
+      <option value="3" data-i18n="sub_1to3">1-3 km</option>
+      <option value="5" data-i18n="sub_3to5">3-5 km</option>
+      <option value="10" data-i18n="sub_5to10">5-10 km</option>
+      <option value="20" data-i18n="sub_morethan10">More than 10 km</option>
     </select>
-    <div class="field-help">Only relevant for Component A (large solar plants need substation within 5 km).</div>
+    <div class="field-help" data-i18n="substation_help">Only relevant for Component A (large solar plants need substation within 5 km).</div>
   </div>
   
   <div class="field">
-    <label>Your district</label>
+    <label data-i18n="district_label">Your district</label>
     <select id="district" required>
-      <option value="">— Select your district —</option>
+      <option value="" data-i18n="select_district">— Select your district —</option>
     </select>
-    <div class="field-error" id="err_district">Please select your district</div>
+    <div class="field-error" id="err_district" data-i18n="district_err">Please select your district</div>
   </div>
   
   <div class="field">
-    <label>Village / Tehsil (optional)</label>
+    <label data-i18n="village_label">Village / Tehsil (optional)</label>
     <input type="text" id="villageTehsil" placeholder="e.g., Bhognipur, Bilhaur tehsil">
   </div>
   
+  <!-- SC/ST PRIORITY QUOTA -->
+  <div class="field">
+    <label class="checkbox-field" for="scStQuota">
+      <input type="checkbox" id="scStQuota">
+      <div class="text">
+        <b data-i18n="scst_label">I belong to SC/ST community</b>
+        <span data-i18n="scst_help">UPNEDA reserves quota slots for SC/ST farmers under KUSUM. Checking this gives your application priority routing. Caste certificate required at the application stage.</span>
+      </div>
+    </label>
+  </div>
+  
   <div class="nav-row">
-    <button class="btn btn-secondary" onclick="goToStep(3)">← Back</button>
-    <button class="btn btn-primary" id="step4Next" onclick="goToStep(5)">See My Result →</button>
+    <button class="btn btn-secondary" onclick="goToStep(3)" data-i18n="back">← Back</button>
+    <button class="btn btn-primary" id="step4Next" onclick="goToStep(5)" data-i18n="see_result">See My Result →</button>
   </div>
 </div>
 
-<!-- STEP 5: RESULT (eligibility + math) -->
+<!-- STEP 5: RESULT -->
 <div class="step" id="step5">
   <div id="resultContent"></div>
   <div class="nav-row">
-    <button class="btn btn-secondary" onclick="goToStep(4)">← Back</button>
-    <button class="btn btn-primary" id="toContactBtn" onclick="goToStep(6)">Connect Me with a Vendor →</button>
+    <button class="btn btn-secondary" onclick="goToStep(4)" data-i18n="back">← Back</button>
+    <button class="btn btn-primary" id="toContactBtn" onclick="goToStep(6)" data-i18n="connect_vendor">Connect Me with a Vendor →</button>
   </div>
 </div>
 
 <!-- STEP 6: CONTACT -->
 <div class="step" id="step6">
-  <div class="step-kicker mono">§ Step 6 of 6 · Final step</div>
-  <h1>Match me with a <em>KUSUM vendor</em>.<span class="devanagari devanagari-line">मुझे एक विक्रेता से जोड़ें</span></h1>
-  <p class="lede">We'll match you with an MNRE-empanelled KUSUM specialist (different from rooftop installers). They'll WhatsApp/call you within 4 business hours to discuss next steps, schedule a free site visit, and help with the UPNEDA application.</p>
+  <div class="step-kicker mono" data-i18n="step6_kicker">§ Step 6 of 6 · Final step</div>
+  <h1 data-i18n="step6_title_html">Match me with a <em>KUSUM vendor</em>.</h1>
+  <p class="lede" data-i18n="step6_lede">We'll match you with an MNRE-empanelled KUSUM specialist (different from rooftop installers). They'll WhatsApp/call you within 4 business hours to discuss next steps, schedule a free site visit, and help with the UPNEDA application.</p>
   
   <form id="leadForm" onsubmit="submitLead(event)">
     <div class="field">
-      <label>Your name</label>
+      <label data-i18n="name_label">Your name</label>
       <input type="text" id="leadName" required minlength="2" placeholder="Full name">
     </div>
     
     <div class="field">
-      <label>Phone (WhatsApp preferred)</label>
+      <label data-i18n="phone_label">Phone (WhatsApp preferred)</label>
       <input type="tel" id="leadPhone" required pattern="[+]?[0-9\-\s]{10,15}" placeholder="+91 98765 43210">
-      <div class="field-error" id="phoneError">Please enter a valid 10-digit Indian phone number</div>
+      <div class="field-error" id="phoneError" data-i18n="phone_err">Please enter a valid 10-digit Indian phone number</div>
     </div>
     
     <input type="text" name="website" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off">
     
     <div class="field" style="margin-top:8px;">
-      <label style="display:flex; gap:10px; align-items:flex-start; font-family:'Fraunces',serif; font-size:14px; text-transform:none; letter-spacing:normal; font-weight:400;">
-        <input type="checkbox" id="consentWA" checked style="width:auto; flex-shrink:0; margin-top:3px;">
-        <span>I consent to be contacted on WhatsApp/phone by an MNRE-empanelled KUSUM-specialist vendor regarding my solar pump application. (DPDP Act 2023 compliant.)</span>
+      <label class="checkbox-field" for="consentWA">
+        <input type="checkbox" id="consentWA" checked>
+        <div class="text">
+          <span data-i18n="consent_text">I consent to be contacted on WhatsApp/phone by an MNRE-empanelled KUSUM-specialist vendor regarding my solar pump application. (DPDP Act 2023 compliant.)</span>
+        </div>
       </label>
     </div>
     
     <div class="nav-row">
-      <button type="button" class="btn btn-secondary" onclick="goToStep(5)">← Back to result</button>
-      <button type="submit" class="btn btn-primary" id="submitBtn">Match Me →</button>
+      <button type="button" class="btn btn-secondary" onclick="goToStep(5)" data-i18n="back_to_result">← Back to result</button>
+      <button type="submit" class="btn btn-primary" id="submitBtn" data-i18n="match_me">Match Me →</button>
     </div>
   </form>
 </div>
@@ -411,21 +465,21 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 <div class="step" id="step7">
   <div class="confirmation">
     <div class="icon">🌾</div>
-    <h1>You're <em>matched</em>!</h1>
-    <p class="lede" style="max-width:580px; margin:0 auto 24px;">A KUSUM-specialist vendor from your district will WhatsApp/call you within 4 business hours.</p>
+    <h1 data-i18n="confirm_title_html">You're <em>matched</em>!</h1>
+    <p class="lede" id="confirmLede" style="max-width:580px; margin:0 auto 24px;" data-i18n="confirm_lede">A KUSUM-specialist vendor from your district will WhatsApp/call you within 4 business hours.</p>
     
     <div class="summary" id="confirmSummary">
-      <div><b>Track ID</b><span class="mono" id="confirmTrackId">—</span></div>
-      <div><b>Component</b><span id="confirmComponent">—</span></div>
-      <div><b>Recommended size</b><span id="confirmSize">—</span></div>
-      <div><b>Estimated subsidy</b><span id="confirmSubsidy" style="color:var(--leaf); font-weight:700;">—</span></div>
-      <div><b>Your share</b><span id="confirmShare" style="color:var(--sun-deep); font-weight:700;">—</span></div>
+      <div><b data-i18n="confirm_track">Track ID</b><span class="mono" id="confirmTrackId">—</span></div>
+      <div><b data-i18n="confirm_component">Component</b><span id="confirmComponent">—</span></div>
+      <div><b data-i18n="confirm_size">Recommended size</b><span id="confirmSize">—</span></div>
+      <div><b data-i18n="confirm_subsidy">Estimated subsidy</b><span id="confirmSubsidy" style="color:var(--leaf); font-weight:700;">—</span></div>
+      <div><b data-i18n="confirm_share">Your share</b><span id="confirmShare" style="color:var(--sun-deep); font-weight:700;">—</span></div>
     </div>
     
-    <p style="font-size:14px; color:var(--muted); margin-top:24px;">Track ID lets you reference this application in any follow-up. Save it.</p>
+    <p style="font-size:14px; color:var(--muted); margin-top:24px;" data-i18n="confirm_save">Track ID lets you reference this application in any follow-up. Save it.</p>
     
     <div style="margin-top:24px;">
-      <a href="/kusum/" class="btn btn-secondary">← Back to KUSUM</a>
+      <a href="/kusum/" class="btn btn-secondary" data-i18n="back_to_kusum">← Back to KUSUM</a>
     </div>
   </div>
 </div>
@@ -433,6 +487,205 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 </div>
 
 <script>
+// =====================================================
+// i18n DICTIONARY (English + Hindi)
+// =====================================================
+const I18N = {
+  en: {
+    back_to_kusum: '← Back to KUSUM',
+    step: 'Step', of: 'of',
+    back: '← Back', continue: 'Continue →', see_result: 'See My Result →',
+    connect_vendor: 'Connect Me with a Vendor →', back_to_result: '← Back to result', match_me: 'Match Me →',
+    select_placeholder: 'Select...', select_pump_size: 'Select your pump size...',
+    select_district: '— Select your district —', skip_not_sure: 'Skip / Not sure',
+    
+    step1_kicker: '§ Step 1 of 6 · ~15 seconds',
+    step1_title_html: 'Do you <em>own</em> agricultural land?',
+    step1_lede: 'KUSUM requires land ownership. Tenant farmers, lease-holders, and sharecroppers are not currently eligible directly (we\'ll explain alternatives if this applies to you).',
+    opt_individual_label: 'I own farm land', opt_individual_sub: 'Individual farmer with land records',
+    opt_fpo_label: 'FPO / Cooperative', opt_fpo_sub: 'Farmer Producer Organisation',
+    opt_panchayat_label: 'Gram Panchayat', opt_panchayat_sub: 'Village body applying for community plant',
+    opt_tenant_label: 'Tenant farmer', opt_tenant_sub: 'I farm but don\'t own the land',
+    
+    step2_kicker: '§ Step 2 of 6 · ~20 seconds',
+    step2_title_html: 'How much <em>land</em> do you own?',
+    step2_lede: 'Different KUSUM components have different land requirements. Component A needs 4+ acres; Component B works from 0.5 acres; Component C depends on your existing pump.',
+    land_acres_label: 'Total land area (in acres)',
+    land_acres_help: '1 acre = ~0.4 hectares = 40 gunthas (in some UP areas: ~1.6 bigha)',
+    land_acres_err: 'Please enter land area',
+    land_type_label: 'Land type',
+    land_cultivated: 'Already cultivated (paddy, sugarcane, wheat, vegetables)',
+    land_barren: 'Barren / non-cultivable (suitable for ground-mount solar plant)',
+    land_fallow: 'Fallow / temporarily uncultivated',
+    land_pastoral: 'Pastoral / grazing land',
+    land_mixed: 'Mixed (some cultivated, some barren)',
+    primary_crop_label: 'Primary crop',
+    crop_mixed: 'Mixed cropping', crop_none: 'No crops currently (barren land)',
+    
+    step3_kicker: '§ Step 3 of 6 · ~20 seconds',
+    step3_title_html: 'Water + <em>irrigation</em>.',
+    step3_lede: 'The biggest split in KUSUM: do you have grid electricity for irrigation (Component C), or are you off-grid / unreliable supply (Component B)? Your answer determines the math.',
+    irrigation_label: 'Current irrigation method',
+    irr_rainfed_label: 'Rain-fed only', irr_rainfed_sub: 'No pump, dependent on monsoon',
+    irr_grid_label: 'Electric pump (reliable grid)', irr_grid_sub: 'Steady power, monthly bill',
+    irr_unreliable_label: 'Electric pump (unreliable)', irr_unreliable_sub: 'Frequent outages, especially summer',
+    irr_diesel_label: 'Diesel pump', irr_diesel_sub: 'No grid connection, costly fuel',
+    irr_manual_label: 'Manual lift / animal', irr_manual_sub: 'Bullock or hand-pumped',
+    irr_canal_label: 'Canal irrigation', irr_canal_sub: 'Reliable canal water access',
+    water_source_label: 'Primary water source on your land',
+    water_none: 'No water source yet',
+    water_table_label: 'Approximate water table depth (only for borewells)',
+    depth_shallow: 'Shallow (under 50 ft)', depth_medium: 'Medium (50-100 ft)',
+    depth_deep: 'Deep (100-150 ft)', depth_verydeep: 'Very deep (above 150 ft) — requires higher HP pump',
+    water_table_help: 'Helps us recommend the right pump capacity. Skip if you don\'t have a borewell.',
+    
+    step4_kicker: '§ Step 4 of 6 · ~30 seconds',
+    step4_title_html: 'Electricity + <em>location</em>.',
+    step4_lede: 'For Component C eligibility (grid-pump solarisation), we need to know your existing setup. Location determines which UPNEDA district office handles your application.',
+    existing_pump_label: 'Existing pump capacity (HP)',
+    electricity_bill_label: 'Average monthly pump electricity bill (₹)',
+    electricity_bill_help: 'Approximate — your average over the last 3-4 months',
+    substation_label: 'Approximate distance from your land to nearest electrical substation (km)',
+    sub_within1: 'Within 1 km', sub_1to3: '1-3 km', sub_3to5: '3-5 km',
+    sub_5to10: '5-10 km', sub_morethan10: 'More than 10 km',
+    substation_help: 'Only relevant for Component A (large solar plants need substation within 5 km).',
+    district_label: 'Your district', district_err: 'Please select your district',
+    village_label: 'Village / Tehsil (optional)',
+    scst_label: 'I belong to SC/ST community',
+    scst_help: 'UPNEDA reserves quota slots for SC/ST farmers under KUSUM. Checking this gives your application priority routing. Caste certificate required at the application stage.',
+    
+    step6_kicker: '§ Step 6 of 6 · Final step',
+    step6_title_html: 'Match me with a <em>KUSUM vendor</em>.',
+    step6_lede: 'We\'ll match you with an MNRE-empanelled KUSUM specialist (different from rooftop installers). They\'ll WhatsApp/call you within 4 business hours to discuss next steps, schedule a free site visit, and help with the UPNEDA application.',
+    name_label: 'Your name', phone_label: 'Phone (WhatsApp preferred)',
+    phone_err: 'Please enter a valid 10-digit Indian phone number',
+    consent_text: 'I consent to be contacted on WhatsApp/phone by an MNRE-empanelled KUSUM-specialist vendor regarding my solar pump application. (DPDP Act 2023 compliant.)',
+    
+    confirm_title_html: 'You\'re <em>matched</em>!',
+    confirm_lede: 'A KUSUM-specialist vendor from your district will WhatsApp/call you within 4 business hours.',
+    confirm_track: 'Track ID', confirm_component: 'Component', confirm_size: 'Recommended size',
+    confirm_subsidy: 'Estimated subsidy', confirm_share: 'Your share',
+    confirm_save: 'Track ID lets you reference this application in any follow-up. Save it.',
+    
+    // Path banners
+    banner_path_A: 'You came from <strong>Component A</strong>. We\'ll check your eligibility for ground-mounted solar plants.',
+    banner_path_B: 'You came from <strong>Component B</strong>. We\'ll check your eligibility for standalone solar pumps.',
+    banner_path_C: 'You came from <strong>Component C</strong>. We\'ll check your eligibility for grid-pump solarisation.'
+  },
+  hi: {
+    back_to_kusum: '← KUSUM पर वापस जाएँ',
+    step: 'चरण', of: 'का',
+    back: '← पीछे', continue: 'आगे बढ़ें →', see_result: 'मेरा परिणाम देखें →',
+    connect_vendor: 'मुझे विक्रेता से जोड़ें →', back_to_result: '← परिणाम पर वापस जाएँ', match_me: 'मुझे जोड़ें →',
+    select_placeholder: 'चुनें...', select_pump_size: 'अपने पंप का आकार चुनें...',
+    select_district: '— अपना जिला चुनें —', skip_not_sure: 'छोड़ें / पता नहीं',
+    
+    step1_kicker: '§ चरण 1 / 6 · ~15 सेकंड',
+    step1_title_html: 'क्या आपके पास <em>कृषि भूमि</em> है?',
+    step1_lede: 'KUSUM के लिए भूमि का स्वामित्व आवश्यक है। किरायेदार किसान, पट्टेदार, और बटाईदार सीधे आवेदन नहीं कर सकते (यदि यह आप पर लागू होता है तो हम विकल्प बताएँगे)।',
+    opt_individual_label: 'मेरे पास कृषि भूमि है', opt_individual_sub: 'भूमि रिकॉर्ड वाला व्यक्तिगत किसान',
+    opt_fpo_label: 'FPO / सहकारी समिति', opt_fpo_sub: 'किसान उत्पादक संगठन',
+    opt_panchayat_label: 'ग्राम पंचायत', opt_panchayat_sub: 'सामुदायिक संयंत्र के लिए ग्राम निकाय',
+    opt_tenant_label: 'किरायेदार किसान', opt_tenant_sub: 'मैं खेती करता हूँ लेकिन भूमि का मालिक नहीं हूँ',
+    
+    step2_kicker: '§ चरण 2 / 6 · ~20 सेकंड',
+    step2_title_html: 'आपके पास कितनी <em>भूमि</em> है?',
+    step2_lede: 'विभिन्न KUSUM घटकों की भूमि आवश्यकताएँ अलग-अलग हैं। घटक A के लिए 4+ एकड़, घटक B के लिए 0.5 एकड़ से, घटक C आपके मौजूदा पंप पर निर्भर करता है।',
+    land_acres_label: 'कुल भूमि क्षेत्र (एकड़ में)',
+    land_acres_help: '1 एकड़ = ~0.4 हेक्टेयर = 40 गुंठा (UP में: ~1.6 बीघा)',
+    land_acres_err: 'कृपया भूमि क्षेत्र दर्ज करें',
+    land_type_label: 'भूमि का प्रकार',
+    land_cultivated: 'पहले से खेती (धान, गन्ना, गेहूँ, सब्जियाँ)',
+    land_barren: 'बंजर / अनुपजाऊ (सौर संयंत्र के लिए उपयुक्त)',
+    land_fallow: 'परती / अस्थायी रूप से अनुपजाऊ',
+    land_pastoral: 'चारागाह / पशुओं के लिए',
+    land_mixed: 'मिश्रित (कुछ खेती योग्य, कुछ बंजर)',
+    primary_crop_label: 'मुख्य फसल',
+    crop_mixed: 'मिश्रित खेती', crop_none: 'अभी कोई फसल नहीं (बंजर भूमि)',
+    
+    step3_kicker: '§ चरण 3 / 6 · ~20 सेकंड',
+    step3_title_html: 'पानी + <em>सिंचाई</em>।',
+    step3_lede: 'KUSUM का सबसे बड़ा विभाजन: क्या आपके पास सिंचाई के लिए ग्रिड बिजली है (घटक C), या आप ऑफ-ग्रिड / अविश्वसनीय आपूर्ति पर हैं (घटक B)? आपका उत्तर गणित निर्धारित करता है।',
+    irrigation_label: 'वर्तमान सिंचाई पद्धति',
+    irr_rainfed_label: 'केवल वर्षा आधारित', irr_rainfed_sub: 'कोई पंप नहीं, मानसून पर निर्भर',
+    irr_grid_label: 'विद्युत पंप (विश्वसनीय ग्रिड)', irr_grid_sub: 'स्थिर बिजली, मासिक बिल',
+    irr_unreliable_label: 'विद्युत पंप (अविश्वसनीय)', irr_unreliable_sub: 'बार-बार आउटेज, विशेषकर गर्मी में',
+    irr_diesel_label: 'डीजल पंप', irr_diesel_sub: 'कोई ग्रिड कनेक्शन नहीं, महंगा ईंधन',
+    irr_manual_label: 'हाथ से उठाना / पशु', irr_manual_sub: 'बैल या हाथ से पंप',
+    irr_canal_label: 'नहर सिंचाई', irr_canal_sub: 'विश्वसनीय नहर पानी',
+    water_source_label: 'आपकी भूमि पर मुख्य जल स्रोत',
+    water_none: 'अभी कोई जल स्रोत नहीं',
+    water_table_label: 'अनुमानित जल स्तर की गहराई (केवल बोरवेल के लिए)',
+    depth_shallow: 'उथला (50 फीट से कम)', depth_medium: 'मध्यम (50-100 फीट)',
+    depth_deep: 'गहरा (100-150 फीट)', depth_verydeep: 'बहुत गहरा (150 फीट से अधिक) — उच्च HP पंप की आवश्यकता',
+    water_table_help: 'सही पंप क्षमता सुझाने में मदद करता है। यदि आपके पास बोरवेल नहीं है तो छोड़ें।',
+    
+    step4_kicker: '§ चरण 4 / 6 · ~30 सेकंड',
+    step4_title_html: 'बिजली + <em>स्थान</em>।',
+    step4_lede: 'घटक C पात्रता के लिए हमें आपका मौजूदा सेटअप जानना होगा। स्थान निर्धारित करता है कि कौन सा UPNEDA जिला कार्यालय आपके आवेदन को संभालेगा।',
+    existing_pump_label: 'मौजूदा पंप क्षमता (HP)',
+    electricity_bill_label: 'पंप का औसत मासिक बिजली बिल (₹)',
+    electricity_bill_help: 'अनुमानित — पिछले 3-4 महीनों का औसत',
+    substation_label: 'आपकी भूमि से निकटतम विद्युत सबस्टेशन की अनुमानित दूरी (किमी)',
+    sub_within1: '1 किमी के अंदर', sub_1to3: '1-3 किमी', sub_3to5: '3-5 किमी',
+    sub_5to10: '5-10 किमी', sub_morethan10: '10 किमी से अधिक',
+    substation_help: 'केवल घटक A के लिए प्रासंगिक (बड़े सौर संयंत्रों को 5 किमी के भीतर सबस्टेशन की आवश्यकता है)।',
+    district_label: 'आपका जिला', district_err: 'कृपया अपना जिला चुनें',
+    village_label: 'गाँव / तहसील (वैकल्पिक)',
+    scst_label: 'मैं SC/ST समुदाय से हूँ',
+    scst_help: 'UPNEDA KUSUM के तहत SC/ST किसानों के लिए कोटा स्लॉट आरक्षित करता है। यह चुनने से आपके आवेदन को प्राथमिकता मिलती है। आवेदन चरण पर जाति प्रमाण पत्र आवश्यक है।',
+    
+    step6_kicker: '§ चरण 6 / 6 · अंतिम चरण',
+    step6_title_html: 'मुझे एक <em>KUSUM विक्रेता</em> से जोड़ें।',
+    step6_lede: 'हम आपको MNRE-empanelled KUSUM विशेषज्ञ (रूफटॉप installer से अलग) से जोड़ेंगे। वे 4 व्यावसायिक घंटों के भीतर WhatsApp/कॉल करेंगे।',
+    name_label: 'आपका नाम', phone_label: 'फोन (WhatsApp पसंदीदा)',
+    phone_err: 'कृपया एक मान्य 10-अंकीय भारतीय फोन नंबर दर्ज करें',
+    consent_text: 'मैं अपने सौर पंप आवेदन के बारे में MNRE-empanelled KUSUM-विशेषज्ञ विक्रेता द्वारा WhatsApp/फोन पर संपर्क किए जाने की सहमति देता हूँ। (DPDP Act 2023 अनुरूप।)',
+    
+    confirm_title_html: 'आप <em>जुड़ गए</em> हैं!',
+    confirm_lede: 'आपके जिले का एक KUSUM-विशेषज्ञ विक्रेता 4 व्यावसायिक घंटों के भीतर WhatsApp/कॉल करेगा।',
+    confirm_track: 'ट्रैक ID', confirm_component: 'घटक', confirm_size: 'अनुशंसित आकार',
+    confirm_subsidy: 'अनुमानित सब्सिडी', confirm_share: 'आपका हिस्सा',
+    confirm_save: 'ट्रैक ID किसी भी फॉलो-अप में इस आवेदन का संदर्भ देने में मदद करता है। इसे सहेजें।',
+    
+    banner_path_A: 'आप <strong>घटक A</strong> से आए हैं। हम ग्राउंड-माउंटेड सौर संयंत्रों के लिए आपकी पात्रता जाँचेंगे।',
+    banner_path_B: 'आप <strong>घटक B</strong> से आए हैं। हम स्टैंडअलोन सौर पंपों के लिए आपकी पात्रता जाँचेंगे।',
+    banner_path_C: 'आप <strong>घटक C</strong> से आए हैं। हम ग्रिड-पंप सोलराइजेशन के लिए आपकी पात्रता जाँचेंगे।'
+  }
+};
+
+let CURRENT_LANG = localStorage.getItem('kusum_lang') || 'en';
+
+function applyLanguage(lang) {
+  CURRENT_LANG = lang;
+  localStorage.setItem('kusum_lang', lang);
+  document.body.classList.toggle('lang-hi', lang === 'hi');
+  
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const txt = I18N[lang]?.[key];
+    if (!txt) return;
+    if (key.endsWith('_html')) {
+      el.innerHTML = txt;
+    } else {
+      el.textContent = txt;
+    }
+  });
+  
+  // Update lang toggle UI
+  document.querySelectorAll('.lang-toggle button').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  
+  // Update path banner if shown
+  updatePathBanner();
+  updateProgressLabel(state.step);
+}
+
+document.querySelectorAll('.lang-toggle button').forEach(btn => {
+  btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+});
+
 // =====================================================
 // STATE
 // =====================================================
@@ -450,12 +703,12 @@ const state = {
   substationKm: null,
   district: null,
   villageTehsil: null,
-  // Computed
+  scStQuota: false,
+  preferredPath: null,
   eligibleComponents: [],
   recommendedComponent: null,
   recommendedPumpHp: null,
   math: null,
-  // Lead
   name: null, phone: null, consentWA: true
 };
 
@@ -472,13 +725,38 @@ Promise.all([
   DISTRICTS = d.districts;
   KUSUM = k;
   populateDistricts();
-  // Handle ?path= param to skip ahead
+  
   const path = new URLSearchParams(location.search).get('path');
-  if (path) state._preferred_path = path;
+  if (path && ['A', 'B', 'C'].includes(path.toUpperCase())) {
+    state.preferredPath = path.toUpperCase();
+    updatePathBanner();
+  }
+  
+  applyLanguage(CURRENT_LANG);
 }).catch(e => console.error('Data load failed:', e));
+
+function updatePathBanner() {
+  const banner = document.getElementById('pathBanner');
+  if (!state.preferredPath) {
+    banner.style.display = 'none';
+    return;
+  }
+  const txt = I18N[CURRENT_LANG]?.[`banner_path_${state.preferredPath}`];
+  if (txt) {
+    document.getElementById('pathBannerText').innerHTML = txt;
+    banner.style.display = 'block';
+  }
+}
 
 function populateDistricts() {
   const sel = document.getElementById('district');
+  sel.innerHTML = '';
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = I18N[CURRENT_LANG]?.select_district || '— Select your district —';
+  placeholder.setAttribute('data-i18n', 'select_district');
+  sel.appendChild(placeholder);
+  
   [...DISTRICTS].sort((a, b) => a.name.localeCompare(b.name)).forEach(d => {
     const opt = document.createElement('option');
     opt.value = d.slug;
@@ -503,15 +781,24 @@ function goToStep(n) {
 }
 
 function updateProgress(n) {
-  const labels = {
-    1: 'Land ownership', 2: 'Land area', 3: 'Water + irrigation',
-    4: 'Electricity + location', 5: 'Your result', 6: 'Match me', 7: 'Done!'
-  };
   const totalSteps = 6;
   const pct = (Math.min(n, totalSteps) / totalSteps) * 100;
   document.getElementById('stepNum').textContent = Math.min(n, totalSteps);
-  document.getElementById('progressLabel').textContent = labels[n] || '';
+  updateProgressLabel(n);
   document.getElementById('progressFill').style.width = `${pct}%`;
+}
+
+function updateProgressLabel(n) {
+  const labelsEn = {
+    1: 'Land ownership', 2: 'Land area', 3: 'Water + irrigation',
+    4: 'Electricity + location', 5: 'Your result', 6: 'Match me', 7: 'Done!'
+  };
+  const labelsHi = {
+    1: 'भूमि स्वामित्व', 2: 'भूमि क्षेत्र', 3: 'पानी + सिंचाई',
+    4: 'बिजली + स्थान', 5: 'आपका परिणाम', 6: 'जोड़ें', 7: 'पूर्ण!'
+  };
+  const labels = CURRENT_LANG === 'hi' ? labelsHi : labelsEn;
+  document.getElementById('progressLabel').textContent = labels[n] || '';
 }
 
 function validateStep(n) {
@@ -531,6 +818,7 @@ function validateStep(n) {
   if (n === 4) {
     state.district = document.getElementById('district').value;
     state.villageTehsil = document.getElementById('villageTehsil').value || null;
+    state.scStQuota = document.getElementById('scStQuota').checked;
     if (!state.district) {
       document.getElementById('err_district').classList.add('show');
       return false;
@@ -565,7 +853,6 @@ document.querySelectorAll('[data-irrigation]').forEach(btn => {
     state.irrigationSource = btn.dataset.irrigation;
     document.getElementById('step3Next').disabled = false;
     
-    // Conditionally show electricity fields on step 4 if grid-connected
     if (state.irrigationSource === 'electric_pump_grid' || state.irrigationSource === 'electric_pump_unreliable') {
       document.getElementById('existingPumpField').style.display = 'block';
       document.getElementById('electricityBillField').style.display = 'block';
@@ -576,9 +863,6 @@ document.querySelectorAll('[data-irrigation]').forEach(btn => {
   });
 });
 
-// =====================================================
-// STEP 2: LAND — conditionally show substation field on step 4
-// =====================================================
 document.getElementById('landAcres').addEventListener('change', e => {
   const acres = parseFloat(e.target.value);
   if (acres >= 4) {
@@ -605,7 +889,6 @@ function computeResult() {
   let math = null;
   let messages = [];
   
-  // INELIGIBILITY: tenant farmer
   if (state.applicantType === 'tenant_farmer') {
     primary = 'INELIGIBLE';
     messages.push('KUSUM Components A/B/C all require land ownership documents. As a tenant farmer, you cannot apply directly.');
@@ -619,7 +902,6 @@ function computeResult() {
     return;
   }
   
-  // INELIGIBILITY: no water source
   if (state.waterSource === 'none' && state.irrigationSource !== 'rain_fed') {
     primary = 'INELIGIBLE';
     messages.push('KUSUM Components B and C require an identifiable water source (borewell, well, pond, or canal). Without water, a pump has no purpose.');
@@ -631,7 +913,6 @@ function computeResult() {
     return;
   }
   
-  // INELIGIBILITY: land too small
   if (state.landAcres < 0.5) {
     primary = 'INELIGIBLE';
     messages.push('KUSUM Component B requires minimum 0.5 acres. Component A requires 4+ acres. Your land area is below KUSUM minimums.');
@@ -643,32 +924,31 @@ function computeResult() {
     return;
   }
   
-  // ===== COMPONENT A check =====
-  // Need: 4+ acres, barren land type, within 5km of substation
   if (state.landAcres >= 4 && 
       (state.landType === 'barren_uncultivable' || state.landType === 'pastoral' || state.landType === 'mixed') &&
       (state.substationKm === null || state.substationKm <= 5)) {
     eligible.push('A');
   }
   
-  // ===== COMPONENT B check =====
-  // Need: off-grid OR unreliable electric pump, water source identified
   if (state.landAcres >= 0.5 &&
       ['rain_fed', 'electric_pump_unreliable', 'diesel_pump', 'manual_lift'].includes(state.irrigationSource) &&
       state.waterSource && state.waterSource !== 'none') {
     eligible.push('B');
   }
   
-  // ===== COMPONENT C check =====
-  // Need: existing grid-connected pump
   if (state.landAcres >= 0.5 &&
       state.irrigationSource === 'electric_pump_grid' &&
       state.existingPumpHp) {
     eligible.push('C');
   }
   
-  // Pick primary recommendation (priority: B > C > A based on UP farmer reality)
-  if (eligible.includes('B')) {
+  // Honor preferred path if user came from a detail page AND it's in eligible list
+  if (state.preferredPath && eligible.includes(state.preferredPath)) {
+    primary = state.preferredPath === 'C' ? 'C1' : state.preferredPath;
+    if (primary === 'B') { pumpHp = recommendPumpHp(); math = computeComponentBMath(pumpHp); }
+    else if (primary === 'C1') { pumpHp = state.existingPumpHp; math = computeComponentCMath(pumpHp); }
+    else if (primary === 'A') { math = computeComponentAMath(); }
+  } else if (eligible.includes('B')) {
     primary = 'B';
     pumpHp = recommendPumpHp();
     math = computeComponentBMath(pumpHp);
@@ -705,7 +985,6 @@ function recommendPumpHp() {
   else if (acres < 7) hp = 7.5;
   else hp = 10;
   
-  // Adjust for crop type
   if (state.primaryCrop === 'sugarcane' || state.primaryCrop === 'paddy') {
     if (hp === 1) hp = 2;
     else if (hp === 2) hp = 3;
@@ -716,7 +995,6 @@ function recommendPumpHp() {
     else if (hp === 10) hp = 7.5;
   }
   
-  // Adjust for water table depth
   if (state.waterTable && state.waterTable >= 100 && hp < 5) hp = 5;
   if (state.waterTable && state.waterTable >= 150 && hp < 7.5) hp = 7.5;
   
@@ -742,7 +1020,6 @@ function computeComponentBMath(hp) {
 }
 
 function computeComponentCMath(hp) {
-  // Use example from data, scale by HP if needed
   const example = hp === 7.5 ? KUSUM.component_c.example_7_5hp_pump_solarisation : KUSUM.component_c.example_5hp_pump_solarisation;
   return {
     benchmark_cost: example.benchmark_cost_inr,
@@ -774,7 +1051,7 @@ function computeComponentAMath() {
 }
 
 // =====================================================
-// RENDER RESULT SCREEN
+// RENDER RESULT
 // =====================================================
 function renderResult() {
   const container = document.getElementById('resultContent');
@@ -798,7 +1075,6 @@ function renderResult() {
     return;
   }
   
-  // Render eligible result
   let mathHtml = '';
   if (c === 'A') {
     const m = state.math;
@@ -864,6 +1140,15 @@ function renderResult() {
     `;
   }
   
+  let scStHtml = '';
+  if (state.scStQuota) {
+    scStHtml = `
+      <div style="background:rgba(255,209,102,0.25); padding:18px 22px; border:1px solid var(--ink); margin:24px 0; font-size:15px;">
+        ⭐ <strong>SC/ST Priority Quota:</strong> Your application will be flagged with reserved-category priority for UPNEDA processing. Keep your caste certificate ready at the documentation stage.
+      </div>
+    `;
+  }
+  
   container.innerHTML = `
     <div class="step-kicker mono">§ Your Eligibility Result</div>
     <div class="result-hero">
@@ -871,6 +1156,7 @@ function renderResult() {
       <div class="result-headline">You qualify for<br><em>${getComponentTitle(c)}</em></div>
       <div class="result-lede">${getComponentExplanation(c)}</div>
     </div>
+    ${scStHtml}
     ${mathHtml}
     ${alsoEligibleHtml}
   `;
@@ -895,14 +1181,14 @@ function getComponentExplanation(c) {
 }
 
 // =====================================================
-// STEP 6: SUBMIT LEAD
+// SUBMIT LEAD
 // =====================================================
 async function submitLead(e) {
   e.preventDefault();
   
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
-  btn.textContent = 'Submitting...';
+  btn.textContent = CURRENT_LANG === 'hi' ? 'भेजा जा रहा है...' : 'Submitting...';
   
   let phone = document.getElementById('leadPhone').value.trim().replace(/[\s\-]/g, '');
   if (!phone.startsWith('+')) {
@@ -911,7 +1197,7 @@ async function submitLead(e) {
     } else {
       document.getElementById('phoneError').classList.add('show');
       btn.disabled = false;
-      btn.textContent = 'Match Me →';
+      btn.textContent = I18N[CURRENT_LANG]?.match_me || 'Match Me →';
       return;
     }
   }
@@ -940,6 +1226,7 @@ async function submitLead(e) {
     existing_pump_hp: state.existingPumpHp,
     current_electricity_bill_inr_per_month: state.electricityBill,
     distance_to_substation_km: state.substationKm,
+    sc_st_quota: state.scStQuota,
     
     eligible_components: state.eligibleComponents,
     recommended_component: state.recommendedComponent,
@@ -955,11 +1242,16 @@ async function submitLead(e) {
     estimated_annual_benefit_inr: state.math?.annual_benefit || null,
     payback_years: state.math?.payback_years || null,
     
-    source: 'kusum_eligibility_v1',
+    preferred_language: CURRENT_LANG,
+    preferred_path: state.preferredPath,
+    
+    source: 'kusum_eligibility_v2',
     website: e.target.website.value
   };
   
   let leadId = 'kusum-' + Date.now().toString(36);
+  let matched = false;
+  let vendorName = null;
   
   try {
     const res = await fetch('/api/kusum-lead', {
@@ -970,12 +1262,13 @@ async function submitLead(e) {
     if (res.ok) {
       const result = await res.json();
       leadId = result.leadId || leadId;
+      matched = result.matched || false;
+      vendorName = result.vendorName || null;
     }
   } catch (err) {
     console.error('KUSUM lead submit failed:', err);
   }
   
-  // Render confirmation
   document.getElementById('confirmTrackId').textContent = leadId.slice(0, 8).toUpperCase();
   document.getElementById('confirmComponent').textContent = 'Component ' + (state.recommendedComponent || '—').replace('1', '');
   const sizeText = state.recommendedComponent === 'A' ? (state.math?.mw + ' MW plant') :
@@ -985,6 +1278,14 @@ async function submitLead(e) {
   const subsidyText = state.math?.subsidy_central ? '₹' + (state.math.subsidy_central + state.math.subsidy_state).toLocaleString('en-IN') : 'N/A (revenue-based)';
   document.getElementById('confirmSubsidy').textContent = subsidyText;
   document.getElementById('confirmShare').textContent = state.math?.farmer_share ? '₹' + state.math.farmer_share.toLocaleString('en-IN') : 'See vendor';
+  
+  // Update lede with vendor name if matched
+  if (matched && vendorName) {
+    const lede = CURRENT_LANG === 'hi'
+      ? `${vendorName} 4 व्यावसायिक घंटों के भीतर WhatsApp/कॉल करेंगे।`
+      : `${vendorName} will WhatsApp/call you within 4 business hours.`;
+    document.getElementById('confirmLede').textContent = lede;
+  }
   
   goToStep(7);
 }
