@@ -1,16 +1,20 @@
 /**
- * /api/match-kusum-lead.js — KUSUM-specialist vendor matching engine (v0.9)
+ * /api/match-kusum-lead.js — KUSUM-specialist vendor matching engine (v0.8.3)
  *
- * Mirrors api/match-lead.js but KUSUM-specific:
- *   - Filters vendors to kusum_specialist=true only
- *   - Matches on component support (vendor must handle A, B, or C)
- *   - Different scoring (drought district priority, Component A premium)
- *   - 48-hour expiry (KUSUM sales cycle is slower than rooftop)
+ * Mirrors api/match-lead.js but KUSUM-specific. Aligned to canonical schema
+ * in data/0008_kusum_and_directory.sql.
+ *
+ * Key behaviors:
+ *   - Filters vendors WHERE handles_kusum=true (canonical column)
+ *   - Matches on kusum_components @> {recommended_component}
+ *   - Different scoring: drought district priority, Component A → premium routing
+ *   - 48-hour expiry (KUSUM cycle is slower than rooftop's 24hr)
  *   - Writes to kusum_lead_assignments table (NOT lead_assignments)
+ *   - KUSUM commission default 5% (vs 7% rooftop) — can override per-vendor via commission_rate
  *
  * Protected by MATCH_INTERNAL_TOKEN env var.
  * Called by api/kusum-lead.js automatically for HOT/WARM tiers.
- * Can also be called directly by admin for manual reassignment.
+ * Can be called by admin /api/admin?action=reassign-kusum-lead for manual reassignment.
  *
  * ENV VARS:
  *   SUPABASE_URL
@@ -22,11 +26,12 @@
  *   MSG91_INTEGRATED_NUMBER (only if provider=msg91)
  */
 
+const KUSUM_DEFAULT_COMMISSION_PCT = 5.0;
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  // Auth: require internal token
-  const token = req.headers['x-internal-token'];
+  const token = req.headers['x-internal-token'] || req.query.token;
   if (!token || token !== process.env.MATCH_INTERNAL_TOKEN) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
@@ -44,324 +49,302 @@ export default async function handler(req, res) {
 }
 
 /**
- * Core matching logic — exported for direct invocation from kusum-lead.js
+ * Core matching logic. Exportable for direct calls from kusum-lead.js or admin.js.
  */
 export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  
+
   if (!supabaseUrl || !supabaseKey) {
     return { matched: false, reason: 'supabase_not_configured' };
   }
 
-  // ===== Fetch the lead =====
-  const leadRes = await fetch(`${supabaseUrl}/rest/v1/kusum_leads?id=eq.${kusumLeadId}&select=*`, {
-    headers: {
-      'apikey': supabaseKey,
-      'Authorization': `Bearer ${supabaseKey}`
-    }
-  });
-  
-  if (!leadRes.ok) {
-    return { matched: false, reason: 'lead_fetch_failed' };
-  }
-  
+  const headers = {
+    'apikey': supabaseKey,
+    'Authorization': `Bearer ${supabaseKey}`
+  };
+
+  // ===== 1. Fetch the KUSUM lead =====
+  const leadRes = await fetch(
+    `${supabaseUrl}/rest/v1/kusum_leads?id=eq.${kusumLeadId}&select=*`,
+    { headers }
+  );
+  if (!leadRes.ok) return { matched: false, reason: 'lead_fetch_failed' };
+
   const leads = await leadRes.json();
-  if (!leads.length) {
-    return { matched: false, reason: 'lead_not_found' };
-  }
-  
+  if (!leads.length) return { matched: false, reason: 'lead_not_found' };
   const lead = leads[0];
-  
-  // Skip ineligible leads
+
+  // Skip ineligible or COLD leads
   if (lead.recommended_component === 'ineligible' || lead.recommended_component === 'needs_review') {
     return { matched: false, reason: 'lead_not_eligible', component: lead.recommended_component };
   }
-  
-  // Skip if already assigned (idempotency check)
-  const existingRes = await fetch(
-    `${supabaseUrl}/rest/v1/kusum_lead_assignments?kusum_lead_id=eq.${kusumLeadId}&outcome=eq.pending&select=id`,
-    {
-      headers: {
-        'apikey': supabaseKey,
-        'Authorization': `Bearer ${supabaseKey}`
+  if (lead.kusum_lead_tier === 'COLD') {
+    return { matched: false, reason: 'cold_lead_admin_triage_only' };
+  }
+
+  // ===== 2. Idempotency: skip if already assigned (unless explicit reassignment) =====
+  if (excludeVendorIds.length === 0) {
+    const existingRes = await fetch(
+      `${supabaseUrl}/rest/v1/kusum_lead_assignments?kusum_lead_id=eq.${kusumLeadId}&outcome=eq.pending&select=id`,
+      { headers }
+    );
+    if (existingRes.ok) {
+      const existing = await existingRes.json();
+      if (existing.length > 0) {
+        return { matched: false, reason: 'already_assigned', assignmentId: existing[0].id };
       }
     }
-  );
-  
-  if (existingRes.ok) {
-    const existing = await existingRes.json();
-    if (existing.length > 0 && excludeVendorIds.length === 0) {
-      return { matched: false, reason: 'already_assigned', assignmentId: existing[0].id };
-    }
   }
-  
-  // ===== Fetch eligible KUSUM-specialist vendors =====
-  // Must be: active=true, kusum_specialist=true, covers district, supports component
+
+  // ===== 3. Fetch eligible KUSUM-specialist vendors =====
+  // Required: active=true, handles_kusum=true, covers district, supports the component
+  // Note: canonical column is `handles_kusum` (not `kusum_specialist`)
+  // C1/C2 both require vendor to handle generic "C" capability
   const component = lead.recommended_component;
-  const district = lead.district_slug;
-  
-  // Query KUSUM-specialist vendors
+  const componentToMatch = (component === 'C1' || component === 'C2') ? 'C' : component;
+
   let vendorQuery = `${supabaseUrl}/rest/v1/vendors?` +
     `active=eq.true&` +
-    `kusum_specialist=eq.true&` +
-    `select=id,company_name,brand_name,phone,whatsapp_phone,email,tier,coverage_districts,kusum_components,kusum_pump_brands,kusum_max_pump_hp,kusum_borewell_capability,kusum_vfd_certified,kusum_5yr_amc_offered,commission_rate,response_time_avg_minutes,close_rate_kusum`;
-  
-  const vendorsRes = await fetch(vendorQuery, {
-    headers: {
-      'apikey': supabaseKey,
-      'Authorization': `Bearer ${supabaseKey}`
-    }
-  });
-  
-  if (!vendorsRes.ok) {
-    return { matched: false, reason: 'vendors_query_failed' };
+    `tier=neq.suspended&` +
+    `handles_kusum=eq.true&` +
+    `coverage_districts=cs.{${lead.district_slug}}&` +
+    `kusum_components=cs.{${componentToMatch}}&` +
+    `select=id,company_name,brand_name,phone,email,tier,commission_rate,` +
+    `coverage_districts,kusum_components,avg_response_time_minutes,` +
+    `leads_received,leads_closed,lead_capacity_per_week`;
+
+  if (excludeVendorIds.length > 0) {
+    vendorQuery += `&id=not.in.(${excludeVendorIds.join(',')})`;
   }
-  
-  const allVendors = await vendorsRes.json();
-  
-  // ===== Filter by hard requirements =====
-  const eligible = allVendors.filter(v => {
-    // Exclude explicitly excluded vendors (e.g., on reassignment)
-    if (excludeVendorIds.includes(v.id)) return false;
-    
-    // Must cover the district
-    if (!v.coverage_districts || !v.coverage_districts.includes(district)) return false;
-    
-    // Must support the recommended component
-    if (!v.kusum_components || v.kusum_components.length === 0) return false;
-    const componentLetter = component === 'C1' || component === 'C2' ? 'C' : component; // C1/C2 both need C-capable
-    if (!v.kusum_components.includes(componentLetter)) return false;
-    
-    // For Component B, must handle the recommended pump HP
-    if (component === 'B' && lead.pump_hp) {
-      if (!v.kusum_max_pump_hp || v.kusum_max_pump_hp < lead.pump_hp) return false;
-    }
-    
-    return true;
-  });
-  
-  if (eligible.length === 0) {
-    // Update lead status to flag for admin manual triage
+
+  const vendorsRes = await fetch(vendorQuery, { headers });
+  if (!vendorsRes.ok) {
+    const err = await vendorsRes.text();
+    console.error('KUSUM vendor query failed:', err);
+    return { matched: false, reason: 'vendors_query_failed', detail: err };
+  }
+
+  const candidates = await vendorsRes.json();
+
+  if (candidates.length === 0) {
+    // No KUSUM-specialist vendor available → mark lead for admin triage
     await fetch(`${supabaseUrl}/rest/v1/kusum_leads?id=eq.${kusumLeadId}`, {
       method: 'PATCH',
-      headers: {
-        'apikey': supabaseKey,
-        'Authorization': `Bearer ${supabaseKey}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ status: 'unmatched_no_vendor' })
+      headers: { ...headers, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: 'documents_pending' })
     });
-    
     return {
       matched: false,
       reason: 'no_eligible_vendors',
-      component: component,
-      district: district,
-      diagnostic: {
-        total_kusum_specialists: allVendors.length,
-        excluded_count: excludeVendorIds.length,
-        criteria_failures: 'no vendor covers district + component combination'
-      }
+      component,
+      district: lead.district_slug,
+      excluded: excludeVendorIds.length
     };
   }
-  
-  // ===== Score each eligible vendor =====
-  const scored = eligible.map(v => {
+
+  // ===== 4. Score each candidate =====
+  const bundelkhand = ['jhansi', 'jalaun', 'lalitpur', 'banda', 'hamirpur', 'mahoba', 'chitrakoot'];
+  const isDroughtDistrict = bundelkhand.includes(lead.district_slug);
+  const isComponentA = component === 'A';
+
+  for (const v of candidates) {
     let score = 0;
-    const diagnostic = [];
-    
-    // Tier weight (KUSUM tier hierarchy: premium > standard > probation)
-    if (v.tier === 'premium') { score += 30; diagnostic.push('tier_premium:+30'); }
-    else if (v.tier === 'standard') { score += 20; diagnostic.push('tier_standard:+20'); }
-    else if (v.tier === 'probation') { score += 10; diagnostic.push('tier_probation:+10'); }
-    
-    // Component A premium routing (it's a ₹Cr+ deal)
-    if (component === 'A' && v.tier === 'premium') {
-      score += 25;
-      diagnostic.push('component_a_premium_bonus:+25');
+    const diag = [];
+
+    // Tier weighting (Component A skews harder toward premium)
+    if (v.tier === 'premium') {
+      score += isComponentA ? 50 : 30;
+      diag.push(`premium:+${isComponentA ? 50 : 30}`);
+    } else if (v.tier === 'standard') {
+      score += 20;
+      diag.push('standard:+20');
+    } else if (v.tier === 'probation') {
+      score += 10;
+      diag.push('probation:+10');
+    } else if (v.tier === 'unverified_listing') {
+      score += 2;
+      diag.push('unverified:+2');
     }
-    
-    // KUSUM HOT lead bonus
-    if (lead.kusum_lead_tier === 'HOT') {
-      score += 15;
-      diagnostic.push('hot_lead:+15');
+
+    // HOT KUSUM lead × premium = priority routing
+    if (lead.kusum_lead_tier === 'HOT' && v.tier === 'premium') {
+      score += 20;
+      diag.push('hot_premium:+20');
+    } else if (lead.kusum_lead_tier === 'HOT') {
+      score += 8;
+      diag.push('hot:+8');
     }
-    
-    // Drought district priority (Bundelkhand)
-    const bundelkhand = ['jhansi', 'jalaun', 'lalitpur', 'banda', 'hamirpur', 'mahoba', 'chitrakoot'];
-    if (bundelkhand.includes(district)) {
-      // Bonus for vendors who already operate in Bundelkhand (proven coverage)
-      const bundelkhandCoverage = v.coverage_districts.filter(d => bundelkhand.includes(d)).length;
+
+    // Drought-district vendor specialization
+    if (isDroughtDistrict) {
+      const bundelkhandCoverage = (v.coverage_districts || []).filter(d => bundelkhand.includes(d)).length;
       if (bundelkhandCoverage >= 3) {
         score += 10;
-        diagnostic.push('bundelkhand_specialist:+10');
+        diag.push('bundelkhand_specialist:+10');
       }
     }
-    
-    // Vendor capabilities bonus
-    if (v.kusum_borewell_capability === true) {
-      score += 5;
-      diagnostic.push('borewell_capable:+5');
+
+    // Response time (faster = better)
+    if (v.avg_response_time_minutes != null) {
+      if (v.avg_response_time_minutes < 120) { score += 8; diag.push('fast_resp:+8'); }
+      else if (v.avg_response_time_minutes < 360) { score += 4; diag.push('mid_resp:+4'); }
+      else if (v.avg_response_time_minutes > 1440) { score -= 8; diag.push('slow_resp:-8'); }
     }
-    if (v.kusum_vfd_certified === true) {
-      score += 5;
-      diagnostic.push('vfd_certified:+5');
+
+    // Historical KUSUM close rate (using cross-table close rate as proxy)
+    if (v.leads_received >= 5) {
+      const closeRate = v.leads_received > 0 ? (v.leads_closed / v.leads_received) : 0;
+      if (closeRate >= 0.3) { score += 12; diag.push(`close_rate_high:+12`); }
+      else if (closeRate >= 0.15) { score += 6; diag.push(`close_rate_mid:+6`); }
+      else if (closeRate < 0.05 && v.leads_received >= 10) { score -= 8; diag.push(`close_rate_low:-8`); }
     }
-    if (v.kusum_5yr_amc_offered === true) {
-      score += 8;
-      diagnostic.push('5yr_amc:+8');
-    }
-    
-    // Response time score (faster = better)
-    if (v.response_time_avg_minutes) {
-      if (v.response_time_avg_minutes < 60) { score += 10; diagnostic.push('fast_response:+10'); }
-      else if (v.response_time_avg_minutes < 240) { score += 5; diagnostic.push('moderate_response:+5'); }
-      else if (v.response_time_avg_minutes > 1440) { score -= 10; diagnostic.push('slow_response:-10'); }
-    }
-    
-    // Historical close rate on KUSUM
-    if (v.close_rate_kusum) {
-      if (v.close_rate_kusum > 0.30) { score += 15; diagnostic.push('high_close_rate:+15'); }
-      else if (v.close_rate_kusum > 0.15) { score += 8; diagnostic.push('mid_close_rate:+8'); }
-      else if (v.close_rate_kusum < 0.05) { score -= 10; diagnostic.push('low_close_rate:-10'); }
-    }
-    
-    return { ...v, _score: score, _diagnostic: diagnostic };
-  });
-  
-  // Sort by score descending
-  scored.sort((a, b) => b._score - a._score);
-  const winner = scored[0];
-  
-  // ===== Create assignment =====
+
+    // Capacity check (KUSUM is lenient: 10 leads/month per vendor)
+    const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    const activeUrl = `${supabaseUrl}/rest/v1/kusum_lead_assignments?` +
+      `vendor_id=eq.${v.id}&created_at=gte.${since}` +
+      `&outcome=in.(pending,contacted,site_survey_done,application_submitted)` +
+      `&select=id`;
+    const activeRes = await fetch(activeUrl, { headers: { ...headers, 'Prefer': 'count=exact' } });
+    const activeCount = parseInt(activeRes.headers.get('content-range')?.split('/')[1] || '0', 10);
+
+    const monthlyCapacity = v.lead_capacity_per_week ? v.lead_capacity_per_week * 4 : 10;
+    if (activeCount >= monthlyCapacity) { score -= 30; diag.push('overloaded:-30'); }
+    else if (activeCount >= monthlyCapacity * 0.75) { score -= 10; diag.push('near_capacity:-10'); }
+
+    v._score = score;
+    v._diagnostic = diag;
+    v._activeKusumLeads = activeCount;
+  }
+
+  // Sort by score, pick winner
+  candidates.sort((a, b) => b._score - a._score);
+  const winner = candidates[0];
+
+  // ===== 5. Create assignment + notify vendor =====
   const now = new Date();
-  const expiresAt = new Date(now.getTime() + 48 * 60 * 60 * 1000); // 48 hours
-  
-  // Calculate commission amount (5% on KUSUM benchmark)
-  const benchmarkCost = lead.estimated_gross_cost || 0;
-  const commissionRate = winner.commission_rate || 5.0;
+  const expiresAt = new Date(now.getTime() + 48 * 60 * 60 * 1000);  // 48-hour SLA
+
+  const benchmarkCost = lead.estimated_gross_cost || 305000;
+  const commissionRate = winner.commission_rate || KUSUM_DEFAULT_COMMISSION_PCT;
   const commissionAmount = Math.round(benchmarkCost * commissionRate / 100);
-  
+
+  const assignmentBody = {
+    kusum_lead_id: kusumLeadId,
+    vendor_id: winner.id,
+    assigned_at: now.toISOString(),
+    expires_at: expiresAt.toISOString(),
+    component: component,
+    estimated_system_kw: lead.estimated_system_kw || null,
+    estimated_commission: commissionAmount,
+    commission_rate: commissionRate,
+    commission_amount: commissionAmount,
+    commission_status: 'pending',
+    outcome: 'pending'
+  };
+
   const assignmentRes = await fetch(`${supabaseUrl}/rest/v1/kusum_lead_assignments`, {
     method: 'POST',
-    headers: {
-      'apikey': supabaseKey,
-      'Authorization': `Bearer ${supabaseKey}`,
-      'Content-Type': 'application/json',
-      'Prefer': 'return=representation'
-    },
-    body: JSON.stringify({
-      kusum_lead_id: kusumLeadId,
-      vendor_id: winner.id,
-      assigned_at: now.toISOString(),
-      expires_at: expiresAt.toISOString(),
-      assignment_method: excludeVendorIds.length > 0 ? 'reassignment' : 'auto_match',
-      recommended_component: component,
-      recommended_pump_hp: lead.pump_hp,
-      outcome: 'pending',
-      benchmark_cost_inr: benchmarkCost,
-      commission_rate: commissionRate,
-      commission_amount: commissionAmount,
-      commission_status: 'pending'
-    })
+    headers: { ...headers, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+    body: JSON.stringify(assignmentBody)
   });
-  
+
   if (!assignmentRes.ok) {
     const err = await assignmentRes.text();
     console.error('KUSUM assignment insert failed:', err);
     return { matched: false, reason: 'assignment_insert_failed', detail: err };
   }
-  
+
   const assignment = (await assignmentRes.json())[0];
-  
+
   // Update lead status
   await fetch(`${supabaseUrl}/rest/v1/kusum_leads?id=eq.${kusumLeadId}`, {
     method: 'PATCH',
-    headers: {
-      'apikey': supabaseKey,
-      'Authorization': `Bearer ${supabaseKey}`,
-      'Content-Type': 'application/json'
-    },
+    headers: { ...headers, 'Content-Type': 'application/json' },
     body: JSON.stringify({ status: 'assigned' })
   });
-  
-  // ===== Notify vendor via WhatsApp =====
+
+  // WhatsApp the vendor
   await notifyKusumVendor({
     provider: process.env.WHATSAPP_PROVIDER || 'webhook',
     apiKey: process.env.WHATSAPP_API_KEY,
     vendor: winner,
-    lead: lead,
-    assignment: assignment,
-    component: component,
-    commissionAmount: commissionAmount,
+    lead,
+    assignment,
+    component,
+    commissionAmount,
     portalBaseUrl: process.env.PORTAL_BASE_URL || 'https://solarsubsidies.com'
   });
-  
+
   return {
     matched: true,
     assignmentId: assignment.id,
     vendorId: winner.id,
     vendorName: winner.company_name,
     vendorPhone: winner.phone,
-    component: component,
+    component,
     score: winner._score,
     diagnostic: winner._diagnostic,
-    commissionAmount: commissionAmount,
+    commissionAmount,
     expiresAt: expiresAt.toISOString(),
-    candidatesConsidered: eligible.length,
+    candidatesConsidered: candidates.length,
     assignmentMethod: excludeVendorIds.length > 0 ? 'reassignment' : 'auto_match'
   };
 }
 
-// =====================================================
-// WHATSAPP NOTIFICATION TO ASSIGNED VENDOR
-// =====================================================
+// ============================================================
+// VENDOR WHATSAPP NOTIFICATION
+// ============================================================
 async function notifyKusumVendor({ provider, apiKey, vendor, lead, assignment, component, commissionAmount, portalBaseUrl }) {
   if (!apiKey) return;
-  
-  const vendorPhone = vendor.whatsapp_phone || vendor.phone;
+  const vendorPhone = vendor.phone;
   if (!vendorPhone) {
-    console.warn('KUSUM vendor has no phone for WhatsApp:', vendor.id);
+    console.warn('[match-kusum] Vendor has no phone:', vendor.id);
     return;
   }
-  
+
   const tierEmoji = lead.kusum_lead_tier === 'HOT' ? '🔥' : lead.kusum_lead_tier === 'WARM' ? '🟡' : '⚪';
-  
+
   const componentLabel = {
-    'A': '🏛️ Component A (Solar Plant ' + (lead.estimated_system_kw ? `~${Math.round(lead.estimated_system_kw/1000)} MW` : '') + ')',
-    'B': `💧 Component B (${lead.pump_hp || '?'} HP Standalone Pump)`,
-    'C1': '⚡ Component C1 (Grid-Pump Solarisation)',
-    'C2': '⚡ Component C2 (Feeder-Level Solarisation)'
+    'A': `🏛️ Component A · Solar Plant${lead.estimated_system_kw ? ` (~${Math.round(lead.estimated_system_kw/1000)} MW)` : ''}`,
+    'B': `💧 Component B · ${lead.pump_hp || '?'} HP Standalone Pump`,
+    'C1': '⚡ Component C1 · Grid-Pump Solarisation',
+    'C2': '⚡ Component C2 · Feeder-Level Solarisation'
   }[component] || component;
-  
-  const message = `${tierEmoji} NEW KUSUM LEAD ASSIGNED — ${vendor.company_name}
+
+  const districtName = lead.district_slug
+    ? lead.district_slug.charAt(0).toUpperCase() + lead.district_slug.slice(1).replace(/-/g, ' ')
+    : '—';
+
+  const subsidy = (lead.estimated_subsidy_central || 0) + (lead.estimated_subsidy_state || 0);
+
+  const message = `${tierEmoji} NEW KUSUM LEAD ASSIGNED (${lead.kusum_lead_tier})
 
 🌾 ${lead.name}
 📞 ${lead.phone}
-📍 ${lead.district_slug || '—'}${lead.village_or_tehsil ? ', ' + lead.village_or_tehsil : ''}
+📍 ${districtName}${lead.village_or_tehsil ? ', ' + lead.village_or_tehsil : ''}
 
 ✨ ${componentLabel}
 
 🌾 Land: ${lead.land_owned_acres || '—'} acres
-💧 Water: ${lead.water_source || '—'} ${lead.water_depth_ft ? `(${lead.water_depth_ft} ft depth)` : ''}
+💧 Water: ${lead.water_source || '—'}${lead.water_depth_ft ? ` · ${lead.water_depth_ft}ft depth` : ''}
 🌺 Crops: ${lead.primary_crops || '—'}
-⚡ Pump situation: ${lead.pump_situation || '—'}
+⚡ Current pump: ${lead.pump_situation || '—'}
 
-💰 Estimated cost: ₹${lead.estimated_gross_cost ? Number(lead.estimated_gross_cost).toLocaleString('en-IN') : '—'}
-💸 Subsidy: ₹${((lead.estimated_subsidy_central || 0) + (lead.estimated_subsidy_state || 0)).toLocaleString('en-IN')}
-👤 Farmer share: ₹${lead.estimated_farmer_contribution ? Number(lead.estimated_farmer_contribution).toLocaleString('en-IN') : '—'}
+💰 System cost: ₹${(lead.estimated_gross_cost || 0).toLocaleString('en-IN')}
+   Subsidy: ₹${subsidy.toLocaleString('en-IN')}
+   Farmer share: ₹${(lead.estimated_farmer_contribution || 0).toLocaleString('en-IN')}
 
 💵 Your commission on close: ₹${commissionAmount.toLocaleString('en-IN')} (${vendor.commission_rate || 5}%)
 
-⏰ Respond within 48 hours or this lead reassigns.
+⏰ Respond within 48h or this lead reassigns.
 
-👉 Claim/decline: ${portalBaseUrl}/vendors/portal.html?leadId=${assignment.id}
+👉 Claim/decline: ${portalBaseUrl}/vendors/portal.html?kusum=${assignment.id}
 
-—
-KUSUM = MNRE pump empanellment + UPNEDA approval required for installation.
+⚠️ KUSUM requires MNRE pump empanellment + UPNEDA application (different from rooftop).
 Lead ID: ${assignment.id.slice(0, 8).toUpperCase()}`;
-  
+
   try {
     switch (provider) {
       case 'aisensy':
@@ -373,7 +356,7 @@ Lead ID: ${assignment.id.slice(0, 8).toUpperCase()}`;
             campaignName: 'kusum_vendor_lead_assigned',
             destination: vendorPhone,
             userName: vendor.company_name,
-            templateParams: [vendor.company_name, lead.name, component, assignment.id.slice(0, 8)]
+            templateParams: [message]
           })
         });
       case 'interakt':
@@ -397,12 +380,12 @@ Lead ID: ${assignment.id.slice(0, 8).toUpperCase()}`;
             payload: {
               to: [vendorPhone],
               type: 'template',
-              template: { name: 'kusum_vendor_lead_assigned', body_text: [message] }
+              template: { name: 'kusum_lead_assigned', body_text: [message] }
             }
           })
         });
       default:
-        if (apiKey?.startsWith('http')) {
+        if (apiKey.startsWith('http')) {
           return await fetch(apiKey, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
