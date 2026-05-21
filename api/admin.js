@@ -1,35 +1,37 @@
 /**
- * /api/admin.js — Admin dashboard backend (v0.8.3)
- * 
+ * /api/admin.js — Admin dashboard backend (v0.9.2)
+ *
  * Token-gated multi-action endpoint. Single shared admin token (env var ADMIN_TOKEN).
  * All actions require the token in the Authorization header OR ?token= query param.
- * 
+ *
  * GET endpoints (data fetching):
  *   GET  /api/admin?action=stats                                  → admin_dashboard_stats
  *   GET  /api/admin?action=leads&filter=&tier=&district=&limit=  → admin_leads_overview
- *   GET  /api/admin?action=kusum-leads&filter=&tier=&component=  → kusum_dashboard view (v0.8.3 NEW)
- *   GET  /api/admin?action=kusum-stats                            → KUSUM-specific stats (v0.8.3 NEW)
- *   GET  /api/admin?action=vendors&tier=&active=&kusum=           → admin_vendor_health (KUSUM filter v0.8.3)
+ *   GET  /api/admin?action=kusum-leads&filter=&tier=&component=  → kusum_dashboard view
+ *   GET  /api/admin?action=kusum-stats                            → KUSUM-specific stats
+ *   GET  /api/admin?action=vendors&tier=&active=&kusum=           → admin_vendor_health
  *   GET  /api/admin?action=applications&status=                   → vendor_applications
+ *   GET  /api/admin?action=kusum-applications                     → pending_kusum_applications (v0.9.2 NEW)
  *   GET  /api/admin?action=commissions&status=                    → admin_commissions
  *   GET  /api/admin?action=coverage                               → admin_coverage_map
- * 
+ *
  * POST endpoints (mutations):
  *   POST /api/admin?action=reassign-lead         { leadId, excludeVendorIds }
  *   POST /api/admin?action=force-assign          { leadId, vendorId }
- *   POST /api/admin?action=reassign-kusum-lead   { kusumLeadId, excludeVendorIds }  (v0.8.3 NEW)
- *   POST /api/admin?action=force-assign-kusum    { kusumLeadId, vendorId }          (v0.8.3 NEW)
- *   POST /api/admin?action=update-kusum-lead     { kusumLeadId, fields }            (v0.8.3 NEW)
- *   POST /api/admin?action=update-kusum-assignment { assignmentId, fields }         (v0.8.3 NEW)
+ *   POST /api/admin?action=reassign-kusum-lead   { kusumLeadId, excludeVendorIds }
+ *   POST /api/admin?action=force-assign-kusum    { kusumLeadId, vendorId }
+ *   POST /api/admin?action=update-kusum-lead     { kusumLeadId, fields }
+ *   POST /api/admin?action=update-kusum-assignment { assignmentId, fields }
  *   POST /api/admin?action=update-lead           { leadId, fields }
  *   POST /api/admin?action=update-vendor         { vendorId, fields }
- *   POST /api/admin?action=approve-app           { applicationId, notes }
+ *   POST /api/admin?action=approve-app           { applicationId, notes }    (v0.9.2: carries KUSUM if verified)
+ *   POST /api/admin?action=verify-kusum-app      { applicationId, verified, notes }  (v0.9.2 NEW)
  *   POST /api/admin?action=reject-app            { applicationId, reason }
  *   POST /api/admin?action=mark-invoiced         { assignmentId, invoiceNumber? }
  *   POST /api/admin?action=mark-paid             { assignmentId, paidDate? }
  *   POST /api/admin?action=waive-commission      { assignmentId, reason }
  *   POST /api/admin?action=update-assignment     { assignmentId, fields }
- * 
+ *
  * ENV VARS:
  *   ADMIN_TOKEN  (required — shared secret for dashboard auth)
  *   SUPABASE_URL
@@ -54,32 +56,30 @@ export default async function handler(req, res) {
   }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  
+
   if (req.method === 'OPTIONS') return res.status(200).end();
-  
-  // Auth check
+
   const token = req.headers.authorization?.replace('Bearer ', '') || req.query.token;
   if (!token || token !== process.env.ADMIN_TOKEN) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
-  
+
   const action = req.query.action;
-  
+
   try {
-    // GET actions
     if (req.method === 'GET') {
-      if (action === 'stats')           return await getStats(req, res);
-      if (action === 'leads')           return await getLeads(req, res);
-      if (action === 'kusum-leads')     return await getKusumLeads(req, res);
-      if (action === 'kusum-stats')     return await getKusumStats(req, res);
-      if (action === 'vendors')         return await getVendors(req, res);
-      if (action === 'applications')    return await getApplications(req, res);
-      if (action === 'commissions')     return await getCommissions(req, res);
-      if (action === 'coverage')        return await getCoverage(req, res);
+      if (action === 'stats')               return await getStats(req, res);
+      if (action === 'leads')               return await getLeads(req, res);
+      if (action === 'kusum-leads')         return await getKusumLeads(req, res);
+      if (action === 'kusum-stats')         return await getKusumStats(req, res);
+      if (action === 'vendors')             return await getVendors(req, res);
+      if (action === 'applications')        return await getApplications(req, res);
+      if (action === 'kusum-applications')  return await getKusumApplications(req, res);  // v0.9.2 NEW
+      if (action === 'commissions')         return await getCommissions(req, res);
+      if (action === 'coverage')            return await getCoverage(req, res);
       return res.status(400).json({ error: 'Unknown GET action' });
     }
-    
-    // POST actions
+
     if (req.method === 'POST') {
       if (action === 'reassign-lead')         return await reassignLead(req, res);
       if (action === 'force-assign')          return await forceAssign(req, res);
@@ -90,6 +90,7 @@ export default async function handler(req, res) {
       if (action === 'update-lead')           return await updateLead(req, res);
       if (action === 'update-vendor')         return await updateVendor(req, res);
       if (action === 'approve-app')           return await approveApp(req, res);
+      if (action === 'verify-kusum-app')      return await verifyKusumApp(req, res);  // v0.9.2 NEW
       if (action === 'reject-app')            return await rejectApp(req, res);
       if (action === 'mark-invoiced')         return await markInvoiced(req, res);
       if (action === 'mark-paid')             return await markPaid(req, res);
@@ -97,7 +98,7 @@ export default async function handler(req, res) {
       if (action === 'update-assignment')     return await updateAssignment(req, res);
       return res.status(400).json({ error: 'Unknown POST action' });
     }
-    
+
     return res.status(405).json({ error: 'Method not allowed' });
   } catch (err) {
     console.error('Admin API error:', err);
@@ -169,34 +170,26 @@ async function getStats(req, res) {
 
 async function getLeads(req, res) {
   const { filter, tier, district, limit = 100 } = req.query;
-  
   let path = `admin_leads_overview?select=*&limit=${parseInt(limit, 10) || 100}`;
-  
   if (filter === 'unmatched') path += '&computed_status=eq.UNMATCHED';
   else if (filter === 'open') path += '&computed_status=in.(NEW,AWAITING_VENDOR,EXPIRED,IN_PROGRESS)';
   else if (filter === 'expired') path += '&computed_status=eq.EXPIRED';
   else if (filter === 'won') path += '&computed_status=eq.CLOSED_WON';
   else if (filter === 'dead') path += '&computed_status=eq.DEAD';
-  
   if (tier && tier !== 'all') path += `&lead_tier=eq.${tier}`;
   if (district) path += `&district_slug=eq.${district}`;
-  
   const leads = await sbGet(path);
   return res.status(200).json({ leads, count: leads.length });
 }
 
 async function getVendors(req, res) {
   const { tier, active, kusum } = req.query;
-  
   let path = `admin_vendor_health?select=*`;
   if (tier && tier !== 'all') path += `&tier=eq.${tier}`;
   if (active === 'true') path += '&active=eq.true';
   else if (active === 'false') path += '&active=eq.false';
-  
-  // v0.8.3: KUSUM specialist filter
   if (kusum === 'true') path += '&handles_kusum=eq.true';
   else if (kusum === 'false') path += '&handles_kusum=eq.false';
-  
   const vendors = await sbGet(path);
   return res.status(200).json({ vendors, count: vendors.length });
 }
@@ -208,15 +201,25 @@ async function getApplications(req, res) {
   return res.status(200).json({ applications, count: applications.length });
 }
 
+// v0.9.2 NEW: get KUSUM-declared applications awaiting verification
+async function getKusumApplications(req, res) {
+  const { verified } = req.query;
+  let path = `vendor_applications?select=*&handles_kusum_declared=eq.true&order=created_at.desc&limit=200`;
+  if (verified === 'true') path += '&kusum_admin_verified=eq.true';
+  else if (verified === 'false') path += '&kusum_admin_verified=eq.false';
+  const applications = await sbGet(path);
+  return res.status(200).json({
+    applications,
+    count: applications.length,
+    pending_verification: applications.filter(a => !a.kusum_admin_verified).length
+  });
+}
+
 async function getCommissions(req, res) {
   const { status } = req.query;
-  
   let path = `admin_commissions?select=*&limit=500`;
   if (status && status !== 'all') path += `&commission_status=eq.${status}`;
-  
   const commissions = await sbGet(path);
-  
-  // Summary totals
   const summary = {
     owed: 0, invoiced: 0, paid: 0, disputed: 0,
     owed_count: 0, invoiced_count: 0, paid_count: 0, disputed_count: 0
@@ -228,7 +231,6 @@ async function getCommissions(req, res) {
     else if (c.commission_status === 'paid') { summary.paid += amt; summary.paid_count++; }
     else if (c.commission_status === 'disputed') { summary.disputed += amt; summary.disputed_count++; }
   });
-  
   return res.status(200).json({ commissions, summary, count: commissions.length });
 }
 
@@ -238,50 +240,27 @@ async function getCoverage(req, res) {
 }
 
 // ============================================================
-// GET ACTIONS — KUSUM (v0.8.3 NEW)
+// GET ACTIONS — KUSUM
 // ============================================================
 
 async function getKusumLeads(req, res) {
   const { filter, tier, component, district, limit = 100 } = req.query;
-  
-  // Query the kusum_dashboard view (defined in 0008_kusum_and_directory.sql)
   let path = `kusum_dashboard?select=*&limit=${parseInt(limit, 10) || 100}&order=created_at.desc`;
-  
-  // Filter logic:
-  //   filter=unmatched → status is 'documents_pending' or no assignment
-  //   filter=assigned → status='assigned' with active assignment
-  //   filter=ineligible → recommended_component='ineligible'
-  //   filter=open → not ineligible, not commissioned/dropped
-  //   filter=won → outcome='commissioned'
-  //   filter=dead → outcome in declined_by_vendor, declined_by_farmer, rejected_by_upneda, no_response
-  if (filter === 'unmatched') {
-    path += '&assignment_id=is.null&recommended_component=neq.ineligible';
-  } else if (filter === 'assigned') {
-    path += '&status=eq.assigned';
-  } else if (filter === 'ineligible') {
-    path += '&recommended_component=eq.ineligible';
-  } else if (filter === 'won') {
-    path += '&outcome=eq.commissioned';
-  } else if (filter === 'dead') {
-    path += '&outcome=in.(declined_by_vendor,declined_by_farmer,rejected_by_upneda,no_response)';
-  } else if (filter === 'open') {
-    path += '&recommended_component=neq.ineligible';
-  }
-  
+  if (filter === 'unmatched') path += '&assignment_id=is.null&recommended_component=neq.ineligible';
+  else if (filter === 'assigned') path += '&status=eq.assigned';
+  else if (filter === 'ineligible') path += '&recommended_component=eq.ineligible';
+  else if (filter === 'won') path += '&outcome=eq.commissioned';
+  else if (filter === 'dead') path += '&outcome=in.(declined_by_vendor,declined_by_farmer,rejected_by_upneda,no_response)';
+  else if (filter === 'open') path += '&recommended_component=neq.ineligible';
   if (tier && tier !== 'all') path += `&kusum_lead_tier=eq.${tier}`;
   if (component && component !== 'all') path += `&recommended_component=eq.${component}`;
   if (district) path += `&district_slug=eq.${district}`;
-  
   const leads = await sbGet(path);
   return res.status(200).json({ leads, count: leads.length });
 }
 
 async function getKusumStats(req, res) {
-  // Aggregate KUSUM-specific stats. Doesn't have its own view, so we compute here.
-  const fmt = (n) => parseInt(n, 10) || 0;
-  
   const allLeads = await sbGet('kusum_dashboard?select=*');
-  
   const stats = {
     total_kusum_leads: allLeads.length,
     hot_kusum: allLeads.filter(l => l.kusum_lead_tier === 'HOT').length,
@@ -298,26 +277,24 @@ async function getKusumStats(req, res) {
     commissioned: allLeads.filter(l => l.outcome === 'commissioned').length,
     dead: allLeads.filter(l => ['declined_by_vendor', 'declined_by_farmer', 'rejected_by_upneda', 'no_response'].includes(l.outcome)).length,
   };
-  
-  // 24h and 7d counts
   const day = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
   const week = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
   stats.leads_24h = allLeads.filter(l => l.created_at >= day).length;
   stats.leads_7d = allLeads.filter(l => l.created_at >= week).length;
-  
-  // Available KUSUM-specialist vendors
   const kusumVendors = await sbGet('vendors?handles_kusum=eq.true&active=eq.true&select=id,tier');
   stats.kusum_vendors_active = kusumVendors.length;
   stats.kusum_vendors_premium = kusumVendors.filter(v => v.tier === 'premium').length;
   stats.kusum_vendors_standard = kusumVendors.filter(v => v.tier === 'standard').length;
   stats.kusum_vendors_probation = kusumVendors.filter(v => v.tier === 'probation').length;
-  
-  // Commission totals (from kusum_lead_assignments)
   const commissions = await sbGet('kusum_lead_assignments?select=commission_amount,commission_status');
   stats.kusum_commission_owed = commissions.filter(c => c.commission_status === 'owed').reduce((s, c) => s + (parseFloat(c.commission_amount) || 0), 0);
   stats.kusum_commission_invoiced = commissions.filter(c => c.commission_status === 'invoiced').reduce((s, c) => s + (parseFloat(c.commission_amount) || 0), 0);
   stats.kusum_commission_paid = commissions.filter(c => c.commission_status === 'paid').reduce((s, c) => s + (parseFloat(c.commission_amount) || 0), 0);
-  
+
+  // v0.9.2: Pending KUSUM application verifications
+  const pendingKusumApps = await sbGet('vendor_applications?handles_kusum_declared=eq.true&kusum_admin_verified=eq.false&status=in.(pending_review,under_review)&select=id');
+  stats.kusum_apps_pending_verification = pendingKusumApps.length;
+
   return res.status(200).json({ stats });
 }
 
@@ -328,7 +305,6 @@ async function getKusumStats(req, res) {
 async function reassignLead(req, res) {
   const { leadId, excludeVendorIds = [] } = req.body;
   if (!leadId) return res.status(400).json({ error: 'leadId required' });
-  
   const current = await sbGet(`lead_assignments?lead_id=eq.${leadId}&select=id,vendor_id&order=created_at.desc&limit=1`);
   if (current && current.length > 0 && current[0].vendor_id) {
     await sbPatch(`lead_assignments?id=eq.${current[0].id}`, {
@@ -339,7 +315,6 @@ async function reassignLead(req, res) {
     });
     excludeVendorIds.push(current[0].vendor_id);
   }
-  
   const result = await matchLead(leadId, excludeVendorIds);
   return res.status(200).json(result);
 }
@@ -347,15 +322,12 @@ async function reassignLead(req, res) {
 async function forceAssign(req, res) {
   const { leadId, vendorId } = req.body;
   if (!leadId || !vendorId) return res.status(400).json({ error: 'leadId and vendorId required' });
-  
   const leads = await sbGet(`leads?id=eq.${leadId}&select=*&limit=1`);
   const lead = leads?.[0];
   if (!lead) return res.status(404).json({ error: 'Lead not found' });
-  
   const vendors = await sbGet(`vendors?id=eq.${vendorId}&select=*&limit=1`);
   const vendor = vendors?.[0];
   if (!vendor) return res.status(404).json({ error: 'Vendor not found' });
-  
   const existing = await sbGet(`lead_assignments?lead_id=eq.${leadId}&outcome=eq.pending&select=id&limit=1`);
   if (existing && existing.length > 0) {
     await sbPatch(`lead_assignments?id=eq.${existing[0].id}`, {
@@ -365,55 +337,35 @@ async function forceAssign(req, res) {
       commission_status: 'waived'
     });
   }
-  
   const grossValue = (lead.system_size_kw || 3) * 70000;
   const commissionAmount = grossValue * (vendor.commission_rate / 100);
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-  
   const assignment = await sbInsert('lead_assignments', {
-    lead_id: leadId,
-    vendor_id: vendorId,
-    assignment_method: 'manual',
-    district_slug: lead.district_slug,
-    lead_tier: lead.lead_tier,
-    lead_score: lead.lead_score,
-    system_size_kw: lead.system_size_kw,
-    gross_system_value: grossValue,
-    commission_rate: vendor.commission_rate,
-    commission_amount: Math.round(commissionAmount * 100) / 100,
-    commission_status: 'pending',
-    expires_at: expiresAt
+    lead_id: leadId, vendor_id: vendorId, assignment_method: 'manual',
+    district_slug: lead.district_slug, lead_tier: lead.lead_tier, lead_score: lead.lead_score,
+    system_size_kw: lead.system_size_kw, gross_system_value: grossValue,
+    commission_rate: vendor.commission_rate, commission_amount: Math.round(commissionAmount * 100) / 100,
+    commission_status: 'pending', expires_at: expiresAt
   });
-  
   await sbPatch(`leads?id=eq.${leadId}`, { status: 'assigned' });
-  
-  return res.status(200).json({
-    success: true,
-    assignmentId: assignment?.[0]?.id,
-    vendorName: vendor.company_name
-  });
+  return res.status(200).json({ success: true, assignmentId: assignment?.[0]?.id, vendorName: vendor.company_name });
 }
 
 // ============================================================
-// POST ACTIONS — KUSUM (v0.8.3 NEW)
+// POST ACTIONS — KUSUM
 // ============================================================
 
 async function reassignKusumLead(req, res) {
   const { kusumLeadId, excludeVendorIds = [] } = req.body;
   if (!kusumLeadId) return res.status(400).json({ error: 'kusumLeadId required' });
-  
-  // Find current KUSUM assignment, mark as overridden
   const current = await sbGet(`kusum_lead_assignments?kusum_lead_id=eq.${kusumLeadId}&select=id,vendor_id&order=created_at.desc&limit=1`);
   if (current && current.length > 0 && current[0].vendor_id) {
     await sbPatch(`kusum_lead_assignments?id=eq.${current[0].id}`, {
-      outcome: 'declined_by_vendor',
-      outcome_updated_at: new Date().toISOString(),
-      commission_status: 'waived',
-      notes: 'Admin reassigned'
+      outcome: 'declined_by_vendor', outcome_updated_at: new Date().toISOString(),
+      commission_status: 'waived', notes: 'Admin reassigned'
     });
     excludeVendorIds.push(current[0].vendor_id);
   }
-  
   const result = await matchKusumLead(kusumLeadId, excludeVendorIds);
   return res.status(200).json(result);
 }
@@ -421,76 +373,42 @@ async function reassignKusumLead(req, res) {
 async function forceAssignKusum(req, res) {
   const { kusumLeadId, vendorId } = req.body;
   if (!kusumLeadId || !vendorId) return res.status(400).json({ error: 'kusumLeadId and vendorId required' });
-  
-  // Fetch lead + vendor
   const leads = await sbGet(`kusum_leads?id=eq.${kusumLeadId}&select=*&limit=1`);
   const lead = leads?.[0];
   if (!lead) return res.status(404).json({ error: 'KUSUM lead not found' });
-  
   const vendors = await sbGet(`vendors?id=eq.${vendorId}&select=*&limit=1`);
   const vendor = vendors?.[0];
   if (!vendor) return res.status(404).json({ error: 'Vendor not found' });
-  
-  // Verify vendor is KUSUM-capable (warn but allow override)
-  if (!vendor.handles_kusum) {
-    console.warn(`Force-assigning KUSUM lead ${kusumLeadId} to non-KUSUM-specialist vendor ${vendorId}`);
-  }
-  
-  // Close existing assignment if any
+  if (!vendor.handles_kusum) console.warn(`Force-assigning KUSUM lead ${kusumLeadId} to non-KUSUM-specialist vendor ${vendorId}`);
   const existing = await sbGet(`kusum_lead_assignments?kusum_lead_id=eq.${kusumLeadId}&outcome=eq.pending&select=id&limit=1`);
   if (existing && existing.length > 0) {
     await sbPatch(`kusum_lead_assignments?id=eq.${existing[0].id}`, {
-      outcome: 'declined_by_vendor',
-      outcome_updated_at: new Date().toISOString(),
-      commission_status: 'waived',
-      notes: 'Admin force-reassigned'
+      outcome: 'declined_by_vendor', outcome_updated_at: new Date().toISOString(),
+      commission_status: 'waived', notes: 'Admin force-reassigned'
     });
   }
-  
-  // Create new KUSUM assignment
   const benchmarkCost = lead.estimated_gross_cost || 305000;
   const commissionRate = vendor.commission_rate || 5.0;
   const commissionAmount = Math.round(benchmarkCost * commissionRate / 100);
-  const expiresAt = new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString();  // 48h for KUSUM
-  
+  const expiresAt = new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString();
   const assignment = await sbInsert('kusum_lead_assignments', {
-    kusum_lead_id: kusumLeadId,
-    vendor_id: vendorId,
-    assigned_at: new Date().toISOString(),
-    expires_at: expiresAt,
-    component: lead.recommended_component,
-    estimated_system_kw: lead.estimated_system_kw,
-    estimated_commission: commissionAmount,
-    commission_rate: commissionRate,
-    commission_amount: commissionAmount,
-    commission_status: 'pending',
-    outcome: 'pending',
+    kusum_lead_id: kusumLeadId, vendor_id: vendorId, assigned_at: new Date().toISOString(),
+    expires_at: expiresAt, component: lead.recommended_component, estimated_system_kw: lead.estimated_system_kw,
+    estimated_commission: commissionAmount, commission_rate: commissionRate,
+    commission_amount: commissionAmount, commission_status: 'pending', outcome: 'pending',
     notes: 'Force-assigned by admin'
   });
-  
-  // Update lead status
   await sbPatch(`kusum_leads?id=eq.${kusumLeadId}`, { status: 'assigned' });
-  
-  return res.status(200).json({
-    success: true,
-    assignmentId: assignment?.[0]?.id,
-    vendorName: vendor.company_name,
-    kusumSpecialist: vendor.handles_kusum
-  });
+  return res.status(200).json({ success: true, assignmentId: assignment?.[0]?.id, vendorName: vendor.company_name, kusumSpecialist: vendor.handles_kusum });
 }
 
 async function updateKusumLead(req, res) {
   const { kusumLeadId, fields } = req.body;
   if (!kusumLeadId || !fields) return res.status(400).json({ error: 'kusumLeadId and fields required' });
-  
-  // Whitelist fields admin can edit
   const allowed = ['status', 'kusum_lead_tier', 'kusum_lead_score', 'recommended_component', 'consent_whatsapp'];
   const update = {};
-  for (const k of Object.keys(fields)) {
-    if (allowed.includes(k)) update[k] = fields[k];
-  }
+  for (const k of Object.keys(fields)) if (allowed.includes(k)) update[k] = fields[k];
   if (Object.keys(update).length === 0) return res.status(400).json({ error: 'No valid fields to update' });
-  
   const result = await sbPatch(`kusum_leads?id=eq.${kusumLeadId}`, update);
   return res.status(200).json({ success: true, lead: result?.[0] });
 }
@@ -498,15 +416,11 @@ async function updateKusumLead(req, res) {
 async function updateKusumAssignment(req, res) {
   const { assignmentId, fields } = req.body;
   if (!assignmentId || !fields) return res.status(400).json({ error: 'assignmentId and fields required' });
-  
   const allowed = ['outcome', 'commission_status', 'commission_amount', 'commission_paid_at', 'notes'];
   const update = {};
-  for (const k of Object.keys(fields)) {
-    if (allowed.includes(k)) update[k] = fields[k];
-  }
+  for (const k of Object.keys(fields)) if (allowed.includes(k)) update[k] = fields[k];
   if (update.outcome) update.outcome_updated_at = new Date().toISOString();
   if (Object.keys(update).length === 0) return res.status(400).json({ error: 'No valid fields' });
-  
   const result = await sbPatch(`kusum_lead_assignments?id=eq.${assignmentId}`, update);
   return res.status(200).json({ success: true, assignment: result?.[0] });
 }
@@ -518,14 +432,10 @@ async function updateKusumAssignment(req, res) {
 async function updateLead(req, res) {
   const { leadId, fields } = req.body;
   if (!leadId || !fields) return res.status(400).json({ error: 'leadId and fields required' });
-  
   const allowed = ['status', 'lead_tier', 'lead_score', 'consent_whatsapp'];
   const update = {};
-  for (const k of Object.keys(fields)) {
-    if (allowed.includes(k)) update[k] = fields[k];
-  }
+  for (const k of Object.keys(fields)) if (allowed.includes(k)) update[k] = fields[k];
   if (Object.keys(update).length === 0) return res.status(400).json({ error: 'No valid fields to update' });
-  
   const result = await sbPatch(`leads?id=eq.${leadId}`, update);
   return res.status(200).json({ success: true, lead: result?.[0] });
 }
@@ -533,44 +443,90 @@ async function updateLead(req, res) {
 async function updateVendor(req, res) {
   const { vendorId, fields } = req.body;
   if (!vendorId || !fields) return res.status(400).json({ error: 'vendorId and fields required' });
-  
   const allowed = [
     'tier', 'commission_rate', 'active', 'coverage_districts',
     'min_system_size_kw', 'property_types', 'lead_capacity_per_week',
     'phone', 'email', 'notes', 'agreement_signed_at', 'agreement_version',
-    'handles_kusum', 'kusum_components', 'claim_status', 'public_listing'  // v0.8.3
+    'handles_kusum', 'kusum_components', 'claim_status', 'public_listing'
   ];
   const update = {};
-  for (const k of Object.keys(fields)) {
-    if (allowed.includes(k)) update[k] = fields[k];
-  }
+  for (const k of Object.keys(fields)) if (allowed.includes(k)) update[k] = fields[k];
   if (Object.keys(update).length === 0) return res.status(400).json({ error: 'No valid fields to update' });
-  
   const result = await sbPatch(`vendors?id=eq.${vendorId}`, update);
   return res.status(200).json({ success: true, vendor: result?.[0] });
 }
 
+// ============================================================
+// v0.9.2 NEW: Verify KUSUM credentials on application
+// Admin flips kusum_admin_verified=true after manually checking MNRE pump + UPNEDA KUSUM
+// ============================================================
+async function verifyKusumApp(req, res) {
+  const { applicationId, verified, notes, reviewedBy } = req.body;
+  if (!applicationId) return res.status(400).json({ error: 'applicationId required' });
+  if (typeof verified !== 'boolean') return res.status(400).json({ error: 'verified (boolean) required' });
+
+  const apps = await sbGet(`vendor_applications?id=eq.${applicationId}&select=id,handles_kusum_declared&limit=1`);
+  const app = apps?.[0];
+  if (!app) return res.status(404).json({ error: 'Application not found' });
+  if (!app.handles_kusum_declared) {
+    return res.status(400).json({ error: 'Application did not declare KUSUM specialization' });
+  }
+
+  const update = {
+    kusum_admin_verified: verified,
+    kusum_verified_at: verified ? new Date().toISOString() : null,
+    kusum_verified_by: reviewedBy || null
+  };
+  if (notes) {
+    // Append to reviewer_notes
+    const existing = await sbGet(`vendor_applications?id=eq.${applicationId}&select=reviewer_notes`);
+    const existingNote = existing?.[0]?.reviewer_notes || '';
+    const newNote = `[KUSUM verify ${verified ? 'PASSED' : 'FAILED'} ${new Date().toISOString().slice(0,10)}] ${notes}`;
+    update.reviewer_notes = existingNote ? `${existingNote}\n${newNote}` : newNote;
+  }
+
+  await sbPatch(`vendor_applications?id=eq.${applicationId}`, update);
+
+  return res.status(200).json({
+    success: true,
+    verified,
+    message: verified
+      ? 'KUSUM credentials verified. Vendor will receive KUSUM leads on approval.'
+      : 'KUSUM verification marked as failed. Vendor will receive only rooftop leads on approval.'
+  });
+}
+
+// ============================================================
+// v0.9.2 UPDATED: Carry KUSUM fields to vendors table when approving
+// ============================================================
 async function approveApp(req, res) {
   const { applicationId, notes } = req.body;
   if (!applicationId) return res.status(400).json({ error: 'applicationId required' });
-  
+
   const apps = await sbGet(`vendor_applications?id=eq.${applicationId}&select=*&limit=1`);
   const app = apps?.[0];
   if (!app) return res.status(404).json({ error: 'Application not found' });
   if (app.status !== 'pending_review' && app.status !== 'under_review') {
     return res.status(400).json({ error: `Cannot approve — status is ${app.status}` });
   }
-  
+
+  // v0.9.2: KUSUM safety check — if app declared KUSUM but isn't verified, warn
+  let kusumWarning = null;
+  if (app.handles_kusum_declared && !app.kusum_admin_verified) {
+    kusumWarning = 'Application declared KUSUM but has not been admin-verified. Vendor will be created with handles_kusum=FALSE. Run verify-kusum-app first if you want KUSUM lead routing enabled.';
+  }
+
   await sbPatch(`vendor_applications?id=eq.${applicationId}`, {
     status: 'approved',
     reviewer_notes: notes || null,
     reviewed_at: new Date().toISOString()
   });
-  
+
   const capacityMap = { '1-3': 3, '4-10': 8, '11-25': 18, '26-50': 38, '>50': 50 };
   const capacity = capacityMap[app.lead_capacity_per_week] || 5;
-  
-  const vendor = await sbInsert('vendors', {
+
+  // v0.9.2: Carry KUSUM fields to vendors table ONLY if admin verified
+  const vendorBody = {
     application_id: app.id,
     company_name: app.company_name,
     brand_name: app.brand_name,
@@ -589,40 +545,41 @@ async function approveApp(req, res) {
     coverage_districts: app.coverage_districts,
     min_system_size_kw: app.min_system_size_kw,
     property_types: app.property_types,
-    lead_capacity_per_week: capacity
-  });
-  
+    lead_capacity_per_week: capacity,
+
+    // v0.9.2: KUSUM fields — only true if admin verified
+    handles_kusum: !!(app.handles_kusum_declared && app.kusum_admin_verified),
+    kusum_components: (app.handles_kusum_declared && app.kusum_admin_verified)
+      ? (app.kusum_components_declared || [])
+      : []
+  };
+
+  const vendor = await sbInsert('vendors', vendorBody);
+
   return res.status(200).json({
     success: true,
     vendorId: vendor?.[0]?.id,
-    message: 'Application approved and promoted to vendor. Now send them the agreement.'
+    handles_kusum: vendorBody.handles_kusum,
+    kusum_components: vendorBody.kusum_components,
+    message: 'Application approved and promoted to vendor. Now send them the agreement.',
+    kusumWarning
   });
 }
 
 async function rejectApp(req, res) {
   const { applicationId, reason } = req.body;
   if (!applicationId) return res.status(400).json({ error: 'applicationId required' });
-  
   await sbPatch(`vendor_applications?id=eq.${applicationId}`, {
-    status: 'rejected',
-    reviewer_notes: reason || null,
-    reviewed_at: new Date().toISOString()
+    status: 'rejected', reviewer_notes: reason || null, reviewed_at: new Date().toISOString()
   });
-  
   return res.status(200).json({ success: true, message: 'Application rejected.' });
 }
 
 async function markInvoiced(req, res) {
   const { assignmentId, invoiceNumber, kusum = false } = req.body;
   if (!assignmentId) return res.status(400).json({ error: 'assignmentId required' });
-  
-  const update = {
-    commission_status: 'invoiced',
-    commission_invoiced_at: new Date().toISOString()
-  };
+  const update = { commission_status: 'invoiced', commission_invoiced_at: new Date().toISOString() };
   if (invoiceNumber) update.notes = `Invoice: ${invoiceNumber}`;
-  
-  // v0.8.3: support marking KUSUM commissions
   const table = kusum ? 'kusum_lead_assignments' : 'lead_assignments';
   await sbPatch(`${table}?id=eq.${assignmentId}`, update);
   return res.status(200).json({ success: true });
@@ -631,11 +588,9 @@ async function markInvoiced(req, res) {
 async function markPaid(req, res) {
   const { assignmentId, paidDate, kusum = false } = req.body;
   if (!assignmentId) return res.status(400).json({ error: 'assignmentId required' });
-  
   const table = kusum ? 'kusum_lead_assignments' : 'lead_assignments';
   await sbPatch(`${table}?id=eq.${assignmentId}`, {
-    commission_status: 'paid',
-    commission_paid_at: paidDate || new Date().toISOString()
+    commission_status: 'paid', commission_paid_at: paidDate || new Date().toISOString()
   });
   return res.status(200).json({ success: true });
 }
@@ -643,11 +598,9 @@ async function markPaid(req, res) {
 async function waiveCommission(req, res) {
   const { assignmentId, reason, kusum = false } = req.body;
   if (!assignmentId) return res.status(400).json({ error: 'assignmentId required' });
-  
   const table = kusum ? 'kusum_lead_assignments' : 'lead_assignments';
   await sbPatch(`${table}?id=eq.${assignmentId}`, {
-    commission_status: 'waived',
-    notes: reason ? `Waived: ${reason}` : 'Waived'
+    commission_status: 'waived', notes: reason ? `Waived: ${reason}` : 'Waived'
   });
   return res.status(200).json({ success: true });
 }
@@ -655,15 +608,11 @@ async function waiveCommission(req, res) {
 async function updateAssignment(req, res) {
   const { assignmentId, fields } = req.body;
   if (!assignmentId || !fields) return res.status(400).json({ error: 'assignmentId and fields required' });
-  
   const allowed = ['outcome', 'commission_status', 'commission_amount', 'vendor_notes', 'declined_reason', 'net_meter_activated_at'];
   const update = {};
-  for (const k of Object.keys(fields)) {
-    if (allowed.includes(k)) update[k] = fields[k];
-  }
+  for (const k of Object.keys(fields)) if (allowed.includes(k)) update[k] = fields[k];
   if (update.outcome) update.outcome_updated_at = new Date().toISOString();
   if (Object.keys(update).length === 0) return res.status(400).json({ error: 'No valid fields' });
-  
   const result = await sbPatch(`lead_assignments?id=eq.${assignmentId}`, update);
   return res.status(200).json({ success: true, assignment: result?.[0] });
 }
