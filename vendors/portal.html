@@ -7,67 +7,100 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-:root { --ink:#0a0a0a; --paper:#faf7f2; --paper-2:#f3ede2; --sun:#ff6b1a; --sun-deep:#d94a00; --sun-light:#ffd166; --leaf:#2d5016; --muted:#5a5a5a; --line:#d4cfc4; --red:#c41e3a; }
+:root { --ink:#0a0a0a; --paper:#faf7f2; --paper-2:#f3ede2; --sun:#ff6b1a; --sun-deep:#d94a00; --sun-light:#ffd166; --leaf:#2d5016; --leaf-deep:#1a3210; --muted:#5a5a5a; --line:#d4cfc4; --red:#c41e3a; --blue:#1e5fc4; }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { -webkit-text-size-adjust:100%; }
 body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(--ink); font-size:16px; line-height:1.55; padding-bottom:80px; }
+body.hi { font-family:'Noto Sans Devanagari','Fraunces',Georgia,serif; }
 .mono { font-family:'JetBrains Mono',monospace; }
+.devanagari { font-family:'Noto Sans Devanagari',serif; }
+
 .topbar { border-bottom:1.5px solid var(--ink); background:var(--paper); position:sticky; top:0; z-index:100; }
 .topbar-inner { max-width:900px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:14px 20px; }
 .logo { font-weight:900; font-size:20px; letter-spacing:-0.02em; display:flex; align-items:center; gap:8px; text-decoration:none; color:var(--ink); }
 .logo-sun { width:22px; height:22px; background:var(--sun); border-radius:50%; box-shadow:0 0 0 2px var(--paper),0 0 0 3px var(--ink); }
 .vendor-pill { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; padding:6px 12px; background:var(--paper-2); border:1px solid var(--ink); }
 .vendor-pill .logout { color:var(--muted); margin-left:8px; cursor:pointer; }
+
+.lang-switch { display:flex; gap:0; border:1.5px solid var(--ink); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; font-weight:700; margin-right:12px; }
+.lang-switch button { padding:4px 10px; background:transparent; border:none; cursor:pointer; color:var(--muted); }
+.lang-switch button.active { background:var(--ink); color:var(--paper); }
+
 .wrap { max-width:900px; margin:0 auto; padding:24px 20px 80px; }
 h1 { font-size:32px; font-weight:900; letter-spacing:-0.025em; line-height:1.1; margin-bottom:8px; font-variation-settings:'opsz' 144; }
 h1 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
 h2 { font-size:22px; font-weight:700; letter-spacing:-0.015em; margin:24px 0 12px; }
 h3 { font-size:15px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); margin-bottom:14px; font-weight:700; }
+body.hi h3 { font-family:'Noto Sans Devanagari',sans-serif; letter-spacing:0.05em; }
 .section { margin-bottom:36px; }
 .tabs { display:flex; gap:4px; border-bottom:1.5px solid var(--ink); margin-bottom:16px; overflow-x:auto; }
 .tab { padding:12px 18px; font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; cursor:pointer; border:1.5px solid transparent; border-bottom:none; font-weight:700; color:var(--muted); white-space:nowrap; background:transparent; }
 .tab.active { background:var(--paper-2); border-color:var(--ink); color:var(--ink); }
+.tab.kusum.active { background:var(--leaf-deep); color:var(--sun-light); border-color:var(--leaf-deep); }
+.tab.kusum-disabled { opacity:0.4; cursor:not-allowed; }
+.tab-badge { display:inline-block; margin-left:6px; padding:1px 7px; background:var(--sun); color:var(--ink); border-radius:10px; font-size:10px; font-weight:700; }
+.tab-badge.red { background:var(--red); color:var(--paper); }
 .tab-content { display:none; }
 .tab-content.active { display:block; }
 .field { margin-bottom:18px; }
 .field label { display:block; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; font-weight:700; margin-bottom:8px; }
+body.hi .field label { font-family:'Noto Sans Devanagari',sans-serif; letter-spacing:0.05em; }
 .field input, .field select, .field textarea { width:100%; padding:14px 16px; border:2px solid var(--ink); background:var(--paper); font-family:'Fraunces',serif; font-size:16px; outline:none; }
+body.hi .field input, body.hi .field select, body.hi .field textarea { font-family:'Noto Sans Devanagari','Fraunces',serif; }
 .field input:focus, .field select:focus, .field textarea:focus { background:white; box-shadow:3px 3px 0 var(--ink); transform:translate(-1px,-1px); }
 .btn { padding:14px 24px; font-family:'Fraunces',serif; font-size:16px; font-weight:700; border:2px solid var(--ink); cursor:pointer; transition:all .15s; background:var(--sun); color:var(--ink); box-shadow:4px 4px 0 var(--ink); display:inline-block; text-decoration:none; }
+body.hi .btn { font-family:'Noto Sans Devanagari','Fraunces',serif; }
 .btn:hover { transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ink); }
 .btn:disabled { background:var(--paper-2); color:var(--muted); cursor:not-allowed; box-shadow:none; transform:none; opacity:0.6; }
 .btn.secondary { background:transparent; box-shadow:none; }
 .btn.secondary:hover { background:var(--ink); color:var(--paper); }
 .btn.danger { background:var(--red); color:var(--paper); border-color:var(--red); }
+.btn.kusum { background:var(--leaf-deep); color:var(--sun-light); border-color:var(--leaf-deep); }
 .btn-row { display:flex; gap:10px; flex-wrap:wrap; }
 .alert { padding:14px 18px; border:1.5px solid var(--ink); margin:12px 0; font-size:14px; }
 .alert.error { background:#ffe5e5; border-color:var(--red); }
 .alert.success { background:#e5ffe5; }
 .alert.info { background:var(--paper-2); }
+.alert.kusum { background:var(--leaf-deep); color:var(--paper); border-color:var(--leaf-deep); }
+.alert.kusum strong { color:var(--sun-light); }
+.alert.kusum a { color:var(--sun-light); }
 .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0; border:1.5px solid var(--ink); }
 .stat { padding:18px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
 .stat .lbl { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:4px; }
+body.hi .stat .lbl { font-family:'Noto Sans Devanagari',sans-serif; letter-spacing:0.05em; }
 .stat .val { font-size:26px; font-weight:900; letter-spacing:-0.02em; line-height:1; }
 .stat .val.orange { color:var(--sun-deep); }
 .stat .val.green { color:var(--leaf); }
 .stat .val.red { color:var(--red); }
+.stat .val.kusum { color:var(--sun-deep); }
 .lead-card { border:1.5px solid var(--ink); background:var(--paper); margin-bottom:16px; padding:18px 20px; }
 .lead-card.hot { box-shadow:4px 4px 0 var(--sun); }
 .lead-card.urgent { border-color:var(--red); box-shadow:4px 4px 0 var(--red); }
 .lead-card.closed { opacity:0.7; }
+.lead-card.kusum { border-color:var(--leaf-deep); }
+.lead-card.kusum.hot { box-shadow:4px 4px 0 var(--leaf); }
+.lead-card.kusum.urgent { border-color:var(--red); box-shadow:4px 4px 0 var(--red); }
+.lead-card.highlighted { box-shadow:0 0 0 4px var(--sun-light); animation:highlight 2s ease-out; }
+@keyframes highlight { 0% { background:rgba(255,209,102,0.4); } 100% { background:var(--paper); } }
 .lead-head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; padding-bottom:12px; border-bottom:1px solid var(--line); margin-bottom:12px; }
 .lead-tier { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; padding:4px 10px; font-weight:700; }
 .lead-tier.HOT { background:var(--sun); color:var(--ink); }
 .lead-tier.WARM { background:var(--sun-light); color:var(--ink); }
 .lead-tier.COLD { background:var(--paper-2); color:var(--muted); }
+.component-pill { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; padding:4px 10px; font-weight:700; }
+.component-pill.A { background:#7c3aed; color:var(--paper); }
+.component-pill.B { background:var(--leaf); color:var(--paper); }
+.component-pill.C1 { background:var(--blue); color:var(--paper); }
+.component-pill.C2 { background:#1e7fc4; color:var(--paper); }
 .lead-sla { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
 .lead-sla.urgent { color:var(--red); font-weight:700; }
 .lead-sla.expired { color:var(--red); text-decoration:line-through; }
 .lead-fields { display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:10px 18px; margin:12px 0; }
 .lead-field { font-size:14px; }
 .lead-field b { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); display:block; margin-bottom:2px; font-weight:600; }
+body.hi .lead-field b { font-family:'Noto Sans Devanagari',sans-serif; letter-spacing:0.05em; }
 .lead-field .val { font-weight:700; font-size:15px; }
 .lead-actions { margin-top:12px; padding-top:12px; border-top:1px solid var(--line); display:flex; gap:8px; flex-wrap:wrap; }
 .lead-actions .btn { padding:10px 18px; font-size:14px; box-shadow:3px 3px 0 var(--ink); }
@@ -86,11 +119,24 @@ h3 { font-size:15px; font-family:'JetBrains Mono',monospace; text-transform:uppe
 .tier-pill.standard { background:var(--leaf); color:var(--paper); }
 .tier-pill.probation { background:var(--paper-2); color:var(--ink); border:1px solid var(--ink); }
 .tier-pill.suspended { background:var(--red); color:var(--paper); }
+
+/* KUSUM document checklist */
+.docs-section { margin-top:14px; padding-top:14px; border-top:1px solid var(--line); }
+.docs-section summary { cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); font-weight:700; padding:6px 0; }
+body.hi .docs-section summary { font-family:'Noto Sans Devanagari',sans-serif; letter-spacing:0.05em; }
+.docs-section[open] summary { color:var(--ink); }
+.docs-list { display:grid; gap:6px; margin-top:10px; }
+.doc-item { display:flex; align-items:center; gap:8px; font-size:14px; padding:6px 10px; background:var(--paper-2); }
+.doc-item input { width:18px; height:18px; cursor:pointer; }
+.doc-item.checked { background:#e8f0e0; text-decoration:line-through; color:var(--muted); }
+.doc-progress { margin-top:8px; font-size:12px; color:var(--muted); font-family:'JetBrains Mono',monospace; }
+
 @media (max-width:640px) {
   .stat-grid { grid-template-columns:repeat(2,1fr); }
   .stat { padding:14px; }
   .stat .val { font-size:22px; }
   .lead-fields { grid-template-columns:1fr 1fr; }
+  .topbar-inner { flex-wrap:wrap; gap:8px; }
 }
 </style>
 </head>
@@ -101,8 +147,14 @@ h3 { font-size:15px; font-family:'JetBrains Mono',monospace; text-transform:uppe
     <a href="/" class="logo">
       <span class="logo-sun"></span>SolarSubsidies<span style="color:var(--sun-deep)">.com</span>
     </a>
-    <div id="vendorBadge" style="display:none;">
-      <span class="vendor-pill" id="vendorPillText">—</span>
+    <div style="display:flex; align-items:center;">
+      <div class="lang-switch">
+        <button id="langEn" class="active" onclick="setLang('en')">EN</button>
+        <button id="langHi" onclick="setLang('hi')">हिन्दी</button>
+      </div>
+      <div id="vendorBadge" style="display:none;">
+        <span class="vendor-pill" id="vendorPillText">—</span>
+      </div>
     </div>
   </div>
 </header>
@@ -111,49 +163,49 @@ h3 { font-size:15px; font-family:'JetBrains Mono',monospace; text-transform:uppe
 
 <!-- ============== LOGIN SCREEN ============== -->
 <div id="loginScreen">
-  <h1>Vendor Portal <em>Login</em></h1>
-  <p style="color:var(--muted); margin-bottom:24px; font-size:17px;">Enter your registered WhatsApp number or email. We'll send a 6-digit code.</p>
+  <h1 data-i18n="login_title">Vendor Portal <em data-i18n="login_login">Login</em></h1>
+  <p style="color:var(--muted); margin-bottom:24px; font-size:17px;" data-i18n="login_subtitle">Enter your registered WhatsApp number or email. We'll send a 6-digit code.</p>
   
   <div id="loginStep1">
     <div class="field">
-      <label>Channel</label>
+      <label data-i18n="login_channel_label">Channel</label>
       <div class="btn-row" style="margin-top:4px;">
-        <button class="btn" id="chanWhatsapp" onclick="setChannel('whatsapp')">WhatsApp</button>
-        <button class="btn secondary" id="chanEmail" onclick="setChannel('email')">Email</button>
+        <button class="btn" id="chanWhatsapp" onclick="setChannel('whatsapp')" data-i18n="login_whatsapp">WhatsApp</button>
+        <button class="btn secondary" id="chanEmail" onclick="setChannel('email')" data-i18n="login_email">Email</button>
       </div>
     </div>
     
     <div class="field">
-      <label id="destLabel">WhatsApp number</label>
+      <label id="destLabel" data-i18n="login_whatsapp_label">WhatsApp number</label>
       <input type="text" id="destInput" placeholder="+91 98765 43210" autocomplete="tel">
     </div>
     
     <div class="btn-row">
-      <button class="btn" id="requestOtpBtn" onclick="requestOTP()">Send 6-digit code →</button>
+      <button class="btn" id="requestOtpBtn" onclick="requestOTP()" data-i18n="login_send_code">Send 6-digit code →</button>
     </div>
     
     <div class="alert info" style="margin-top:18px;">
-      <strong>Not yet a vendor?</strong> <a href="/vendors/apply.html" style="color:var(--ink);">Apply to join the network →</a>
+      <strong data-i18n="login_not_vendor">Not yet a vendor?</strong> <a href="/vendors/apply.html" style="color:var(--ink);" data-i18n="login_apply_link">Apply to join the network →</a>
     </div>
   </div>
   
   <div id="loginStep2" style="display:none;">
     <div class="alert success">
-      ✓ Code sent to <span id="maskedDest" class="mono"></span>. Valid 10 minutes.
+      <span data-i18n="login_code_sent">✓ Code sent to</span> <span id="maskedDest" class="mono"></span>. <span data-i18n="login_valid_10">Valid 10 minutes.</span>
     </div>
     
     <div class="field">
-      <label>6-digit code</label>
+      <label data-i18n="login_otp_label">6-digit code</label>
       <input type="text" id="otpInput" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" placeholder="123456" style="font-family:'JetBrains Mono',monospace; font-size:24px; letter-spacing:0.15em; text-align:center;">
     </div>
     
     <div class="btn-row">
-      <button class="btn" id="verifyOtpBtn" onclick="verifyOTP()">Verify code →</button>
-      <button class="btn secondary" onclick="backToStep1()">← Different number</button>
+      <button class="btn" id="verifyOtpBtn" onclick="verifyOTP()" data-i18n="login_verify">Verify code →</button>
+      <button class="btn secondary" onclick="backToStep1()" data-i18n="login_different">← Different number</button>
     </div>
     
     <p style="margin-top:14px; font-size:13px; color:var(--muted);">
-      Didn't get the code? Check WhatsApp, or <a href="#" onclick="requestOTP(); return false;" style="color:var(--ink);">resend</a>.
+      <span data-i18n="login_no_code">Didn't get the code? Check WhatsApp, or</span> <a href="#" onclick="requestOTP(); return false;" style="color:var(--ink);" data-i18n="login_resend">resend</a>.
     </p>
   </div>
   
@@ -163,64 +215,93 @@ h3 { font-size:15px; font-family:'JetBrains Mono',monospace; text-transform:uppe
 <!-- ============== AUTHENTICATED VIEW ============== -->
 <div id="authedView" style="display:none;">
   
-  <h1>Welcome back, <em><span id="welcomeName">vendor</span>.</em></h1>
-  <p style="color:var(--muted); margin-bottom:24px;">Your tier: <span id="tierBadge" class="tier-pill probation">—</span> · Commission: <span id="commissionRate">—</span>%</p>
+  <h1 data-i18n="welcome">Welcome back, <em><span id="welcomeName">vendor</span>.</em></h1>
+  <p style="color:var(--muted); margin-bottom:24px;"><span data-i18n="your_tier">Your tier:</span> <span id="tierBadge" class="tier-pill probation">—</span> · <span data-i18n="commission">Commission:</span> <span id="commissionRate">—</span>%</p>
   
   <div class="tabs">
-    <button class="tab active" data-tab="inbox" onclick="switchTab('inbox')">Open leads <span id="openCount" class="mono" style="margin-left:4px; opacity:0.7;">(—)</span></button>
-    <button class="tab" data-tab="closed" onclick="switchTab('closed')">Closed</button>
-    <button class="tab" data-tab="stats" onclick="switchTab('stats')">Stats</button>
-    <button class="tab" data-tab="profile" onclick="switchTab('profile')">Profile</button>
+    <button class="tab active" data-tab="inbox" onclick="switchTab('inbox')"><span data-i18n="tab_rooftop">Rooftop Leads</span> <span id="openCount" class="mono" style="margin-left:4px; opacity:0.7;">(—)</span></button>
+    <button class="tab kusum" data-tab="kusum" onclick="switchTab('kusum')" id="kusumTabBtn"><span data-i18n="tab_kusum">🌾 KUSUM Leads</span> <span id="kusumCount" class="tab-badge"></span></button>
+    <button class="tab" data-tab="closed" onclick="switchTab('closed')" data-i18n="tab_closed">Closed</button>
+    <button class="tab" data-tab="stats" onclick="switchTab('stats')" data-i18n="tab_stats">Stats</button>
+    <button class="tab" data-tab="profile" onclick="switchTab('profile')" data-i18n="tab_profile">Profile</button>
   </div>
   
-  <!-- INBOX TAB -->
+  <!-- INBOX TAB (ROOFTOP) -->
   <div id="inboxTab" class="tab-content active">
     <div id="inboxLeads">
-      <div class="empty-state">Loading...</div>
+      <div class="empty-state" data-i18n="loading">Loading...</div>
+    </div>
+  </div>
+  
+  <!-- KUSUM TAB (v0.9.0 NEW) -->
+  <div id="kusumTab" class="tab-content">
+    <div id="kusumNotSpecialist" style="display:none;">
+      <div class="alert kusum">
+        <strong data-i18n="kusum_not_specialist_title">🌾 You're not flagged as a KUSUM specialist yet.</strong><br>
+        <span data-i18n="kusum_not_specialist_body">KUSUM leads (farmer solar pumps and ground-mounted solar plants) require MNRE pump empanellment and UPNEDA approval — separate from regular rooftop installation. If you have these certifications, contact admin to enable KUSUM lead routing.</span>
+      </div>
+      <div style="margin-top:20px;">
+        <a href="https://wa.me/919876543210?text=Please+enable+KUSUM+leads+for+my+account" class="btn kusum" data-i18n="kusum_contact_admin">📱 Contact admin to enable KUSUM</a>
+      </div>
+    </div>
+    
+    <div id="kusumSpecialistView" style="display:none;">
+      <div class="alert kusum">
+        <strong data-i18n="kusum_alert_title">🌾 KUSUM specialist account active.</strong><br>
+        <span data-i18n="kusum_alert_body">You receive PM-KUSUM leads for Components A (solar plants on barren land), B (standalone pumps), and C (grid-pump solarisation). Commission: 5% on system cost. SLA: 48 hours to claim.</span>
+      </div>
+      <div id="kusumLeads">
+        <div class="empty-state" data-i18n="loading">Loading...</div>
+      </div>
     </div>
   </div>
   
   <!-- CLOSED TAB -->
   <div id="closedTab" class="tab-content">
     <div id="closedLeads">
-      <div class="empty-state">Loading...</div>
+      <div class="empty-state" data-i18n="loading">Loading...</div>
     </div>
   </div>
   
   <!-- STATS TAB -->
   <div id="statsTab" class="tab-content">
-    <h3>All-time performance</h3>
+    <h3 data-i18n="stats_alltime">All-time performance</h3>
     <div class="stat-grid" id="statsGrid">
-      <div class="empty-state" style="grid-column:1/-1">Loading stats...</div>
+      <div class="empty-state" style="grid-column:1/-1" data-i18n="loading">Loading stats...</div>
     </div>
     
-    <h3 style="margin-top:32px;">Commission ledger</h3>
+    <h3 style="margin-top:32px;" data-i18n="stats_kusum">🌾 KUSUM performance</h3>
+    <div class="stat-grid" id="kusumStatsGrid">
+      <div class="empty-state" style="grid-column:1/-1" data-i18n="loading">Loading...</div>
+    </div>
+    
+    <h3 style="margin-top:32px;" data-i18n="stats_commission">Commission ledger</h3>
     <div class="stat-grid" id="commissionGrid">
-      <div class="empty-state" style="grid-column:1/-1">Loading...</div>
+      <div class="empty-state" style="grid-column:1/-1" data-i18n="loading">Loading...</div>
     </div>
     
-    <h3 style="margin-top:32px;">Last 30 days</h3>
+    <h3 style="margin-top:32px;" data-i18n="stats_recent">Last 30 days</h3>
     <div class="stat-grid" id="recentGrid">
-      <div class="empty-state" style="grid-column:1/-1">Loading...</div>
+      <div class="empty-state" style="grid-column:1/-1" data-i18n="loading">Loading...</div>
     </div>
   </div>
   
   <!-- PROFILE TAB -->
   <div id="profileTab" class="tab-content">
-    <h3>Your config</h3>
+    <h3 data-i18n="profile_config">Your config</h3>
     <div id="profileBody">
-      <div class="empty-state">Loading...</div>
+      <div class="empty-state" data-i18n="loading">Loading...</div>
     </div>
     
-    <h3 style="margin-top:32px;">Account</h3>
+    <h3 style="margin-top:32px;" data-i18n="profile_account">Account</h3>
     <div class="btn-row">
-      <button class="btn secondary" onclick="logout()">Sign out</button>
-      <a href="/vendors/" class="btn secondary">← Back to vendors page</a>
+      <button class="btn secondary" onclick="logout()" data-i18n="profile_signout">Sign out</button>
+      <a href="/vendors/" class="btn secondary" data-i18n="profile_back">← Back to vendors page</a>
     </div>
     
     <div class="alert info" style="margin-top:24px;">
-      Need to update coverage districts, capacity, or contact info? <br>
-      WhatsApp <a href="https://wa.me/919876543210" style="color:var(--ink); font-weight:700;">+91 98765 43210</a> or email <a href="mailto:vendors@solarsubsidies.com" style="color:var(--ink); font-weight:700;">vendors@solarsubsidies.com</a>. Self-service profile edit coming in v0.7.
+      <span data-i18n="profile_help">Need to update coverage districts, capacity, or contact info?</span><br>
+      WhatsApp <a href="https://wa.me/919876543210" style="color:var(--ink); font-weight:700;">+91 98765 43210</a> <span data-i18n="profile_or">or email</span> <a href="mailto:vendors@solarsubsidies.com" style="color:var(--ink); font-weight:700;">vendors@solarsubsidies.com</a>.
     </div>
   </div>
   
@@ -228,34 +309,71 @@ h3 { font-size:15px; font-family:'JetBrains Mono',monospace; text-transform:uppe
 
 </div>
 
-<!-- ============== OUTCOME MODAL ============== -->
+<!-- ============== ROOFTOP OUTCOME MODAL ============== -->
 <div class="modal-overlay" id="outcomeModal">
   <div class="modal">
-    <h3 class="mono">UPDATE LEAD STATUS</h3>
+    <h3 class="mono" data-i18n="modal_outcome_title">UPDATE LEAD STATUS</h3>
     <h4 id="modalLeadName">—</h4>
     
     <div class="field">
-      <label>New outcome</label>
+      <label data-i18n="modal_new_outcome">New outcome</label>
       <select id="outcomeSelect">
-        <option value="site_visit_scheduled">Site visit scheduled</option>
-        <option value="quote_sent">Quote sent</option>
-        <option value="contract_signed">Contract signed</option>
-        <option value="installation_complete">Installation complete</option>
-        <option value="net_meter_activated">Net meter ACTIVATED (commission owed)</option>
-        <option value="declined_by_customer">Customer declined</option>
-        <option value="lost_to_competitor">Lost to competitor</option>
-        <option value="no_response">No response from customer</option>
+        <option value="site_visit_scheduled" data-i18n="outcome_site_visit">Site visit scheduled</option>
+        <option value="quote_sent" data-i18n="outcome_quote_sent">Quote sent</option>
+        <option value="contract_signed" data-i18n="outcome_contract_signed">Contract signed</option>
+        <option value="installation_complete" data-i18n="outcome_install_complete">Installation complete</option>
+        <option value="net_meter_activated" data-i18n="outcome_net_meter">Net meter ACTIVATED (commission owed)</option>
+        <option value="declined_by_customer" data-i18n="outcome_declined">Customer declined</option>
+        <option value="lost_to_competitor" data-i18n="outcome_lost">Lost to competitor</option>
+        <option value="no_response" data-i18n="outcome_no_response">No response from customer</option>
       </select>
     </div>
     
     <div class="field">
-      <label>Notes (optional)</label>
-      <textarea id="outcomeNotes" rows="3" placeholder="e.g., visited 22 May, customer prefers Tata panels, payment terms negotiated"></textarea>
+      <label data-i18n="modal_notes">Notes (optional)</label>
+      <textarea id="outcomeNotes" rows="3"></textarea>
     </div>
     
     <div class="btn-row">
-      <button class="btn" onclick="submitOutcome()">Update</button>
-      <button class="btn secondary" onclick="closeModal('outcomeModal')">Cancel</button>
+      <button class="btn" onclick="submitOutcome()" data-i18n="modal_update">Update</button>
+      <button class="btn secondary" onclick="closeModal('outcomeModal')" data-i18n="modal_cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============== KUSUM OUTCOME MODAL (v0.9.0 NEW) ============== -->
+<div class="modal-overlay" id="kusumOutcomeModal">
+  <div class="modal">
+    <h3 class="mono" data-i18n="modal_kusum_outcome_title">🌾 UPDATE KUSUM LEAD STATUS</h3>
+    <h4 id="kusumModalLeadName">—</h4>
+    
+    <div class="field">
+      <label data-i18n="modal_kusum_outcome_label">KUSUM stage</label>
+      <select id="kusumOutcomeSelect">
+        <option value="site_survey_done" data-i18n="kusum_outcome_survey">Site survey done</option>
+        <option value="application_submitted" data-i18n="kusum_outcome_app_submitted">UPNEDA application submitted</option>
+        <option value="sanctioned" data-i18n="kusum_outcome_sanctioned">Sanction order received</option>
+        <option value="installation_complete" data-i18n="kusum_outcome_installed">Installation complete</option>
+        <option value="commissioned" data-i18n="kusum_outcome_commissioned">Commissioned (commission owed)</option>
+        <option value="declined_by_farmer" data-i18n="kusum_outcome_farmer_declined">Farmer declined</option>
+        <option value="rejected_by_upneda" data-i18n="kusum_outcome_upneda_rejected">UPNEDA rejected application</option>
+        <option value="no_response" data-i18n="kusum_outcome_no_response">No response from farmer</option>
+      </select>
+    </div>
+    
+    <div class="field">
+      <label data-i18n="modal_notes">Notes (optional)</label>
+      <textarea id="kusumOutcomeNotes" rows="3"></textarea>
+    </div>
+    
+    <div class="alert info" style="font-size:13px;">
+      <strong data-i18n="kusum_stage_info_title">KUSUM stage progression:</strong><br>
+      <span data-i18n="kusum_stage_info_body">contacted → site survey → UPNEDA application → sanction → installation → commissioned. Commission triggers when you mark 'commissioned'.</span>
+    </div>
+    
+    <div class="btn-row">
+      <button class="btn kusum" onclick="submitKusumOutcome()" data-i18n="modal_update">Update</button>
+      <button class="btn secondary" onclick="closeModal('kusumOutcomeModal')" data-i18n="modal_cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -263,30 +381,274 @@ h3 { font-size:15px; font-family:'JetBrains Mono',monospace; text-transform:uppe
 <!-- ============== DECLINE MODAL ============== -->
 <div class="modal-overlay" id="declineModal">
   <div class="modal">
-    <h3 class="mono">DECLINE LEAD</h3>
+    <h3 class="mono" data-i18n="modal_decline_title">DECLINE LEAD</h3>
     <h4 id="declineLeadName">—</h4>
-    <p style="color:var(--muted); font-size:14px; margin-bottom:18px;">This lead will be released back to the pool and reassigned to another vendor.</p>
+    <p style="color:var(--muted); font-size:14px; margin-bottom:18px;" data-i18n="modal_decline_body">This lead will be released back to the pool and reassigned to another vendor.</p>
     
     <div class="field">
-      <label>Reason for decline</label>
+      <label data-i18n="modal_decline_reason">Reason for decline</label>
       <select id="declineReason">
-        <option value="capacity_full">At capacity this week</option>
-        <option value="out_of_district">Outside my service area</option>
-        <option value="system_too_small">Below my minimum system size</option>
-        <option value="property_mismatch">Property type I don't handle</option>
-        <option value="customer_unreachable">Customer not contactable</option>
-        <option value="other">Other</option>
+        <option value="capacity_full" data-i18n="decline_capacity">At capacity this week</option>
+        <option value="out_of_district" data-i18n="decline_district">Outside my service area</option>
+        <option value="system_too_small" data-i18n="decline_size">Below my minimum system size</option>
+        <option value="property_mismatch" data-i18n="decline_property">Property type I don't handle</option>
+        <option value="customer_unreachable" data-i18n="decline_unreachable">Customer not contactable</option>
+        <option value="kusum_eligibility_issue" data-i18n="decline_kusum_eligibility">KUSUM eligibility issue (land/water/HP)</option>
+        <option value="other" data-i18n="decline_other">Other</option>
       </select>
     </div>
     
     <div class="btn-row">
-      <button class="btn danger" onclick="submitDecline()">Confirm decline</button>
-      <button class="btn secondary" onclick="closeModal('declineModal')">Cancel</button>
+      <button class="btn danger" onclick="submitDecline()" data-i18n="modal_decline_confirm">Confirm decline</button>
+      <button class="btn secondary" onclick="closeModal('declineModal')" data-i18n="modal_cancel">Cancel</button>
     </div>
   </div>
 </div>
 
 <script>
+// ============================================================
+// i18n — English + Hindi strings
+// Toggle via lang switch in header. Persists in localStorage.
+// ============================================================
+const LANG = {
+  en: {
+    login_title: "Vendor Portal",
+    login_login: "Login",
+    login_subtitle: "Enter your registered WhatsApp number or email. We'll send a 6-digit code.",
+    login_channel_label: "Channel",
+    login_whatsapp: "WhatsApp",
+    login_email: "Email",
+    login_whatsapp_label: "WhatsApp number",
+    login_email_label: "Email address",
+    login_send_code: "Send 6-digit code →",
+    login_not_vendor: "Not yet a vendor?",
+    login_apply_link: "Apply to join the network →",
+    login_code_sent: "✓ Code sent to",
+    login_valid_10: "Valid 10 minutes.",
+    login_otp_label: "6-digit code",
+    login_verify: "Verify code →",
+    login_different: "← Different number",
+    login_no_code: "Didn't get the code? Check WhatsApp, or",
+    login_resend: "resend",
+    welcome: "Welcome back,",
+    your_tier: "Your tier:",
+    commission: "Commission:",
+    tab_rooftop: "Rooftop Leads",
+    tab_kusum: "🌾 KUSUM Leads",
+    tab_closed: "Closed",
+    tab_stats: "Stats",
+    tab_profile: "Profile",
+    loading: "Loading...",
+    no_open_leads: "🎉 No open leads. New leads arrive within 4 hours of customer submission.",
+    no_kusum_leads: "🌾 No KUSUM leads yet. New leads arrive when farmers complete the eligibility check at /kusum/.",
+    no_closed_leads: "No closed leads yet.",
+    kusum_not_specialist_title: "🌾 You're not flagged as a KUSUM specialist yet.",
+    kusum_not_specialist_body: "KUSUM leads require MNRE pump empanellment and UPNEDA approval. If you have these, contact admin to enable.",
+    kusum_alert_title: "🌾 KUSUM specialist account active.",
+    kusum_alert_body: "Receive PM-KUSUM leads. Commission: 5% on system cost. SLA: 48 hours to claim.",
+    kusum_contact_admin: "📱 Contact admin to enable KUSUM",
+    stats_alltime: "All-time performance",
+    stats_kusum: "🌾 KUSUM performance",
+    stats_commission: "Commission ledger",
+    stats_recent: "Last 30 days",
+    profile_config: "Your config",
+    profile_account: "Account",
+    profile_signout: "Sign out",
+    profile_back: "← Back to vendors page",
+    profile_help: "Need to update coverage districts, capacity, or contact info?",
+    profile_or: "or email",
+    modal_outcome_title: "UPDATE LEAD STATUS",
+    modal_kusum_outcome_title: "🌾 UPDATE KUSUM LEAD STATUS",
+    modal_kusum_outcome_label: "KUSUM stage",
+    modal_new_outcome: "New outcome",
+    modal_notes: "Notes (optional)",
+    modal_update: "Update",
+    modal_cancel: "Cancel",
+    modal_decline_title: "DECLINE LEAD",
+    modal_decline_body: "This lead will be released back to the pool and reassigned to another vendor.",
+    modal_decline_reason: "Reason for decline",
+    modal_decline_confirm: "Confirm decline",
+    kusum_stage_info_title: "KUSUM stage progression:",
+    kusum_stage_info_body: "contacted → site survey → UPNEDA application → sanction → installation → commissioned. Commission triggers when you mark 'commissioned'.",
+    docs_checklist: "📋 Document checklist",
+    doc_aadhaar: "Aadhaar (farmer + spouse)",
+    doc_ror_khasra: "Land records (RoR / Khasra-Khatauni)",
+    doc_water_photo: "Water source photo + GPS",
+    doc_bank_passbook: "Bank account proof",
+    doc_electricity_bill: "Electricity bill (for Component C)",
+    docs_collected: "documents collected",
+    wa_template_open: "Hi {name}, I am from {vendor}. I received your KUSUM solar inquiry via SolarSubsidies.com. Free to discuss your Component {component} application?",
+    outcome_site_visit: "Site visit scheduled",
+    outcome_quote_sent: "Quote sent",
+    outcome_contract_signed: "Contract signed",
+    outcome_install_complete: "Installation complete",
+    outcome_net_meter: "Net meter ACTIVATED (commission owed)",
+    outcome_declined: "Customer declined",
+    outcome_lost: "Lost to competitor",
+    outcome_no_response: "No response from customer",
+    kusum_outcome_survey: "Site survey done",
+    kusum_outcome_app_submitted: "UPNEDA application submitted",
+    kusum_outcome_sanctioned: "Sanction order received",
+    kusum_outcome_installed: "Installation complete",
+    kusum_outcome_commissioned: "Commissioned (commission owed)",
+    kusum_outcome_farmer_declined: "Farmer declined",
+    kusum_outcome_upneda_rejected: "UPNEDA rejected application",
+    kusum_outcome_no_response: "No response from farmer",
+    decline_capacity: "At capacity this week",
+    decline_district: "Outside my service area",
+    decline_size: "Below my minimum system size",
+    decline_property: "Property type I don't handle",
+    decline_unreachable: "Customer not contactable",
+    decline_kusum_eligibility: "KUSUM eligibility issue (land/water/HP)",
+    decline_other: "Other",
+    btn_whatsapp_customer: "📱 WhatsApp customer",
+    btn_whatsapp_farmer: "📱 WhatsApp farmer",
+    btn_update_status: "Update status",
+    btn_decline: "Decline",
+    expired: "EXPIRED",
+    hours_left: "h to respond",
+    hours_until_reassign: "h until reassignment"
+  },
+  hi: {
+    login_title: "विक्रेता पोर्टल",
+    login_login: "लॉगिन",
+    login_subtitle: "अपना पंजीकृत व्हाट्सएप नंबर या ईमेल दर्ज करें। हम 6 अंकों का कोड भेजेंगे।",
+    login_channel_label: "माध्यम",
+    login_whatsapp: "व्हाट्सएप",
+    login_email: "ईमेल",
+    login_whatsapp_label: "व्हाट्सएप नंबर",
+    login_email_label: "ईमेल पता",
+    login_send_code: "6 अंकों का कोड भेजें →",
+    login_not_vendor: "अभी तक विक्रेता नहीं हैं?",
+    login_apply_link: "नेटवर्क में शामिल होने के लिए आवेदन करें →",
+    login_code_sent: "✓ कोड भेज दिया",
+    login_valid_10: "10 मिनट तक मान्य।",
+    login_otp_label: "6 अंकों का कोड",
+    login_verify: "कोड सत्यापित करें →",
+    login_different: "← दूसरा नंबर",
+    login_no_code: "कोड नहीं मिला? व्हाट्सएप देखें, या",
+    login_resend: "पुनः भेजें",
+    welcome: "वापसी पर स्वागत है,",
+    your_tier: "आपका टियर:",
+    commission: "कमीशन:",
+    tab_rooftop: "छत पर सोलर लीड",
+    tab_kusum: "🌾 कुसुम लीड",
+    tab_closed: "बंद",
+    tab_stats: "आंकड़े",
+    tab_profile: "प्रोफ़ाइल",
+    loading: "लोड हो रहा है...",
+    no_open_leads: "🎉 कोई खुली लीड नहीं। ग्राहक सबमिशन के 4 घंटे के भीतर नई लीड आती हैं।",
+    no_kusum_leads: "🌾 अभी तक कोई कुसुम लीड नहीं। किसान /kusum/ पर पात्रता जांच पूरी करने पर लीड आएगी।",
+    no_closed_leads: "अभी तक कोई बंद लीड नहीं।",
+    kusum_not_specialist_title: "🌾 आप अभी तक कुसुम विशेषज्ञ के रूप में चिह्नित नहीं हैं।",
+    kusum_not_specialist_body: "कुसुम लीड के लिए MNRE पंप पंजीकरण और UPNEDA अनुमोदन आवश्यक है। यदि आपके पास ये हैं, तो सक्षम करने के लिए एडमिन से संपर्क करें।",
+    kusum_alert_title: "🌾 कुसुम विशेषज्ञ खाता सक्रिय।",
+    kusum_alert_body: "पीएम-कुसुम लीड प्राप्त करें। कमीशन: सिस्टम लागत का 5%। एसएलए: दावा करने के लिए 48 घंटे।",
+    kusum_contact_admin: "📱 कुसुम सक्षम करने के लिए एडमिन से संपर्क करें",
+    stats_alltime: "सर्वकालिक प्रदर्शन",
+    stats_kusum: "🌾 कुसुम प्रदर्शन",
+    stats_commission: "कमीशन खाता",
+    stats_recent: "पिछले 30 दिन",
+    profile_config: "आपकी कॉन्फ़िगरेशन",
+    profile_account: "खाता",
+    profile_signout: "साइन आउट",
+    profile_back: "← विक्रेता पृष्ठ पर वापस",
+    profile_help: "कवरेज जिले, क्षमता, या संपर्क जानकारी अपडेट करनी है?",
+    profile_or: "या ईमेल करें",
+    modal_outcome_title: "लीड स्थिति अपडेट करें",
+    modal_kusum_outcome_title: "🌾 कुसुम लीड स्थिति अपडेट करें",
+    modal_kusum_outcome_label: "कुसुम चरण",
+    modal_new_outcome: "नया परिणाम",
+    modal_notes: "नोट्स (वैकल्पिक)",
+    modal_update: "अपडेट करें",
+    modal_cancel: "रद्द करें",
+    modal_decline_title: "लीड अस्वीकार करें",
+    modal_decline_body: "यह लीड पूल में वापस छोड़ दी जाएगी और दूसरे विक्रेता को सौंप दी जाएगी।",
+    modal_decline_reason: "अस्वीकृति का कारण",
+    modal_decline_confirm: "अस्वीकृति की पुष्टि करें",
+    kusum_stage_info_title: "कुसुम चरण प्रगति:",
+    kusum_stage_info_body: "संपर्क किया → साइट सर्वेक्षण → UPNEDA आवेदन → स्वीकृति → स्थापना → चालू किया। 'चालू किया' चिह्नित करने पर कमीशन सक्रिय होता है।",
+    docs_checklist: "📋 दस्तावेज़ चेकलिस्ट",
+    doc_aadhaar: "आधार (किसान + पत्नी/पति)",
+    doc_ror_khasra: "भूमि रिकॉर्ड (RoR / खसरा-खतौनी)",
+    doc_water_photo: "जल स्रोत फोटो + GPS",
+    doc_bank_passbook: "बैंक खाता प्रमाण",
+    doc_electricity_bill: "बिजली बिल (कंपोनेंट C के लिए)",
+    docs_collected: "दस्तावेज़ एकत्र किए",
+    wa_template_open: "नमस्ते {name}, मैं {vendor} से बात कर रहा हूँ। आपकी कुसुम सोलर पूछताछ SolarSubsidies.com के माध्यम से मिली है। कंपोनेंट {component} के आवेदन पर चर्चा के लिए समय है?",
+    outcome_site_visit: "साइट विज़िट निर्धारित",
+    outcome_quote_sent: "कोटेशन भेजा",
+    outcome_contract_signed: "अनुबंध हस्ताक्षरित",
+    outcome_install_complete: "स्थापना पूर्ण",
+    outcome_net_meter: "नेट मीटर सक्रिय (कमीशन देय)",
+    outcome_declined: "ग्राहक ने अस्वीकार किया",
+    outcome_lost: "प्रतियोगी से हार गए",
+    outcome_no_response: "ग्राहक से कोई जवाब नहीं",
+    kusum_outcome_survey: "साइट सर्वेक्षण पूर्ण",
+    kusum_outcome_app_submitted: "UPNEDA आवेदन जमा",
+    kusum_outcome_sanctioned: "स्वीकृति आदेश प्राप्त",
+    kusum_outcome_installed: "स्थापना पूर्ण",
+    kusum_outcome_commissioned: "चालू किया (कमीशन देय)",
+    kusum_outcome_farmer_declined: "किसान ने अस्वीकार किया",
+    kusum_outcome_upneda_rejected: "UPNEDA ने आवेदन अस्वीकार किया",
+    kusum_outcome_no_response: "किसान से कोई जवाब नहीं",
+    decline_capacity: "इस सप्ताह क्षमता पूरी",
+    decline_district: "मेरे सेवा क्षेत्र से बाहर",
+    decline_size: "मेरे न्यूनतम सिस्टम आकार से कम",
+    decline_property: "ऐसा संपत्ति प्रकार मैं नहीं संभालता",
+    decline_unreachable: "ग्राहक संपर्क योग्य नहीं",
+    decline_kusum_eligibility: "कुसुम पात्रता समस्या (भूमि/जल/HP)",
+    decline_other: "अन्य",
+    btn_whatsapp_customer: "📱 ग्राहक को व्हाट्सएप करें",
+    btn_whatsapp_farmer: "📱 किसान को व्हाट्सएप करें",
+    btn_update_status: "स्थिति अपडेट करें",
+    btn_decline: "अस्वीकार करें",
+    expired: "समाप्त",
+    hours_left: "घंटे जवाब देने के लिए",
+    hours_until_reassign: "घंटे पुनः असाइन तक"
+  }
+};
+
+let currentLang = localStorage.getItem('vendor_portal_lang') || 'en';
+
+function t(key) {
+  return (LANG[currentLang] && LANG[currentLang][key]) || LANG.en[key] || key;
+}
+
+function setLang(lang) {
+  if (!['en', 'hi'].includes(lang)) return;
+  currentLang = lang;
+  localStorage.setItem('vendor_portal_lang', lang);
+  document.body.classList.toggle('hi', lang === 'hi');
+  document.getElementById('langEn').classList.toggle('active', lang === 'en');
+  document.getElementById('langHi').classList.toggle('active', lang === 'hi');
+  applyTranslations();
+}
+
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const translation = t(key);
+    // Preserve <em>/<span> children — only replace text nodes
+    if (el.children.length === 0) {
+      el.textContent = translation;
+    } else {
+      // Has children — replace just the first text node
+      for (const node of el.childNodes) {
+        if (node.nodeType === 3 && node.textContent.trim()) {
+          node.textContent = translation + ' ';
+          break;
+        }
+      }
+    }
+  });
+  // Reload lead cards (they have inline translations)
+  if (state.vendor) {
+    loadInbox();
+    if (state.vendor.handles_kusum) loadKusumInbox();
+  }
+}
+
 // ============================================================
 // STATE
 // ============================================================
@@ -297,34 +659,35 @@ let state = {
   sessionToken: localStorage.getItem('vendor_session') || null,
   vendor: null,
   stats: null,
+  kusumStats: null,
   modalAssignmentId: null,
-  modalLeadName: null
+  modalKusumAssignmentId: null,
+  highlightKusumId: null  // For deep-link from WhatsApp
 };
 
 // ============================================================
-// AUTH FLOW
+// AUTH FLOW (unchanged)
 // ============================================================
 function setChannel(ch) {
   state.channel = ch;
   document.getElementById('chanWhatsapp').className = ch === 'whatsapp' ? 'btn' : 'btn secondary';
   document.getElementById('chanEmail').className = ch === 'email' ? 'btn' : 'btn secondary';
-  document.getElementById('destLabel').textContent = ch === 'whatsapp' ? 'WhatsApp number' : 'Email address';
+  document.getElementById('destLabel').textContent = ch === 'whatsapp' ? t('login_whatsapp_label') : t('login_email_label');
   document.getElementById('destInput').placeholder = ch === 'whatsapp' ? '+91 98765 43210' : 'you@company.com';
   document.getElementById('destInput').type = ch === 'whatsapp' ? 'tel' : 'email';
 }
 
 async function requestOTP() {
   const dest = document.getElementById('destInput').value.trim();
-  if (!dest) { showErr('Enter your registered ' + (state.channel === 'whatsapp' ? 'phone number' : 'email')); return; }
+  if (!dest) { showErr(t('login_send_code')); return; }
   
   const btn = document.getElementById('requestOtpBtn');
   btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Sending...';
+  btn.innerHTML = '<span class="spinner"></span>';
   
   try {
     const res = await fetch('/api/vendor-auth?action=request', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ destination: dest, channel: state.channel })
     });
     const data = await res.json();
@@ -343,22 +706,21 @@ async function requestOTP() {
     showErr('Network error');
   } finally {
     btn.disabled = false;
-    btn.innerHTML = 'Send 6-digit code →';
+    btn.textContent = t('login_send_code');
   }
 }
 
 async function verifyOTP() {
   const code = document.getElementById('otpInput').value.trim();
-  if (!/^[0-9]{6}$/.test(code)) { showErr('Enter the 6-digit code'); return; }
+  if (!/^[0-9]{6}$/.test(code)) { showErr(t('login_otp_label')); return; }
   
   const btn = document.getElementById('verifyOtpBtn');
   btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Verifying...';
+  btn.innerHTML = '<span class="spinner"></span>';
   
   try {
     const res = await fetch('/api/vendor-auth?action=verify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ destination: state.destination, code })
     });
     const data = await res.json();
@@ -369,12 +731,12 @@ async function verifyOTP() {
     } else {
       showErr(data.error || 'Invalid code');
       btn.disabled = false;
-      btn.innerHTML = 'Verify code →';
+      btn.textContent = t('login_verify');
     }
   } catch (e) {
     showErr('Network error');
     btn.disabled = false;
-    btn.innerHTML = 'Verify code →';
+    btn.textContent = t('login_verify');
   }
 }
 
@@ -404,7 +766,6 @@ async function logout() {
 // ============================================================
 async function bootAuthed() {
   try {
-    // Validate session + fetch vendor profile
     const meRes = await fetch('/api/vendor-auth?action=me', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ sessionToken: state.sessionToken })
@@ -413,7 +774,6 @@ async function bootAuthed() {
     const meData = await meRes.json();
     state.vendor = meData.vendor;
     
-    // Toggle UI
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('authedView').style.display = 'block';
     document.getElementById('vendorBadge').style.display = 'block';
@@ -427,7 +787,43 @@ async function bootAuthed() {
     tierEl.className = `tier-pill ${state.vendor.tier}`;
     document.getElementById('commissionRate').textContent = state.vendor.commission_rate;
     
-    await Promise.all([loadInbox(), loadStats()]);
+    // Show/hide KUSUM tab based on specialist status
+    const kusumTabBtn = document.getElementById('kusumTabBtn');
+    if (!state.vendor.handles_kusum) {
+      kusumTabBtn.classList.add('kusum-disabled');
+    }
+    
+    // Handle deep-link from WhatsApp (?kusum=xxx or ?lead=xxx)
+    const params = new URLSearchParams(location.search);
+    const deepKusum = params.get('kusum');
+    const deepLead = params.get('lead');
+    
+    if (deepKusum && state.vendor.handles_kusum) {
+      state.highlightKusumId = deepKusum;
+      await Promise.all([loadInbox(), loadKusumInbox(), loadStats()]);
+      switchTab('kusum');
+      setTimeout(() => {
+        const el = document.querySelector(`[data-kusum-id="${deepKusum}"]`);
+        if (el) {
+          el.classList.add('highlighted');
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 400);
+    } else if (deepLead) {
+      await Promise.all([loadInbox(), loadStats()]);
+      switchTab('inbox');
+      setTimeout(() => {
+        const el = document.querySelector(`[data-lead-id="${deepLead}"]`);
+        if (el) {
+          el.classList.add('highlighted');
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 400);
+    } else {
+      await Promise.all([loadInbox(), state.vendor.handles_kusum ? loadKusumInbox() : Promise.resolve(), loadStats()]);
+    }
+    
+    applyTranslations();
   } catch (e) {
     console.error('Boot error:', e);
     logout();
@@ -440,13 +836,15 @@ function switchTab(name) {
   document.querySelector(`[data-tab="${name}"]`).classList.add('active');
   document.getElementById(name + 'Tab').classList.add('active');
   
+  if (name === 'inbox') loadInbox();
+  if (name === 'kusum') loadKusumInbox();
   if (name === 'closed') loadClosed();
   if (name === 'stats') loadStats();
   if (name === 'profile') loadProfile();
 }
 
 // ============================================================
-// LEAD INBOX
+// ROOFTOP LEAD INBOX
 // ============================================================
 async function loadInbox() {
   const res = await fetch('/api/vendor-leads?action=list', {
@@ -470,10 +868,9 @@ async function loadClosed() {
 function renderLeads(containerId, leads, isOpen) {
   const el = document.getElementById(containerId);
   if (leads.length === 0) {
-    el.innerHTML = `<div class="empty-state">${isOpen ? '🎉 No open leads. New leads arrive within 4 hours of customer submission.' : 'No closed leads yet.'}</div>`;
+    el.innerHTML = `<div class="empty-state">${isOpen ? t('no_open_leads') : t('no_closed_leads')}</div>`;
     return;
   }
-  
   el.innerHTML = leads.map(l => renderLeadCard(l, isOpen)).join('');
 }
 
@@ -501,13 +898,13 @@ function renderLeadCard(l, isOpen) {
   } else if (slaStatus === 'responded') {
     slaText = `✓ Responded in ${l.response_time_minutes}min`;
   } else if (slaStatus === 'expired') {
-    slaText = 'EXPIRED'; slaClass = 'expired';
+    slaText = t('expired'); slaClass = 'expired';
   } else if (slaStatus === 'urgent') {
     const hoursLeft = Math.round((new Date(l.expires_at) - new Date()) / (1000 * 60 * 60));
-    slaText = `⏰ ${hoursLeft}h until reassignment`; slaClass = 'urgent';
+    slaText = `⏰ ${hoursLeft}${t('hours_until_reassign')}`; slaClass = 'urgent';
   } else {
     const hoursLeft = Math.round((new Date(l.expires_at) - new Date()) / (1000 * 60 * 60));
-    slaText = `${hoursLeft}h to respond`;
+    slaText = `${hoursLeft}${t('hours_left')}`;
   }
   
   const districtName = l.district_slug ? l.district_slug.charAt(0).toUpperCase() + l.district_slug.slice(1).replace(/-/g, ' ') : '—';
@@ -515,15 +912,16 @@ function renderLeadCard(l, isOpen) {
   
   let actions = '';
   if (isOpen && l.outcome === 'pending') {
+    const waMsg = `Hi ${l.customer_name}, I am from ${state.vendor.company_name}. I received your solar inquiry via SolarSubsidies.com. Free to discuss your ${l.system_size_kw} kW system?`;
     actions = `
-      <a href="https://wa.me/${l.customer_phone.replace('+', '')}?text=${encodeURIComponent('Hi ' + l.customer_name + ', I am from ' + state.vendor.company_name + '. I received your solar inquiry via SolarSubsidies.com. Free to discuss your ' + l.system_size_kw + ' kW system?')}" target="_blank" rel="noopener" class="btn" onclick="setTimeout(()=>claimLead('${l.assignment_id}'),500)">📱 WhatsApp customer</a>
-      <button class="btn secondary" onclick="openOutcomeModal('${l.assignment_id}','${escapeHtml(l.customer_name)}')">Update status</button>
-      <button class="btn danger" onclick="openDeclineModal('${l.assignment_id}','${escapeHtml(l.customer_name)}')">Decline</button>
+      <a href="https://wa.me/${l.customer_phone.replace('+', '')}?text=${encodeURIComponent(waMsg)}" target="_blank" rel="noopener" class="btn" onclick="setTimeout(()=>claimLead('${l.assignment_id}'),500)">${t('btn_whatsapp_customer')}</a>
+      <button class="btn secondary" onclick="openOutcomeModal('${l.assignment_id}','${escapeHtml(l.customer_name)}')">${t('btn_update_status')}</button>
+      <button class="btn danger" onclick="openDeclineModal('${l.assignment_id}','${escapeHtml(l.customer_name)}',false)">${t('btn_decline')}</button>
     `;
   } else if (isOpen) {
     actions = `
       <span class="outcome-current">${l.outcome.replace(/_/g, ' ')}</span>
-      <button class="btn secondary" onclick="openOutcomeModal('${l.assignment_id}','${escapeHtml(l.customer_name)}')">Update status</button>
+      <button class="btn secondary" onclick="openOutcomeModal('${l.assignment_id}','${escapeHtml(l.customer_name)}')">${t('btn_update_status')}</button>
     `;
   } else {
     actions = `<span class="outcome-current">${l.outcome.replace(/_/g, ' ')}</span>`;
@@ -535,7 +933,7 @@ function renderLeadCard(l, isOpen) {
   }
   
   return `
-    <div class="lead-card ${cardClass}">
+    <div class="lead-card ${cardClass}" data-lead-id="${l.assignment_id}">
       <div class="lead-head">
         <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
           <span class="lead-tier ${tier}">${tier === 'HOT' ? '🔥 ' : tier === 'WARM' ? '🟡 ' : ''}${tier}</span>
@@ -543,21 +941,192 @@ function renderLeadCard(l, isOpen) {
         </div>
         <span class="commission-display">≈ ₹${Math.round(l.commission_amount || 0).toLocaleString('en-IN')}</span>
       </div>
+      <div class="lead-fields">
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'ग्राहक' : 'Customer'}</b><div class="val">${escapeHtml(l.customer_name || '—')}</div></div>
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'फ़ोन' : 'Phone'}</b><div class="val">${l.customer_phone || '—'}</div></div>
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'जिला' : 'District'}</b><div class="val">${districtName}</div></div>
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'बिल / माह' : 'Bill / month'}</b><div class="val">₹${(l.monthly_bill || 0).toLocaleString('en-IN')}</div></div>
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'सिस्टम' : 'System'}</b><div class="val">${l.system_size_kw} kW</div></div>
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'संपत्ति' : 'Property'}</b><div class="val">${propertyMap[l.property_type] || l.property_type}</div></div>
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'इरादा' : 'Intent'}</b><div class="val">${intentMap[l.intent] || l.intent || '—'}</div></div>
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'समयसीमा' : 'Timeline'}</b><div class="val">${timelineMap[l.timeline] || l.timeline || '—'}</div></div>
+      </div>
+      <div class="lead-actions">${actions}</div>
+    </div>
+  `;
+}
+
+// ============================================================
+// KUSUM LEAD INBOX (v0.9.0 NEW)
+// ============================================================
+async function loadKusumInbox() {
+  if (!state.vendor.handles_kusum) {
+    document.getElementById('kusumNotSpecialist').style.display = 'block';
+    document.getElementById('kusumSpecialistView').style.display = 'none';
+    return;
+  }
+  
+  document.getElementById('kusumNotSpecialist').style.display = 'none';
+  document.getElementById('kusumSpecialistView').style.display = 'block';
+  
+  const res = await fetch('/api/vendor-kusum-leads?action=list', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ sessionToken: state.sessionToken, filter: 'open' })
+  });
+  const data = await res.json();
+  
+  const badge = document.getElementById('kusumCount');
+  if (data.count > 0) {
+    badge.textContent = data.count;
+    badge.classList.add('red');
+  } else {
+    badge.textContent = '';
+    badge.classList.remove('red');
+  }
+  
+  const el = document.getElementById('kusumLeads');
+  if ((data.leads || []).length === 0) {
+    el.innerHTML = `<div class="empty-state">${t('no_kusum_leads')}</div>`;
+    return;
+  }
+  el.innerHTML = data.leads.map(l => renderKusumCard(l)).join('');
+}
+
+function renderKusumCard(l) {
+  const tier = l.kusum_lead_tier || 'COLD';
+  const component = l.component || l.recommended_component || 'B';
+  
+  const slaStatus = l.sla_status || 'open';
+  let slaText = '—';
+  let slaClass = '';
+  if (slaStatus === 'commissioned') {
+    slaText = '✅ Commissioned';
+  } else if (slaStatus === 'in_progress') {
+    slaText = `▶ ${l.outcome.replace(/_/g, ' ')}`;
+  } else if (slaStatus === 'dead') {
+    slaText = `✗ ${l.outcome.replace(/_/g, ' ')}`;
+  } else if (slaStatus === 'expired') {
+    slaText = t('expired'); slaClass = 'expired';
+  } else if (slaStatus === 'urgent') {
+    const hoursLeft = Math.round((new Date(l.expires_at) - new Date()) / (1000 * 60 * 60));
+    slaText = `⏰ ${hoursLeft}${t('hours_until_reassign')}`; slaClass = 'urgent';
+  } else {
+    const hoursLeft = Math.round((new Date(l.expires_at) - new Date()) / (1000 * 60 * 60));
+    slaText = `${hoursLeft}${t('hours_left')}`;
+  }
+  
+  const districtName = l.district_slug ? l.district_slug.charAt(0).toUpperCase() + l.district_slug.slice(1).replace(/-/g, ' ') : '—';
+  let cardClass = 'kusum';
+  if (slaStatus === 'urgent' || slaStatus === 'expired') cardClass += ' urgent';
+  else if (tier === 'HOT') cardClass += ' hot';
+  
+  const componentLabels = {
+    'A': currentLang === 'hi' ? '🏛️ कंपोनेंट A · सोलर प्लांट' : '🏛️ Component A · Solar Plant',
+    'B': currentLang === 'hi' ? '💧 कंपोनेंट B · स्टैंडअलोन पंप' : '💧 Component B · Standalone Pump',
+    'C1': currentLang === 'hi' ? '⚡ कंपोनेंट C1 · ग्रिड पंप सोलराइज़ेशन' : '⚡ Component C1 · Grid Solarisation',
+    'C2': currentLang === 'hi' ? '⚡ कंपोनेंट C2 · फीडर सोलराइज़ेशन' : '⚡ Component C2 · Feeder Solarisation'
+  };
+  
+  // WhatsApp message — uses current language
+  const waMsg = t('wa_template_open')
+    .replace('{name}', l.farmer_name)
+    .replace('{vendor}', state.vendor.company_name)
+    .replace('{component}', component);
+  
+  let actions = '';
+  if (l.outcome === 'pending') {
+    actions = `
+      <a href="https://wa.me/${(l.farmer_phone || '').replace('+', '')}?text=${encodeURIComponent(waMsg)}" target="_blank" rel="noopener" class="btn kusum" onclick="setTimeout(()=>claimKusumLead('${l.assignment_id}'),500)">${t('btn_whatsapp_farmer')}</a>
+      <button class="btn secondary" onclick="openKusumOutcomeModal('${l.assignment_id}','${escapeHtml(l.farmer_name)}')">${t('btn_update_status')}</button>
+      <button class="btn danger" onclick="openDeclineModal('${l.assignment_id}','${escapeHtml(l.farmer_name)}',true)">${t('btn_decline')}</button>
+    `;
+  } else if (l.outcome === 'commissioned' && l.commission_status === 'owed') {
+    actions = `<span class="commission-display">💰 ₹${Math.round(l.commission_amount).toLocaleString('en-IN')} commission owed</span>`;
+  } else if (l.outcome === 'commissioned' && l.commission_status === 'paid') {
+    actions = `<span class="commission-display">✓ ₹${Math.round(l.commission_amount).toLocaleString('en-IN')} commission paid</span>`;
+  } else {
+    actions = `
+      <span class="outcome-current">${l.outcome.replace(/_/g, ' ')}</span>
+      <button class="btn secondary" onclick="openKusumOutcomeModal('${l.assignment_id}','${escapeHtml(l.farmer_name)}')">${t('btn_update_status')}</button>
+    `;
+  }
+  
+  // Document checklist
+  const docs = l.docs || {};
+  const docKeys = ['aadhaar', 'ror_khasra', 'water_photo', 'bank_passbook', 'electricity_bill'];
+  const docsCount = docKeys.filter(k => docs[k]).length;
+  const docsHtml = docKeys.map(k => `
+    <label class="doc-item ${docs[k] ? 'checked' : ''}">
+      <input type="checkbox" ${docs[k] ? 'checked' : ''} onchange="toggleDoc('${l.assignment_id}','${k}',this.checked)">
+      <span>${t('doc_' + k)}</span>
+    </label>
+  `).join('');
+  
+  const showDocs = component !== 'A'; // Component A doesn't need pump-related docs
+  
+  // KUSUM-specific fields for display
+  const pumpSituationLabels = {
+    'no_pump': currentLang === 'hi' ? 'पंप नहीं (नई स्थापना)' : 'No pump (new install)',
+    'diesel_pump': currentLang === 'hi' ? 'डीज़ल पंप' : 'Diesel pump',
+    'electric_grid_pump': currentLang === 'hi' ? 'ग्रिड बिजली पंप' : 'Grid electric pump',
+    'wants_solar_plant': currentLang === 'hi' ? 'सोलर प्लांट चाहिए' : 'Wants solar plant',
+    'unsure': currentLang === 'hi' ? 'अनिश्चित' : 'Unsure'
+  };
+  
+  return `
+    <div class="lead-card ${cardClass}" data-kusum-id="${l.assignment_id}">
+      <div class="lead-head">
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+          <span class="lead-tier ${tier}">${tier === 'HOT' ? '🔥 ' : tier === 'WARM' ? '🟡 ' : ''}${tier}</span>
+          <span class="component-pill ${component}">${component}</span>
+          <span class="lead-sla ${slaClass} mono">${slaText}</span>
+        </div>
+        <span class="commission-display">≈ ₹${Math.round(l.commission_amount || 0).toLocaleString('en-IN')}</span>
+      </div>
+      
+      <div style="font-weight:700; font-size:15px; margin-bottom:10px;">${componentLabels[component] || component}</div>
       
       <div class="lead-fields">
-        <div class="lead-field"><b>Customer</b><div class="val">${escapeHtml(l.customer_name || '—')}</div></div>
-        <div class="lead-field"><b>Phone</b><div class="val">${l.customer_phone || '—'}</div></div>
-        <div class="lead-field"><b>District</b><div class="val">${districtName}</div></div>
-        <div class="lead-field"><b>Bill / month</b><div class="val">₹${(l.monthly_bill || 0).toLocaleString('en-IN')}</div></div>
-        <div class="lead-field"><b>System</b><div class="val">${l.system_size_kw} kW</div></div>
-        <div class="lead-field"><b>Property</b><div class="val">${propertyMap[l.property_type] || l.property_type}</div></div>
-        <div class="lead-field"><b>Intent</b><div class="val">${intentMap[l.intent] || l.intent || '—'}</div></div>
-        <div class="lead-field"><b>Timeline</b><div class="val">${timelineMap[l.timeline] || l.timeline || '—'}</div></div>
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'किसान' : 'Farmer'}</b><div class="val">${escapeHtml(l.farmer_name || '—')}</div></div>
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'फ़ोन' : 'Phone'}</b><div class="val">${l.farmer_phone || '—'}</div></div>
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'जिला' : 'District'}</b><div class="val">${districtName}${l.village_or_tehsil ? ', ' + escapeHtml(l.village_or_tehsil) : ''}</div></div>
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'भूमि' : 'Land'}</b><div class="val">${l.land_owned_acres || '—'} ${currentLang === 'hi' ? 'एकड़' : 'acres'}</div></div>
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'पंप स्थिति' : 'Pump situation'}</b><div class="val" style="font-size:13px;">${pumpSituationLabels[l.pump_situation] || l.pump_situation || '—'}</div></div>
+        ${l.pump_hp ? `<div class="lead-field"><b>${currentLang === 'hi' ? 'पंप HP' : 'Pump HP'}</b><div class="val">${l.pump_hp}</div></div>` : ''}
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'जल स्रोत' : 'Water source'}</b><div class="val">${l.water_source || '—'}${l.water_depth_ft ? ` (${l.water_depth_ft}ft)` : ''}</div></div>
+        <div class="lead-field"><b>${currentLang === 'hi' ? 'फसल' : 'Crops'}</b><div class="val">${escapeHtml(l.primary_crops || '—')}</div></div>
+        ${l.current_electricity_bill_monthly ? `<div class="lead-field"><b>${currentLang === 'hi' ? 'बिजली बिल' : 'Electricity bill'}</b><div class="val">₹${l.current_electricity_bill_monthly}/${currentLang === 'hi' ? 'माह' : 'mo'}</div></div>` : ''}
+        ${l.current_diesel_spend_monthly ? `<div class="lead-field"><b>${currentLang === 'hi' ? 'डीज़ल खर्च' : 'Diesel spend'}</b><div class="val">₹${l.current_diesel_spend_monthly}/${currentLang === 'hi' ? 'माह' : 'mo'}</div></div>` : ''}
       </div>
+      
+      <div style="background:var(--paper-2); padding:12px 14px; margin:10px 0; font-size:13px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:6px;">${currentLang === 'hi' ? 'सब्सिडी गणित' : 'Subsidy math'}</div>
+        <div>${currentLang === 'hi' ? 'कुल लागत' : 'Total cost'}: <b>₹${(l.estimated_gross_cost || 0).toLocaleString('en-IN')}</b></div>
+        <div>${currentLang === 'hi' ? 'केंद्र + राज्य सब्सिडी' : 'Central + State subsidy'}: <b>₹${((l.estimated_subsidy_central || 0) + (l.estimated_subsidy_state || 0)).toLocaleString('en-IN')}</b></div>
+        <div>${currentLang === 'hi' ? 'किसान हिस्सा' : 'Farmer share'}: <b>₹${(l.estimated_farmer_contribution || 0).toLocaleString('en-IN')}</b></div>
+        ${l.estimated_loan_eligible ? `<div>${currentLang === 'hi' ? 'बैंक ऋण योग्य' : 'Bank loan eligible'}: <b>₹${l.estimated_loan_eligible.toLocaleString('en-IN')}</b></div>` : ''}
+      </div>
+      
+      ${showDocs ? `
+      <details class="docs-section">
+        <summary>${t('docs_checklist')} (${docsCount}/${docKeys.length} ${t('docs_collected')})</summary>
+        <div class="docs-list">${docsHtml}</div>
+      </details>
+      ` : ''}
       
       <div class="lead-actions">${actions}</div>
     </div>
   `;
+}
+
+async function toggleDoc(assignmentId, docKey, checked) {
+  const update = { [docKey]: checked };
+  await fetch('/api/vendor-kusum-leads?action=docs', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ sessionToken: state.sessionToken, assignmentId, docs: update })
+  });
+  // Refresh the card without full reload
+  setTimeout(() => loadKusumInbox(), 400);
 }
 
 function escapeHtml(text) {
@@ -566,14 +1135,13 @@ function escapeHtml(text) {
 }
 
 // ============================================================
-// LEAD ACTIONS
+// ROOFTOP LEAD ACTIONS
 // ============================================================
 async function claimLead(assignmentId) {
   await fetch('/api/vendor-leads?action=claim', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ sessionToken: state.sessionToken, assignmentId })
   });
-  // Don't refresh inbox immediately — user is now in WhatsApp. Refresh on return.
 }
 
 let currentOutcomeAssignmentId = null;
@@ -608,16 +1176,68 @@ async function submitOutcome() {
   }
 }
 
+// ============================================================
+// KUSUM LEAD ACTIONS (v0.9.0 NEW)
+// ============================================================
+async function claimKusumLead(assignmentId) {
+  await fetch('/api/vendor-kusum-leads?action=claim', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ sessionToken: state.sessionToken, assignmentId })
+  });
+}
+
+let currentKusumOutcomeAssignmentId = null;
+function openKusumOutcomeModal(assignmentId, farmerName) {
+  currentKusumOutcomeAssignmentId = assignmentId;
+  document.getElementById('kusumModalLeadName').textContent = farmerName;
+  document.getElementById('kusumOutcomeNotes').value = '';
+  document.getElementById('kusumOutcomeModal').classList.add('show');
+}
+
+async function submitKusumOutcome() {
+  const outcome = document.getElementById('kusumOutcomeSelect').value;
+  const notes = document.getElementById('kusumOutcomeNotes').value.trim();
+  
+  const res = await fetch('/api/vendor-kusum-leads?action=outcome', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      sessionToken: state.sessionToken,
+      assignmentId: currentKusumOutcomeAssignmentId,
+      outcome, notes
+    })
+  });
+  const data = await res.json();
+  closeModal('kusumOutcomeModal');
+  if (res.ok) {
+    if (data.commissionOwed) {
+      alert(currentLang === 'hi'
+        ? '✅ कमीशन देय के रूप में चिह्नित। हम 7 दिनों के भीतर आपको चालान भेजेंगे।'
+        : '✅ KUSUM commission marked as owed. We will invoice you within 7 days.');
+    }
+    await loadKusumInbox();
+  } else {
+    alert('Failed: ' + (data.error || 'Unknown error'));
+  }
+}
+
+// ============================================================
+// DECLINE — handles both rooftop and KUSUM
+// ============================================================
 let currentDeclineAssignmentId = null;
-function openDeclineModal(assignmentId, leadName) {
+let currentDeclineIsKusum = false;
+
+function openDeclineModal(assignmentId, leadName, isKusum) {
   currentDeclineAssignmentId = assignmentId;
+  currentDeclineIsKusum = isKusum;
   document.getElementById('declineLeadName').textContent = leadName;
   document.getElementById('declineModal').classList.add('show');
 }
 
 async function submitDecline() {
   const reason = document.getElementById('declineReason').value;
-  const res = await fetch('/api/vendor-leads?action=decline', {
+  const endpoint = currentDeclineIsKusum ? '/api/vendor-kusum-leads?action=decline' : '/api/vendor-leads?action=decline';
+  
+  const res = await fetch(endpoint, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       sessionToken: state.sessionToken,
@@ -629,7 +1249,8 @@ async function submitDecline() {
   closeModal('declineModal');
   if (res.ok) {
     alert(data.reassigned ? `Lead reassigned to ${data.newVendorName}` : 'Lead declined.');
-    await loadInbox();
+    if (currentDeclineIsKusum) await loadKusumInbox();
+    else await loadInbox();
   } else {
     alert('Failed: ' + (data.error || 'Unknown error'));
   }
@@ -640,37 +1261,60 @@ function closeModal(id) {
 }
 
 // ============================================================
-// STATS
+// STATS (rooftop + KUSUM)
 // ============================================================
 async function loadStats() {
+  // Rooftop stats
   const res = await fetch('/api/vendor-leads?action=stats', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ sessionToken: state.sessionToken })
   });
   const data = await res.json();
   state.stats = data.stats;
-  if (!data.stats) return;
+  if (data.stats) {
+    const s = data.stats;
+    document.getElementById('statsGrid').innerHTML = `
+      <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'लीड प्राप्त' : 'Leads received'}</div><div class="val">${s.leads_received || 0}</div></div>
+      <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? '4 घंटे में जवाब' : 'Responded 4hr'}</div><div class="val green">${s.leads_responded_4hr || 0}</div></div>
+      <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'जवाब दर' : 'Response rate'}</div><div class="val ${s.response_rate_pct >= 80 ? 'green' : s.response_rate_pct >= 50 ? '' : 'red'}">${s.response_rate_pct || 0}%</div></div>
+      <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'लीड बंद' : 'Leads closed'}</div><div class="val orange">${s.leads_closed || 0}</div></div>
+      <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'बंद दर' : 'Close rate'}</div><div class="val ${s.close_rate_pct >= 25 ? 'green' : ''}">${s.close_rate_pct || 0}%</div></div>
+      <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'अभी खुले' : 'Open now'}</div><div class="val">${s.open_leads || 0}</div></div>
+    `;
+    document.getElementById('commissionGrid').innerHTML = `
+      <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'बकाया (अदत्त)' : 'Owed (unpaid)'}</div><div class="val orange">₹${Math.round(s.commission_owed_now || 0).toLocaleString('en-IN')}</div></div>
+      <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'कुल बकाया (जीवनकाल)' : 'Total owed (lifetime)'}</div><div class="val">₹${Math.round(s.total_commission_owed || 0).toLocaleString('en-IN')}</div></div>
+      <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'कुल भुगतान (जीवनकाल)' : 'Total paid (lifetime)'}</div><div class="val green">₹${Math.round(s.total_commission_paid || 0).toLocaleString('en-IN')}</div></div>
+    `;
+    document.getElementById('recentGrid').innerHTML = `
+      <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'नई लीड (30d)' : 'New leads (30d)'}</div><div class="val">${s.leads_last_30d || 0}</div></div>
+      <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'बंद (30d)' : 'Closes (30d)'}</div><div class="val green">${s.closes_last_30d || 0}</div></div>
+    `;
+  }
   
-  const s = data.stats;
-  document.getElementById('statsGrid').innerHTML = `
-    <div class="stat"><div class="lbl mono">Leads received</div><div class="val">${s.leads_received || 0}</div></div>
-    <div class="stat"><div class="lbl mono">Responded 4hr</div><div class="val green">${s.leads_responded_4hr || 0}</div></div>
-    <div class="stat"><div class="lbl mono">Response rate</div><div class="val ${s.response_rate_pct >= 80 ? 'green' : s.response_rate_pct >= 50 ? '' : 'red'}">${s.response_rate_pct || 0}%</div></div>
-    <div class="stat"><div class="lbl mono">Leads closed</div><div class="val orange">${s.leads_closed || 0}</div></div>
-    <div class="stat"><div class="lbl mono">Close rate</div><div class="val ${s.close_rate_pct >= 25 ? 'green' : ''}">${s.close_rate_pct || 0}%</div></div>
-    <div class="stat"><div class="lbl mono">Open now</div><div class="val">${s.open_leads || 0}</div></div>
-  `;
-  
-  document.getElementById('commissionGrid').innerHTML = `
-    <div class="stat"><div class="lbl mono">Owed (unpaid)</div><div class="val orange">₹${Math.round(s.commission_owed_now || 0).toLocaleString('en-IN')}</div></div>
-    <div class="stat"><div class="lbl mono">Total owed (lifetime)</div><div class="val">₹${Math.round(s.total_commission_owed || 0).toLocaleString('en-IN')}</div></div>
-    <div class="stat"><div class="lbl mono">Total paid (lifetime)</div><div class="val green">₹${Math.round(s.total_commission_paid || 0).toLocaleString('en-IN')}</div></div>
-  `;
-  
-  document.getElementById('recentGrid').innerHTML = `
-    <div class="stat"><div class="lbl mono">New leads (30d)</div><div class="val">${s.leads_last_30d || 0}</div></div>
-    <div class="stat"><div class="lbl mono">Closes (30d)</div><div class="val green">${s.closes_last_30d || 0}</div></div>
-  `;
+  // KUSUM stats (if specialist)
+  if (state.vendor.handles_kusum) {
+    const kusumRes = await fetch('/api/vendor-kusum-leads?action=stats', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionToken: state.sessionToken })
+    });
+    const kusumData = await kusumRes.json();
+    if (kusumData.stats) {
+      const k = kusumData.stats;
+      document.getElementById('kusumStatsGrid').innerHTML = `
+        <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'कुसुम लीड' : 'KUSUM received'}</div><div class="val kusum">${k.kusum_leads_received || 0}</div></div>
+        <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'खुले' : 'Open'}</div><div class="val">${k.kusum_leads_open || 0}</div></div>
+        <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'प्रगति में' : 'In progress'}</div><div class="val orange">${k.kusum_leads_in_progress || 0}</div></div>
+        <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'चालू' : 'Commissioned'}</div><div class="val green">${k.kusum_leads_commissioned || 0}</div></div>
+        <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'बंद दर' : 'Close rate'}</div><div class="val ${k.kusum_close_rate_pct >= 20 ? 'green' : ''}">${k.kusum_close_rate_pct || 0}%</div></div>
+        <div class="stat"><div class="lbl mono">A · B · C</div><div class="val mono" style="font-size:18px;">${k.component_a || 0}·${k.component_b || 0}·${(k.component_c1 || 0) + (k.component_c2 || 0)}</div></div>
+        <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'कमीशन बकाया' : 'Commission owed'}</div><div class="val orange">₹${Math.round(k.kusum_commission_owed || 0).toLocaleString('en-IN')}</div></div>
+        <div class="stat"><div class="lbl mono">${currentLang === 'hi' ? 'कुल भुगतान' : 'Total paid'}</div><div class="val green">₹${Math.round(k.kusum_commission_paid || 0).toLocaleString('en-IN')}</div></div>
+      `;
+    }
+  } else {
+    document.getElementById('kusumStatsGrid').innerHTML = `<div class="empty-state" style="grid-column:1/-1">${t('kusum_not_specialist_body')}</div>`;
+  }
 }
 
 // ============================================================
@@ -681,20 +1325,23 @@ function loadProfile() {
   const v = state.vendor;
   const districts = (v.coverage_districts || []).join(', ') || 'None set';
   const properties = (v.property_types || []).join(', ') || 'All';
+  const kusumLabel = v.handles_kusum
+    ? (currentLang === 'hi' ? '✅ हाँ' : '✅ Yes')
+    + ((v.kusum_components && v.kusum_components.length) ? ` (${v.kusum_components.join(', ')})` : '')
+    : (currentLang === 'hi' ? '❌ नहीं' : '❌ No');
   
   document.getElementById('profileBody').innerHTML = `
     <table style="width:100%; border-collapse:collapse; border:1.5px solid var(--ink);">
-      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); width:160px;">Company</td><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-weight:700;">${escapeHtml(v.company_name)}</td></tr>
-      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">Brand</td><td style="padding:14px 16px; border-bottom:1px solid var(--line);">${escapeHtml(v.brand_name || '—')}</td></tr>
-      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">Contact</td><td style="padding:14px 16px; border-bottom:1px solid var(--line);">${escapeHtml(v.contact_name || '—')}</td></tr>
-      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">Phone</td><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace;">${v.phone}</td></tr>
-      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">Email</td><td style="padding:14px 16px; border-bottom:1px solid var(--line);">${escapeHtml(v.email || '—')}</td></tr>
-      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">Tier</td><td style="padding:14px 16px; border-bottom:1px solid var(--line);"><span class="tier-pill ${v.tier}">${v.tier.toUpperCase()}</span></td></tr>
-      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">Commission</td><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-weight:700; color:var(--leaf);">${v.commission_rate}%</td></tr>
-      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">Districts</td><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-size:13px;">${escapeHtml(districts)}</td></tr>
-      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">Min system</td><td style="padding:14px 16px; border-bottom:1px solid var(--line);">${v.min_system_size_kw} kW</td></tr>
-      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">Property types</td><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-size:13px;">${escapeHtml(properties)}</td></tr>
-      <tr><td style="padding:14px 16px; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">Weekly capacity</td><td style="padding:14px 16px;">${v.lead_capacity_per_week} leads</td></tr>
+      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); width:160px;">${currentLang === 'hi' ? 'कंपनी' : 'Company'}</td><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-weight:700;">${escapeHtml(v.company_name)}</td></tr>
+      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">${currentLang === 'hi' ? 'ब्रांड' : 'Brand'}</td><td style="padding:14px 16px; border-bottom:1px solid var(--line);">${escapeHtml(v.brand_name || '—')}</td></tr>
+      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">${currentLang === 'hi' ? 'संपर्क' : 'Contact'}</td><td style="padding:14px 16px; border-bottom:1px solid var(--line);">${escapeHtml(v.contact_name || '—')}</td></tr>
+      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">${currentLang === 'hi' ? 'फ़ोन' : 'Phone'}</td><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace;">${v.phone}</td></tr>
+      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">${currentLang === 'hi' ? 'टियर' : 'Tier'}</td><td style="padding:14px 16px; border-bottom:1px solid var(--line);"><span class="tier-pill ${v.tier}">${v.tier.toUpperCase()}</span></td></tr>
+      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">${currentLang === 'hi' ? 'कमीशन' : 'Commission'}</td><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-weight:700; color:var(--leaf);">${v.commission_rate}%</td></tr>
+      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">🌾 KUSUM</td><td style="padding:14px 16px; border-bottom:1px solid var(--line);">${kusumLabel}</td></tr>
+      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">${currentLang === 'hi' ? 'जिले' : 'Districts'}</td><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-size:13px;">${escapeHtml(districts)}</td></tr>
+      <tr><td style="padding:14px 16px; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">${currentLang === 'hi' ? 'न्यूनतम सिस्टम' : 'Min system'}</td><td style="padding:14px 16px; border-bottom:1px solid var(--line);">${v.min_system_size_kw} kW</td></tr>
+      <tr><td style="padding:14px 16px; font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);">${currentLang === 'hi' ? 'साप्ताहिक क्षमता' : 'Weekly capacity'}</td><td style="padding:14px 16px;">${v.lead_capacity_per_week} ${currentLang === 'hi' ? 'लीड' : 'leads'}</td></tr>
     </table>
   `;
 }
@@ -702,9 +1349,8 @@ function loadProfile() {
 // ============================================================
 // BOOT
 // ============================================================
-// Check for deep-link to specific lead (from WhatsApp notification)
-const urlParams = new URLSearchParams(location.search);
-const deepLinkLead = urlParams.get('lead');
+// Apply saved language preference immediately
+setLang(currentLang);
 
 if (state.sessionToken) {
   bootAuthed();
@@ -712,15 +1358,12 @@ if (state.sessionToken) {
   setChannel('whatsapp');
 }
 
-// Enter key submission
 document.getElementById('destInput').addEventListener('keypress', e => {
   if (e.key === 'Enter') requestOTP();
 });
 document.getElementById('otpInput').addEventListener('keypress', e => {
   if (e.key === 'Enter') verifyOTP();
 });
-
-// Auto-uppercase OTP
 document.getElementById('otpInput').addEventListener('input', e => {
   e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 6);
 });
