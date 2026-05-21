@@ -1,0 +1,35 @@
+-- =====================================================================
+-- SolarSubsidies.com — Master Deployment SQL
+-- =====================================================================
+-- Run this ONCE in Supabase SQL Editor after creating a new project.
+-- Combines all 9 migrations in canonical order. Idempotent (safe to re-run).
+--
+-- After running, verify with VERIFY_DEPLOY.sql.
+-- =====================================================================
+
+-- Migration 1: schema.sql (base tables)
+\i schema.sql
+
+-- The above \i syntax doesn't work in Supabase SQL Editor (psql-only).
+-- Use the COPY-PASTE approach instead:
+-- 
+-- INSTRUCTIONS:
+-- 1. Open each file below in GitHub
+-- 2. Copy contents
+-- 3. Paste into Supabase SQL Editor
+-- 4. Click "Run"
+-- 5. Wait for "Success" before pasting next file
+--
+-- File order:
+--   1. data/schema.sql
+--   2. data/seed-districts.sql
+--   3. data/0004_lead_scoring.sql
+--   4. data/0005_vendor_schema.sql
+--   5. data/0006_matching_schema.sql
+--   6. data/0007_admin_views.sql
+--   7. data/0008_kusum_and_directory.sql
+--   8. data/0009_vendor_seed.sql
+--   9. data/0010_preferred_vendor.sql
+--
+-- A consolidated single-paste version is in DEPLOY_ALL_CONSOLIDATED.sql
+-- (generated below — handles the syntax differences).
