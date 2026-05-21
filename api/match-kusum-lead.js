@@ -1,5 +1,5 @@
 /**
- * /api/match-kusum-lead.js — KUSUM-specialist vendor matching engine (v0.8.3)
+ * /api/match-kusum-lead.js — KUSUM-specialist vendor matching engine (v0.9.0)
  *
  * Mirrors api/match-lead.js but KUSUM-specific. Aligned to canonical schema
  * in data/0008_kusum_and_directory.sql.
@@ -10,7 +10,10 @@
  *   - Different scoring: drought district priority, Component A → premium routing
  *   - 48-hour expiry (KUSUM cycle is slower than rooftop's 24hr)
  *   - Writes to kusum_lead_assignments table (NOT lead_assignments)
- *   - KUSUM commission default 5% (vs 7% rooftop) — can override per-vendor via commission_rate
+ *   - KUSUM commission ALWAYS 5% (regardless of vendor's rooftop commission_rate)
+ *     v0.9.0 FIX: previously inherited vendor.commission_rate which conflated
+ *     rooftop and KUSUM economics. KUSUM has different unit economics — 5% is
+ *     hardcoded until/unless we add vendors.kusum_commission_rate column.
  *
  * Protected by MATCH_INTERNAL_TOKEN env var.
  * Called by api/kusum-lead.js automatically for HOT/WARM tiers.
@@ -26,7 +29,7 @@
  *   MSG91_INTEGRATED_NUMBER (only if provider=msg91)
  */
 
-const KUSUM_DEFAULT_COMMISSION_PCT = 5.0;
+const KUSUM_COMMISSION_PCT = 5.0;  // Hardcoded; different unit economics from rooftop
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -75,7 +78,6 @@ export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
   if (!leads.length) return { matched: false, reason: 'lead_not_found' };
   const lead = leads[0];
 
-  // Skip ineligible or COLD leads
   if (lead.recommended_component === 'ineligible' || lead.recommended_component === 'needs_review') {
     return { matched: false, reason: 'lead_not_eligible', component: lead.recommended_component };
   }
@@ -83,7 +85,7 @@ export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
     return { matched: false, reason: 'cold_lead_admin_triage_only' };
   }
 
-  // ===== 2. Idempotency: skip if already assigned (unless explicit reassignment) =====
+  // ===== 2. Idempotency =====
   if (excludeVendorIds.length === 0) {
     const existingRes = await fetch(
       `${supabaseUrl}/rest/v1/kusum_lead_assignments?kusum_lead_id=eq.${kusumLeadId}&outcome=eq.pending&select=id`,
@@ -98,9 +100,6 @@ export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
   }
 
   // ===== 3. Fetch eligible KUSUM-specialist vendors =====
-  // Required: active=true, handles_kusum=true, covers district, supports the component
-  // Note: canonical column is `handles_kusum` (not `kusum_specialist`)
-  // C1/C2 both require vendor to handle generic "C" capability
   const component = lead.recommended_component;
   const componentToMatch = (component === 'C1' || component === 'C2') ? 'C' : component;
 
@@ -128,7 +127,6 @@ export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
   const candidates = await vendorsRes.json();
 
   if (candidates.length === 0) {
-    // No KUSUM-specialist vendor available → mark lead for admin triage
     await fetch(`${supabaseUrl}/rest/v1/kusum_leads?id=eq.${kusumLeadId}`, {
       method: 'PATCH',
       headers: { ...headers, 'Content-Type': 'application/json' },
@@ -152,7 +150,6 @@ export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
     let score = 0;
     const diag = [];
 
-    // Tier weighting (Component A skews harder toward premium)
     if (v.tier === 'premium') {
       score += isComponentA ? 50 : 30;
       diag.push(`premium:+${isComponentA ? 50 : 30}`);
@@ -167,7 +164,6 @@ export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
       diag.push('unverified:+2');
     }
 
-    // HOT KUSUM lead × premium = priority routing
     if (lead.kusum_lead_tier === 'HOT' && v.tier === 'premium') {
       score += 20;
       diag.push('hot_premium:+20');
@@ -176,7 +172,6 @@ export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
       diag.push('hot:+8');
     }
 
-    // Drought-district vendor specialization
     if (isDroughtDistrict) {
       const bundelkhandCoverage = (v.coverage_districts || []).filter(d => bundelkhand.includes(d)).length;
       if (bundelkhandCoverage >= 3) {
@@ -185,14 +180,12 @@ export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
       }
     }
 
-    // Response time (faster = better)
     if (v.avg_response_time_minutes != null) {
       if (v.avg_response_time_minutes < 120) { score += 8; diag.push('fast_resp:+8'); }
       else if (v.avg_response_time_minutes < 360) { score += 4; diag.push('mid_resp:+4'); }
       else if (v.avg_response_time_minutes > 1440) { score -= 8; diag.push('slow_resp:-8'); }
     }
 
-    // Historical KUSUM close rate (using cross-table close rate as proxy)
     if (v.leads_received >= 5) {
       const closeRate = v.leads_received > 0 ? (v.leads_closed / v.leads_received) : 0;
       if (closeRate >= 0.3) { score += 12; diag.push(`close_rate_high:+12`); }
@@ -200,7 +193,7 @@ export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
       else if (closeRate < 0.05 && v.leads_received >= 10) { score -= 8; diag.push(`close_rate_low:-8`); }
     }
 
-    // Capacity check (KUSUM is lenient: 10 leads/month per vendor)
+    // KUSUM-specific capacity (10 leads/month default, lenient vs rooftop)
     const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
     const activeUrl = `${supabaseUrl}/rest/v1/kusum_lead_assignments?` +
       `vendor_id=eq.${v.id}&created_at=gte.${since}` +
@@ -218,16 +211,16 @@ export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
     v._activeKusumLeads = activeCount;
   }
 
-  // Sort by score, pick winner
   candidates.sort((a, b) => b._score - a._score);
   const winner = candidates[0];
 
   // ===== 5. Create assignment + notify vendor =====
   const now = new Date();
-  const expiresAt = new Date(now.getTime() + 48 * 60 * 60 * 1000);  // 48-hour SLA
+  const expiresAt = new Date(now.getTime() + 48 * 60 * 60 * 1000);
 
   const benchmarkCost = lead.estimated_gross_cost || 305000;
-  const commissionRate = winner.commission_rate || KUSUM_DEFAULT_COMMISSION_PCT;
+  // v0.9.0 FIX: KUSUM commission ALWAYS 5%, ignore rooftop commission_rate
+  const commissionRate = KUSUM_COMMISSION_PCT;
   const commissionAmount = Math.round(benchmarkCost * commissionRate / 100);
 
   const assignmentBody = {
@@ -258,14 +251,12 @@ export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
 
   const assignment = (await assignmentRes.json())[0];
 
-  // Update lead status
   await fetch(`${supabaseUrl}/rest/v1/kusum_leads?id=eq.${kusumLeadId}`, {
     method: 'PATCH',
     headers: { ...headers, 'Content-Type': 'application/json' },
     body: JSON.stringify({ status: 'assigned' })
   });
 
-  // WhatsApp the vendor
   await notifyKusumVendor({
     provider: process.env.WHATSAPP_PROVIDER || 'webhook',
     apiKey: process.env.WHATSAPP_API_KEY,
@@ -274,6 +265,7 @@ export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
     assignment,
     component,
     commissionAmount,
+    commissionRate,  // v0.9.0: pass rate explicitly to WhatsApp template
     portalBaseUrl: process.env.PORTAL_BASE_URL || 'https://solarsubsidies.com'
   });
 
@@ -287,6 +279,7 @@ export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
     score: winner._score,
     diagnostic: winner._diagnostic,
     commissionAmount,
+    commissionRate,
     expiresAt: expiresAt.toISOString(),
     candidatesConsidered: candidates.length,
     assignmentMethod: excludeVendorIds.length > 0 ? 'reassignment' : 'auto_match'
@@ -296,7 +289,7 @@ export async function matchKusumLead(kusumLeadId, excludeVendorIds = []) {
 // ============================================================
 // VENDOR WHATSAPP NOTIFICATION
 // ============================================================
-async function notifyKusumVendor({ provider, apiKey, vendor, lead, assignment, component, commissionAmount, portalBaseUrl }) {
+async function notifyKusumVendor({ provider, apiKey, vendor, lead, assignment, component, commissionAmount, commissionRate, portalBaseUrl }) {
   if (!apiKey) return;
   const vendorPhone = vendor.phone;
   if (!vendorPhone) {
@@ -336,7 +329,7 @@ async function notifyKusumVendor({ provider, apiKey, vendor, lead, assignment, c
    Subsidy: ₹${subsidy.toLocaleString('en-IN')}
    Farmer share: ₹${(lead.estimated_farmer_contribution || 0).toLocaleString('en-IN')}
 
-💵 Your commission on close: ₹${commissionAmount.toLocaleString('en-IN')} (${vendor.commission_rate || 5}%)
+💵 Your commission on close: ₹${commissionAmount.toLocaleString('en-IN')} (${commissionRate}% KUSUM rate)
 
 ⏰ Respond within 48h or this lead reassigns.
 
