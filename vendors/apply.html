@@ -13,7 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700;900&display=swap" rel="stylesheet">
 
 <style>
-:root { --ink:#0a0a0a; --paper:#faf7f2; --paper-2:#f3ede2; --sun:#ff6b1a; --sun-deep:#d94a00; --sun-light:#ffd166; --leaf:#2d5016; --muted:#5a5a5a; --line:#d4cfc4; --red:#c41e3a; }
+:root { --ink:#0a0a0a; --paper:#faf7f2; --paper-2:#f3ede2; --sun:#ff6b1a; --sun-deep:#d94a00; --sun-light:#ffd166; --leaf:#2d5016; --leaf-deep:#1a3210; --muted:#5a5a5a; --line:#d4cfc4; --red:#c41e3a; }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(--ink); font-size:18px; line-height:1.55; }
@@ -39,8 +39,10 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 @keyframes slideIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 
 .step-kicker { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-deep); margin-bottom:14px; }
+.step-kicker.kusum { color:var(--leaf-deep); }
 .step h1 { font-size:clamp(32px,4.5vw,56px); font-weight:900; letter-spacing:-0.035em; line-height:1.05; margin-bottom:14px; font-variation-settings:'opsz' 144; }
 .step h1 em { font-style:italic; font-weight:400; color:var(--sun-deep); }
+.step.kusum h1 em { color:var(--leaf-deep); }
 .step .lede { font-size:17px; color:var(--muted); margin-bottom:32px; line-height:1.55; }
 
 .field { margin-bottom:22px; }
@@ -63,6 +65,38 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .checkbox-field label { font-family:'Fraunces',serif; font-size:15px; text-transform:none; letter-spacing:normal; font-weight:400; line-height:1.5; cursor:pointer; margin:0; }
 .checkbox-field label b { display:block; font-weight:700; margin-bottom:3px; font-size:16px; }
 
+/* KUSUM-specific styling */
+.kusum-toggle { padding:24px; border:2px solid var(--leaf-deep); background:linear-gradient(to right, var(--leaf-deep), #234318); color:var(--paper); margin-bottom:24px; cursor:pointer; position:relative; }
+.kusum-toggle:hover { transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ink); }
+.kusum-toggle.declined { background:var(--paper-2); color:var(--ink); border-color:var(--ink); }
+.kusum-toggle-content { display:flex; gap:14px; align-items:flex-start; }
+.kusum-toggle input { width:22px; height:22px; flex-shrink:0; margin-top:2px; cursor:pointer; }
+.kusum-toggle h3 { font-size:20px; font-weight:900; letter-spacing:-0.02em; margin-bottom:6px; line-height:1.2; color:inherit; }
+.kusum-toggle p { font-size:14px; line-height:1.5; opacity:0.85; }
+.kusum-toggle .icon { font-size:24px; }
+
+.kusum-detail-section { display:none; padding:24px; border:1.5px dashed var(--leaf-deep); background:var(--paper-2); margin-bottom:24px; }
+.kusum-detail-section.show { display:block; }
+.kusum-detail-section h3 { font-family:'JetBrains Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.12em; color:var(--leaf-deep); margin-bottom:16px; font-weight:700; }
+
+.component-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:12px; margin-bottom:8px; }
+.component-card { display:flex; gap:12px; align-items:flex-start; padding:14px; border:1.5px solid var(--ink); background:var(--paper); cursor:pointer; transition:all 0.15s; }
+.component-card:hover { background:white; transform:translate(-1px,-1px); box-shadow:2px 2px 0 var(--ink); }
+.component-card input { width:18px; height:18px; flex-shrink:0; margin-top:3px; cursor:pointer; }
+.component-card .ctitle { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--leaf-deep); font-weight:700; margin-bottom:4px; }
+.component-card.A .ctitle { color:#7c3aed; }
+.component-card.B .ctitle { color:var(--leaf-deep); }
+.component-card.C1 .ctitle, .component-card.C2 .ctitle { color:#1e5fc4; }
+.component-card .cname { font-weight:700; font-size:15px; line-height:1.3; margin-bottom:4px; }
+.component-card .cdesc { font-size:13px; color:var(--muted); line-height:1.4; }
+.component-card label { cursor:pointer; margin:0; padding:0; font-family:'Fraunces',serif; text-transform:none; letter-spacing:normal; font-weight:400; font-size:inherit; }
+
+.pump-brand-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+.pump-brand-chip { padding:6px 14px; border:1.5px solid var(--ink); background:var(--paper); cursor:pointer; font-size:13px; font-family:'JetBrains Mono',monospace; transition:all 0.1s; }
+.pump-brand-chip.selected { background:var(--leaf-deep); color:var(--sun-light); border-color:var(--leaf-deep); }
+.pump-brand-chip:hover { transform:translate(-1px,-1px); box-shadow:2px 2px 0 var(--ink); }
+.pump-brand-chip.selected:hover { box-shadow:2px 2px 0 var(--sun); }
+
 .nav-row { display:flex; justify-content:space-between; align-items:center; margin-top:40px; padding-top:24px; border-top:1.5px solid var(--ink); gap:14px; }
 .btn { padding:16px 32px; font-family:'Fraunces',serif; font-size:17px; font-weight:700; border:2px solid var(--ink); cursor:pointer; transition:all 0.15s; text-decoration:none; display:inline-block; text-align:center; }
 .btn-primary { background:var(--sun); color:var(--ink); box-shadow:6px 6px 0 var(--ink); }
@@ -76,6 +110,8 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 .confirmation h1 { font-size:48px; margin-bottom:16px; }
 .confirmation .summary { background:var(--paper-2); border:1.5px solid var(--ink); padding:28px; text-align:left; max-width:560px; margin:32px auto; }
 .confirmation .summary h3 { font-size:18px; margin-bottom:16px; }
+.confirmation .kusum-pending { background:var(--leaf-deep); color:var(--paper); padding:14px 18px; margin:16px 0; font-size:14px; }
+.confirmation .kusum-pending strong { color:var(--sun-light); }
 .confirmation .next-steps { max-width:560px; margin:32px auto; text-align:left; }
 .confirmation .next-step-item { display:flex; gap:14px; padding:14px 0; }
 .confirmation .next-step-item .num { font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700; color:var(--sun-deep); flex-shrink:0; width:32px; }
@@ -89,6 +125,7 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
   .nav-row { flex-direction:column-reverse; gap:10px; }
   .btn { width:100%; }
   .district-checks { grid-template-columns:1fr; max-height:240px; }
+  .component-grid { grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -108,8 +145,8 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 
 <div class="progress">
   <div class="progress-inner">
-    <div class="progress-step"><b>Step <span id="stepNum">1</span></b> of 4</div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+    <div class="progress-step"><b>Step <span id="stepNum">1</span></b> of 5</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
     <div class="progress-step" id="progressLabel">Company basics</div>
   </div>
 </div>
@@ -118,22 +155,22 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 
 <!-- STEP 1: COMPANY BASICS -->
 <div class="step active" id="step1">
-  <div class="step-kicker mono">§ Step 1 of 4 · Company basics</div>
+  <div class="step-kicker mono">§ Step 1 of 5 · Company basics</div>
   <h1>Tell us about your <em>company.</em></h1>
   <p class="lede">5-minute application. We'll manually review within 48-72 hours and WhatsApp you the result.</p>
-  
+
   <div class="field">
     <label for="companyName">Company name (registered)</label>
     <input type="text" id="companyName" name="companyName" placeholder="e.g., Surya Solar Solutions Pvt Ltd" required>
     <div class="field-error" id="err_companyName">Required</div>
   </div>
-  
+
   <div class="field">
     <label for="brandName">Brand name (if different)</label>
     <input type="text" id="brandName" name="brandName" placeholder="e.g., SuryaSolar (optional)">
     <div class="field-help">Trading/brand name customers will see</div>
   </div>
-  
+
   <div class="field-row">
     <div class="field">
       <label for="contactName">Primary contact</label>
@@ -151,7 +188,7 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
       </select>
     </div>
   </div>
-  
+
   <div class="field-row">
     <div class="field">
       <label for="phone">WhatsApp phone</label>
@@ -164,22 +201,21 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
       <div class="field-error" id="err_email">Valid email required</div>
     </div>
   </div>
-  
+
   <div class="field">
     <label for="website">Website</label>
     <input type="url" id="website" name="website" placeholder="https://yourcompany.com">
     <div class="field-help">Optional but helps review. Include if available.</div>
   </div>
-  
+
   <div class="field">
     <label for="hq">Head office city + state</label>
     <input type="text" id="hq" name="hq" placeholder="e.g., Lucknow, UP" required>
     <div class="field-error" id="err_hq">Required</div>
   </div>
-  
-  <!-- Honeypot -->
+
   <input type="text" name="honeypot" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off">
-  
+
   <div class="nav-row">
     <span></span>
     <button class="btn btn-primary" id="step1Next" onclick="goToStep(2)">Continue →</button>
@@ -188,24 +224,24 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 
 <!-- STEP 2: APPROVALS & EXPERIENCE -->
 <div class="step" id="step2">
-  <div class="step-kicker mono">§ Step 2 of 4 · Approvals & experience</div>
+  <div class="step-kicker mono">§ Step 2 of 5 · Approvals & experience</div>
   <h1>Show us your <em>credentials.</em></h1>
   <p class="lede">We onboard only MNRE-empanelled + UPNEDA-approved installers. These are non-negotiable. Have approval numbers ready.</p>
-  
+
   <div class="field">
-    <label for="mnreNumber">MNRE empanellment number</label>
+    <label for="mnreNumber">MNRE empanellment number (rooftop)</label>
     <input type="text" id="mnreNumber" name="mnreNumber" placeholder="e.g., MNRE/RTS/2024/XXX" required>
-    <div class="field-help">From <a href="https://mnre.gov.in" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:underline;">mnre.gov.in</a> empanellment list. We'll verify.</div>
+    <div class="field-help">From <a href="https://mnre.gov.in" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:underline;">mnre.gov.in</a> empanellment list. We'll verify. (KUSUM pump empanellment is separate — that goes in Step 4 if applicable.)</div>
     <div class="field-error" id="err_mnreNumber">MNRE empanellment is mandatory</div>
   </div>
-  
+
   <div class="field">
     <label for="upnedaNumber">UPNEDA approved vendor ID</label>
     <input type="text" id="upnedaNumber" name="upnedaNumber" placeholder="e.g., UPNEDA/SOL/2024/XXX" required>
     <div class="field-help">From <a href="https://upneda.org.in" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:underline;">upneda.org.in</a>. Required for state subsidy disbursal.</div>
     <div class="field-error" id="err_upnedaNumber">UPNEDA approval is mandatory</div>
   </div>
-  
+
   <div class="field-row">
     <div class="field">
       <label for="gstin">GSTIN</label>
@@ -218,7 +254,7 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
       <div class="field-error" id="err_pan">Valid 10-char PAN required</div>
     </div>
   </div>
-  
+
   <div class="field">
     <label for="yearsActive">Years actively installing rooftop solar</label>
     <select id="yearsActive" name="yearsActive" required>
@@ -230,7 +266,7 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
       <option value=">10">More than 10 years</option>
     </select>
   </div>
-  
+
   <div class="field">
     <label for="installsCompleted">Residential installs completed in last 24 months</label>
     <select id="installsCompleted" name="installsCompleted" required>
@@ -243,7 +279,7 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
     </select>
     <div class="field-help">Minimum 25 required. We'll verify via UPNEDA service records.</div>
   </div>
-  
+
   <div class="field">
     <label for="teamSize">In-house installation team size</label>
     <select id="teamSize" name="teamSize" required>
@@ -256,7 +292,7 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
     </select>
     <div class="field-help">Resellers without in-house crews are not eligible.</div>
   </div>
-  
+
   <div class="nav-row">
     <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
     <button class="btn btn-primary" id="step2Next" onclick="goToStep(3)">Continue →</button>
@@ -265,20 +301,19 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 
 <!-- STEP 3: COVERAGE -->
 <div class="step" id="step3">
-  <div class="step-kicker mono">§ Step 3 of 4 · Coverage & capacity</div>
+  <div class="step-kicker mono">§ Step 3 of 5 · Coverage & capacity</div>
   <h1>Which <em>districts</em> can you service?</h1>
   <p class="lede">Select all UP districts where you can do site visits within 48 hours of lead assignment. We route leads only to vendors serving that district.</p>
-  
+
   <div class="field">
     <label>UP districts you service</label>
     <div class="field-help" style="margin-top:0; margin-bottom:8px;">Select all that apply. You can update later.</div>
     <div class="district-checks" id="districtChecks">
-      <!-- Loaded dynamically from districts-up.json -->
       <div style="grid-column: 1/-1; padding:20px; text-align:center; color:var(--muted); font-style:italic;">Loading districts...</div>
     </div>
     <div class="field-error" id="err_districts">Select at least one district</div>
   </div>
-  
+
   <div class="field">
     <label for="minSystemSize">Minimum system size you'll quote</label>
     <select id="minSystemSize" name="minSystemSize" required>
@@ -290,7 +325,7 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
     </select>
     <div class="field-help">Smaller leads will be routed to vendors with lower minimums.</div>
   </div>
-  
+
   <div class="field">
     <label>Property types you handle</label>
     <div class="checkbox-field">
@@ -314,7 +349,7 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
       <label for="prop_commercial"><b>Commercial</b>Shops, offices, factory rooftops</label>
     </div>
   </div>
-  
+
   <div class="field">
     <label for="leadCapacity">How many leads can you absorb per week?</label>
     <select id="leadCapacity" name="leadCapacity" required>
@@ -326,67 +361,201 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
     </select>
     <div class="field-help">Honest capacity helps us not overload you. You can adjust later.</div>
   </div>
-  
+
   <div class="nav-row">
     <button class="btn btn-secondary" onclick="goToStep(2)">← Back</button>
     <button class="btn btn-primary" id="step3Next" onclick="goToStep(4)">Continue →</button>
   </div>
 </div>
 
-<!-- STEP 4: COMMITMENTS & SUBMIT -->
-<div class="step" id="step4">
-  <div class="step-kicker mono">§ Step 4 of 4 · Commitments</div>
+<!-- STEP 4: KUSUM SPECIALIZATION (NEW) -->
+<div class="step kusum" id="step4">
+  <div class="step-kicker mono kusum">§ Step 4 of 5 · KUSUM specialization (optional)</div>
+  <h1>Do you handle <em>PM-KUSUM?</em></h1>
+  <p class="lede">PM-KUSUM is the agri-solar scheme — solar pumps for farmers and ground-mounted plants on agricultural land. Different from rooftop. Requires separate MNRE pump empanellment and UPNEDA KUSUM vendor ID. Skip if you only do rooftop.</p>
+
+  <!-- Master toggle -->
+  <div class="kusum-toggle" id="kusumToggle">
+    <div class="kusum-toggle-content">
+      <input type="checkbox" id="handles_kusum" name="handles_kusum">
+      <div style="flex:1;">
+        <h3>🌾 Yes, we handle KUSUM</h3>
+        <p>We have MNRE pump empanellment + UPNEDA KUSUM vendor ID, and we want to receive PM-KUSUM leads (Components A, B, C1, and/or C2).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- KUSUM details (shown only when toggle is on) -->
+  <div class="kusum-detail-section" id="kusumDetails">
+    <h3>📋 KUSUM credentials & components</h3>
+
+    <div class="field">
+      <label>Which KUSUM Components do you handle?</label>
+      <div class="field-help" style="margin-top:0; margin-bottom:12px;">Select all that apply. We'll route leads to you based on which Components you can deliver.</div>
+      <div class="component-grid">
+        <div class="component-card A">
+          <input type="checkbox" id="comp_A" name="comp_A" value="A">
+          <label for="comp_A">
+            <div class="ctitle">🏛️ Component A</div>
+            <div class="cname">Solar Plant on Agri Land</div>
+            <div class="cdesc">0.5-2 MW grid-tied solar plant. Farmer or developer owns land, sells power to DISCOM. ₹3 Cr/MW capex. Premium-tier vendors only.</div>
+          </label>
+        </div>
+        <div class="component-card B">
+          <input type="checkbox" id="comp_B" name="comp_B" value="B">
+          <label for="comp_B">
+            <div class="ctitle">💧 Component B</div>
+            <div class="cname">Standalone Solar Pump</div>
+            <div class="cdesc">Off-grid solar water pump for irrigation. 2-7.5 HP typical. ₹2-3.5 lakh per pump. Highest volume in UP.</div>
+          </label>
+        </div>
+        <div class="component-card C1">
+          <input type="checkbox" id="comp_C1" name="comp_C1" value="C1">
+          <label for="comp_C1">
+            <div class="ctitle">⚡ Component C1</div>
+            <div class="cname">Individual Pump Solarisation</div>
+            <div class="cdesc">Convert existing grid-tied pump to solar. Net-metered, farmer sells surplus to DISCOM. Existing pump must be functional.</div>
+          </label>
+        </div>
+        <div class="component-card C2">
+          <input type="checkbox" id="comp_C2" name="comp_C2" value="C2">
+          <label for="comp_C2">
+            <div class="ctitle">⚡ Component C2</div>
+            <div class="cname">Feeder-Level Solarisation</div>
+            <div class="cdesc">Whole agricultural feeder powered by solar. Substation-level project. Large EPC contracts only — typically through tenders.</div>
+          </label>
+        </div>
+      </div>
+      <div class="field-error" id="err_components">Select at least one Component</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="mnre_pump_number">MNRE pump empanellment number</label>
+        <input type="text" id="mnre_pump_number" name="mnre_pump_number" placeholder="e.g., MNRE/SOLAR-PUMP/2024/XXX">
+        <div class="field-help">Pump-specific MNRE empanellment (different from rooftop MNRE). Required for Components B + C1.</div>
+        <div class="field-error" id="err_mnre_pump">Required if Components B or C1 selected</div>
+      </div>
+      <div class="field">
+        <label for="upneda_kusum_id">UPNEDA KUSUM vendor ID</label>
+        <input type="text" id="upneda_kusum_id" name="upneda_kusum_id" placeholder="e.g., UPNEDA/KUSUM/2024/XXX">
+        <div class="field-help">Separate UPNEDA KUSUM-specific vendor ID. Required for subsidy disbursement.</div>
+        <div class="field-error" id="err_upneda_kusum">Required for KUSUM specialization</div>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="kusum_years">Years installing KUSUM systems</label>
+        <select id="kusum_years" name="kusum_years">
+          <option value="">Select...</option>
+          <option value="<1">Less than 1 year</option>
+          <option value="1-2">1-2 years</option>
+          <option value="3-5">3-5 years</option>
+          <option value="5+">5+ years</option>
+        </select>
+        <div class="field-error" id="err_kusum_years">Required</div>
+      </div>
+      <div class="field">
+        <label for="kusum_installs">KUSUM installs completed (last 24mo)</label>
+        <select id="kusum_installs" name="kusum_installs">
+          <option value="">Select...</option>
+          <option value="0">0 (new entrant)</option>
+          <option value="1-10">1-10</option>
+          <option value="11-50">11-50</option>
+          <option value="51-200">51-200</option>
+          <option value=">200">More than 200</option>
+        </select>
+        <div class="field-error" id="err_kusum_installs">Required</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Solar pump brands you supply</label>
+      <div class="field-help" style="margin-top:0; margin-bottom:8px;">Tap to select all that apply. Helps farmers know what you stock.</div>
+      <div class="pump-brand-chips" id="pumpBrands">
+        <div class="pump-brand-chip" data-brand="Shakti">Shakti</div>
+        <div class="pump-brand-chip" data-brand="CRI">CRI</div>
+        <div class="pump-brand-chip" data-brand="Lubi">Lubi</div>
+        <div class="pump-brand-chip" data-brand="Texmo">Texmo</div>
+        <div class="pump-brand-chip" data-brand="Kirloskar">Kirloskar</div>
+        <div class="pump-brand-chip" data-brand="Tata Solar">Tata Solar</div>
+        <div class="pump-brand-chip" data-brand="Waaree">Waaree</div>
+        <div class="pump-brand-chip" data-brand="Vikram">Vikram</div>
+        <div class="pump-brand-chip" data-brand="Other">Other</div>
+      </div>
+    </div>
+
+    <div style="margin-top:18px; padding:14px 18px; background:var(--leaf-deep); color:var(--paper); font-size:13px;">
+      <strong style="color:var(--sun-light);">⚠️ Admin verification required.</strong> KUSUM applications need MNRE pump + UPNEDA KUSUM verification before we route KUSUM leads to you. This adds 24-48 hours to review. We will not assign KUSUM leads until verified.
+    </div>
+  </div>
+
+  <!-- "No" message (shown when toggle is off — purely informational) -->
+  <div id="kusumDeclinedMsg" style="padding:16px 20px; background:var(--paper-2); border:1.5px solid var(--ink); margin-top:24px; font-size:14px; color:var(--muted);">
+    <strong style="color:var(--ink);">That's fine.</strong> You'll only receive rooftop leads. You can declare KUSUM specialization later via the vendor portal once you have the credentials.
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-secondary" onclick="goToStep(3)">← Back</button>
+    <button class="btn btn-primary" id="step4Next" onclick="goToStep(5)">Continue →</button>
+  </div>
+</div>
+
+<!-- STEP 5: COMMITMENTS & SUBMIT -->
+<div class="step" id="step5">
+  <div class="step-kicker mono">§ Step 5 of 5 · Commitments</div>
   <h1>Final <em>commitments.</em></h1>
   <p class="lede">By submitting, you agree to the following. Detailed vendor agreement will be sent for signature if you're accepted.</p>
-  
+
   <div class="checkbox-field">
     <input type="checkbox" id="agree_response" name="agree_response" required>
-    <label for="agree_response"><b>I'll respond to assigned leads within 4 business hours</b>Repeated 24hr+ delays on HOT leads = removal from network.</label>
+    <label for="agree_response"><b>I'll respond to assigned leads within 4 business hours (rooftop) / 48 hours (KUSUM)</b>Repeated delays = removal from network.</label>
   </div>
-  
+
   <div class="checkbox-field">
     <input type="checkbox" id="agree_panels" name="agree_panels" required>
     <label for="agree_panels"><b>I use only BIS-certified panels and CEA-approved inverters</b>Customers can verify panel certification on the rear label.</label>
   </div>
-  
+
   <div class="checkbox-field">
     <input type="checkbox" id="agree_commission" name="agree_commission" required>
-    <label for="agree_commission"><b>I agree to 7-8% commission on closed deals</b>Payable on net meter activation, invoice net-30. No upfront, no monthly fees.</label>
+    <label for="agree_commission"><b>I agree to 7-8% commission on rooftop, 5% on KUSUM</b>Payable on net meter activation (rooftop) or commissioning (KUSUM), invoice net-30. No upfront fees.</label>
   </div>
-  
+
   <div class="checkbox-field">
     <input type="checkbox" id="agree_exclusive" name="agree_exclusive" required>
     <label for="agree_exclusive"><b>I won't redirect SolarSubsidies leads to external channels</b>Tracked via Lead Match IDs. Bypassing commission = network removal + potential legal action.</label>
   </div>
-  
+
   <div class="checkbox-field">
     <input type="checkbox" id="agree_quality" name="agree_quality" required>
     <label for="agree_quality"><b>I'll honor warranties on panels (25yr) and inverter (5-10yr standard)</b>Customer-facing warranty terms shared during quote — vendor honors them.</label>
   </div>
-  
+
   <div class="checkbox-field">
     <input type="checkbox" id="agree_verify" name="agree_verify" required>
     <label for="agree_verify"><b>I authorize SolarSubsidies to verify my MNRE + UPNEDA status</b>Direct check with MNRE/UPNEDA portals. Application requires this consent.</label>
   </div>
-  
+
   <div class="field">
     <label for="notes">Anything else we should know? (optional)</label>
     <textarea id="notes" name="notes" rows="4" placeholder="e.g., specialization, awards, current marketing channels, questions..."></textarea>
   </div>
-  
+
   <div class="nav-row">
-    <button class="btn btn-secondary" onclick="goToStep(3)">← Back</button>
+    <button class="btn btn-secondary" onclick="goToStep(4)">← Back</button>
     <button class="btn btn-primary" id="submitBtn" onclick="submitApplication()">Submit Application →</button>
   </div>
 </div>
 
-<!-- STEP 5: CONFIRMATION -->
-<div class="step" id="step5">
+<!-- STEP 6: CONFIRMATION (renumbered from step5 to step6) -->
+<div class="step" id="step6">
   <div class="confirmation">
     <div class="icon">📋</div>
     <h1>Application <em>received!</em></h1>
     <p class="lede" style="max-width:580px; margin:0 auto 24px;">Our team will review your MNRE + UPNEDA status, install history, and capacity. Decision within 48-72 hours via WhatsApp.</p>
-    
+
     <div class="summary">
       <h3>What we'll verify</h3>
       <div style="font-size:15px;">
@@ -397,8 +566,12 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
         <div style="padding:8px 0; border-bottom:1px solid var(--line);">GST + PAN verification</div>
         <div style="padding:8px 0;">Customer complaint history (NCDRC + UPNEDA helpdesk)</div>
       </div>
+
+      <div class="kusum-pending" id="kusumPendingMsg" style="display:none;">
+        🌾 <strong>KUSUM verification pending.</strong> We'll separately verify your MNRE pump empanellment and UPNEDA KUSUM vendor ID. KUSUM leads will start flowing only after this verification (typically adds 24-48 hours to review).
+      </div>
     </div>
-    
+
     <div class="next-steps">
       <div class="next-step-item">
         <div class="num mono">01</div>
@@ -422,9 +595,9 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
         </div>
       </div>
     </div>
-    
+
     <p style="font-size:13px; color:var(--muted); margin-top:32px;">Questions while waiting? WhatsApp <strong>+91 98765 43210</strong> or email <a href="mailto:vendors@solarsubsidies.com" style="color:var(--ink);">vendors@solarsubsidies.com</a></p>
-    
+
     <div style="margin-top:32px;">
       <a href="/" class="btn btn-secondary">← Back to homepage</a>
     </div>
@@ -436,8 +609,11 @@ body { font-family:'Fraunces',Georgia,serif; background:var(--paper); color:var(
 <script>
 const appState = {
   step: 1,
-  selectedDistricts: []
+  selectedDistricts: [],
+  selectedPumpBrands: []
 };
+
+const TOTAL_STEPS = 5;  // 6 with confirmation, but progress bar caps at 5
 
 // Load districts dynamically
 fetch('/data/districts-up.json')
@@ -461,6 +637,27 @@ fetch('/data/districts-up.json')
     document.getElementById('districtChecks').innerHTML = '<div style="padding:20px; color:var(--red);">Failed to load districts. Please refresh.</div>';
   });
 
+// KUSUM toggle behavior
+document.getElementById('handles_kusum').addEventListener('change', e => {
+  const isKusum = e.target.checked;
+  document.getElementById('kusumDetails').classList.toggle('show', isKusum);
+  document.getElementById('kusumDeclinedMsg').style.display = isKusum ? 'none' : 'block';
+  document.getElementById('kusumToggle').classList.toggle('declined', !isKusum);
+});
+
+// Pump brand chip selection
+document.querySelectorAll('.pump-brand-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    chip.classList.toggle('selected');
+    const brand = chip.dataset.brand;
+    if (chip.classList.contains('selected')) {
+      if (!appState.selectedPumpBrands.includes(brand)) appState.selectedPumpBrands.push(brand);
+    } else {
+      appState.selectedPumpBrands = appState.selectedPumpBrands.filter(b => b !== brand);
+    }
+  });
+});
+
 function goToStep(n) {
   if (n > appState.step) {
     if (!validateStep(appState.step)) return;
@@ -468,13 +665,21 @@ function goToStep(n) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById(`step${n}`).classList.add('active');
   appState.step = n;
-  
-  const labels = { 1: 'Company basics', 2: 'Approvals & experience', 3: 'Coverage & capacity', 4: 'Commitments', 5: 'Done!' };
-  const pct = (n / 4) * 100;
-  document.getElementById('stepNum').textContent = Math.min(n, 4);
-  document.getElementById('progressLabel').textContent = labels[n];
+
+  const labels = {
+    1: 'Company basics',
+    2: 'Approvals & experience',
+    3: 'Coverage & capacity',
+    4: 'KUSUM specialization',
+    5: 'Commitments',
+    6: 'Done!'
+  };
+  const displayStep = Math.min(n, TOTAL_STEPS);
+  const pct = (displayStep / TOTAL_STEPS) * 100;
+  document.getElementById('stepNum').textContent = displayStep;
+  document.getElementById('progressLabel').textContent = labels[n] || '';
   document.getElementById('progressFill').style.width = `${Math.min(pct, 100)}%`;
-  
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -483,15 +688,16 @@ function validateStep(n) {
     1: ['companyName', 'contactName', 'phone', 'email', 'hq'],
     2: ['mnreNumber', 'upnedaNumber', 'gstin', 'pan', 'yearsActive', 'installsCompleted', 'teamSize'],
     3: [], // validates checkboxes
-    4: ['agree_response', 'agree_panels', 'agree_commission', 'agree_exclusive', 'agree_quality', 'agree_verify']
+    4: [], // validates only IF KUSUM declared
+    5: ['agree_response', 'agree_panels', 'agree_commission', 'agree_exclusive', 'agree_quality', 'agree_verify']
   };
-  
+
   let valid = true;
-  
+
   (required[n] || []).forEach(fieldId => {
     const el = document.getElementById(fieldId);
     const err = document.getElementById('err_' + fieldId);
-    
+
     if (el.type === 'checkbox') {
       if (!el.checked) {
         valid = false;
@@ -504,8 +710,7 @@ function validateStep(n) {
       el.focus();
     } else {
       if (err) err.classList.remove('show');
-      
-      // Pattern validation
+
       if (el.pattern && el.value && !new RegExp('^' + el.pattern + '$').test(el.value)) {
         valid = false;
         if (err) err.classList.add('show');
@@ -513,7 +718,7 @@ function validateStep(n) {
       }
     }
   });
-  
+
   // Step 3: must select ≥1 district
   if (n === 3) {
     const selected = document.querySelectorAll('input[name="districts"]:checked');
@@ -525,7 +730,56 @@ function validateStep(n) {
       document.getElementById('err_districts').classList.remove('show');
     }
   }
-  
+
+  // Step 4: validate KUSUM fields ONLY if declared
+  if (n === 4) {
+    const declared = document.getElementById('handles_kusum').checked;
+    if (declared) {
+      // Must select at least one component
+      const components = ['comp_A', 'comp_B', 'comp_C1', 'comp_C2']
+        .filter(id => document.getElementById(id).checked);
+      if (components.length === 0) {
+        document.getElementById('err_components').classList.add('show');
+        valid = false;
+      } else {
+        document.getElementById('err_components').classList.remove('show');
+      }
+
+      // UPNEDA KUSUM ID always required
+      const upnedaKusum = document.getElementById('upneda_kusum_id').value.trim();
+      if (!upnedaKusum) {
+        document.getElementById('err_upneda_kusum').classList.add('show');
+        valid = false;
+      } else {
+        document.getElementById('err_upneda_kusum').classList.remove('show');
+      }
+
+      // MNRE pump number required only if B or C1 selected (pump-specific)
+      const needsPumpEmp = ['comp_B', 'comp_C1'].some(id => document.getElementById(id).checked);
+      const mnrePump = document.getElementById('mnre_pump_number').value.trim();
+      if (needsPumpEmp && !mnrePump) {
+        document.getElementById('err_mnre_pump').classList.add('show');
+        valid = false;
+      } else {
+        document.getElementById('err_mnre_pump').classList.remove('show');
+      }
+
+      // Years + install count required
+      if (!document.getElementById('kusum_years').value) {
+        document.getElementById('err_kusum_years').classList.add('show');
+        valid = false;
+      } else {
+        document.getElementById('err_kusum_years').classList.remove('show');
+      }
+      if (!document.getElementById('kusum_installs').value) {
+        document.getElementById('err_kusum_installs').classList.add('show');
+        valid = false;
+      } else {
+        document.getElementById('err_kusum_installs').classList.remove('show');
+      }
+    }
+  }
+
   // Step 2: warn on under-25 installs
   if (n === 2) {
     const installs = document.getElementById('installsCompleted').value;
@@ -534,17 +788,17 @@ function validateStep(n) {
       if (!proceed) valid = false;
     }
   }
-  
+
   return valid;
 }
 
 async function submitApplication() {
-  if (!validateStep(4)) return;
-  
+  if (!validateStep(5)) return;
+
   const submitBtn = document.getElementById('submitBtn');
   submitBtn.disabled = true;
   submitBtn.textContent = 'Submitting...';
-  
+
   // Collect property types
   const propertyTypes = [];
   if (document.getElementById('prop_independent').checked) propertyTypes.push('independent_home');
@@ -552,7 +806,15 @@ async function submitApplication() {
   if (document.getElementById('prop_apartment').checked) propertyTypes.push('apartment');
   if (document.getElementById('prop_farm').checked) propertyTypes.push('farm');
   if (document.getElementById('prop_commercial').checked) propertyTypes.push('commercial');
-  
+
+  // Collect KUSUM data
+  const handlesKusum = document.getElementById('handles_kusum').checked;
+  const kusumComponents = handlesKusum
+    ? ['comp_A', 'comp_B', 'comp_C1', 'comp_C2']
+        .filter(id => document.getElementById(id).checked)
+        .map(id => id.replace('comp_', ''))
+    : [];
+
   const payload = {
     companyName: document.getElementById('companyName').value.trim(),
     brandName: document.getElementById('brandName').value.trim() || null,
@@ -562,7 +824,7 @@ async function submitApplication() {
     email: document.getElementById('email').value.trim(),
     website: document.getElementById('website').value.trim() || null,
     hq: document.getElementById('hq').value.trim(),
-    
+
     mnreNumber: document.getElementById('mnreNumber').value.trim(),
     upnedaNumber: document.getElementById('upnedaNumber').value.trim(),
     gstin: document.getElementById('gstin').value.trim().toUpperCase(),
@@ -570,14 +832,23 @@ async function submitApplication() {
     yearsActive: document.getElementById('yearsActive').value,
     installsCompleted: document.getElementById('installsCompleted').value,
     teamSize: document.getElementById('teamSize').value,
-    
+
     coverageDistricts: appState.selectedDistricts,
     minSystemSizeKw: parseFloat(document.getElementById('minSystemSize').value),
     propertyTypes,
     leadCapacityPerWeek: document.getElementById('leadCapacity').value,
-    
+
+    // KUSUM self-declaration
+    handlesKusumDeclared: handlesKusum,
+    kusumComponentsDeclared: kusumComponents,
+    mnrePumpEmpanellmentNumber: handlesKusum ? (document.getElementById('mnre_pump_number').value.trim() || null) : null,
+    upnedaKusumId: handlesKusum ? (document.getElementById('upneda_kusum_id').value.trim() || null) : null,
+    kusumYearsActive: handlesKusum ? (document.getElementById('kusum_years').value || null) : null,
+    kusumInstallsCompleted: handlesKusum ? (document.getElementById('kusum_installs').value || null) : null,
+    kusumPumpBrands: handlesKusum ? appState.selectedPumpBrands : [],
+
     notes: document.getElementById('notes').value.trim() || null,
-    
+
     agreed: {
       response_4hr: document.getElementById('agree_response').checked,
       bis_certified: document.getElementById('agree_panels').checked,
@@ -586,20 +857,20 @@ async function submitApplication() {
       warranties: document.getElementById('agree_quality').checked,
       verify_consent: document.getElementById('agree_verify').checked
     },
-    
+
     honeypot: document.querySelector('input[name="honeypot"]').value,
-    source: 'vendor_apply_v1'
+    source: 'vendor_apply_v2'
   };
-  
+
   let appId = 'V-' + Date.now().toString(36).toUpperCase();
-  
+
   try {
     const res = await fetch('/api/vendor-apply', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
-    
+
     if (res.ok) {
       const result = await res.json();
       appId = result.applicationId || appId;
@@ -609,20 +880,23 @@ async function submitApplication() {
     }
   } catch (err) {
     console.error('Network error:', err);
-    // Fallback: WhatsApp admin manually
     const message = encodeURIComponent(
       `Vendor application — ${payload.companyName}\n` +
       `Contact: ${payload.contactName} (${payload.phone})\n` +
       `MNRE: ${payload.mnreNumber}\n` +
       `UPNEDA: ${payload.upnedaNumber}\n` +
       `Districts: ${payload.coverageDistricts.length}\n` +
+      `KUSUM: ${handlesKusum ? 'YES (' + kusumComponents.join(',') + ')' : 'no'}\n` +
       `Installs/24mo: ${payload.installsCompleted}`
     );
     window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
   }
-  
+
   document.getElementById('appId').textContent = appId.slice(0, 12).toUpperCase();
-  goToStep(5);
+  if (handlesKusum) {
+    document.getElementById('kusumPendingMsg').style.display = 'block';
+  }
+  goToStep(6);
 }
 </script>
 
