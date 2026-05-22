@@ -5,6 +5,9 @@
  * data/0008_kusum_and_directory.sql (the canonical migration).
  *
  * v0.9 P1: Auto-calls matchKusumLead() for HOT/WARM leads after insert.
+ * v0.9.3 P2: Phone-based dedup — same phone with an active KUSUM lead is
+ *   flagged status=duplicate, not auto-routed, no second vendor WhatsApp.
+ *   Farmer still gets their confirmation WhatsApp.
  *
  * IMPORTANT — schema differences from rooftop lead pipeline:
  *   - kusum_lead_score / kusum_lead_tier (NOT lead_score / lead_tier)
@@ -36,6 +39,7 @@
  */
 
 import { matchKusumLead } from './match-kusum-lead.js';
+import { checkDuplicateLead, duplicateLeadFields } from './_dedup.js';
 
 const ALLOWED_ORIGINS = [
   'https://solarsubsidies.com',
@@ -122,6 +126,17 @@ export default async function handler(req, res) {
     const pumpSituation = mapPumpSituation(payload.current_irrigation_source, payload.existing_pump_hp);
     const waterSource = mapWaterSource(payload.water_source_type);
     
+    // ===== v0.9.3: DEDUP CHECK =====
+    // Only dedup eligible leads — an 'eligibility_failed' lead shouldn't block a
+    // genuine re-attempt where the farmer fixed their inputs. checkDuplicateLead
+    // already ignores eligibility_failed (not in KUSUM_ACTIVE_STATUSES), so a
+    // farmer who failed eligibility then re-submits with corrected data is NOT
+    // treated as a duplicate. Good.
+    const dedup = await checkDuplicateLead('kusum_leads', normalizedPhone);
+    if (dedup.isDuplicate) {
+      console.log(`[kusum-lead] DUPLICATE phone=${normalizedPhone} original=${dedup.originalLeadId} status=${dedup.originalStatus} age=${dedup.originalAgeHours}h`);
+    }
+    
     // Compute estimated_system_kw from recommended_pump_hp or recommended_capacity_mw
     let estimatedSystemKw = null;
     if (payload.recommended_capacity_mw) {
@@ -186,6 +201,12 @@ export default async function handler(req, res) {
       ip: req.headers['x-forwarded-for'] || null,
       user_agent: req.headers['user-agent'] || null
     };
+
+    // Merge duplicate flags if this is a dup (overrides status to 'duplicate')
+    // Only applies to eligible leads — eligibility_failed leads keep their status.
+    if (dedup.isDuplicate && status !== 'eligibility_failed') {
+      Object.assign(dbRecord, duplicateLeadFields(dedup.originalLeadId));
+    }
     
     // ===== Write to kusum_leads =====
     const supabaseUrl = process.env.SUPABASE_URL;
@@ -220,6 +241,7 @@ export default async function handler(req, res) {
     const provider = process.env.WHATSAPP_PROVIDER || 'webhook';
     const adminPhone = process.env.ADMIN_PHONE;
     const isEligible = recommendedComponent !== 'ineligible' && recommendedComponent !== 'needs_review';
+    const isDuplicate = dedup.isDuplicate && status !== 'eligibility_failed';
     
     if (isEligible && adminPhone && process.env.WHATSAPP_API_KEY) {
       await notifyKusumAdmin({
@@ -233,24 +255,29 @@ export default async function handler(req, res) {
           leadScore,
           leadTier,
           priorityQuota,
-          recommendedComponent
+          recommendedComponent,
+          isDuplicate,
+          originalLeadId: dedup.originalLeadId,
+          originalStatus: dedup.originalStatus
         }
       });
       
-      if (leadTier === 'HOT' && process.env.KUSUM_LEAD_PHONES) {
+      // HOT escalation — skip for duplicates
+      if (leadTier === 'HOT' && !isDuplicate && process.env.KUSUM_LEAD_PHONES) {
         const extras = process.env.KUSUM_LEAD_PHONES.split(',').map(p => p.trim()).filter(Boolean);
         for (const extra of extras) {
           await notifyKusumAdmin({
             provider,
             apiKey: process.env.WHATSAPP_API_KEY,
             toPhone: extra,
-            leadData: { ...payload, phone: normalizedPhone, leadId, leadScore, leadTier, priorityQuota, recommendedComponent }
+            leadData: { ...payload, phone: normalizedPhone, leadId, leadScore, leadTier, priorityQuota, recommendedComponent, isDuplicate: false }
           });
         }
       }
     }
     
     // ===== Welcome WhatsApp to farmer (only if eligible + consented) =====
+    // Farmer ALWAYS gets confirmation even on a dup — shouldn't perceive system as broken.
     if (isEligible && payload.consent_whatsapp && normalizedPhone && process.env.WHATSAPP_API_KEY) {
       await sendKusumWelcome({
         provider,
@@ -261,9 +288,10 @@ export default async function handler(req, res) {
     }
     
     // ===== v0.9 P1: AUTO-ROUTE TO KUSUM-SPECIALIST VENDOR =====
-    // Only for HOT and WARM leads that are eligible AND have a leadId
+    // Only for HOT and WARM leads that are eligible AND have a leadId.
+    // SKIP for duplicates — original lead already has/will-have an assignment.
     let matchResult = null;
-    if (isEligible && leadId && (leadTier === 'HOT' || leadTier === 'WARM')) {
+    if (isEligible && leadId && !isDuplicate && (leadTier === 'HOT' || leadTier === 'WARM')) {
       try {
         matchResult = await matchKusumLead(leadId, []);
         if (matchResult.matched) {
@@ -283,12 +311,15 @@ export default async function handler(req, res) {
       leadScore,
       leadTier,
       eligible: isEligible,
+      duplicate: isDuplicate,
       recommendedComponent,
       matched: matchResult?.matched || false,
       vendorName: matchResult?.vendorName || null,
       assignmentMethod: matchResult?.assignmentMethod || null,
       matchReason: matchResult?.reason || null,
-      message: 'KUSUM lead captured.'
+      message: isDuplicate
+        ? 'KUSUM lead recorded. A specialist is already working with this number.'
+        : 'KUSUM lead captured.'
     });
     
   } catch (err) {
@@ -349,6 +380,25 @@ function scoreKusumLead(p) {
 // WHATSAPP NOTIFICATIONS
 // =====================================================
 async function notifyKusumAdmin({ provider, apiKey, toPhone, leadData }) {
+  // Duplicate banner takes priority
+  if (leadData.isDuplicate) {
+    const message = `🔁 DUPLICATE KUSUM SUBMISSION (no action needed)
+
+${leadData.name} (${leadData.phone}) re-submitted the KUSUM eligibility check.
+
+An existing KUSUM lead is already active for this number:
+• Original lead ID: ${leadData.originalLeadId || '—'}
+• Original status: ${leadData.originalStatus || '—'}
+
+This re-submission was recorded (ID: ${leadData.leadId || 'pending'}) and flagged as a duplicate. It was NOT auto-routed — the original vendor assignment stands.
+
+New inputs this time:
+📍 ${leadData.district || '—'} · ${leadData.recommendedComponent || '—'}
+
+If the farmer's situation changed materially, update the original lead manually.`;
+    return await sendWhatsApp(provider, apiKey, toPhone, message);
+  }
+
   const componentLabel = {
     'A': '🏛️ Component A (Solar Plant on land)',
     'B': '💧 Component B (Standalone Pump)',
