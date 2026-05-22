@@ -1,11 +1,14 @@
 /**
- * /api/lead.js — Vercel Serverless Function (v0.9)
+ * /api/lead.js — Vercel Serverless Function (v0.9.3)
  * 
  * Captures lead from 4-step calculator, writes to Supabase, scores it,
  * notifies admin, AND triggers vendor matching automatically.
  * 
  * v0.6: Auto-calls matchLead() after capture to assign vendor + start SLA clock.
  * v0.9: Captures preferredVendorSlug when customer arrives from vendor profile page.
+ * v0.9.3: Phone-based dedup — same phone with an active lead is flagged
+ *   status=duplicate, not auto-matched, no second vendor WhatsApp. Customer
+ *   still gets their confirmation (they shouldn't notice anything).
  * 
  * ENV VARS REQUIRED:
  *   SUPABASE_URL
@@ -19,6 +22,7 @@
  */
 
 import { matchLead } from './match-lead.js';
+import { checkDuplicateLead, duplicateLeadFields } from './_dedup.js';
 
 const ALLOWED_ORIGINS = [
   'https://solarsubsidies.com',
@@ -91,12 +95,48 @@ export default async function handler(req, res) {
     });
     const leadTier = leadScore >= 8 ? 'HOT' : leadScore >= 5 ? 'WARM' : 'COLD';
 
+    // ===== v0.9.3: DEDUP CHECK =====
+    // Look for an existing active lead with this phone. If found, the new row
+    // is still written (audit trail) but flagged duplicate + skips auto-match
+    // and the vendor-facing WhatsApp.
+    const dedup = await checkDuplicateLead('leads', normalizedPhone);
+    if (dedup.isDuplicate) {
+      console.log(`[lead] DUPLICATE phone=${normalizedPhone} original=${dedup.originalLeadId} status=${dedup.originalStatus} age=${dedup.originalAgeHours}h`);
+    }
+
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     let leadId = null;
     
     if (supabaseUrl && supabaseKey) {
+      const insertBody = {
+        name,
+        phone: normalizedPhone,
+        email: email || null,
+        state_code: state,
+        district_slug: district,
+        system_size_kw: systemSizeKw || null,
+        monthly_bill: monthlyBill || null,
+        property_type: propertyType,
+        intent,
+        timeline,
+        lead_score: leadScore,
+        lead_tier: leadTier,
+        consent_whatsapp: consentWhatsapp,
+        calculator_snapshot: calculatorSnapshot,
+        source,
+        preferred_vendor_slug: cleanPreferredSlug,  // v0.9
+        status: 'new',
+        ip: req.headers['x-forwarded-for'] || null,
+        user_agent: req.headers['user-agent'] || null
+      };
+
+      // Merge duplicate flags if this is a dup (overrides status to 'duplicate')
+      if (dedup.isDuplicate) {
+        Object.assign(insertBody, duplicateLeadFields(dedup.originalLeadId));
+      }
+
       const supabaseRes = await fetch(`${supabaseUrl}/rest/v1/leads`, {
         method: 'POST',
         headers: {
@@ -105,27 +145,7 @@ export default async function handler(req, res) {
           'Content-Type': 'application/json',
           'Prefer': 'return=representation'
         },
-        body: JSON.stringify({
-          name,
-          phone: normalizedPhone,
-          email: email || null,
-          state_code: state,
-          district_slug: district,
-          system_size_kw: systemSizeKw || null,
-          monthly_bill: monthlyBill || null,
-          property_type: propertyType,
-          intent,
-          timeline,
-          lead_score: leadScore,
-          lead_tier: leadTier,
-          consent_whatsapp: consentWhatsapp,
-          calculator_snapshot: calculatorSnapshot,
-          source,
-          preferred_vendor_slug: cleanPreferredSlug,  // v0.9
-          status: 'new',
-          ip: req.headers['x-forwarded-for'] || null,
-          user_agent: req.headers['user-agent'] || null
-        })
+        body: JSON.stringify(insertBody)
       });
 
       if (supabaseRes.ok) {
@@ -138,6 +158,8 @@ export default async function handler(req, res) {
     }
 
     // ===== ADMIN WHATSAPP =====
+    // Duplicates still alert admin (so they're aware of the re-submit), but the
+    // message flags it as a duplicate so admin doesn't double-handle.
     const whatsappProvider = process.env.WHATSAPP_PROVIDER || 'webhook';
     const adminPhone = process.env.ADMIN_PHONE;
     
@@ -151,12 +173,16 @@ export default async function handler(req, res) {
           state, district, systemSizeKw, monthlyBill,
           propertyType, intent, timeline,
           leadScore, leadTier, leadId,
-          preferredVendorSlug: cleanPreferredSlug
+          preferredVendorSlug: cleanPreferredSlug,
+          isDuplicate: dedup.isDuplicate,
+          originalLeadId: dedup.originalLeadId,
+          originalStatus: dedup.originalStatus
         }
       });
     }
     
-    if (leadTier === 'HOT' && process.env.HOT_LEAD_PHONES) {
+    // HOT escalation — skip for duplicates (no need to wake extra people for a re-submit)
+    if (leadTier === 'HOT' && !dedup.isDuplicate && process.env.HOT_LEAD_PHONES) {
       const extraPhones = process.env.HOT_LEAD_PHONES.split(',').map(p => p.trim()).filter(Boolean);
       for (const extra of extraPhones) {
         await notifyAdminWhatsApp({
@@ -168,13 +194,16 @@ export default async function handler(req, res) {
             state, district, systemSizeKw, monthlyBill,
             propertyType, intent, timeline,
             leadScore, leadTier, leadId,
-            preferredVendorSlug: cleanPreferredSlug
+            preferredVendorSlug: cleanPreferredSlug,
+            isDuplicate: false
           }
         });
       }
     }
 
     // ===== WELCOME WHATSAPP TO LEAD =====
+    // Customer ALWAYS gets their confirmation, even on a dup — they shouldn't
+    // perceive the system as broken or non-responsive.
     if (consentWhatsapp && normalizedPhone && process.env.WHATSAPP_API_KEY) {
       await sendLeadWelcomeWhatsApp({
         provider: whatsappProvider,
@@ -186,9 +215,10 @@ export default async function handler(req, res) {
 
     // ===== AUTO-MATCH VENDOR =====
     // Trigger vendor matching for HOT/WARM leads only. COLD leads get manual review.
-    // The matching engine reads preferred_vendor_slug from the lead row and routes accordingly.
+    // SKIP for duplicates — the original lead already has/will-have an assignment;
+    // we don't want a second vendor working the same prospect.
     let matchResult = null;
-    if (leadId && leadTier !== 'COLD') {
+    if (leadId && leadTier !== 'COLD' && !dedup.isDuplicate) {
       try {
         matchResult = await matchLead(leadId, []);
         console.log('Match result:', JSON.stringify(matchResult));
@@ -202,10 +232,13 @@ export default async function handler(req, res) {
       leadId,
       leadScore,
       leadTier,
+      duplicate: dedup.isDuplicate,
       matched: matchResult?.matched || false,
       vendorName: matchResult?.vendorName || null,
       assignmentMethod: matchResult?.assignmentMethod || null,
-      message: 'Lead captured. Vendor matching in progress.'
+      message: dedup.isDuplicate
+        ? 'Lead recorded. An installer is already working with this number.'
+        : 'Lead captured. Vendor matching in progress.'
     });
 
   } catch (err) {
@@ -293,6 +326,29 @@ Questions? Reply to this message.
 }
 
 function formatAdminMessage(d) {
+  // Duplicate banner takes priority in the admin message
+  if (d.isDuplicate) {
+    const propertyMapDup = {
+      'independent_home': 'Independent home', 'builder_floor': 'Builder floor',
+      'apartment': 'Apartment / RWA', 'farm': 'Farm', 'commercial': 'Commercial', 'other': 'Other'
+    };
+    return `🔁 DUPLICATE SUBMISSION (no action needed)
+
+${d.name} (${d.phone}) re-submitted the calculator.
+
+An existing lead is already active for this number:
+• Original lead ID: ${d.originalLeadId || '—'}
+• Original status: ${d.originalStatus || '—'}
+
+This re-submission was recorded (ID: ${d.leadId || 'pending'}) and flagged as a duplicate. It was NOT auto-matched — the original vendor assignment stands.
+
+New inputs this time:
+📍 ${d.district || '—'} · ⚡ ${d.systemSizeKw} kW · 💰 ₹${d.monthlyBill?.toLocaleString('en-IN') || '—'}/mo
+🏠 ${propertyMapDup[d.propertyType] || d.propertyType}
+
+If the customer's needs changed materially, update the original lead manually.`;
+  }
+
   const tierEmoji = d.leadTier === 'HOT' ? '🔥🔥🔥' : d.leadTier === 'WARM' ? '🟡' : '⚪';
   const intentMap = {
     'reduce_bill': 'Cut bill',
